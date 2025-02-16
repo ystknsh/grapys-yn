@@ -16,7 +16,7 @@ import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 // import { graphChat } from "../graph/chat";
 import { graphChat } from "../graph/chat_tinyswallow";
 
-import { useNewEdge } from "../utils/gui/composable";
+import { useNewEdge } from "../composable/gui";
 import { graphToGUIData, guiEdgeData2edgeData } from "../utils/gui/utils";
 import { GraphData } from "graphai";
 import { useStore } from "../store";

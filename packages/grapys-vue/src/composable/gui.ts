@@ -1,7 +1,7 @@
-import { Position, NewEdgeEventData, NewEdgeData, ClosestNodeData, GUINearestData } from "./type";
+import { Position, NewEdgeEventData, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
 import { ref, computed } from "vue";
-import { useStore } from "../../store";
-import { edgeStartEventData, edgeUpdateEventData, edgeEndEventData, pickNearestNode, pickNearestConnect, isEdgeConnectale } from "./utils";
+import { useStore } from "../store";
+import { edgeStartEventData, edgeUpdateEventData, edgeEndEventData, pickNearestNode, pickNearestConnect, isEdgeConnectale } from "../utils/gui/utils";
 
 export const useNewEdge = () => {
   const store = useStore();

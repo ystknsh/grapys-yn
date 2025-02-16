@@ -36,17 +36,20 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
-import { useStore } from "../store";
 import { GraphAI } from "graphai";
 
-import { useStreamData } from "../utils/stream";
-import { textInputEvent, useChatPlugin } from "../utils/graphai";
+import { useStore } from "../store";
+
+import { useStreamData } from "../utils/vue-plugin/stream";
+import { useChatPlugin } from "../utils/vue-plugin/chat";
 
 import Chat from "../components/Chat.vue";
 
 import * as agents from "@graphai/vanilla";
 import { openAIAgent } from "@graphai/openai_agent";
+
 import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agents/tinyswallow";
+import { textInputEvent } from "../agents/event";
 
 export default defineComponent({
   components: {
