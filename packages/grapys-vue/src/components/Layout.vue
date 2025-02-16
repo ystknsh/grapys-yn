@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <div class="bg-warmgray-400 flex min-h-screen flex-col bg-opacity-20">
+    <div class="bg-warmgray-400 bg-opacity-20 flex min-h-screen flex-col">
       <div class="w-full flex-1">
         <div class="bg-blue-300">
           <div class="relative flex items-center">
@@ -9,8 +9,7 @@
             </div>
             <div class="w-full items-center">GraphAI Demo</div>
             <div v-show="menu" class="fixed top-0 left-0 z-30 flex h-screen w-screen">
-              <div class="bg-warmgray-100 flex w-64 flex-col bg-white shadow-sm">
-              </div>
+              <div class="bg-warmgray-100 flex w-64 flex-col bg-white shadow-sm"></div>
               <div @click="toggleMenu()" class="flex-1 cursor-pointer bg-black/40"></div>
             </div>
           </div>

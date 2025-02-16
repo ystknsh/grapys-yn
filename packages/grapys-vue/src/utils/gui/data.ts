@@ -87,4 +87,7 @@ export const agentProfiles: Record<string, InputOutput> = {
   },
 };
 
-export const staticNodeParams: InputOutput = { inputs: [{ name: "update" }], outputs: [{ name: "date" }] };
+export const staticNodeParams: InputOutput = {
+  inputs: [{ name: "update" }],
+  outputs: [{ name: "date" }],
+};

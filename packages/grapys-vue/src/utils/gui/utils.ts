@@ -66,7 +66,10 @@ export const graphToGUIData = (graphData: GraphData) => {
                 const sourceIndex = getIndex(outputNodeId, outputPropId, "outputs");
                 const targetIndex = isComputed ? getIndex(nodeId, inputProp, "inputs") : 0;
                 rawEdge.push({
-                  source: { nodeId: outputNodeId, index: sourceIndex > -1 ? sourceIndex : 0 },
+                  source: {
+                    nodeId: outputNodeId,
+                    index: sourceIndex > -1 ? sourceIndex : 0,
+                  },
                   target: { nodeId, index: targetIndex > -1 ? targetIndex : 0 },
                   type: "edge",
                 });
@@ -85,7 +88,10 @@ export const graphToGUIData = (graphData: GraphData) => {
       });
     });
 
-    const position = positions[nodeId] ?? { x: (positionIndex % 4) * 200 + 100, y: Math.floor(positionIndex / 4) * 300 + 50 };
+    const position = positions[nodeId] ?? {
+      x: (positionIndex % 4) * 200 + 100,
+      y: Math.floor(positionIndex / 4) * 300 + 50,
+    };
     positionIndex += 1;
     const data = (() => {
       if (isComputed) {

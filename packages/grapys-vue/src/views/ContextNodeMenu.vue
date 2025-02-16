@@ -1,6 +1,6 @@
 <template>
   <ContextMenu ref="contextMenu" class="z-100">
-    <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" @click="deleteNode()">Delete</li>
+    <li class="cursor-pointer px-4 py-2 hover:bg-gray-100" @click="deleteNode()">Delete</li>
   </ContextMenu>
 </template>
 

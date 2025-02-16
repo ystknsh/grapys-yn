@@ -5,7 +5,11 @@ import { defineStore } from "pinia";
 
 export const useStore = defineStore("store", () => {
   const histories = ref<HistoryData[]>([]);
-  const currentData = ref<HistoryPayload>({ nodes: [], edges: [], loop: { loopType: "none" } });
+  const currentData = ref<HistoryPayload>({
+    nodes: [],
+    edges: [],
+    loop: { loopType: "none" },
+  });
   const index = ref(0);
 
   const reset = () => {

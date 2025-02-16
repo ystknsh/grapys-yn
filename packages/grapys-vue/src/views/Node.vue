@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-36 text-white text-center cursor-grab select-none absolute flex flex-col rounded-md"
+    class="absolute flex w-36 cursor-grab flex-col rounded-md text-center text-white select-none"
     :class="nodeMainClass(expectNearNode, nodeData)"
     :style="{
       transform: transform,
@@ -11,16 +11,18 @@
     @touchstart="onStartNode"
   >
     <div @dblclick="(e) => openNodeMenu(e)">
-      <div class="w-full text-center py-1 leading-none rounded-t-md" :class="nodeHeaderClass(expectNearNode, nodeData)">{{ nodeData.nodeId }}</div>
-      <div class="w-full text-center py-1 leading-none text-xs" v-if="nodeData.type === 'computed'" :class="nodeHeaderClass(expectNearNode, nodeData)">
+      <div class="w-full rounded-t-md py-1 text-center leading-none" :class="nodeHeaderClass(expectNearNode, nodeData)">
+        {{ nodeData.nodeId }}
+      </div>
+      <div class="w-full py-1 text-center text-xs leading-none" v-if="nodeData.type === 'computed'" :class="nodeHeaderClass(expectNearNode, nodeData)">
         {{ nodeData.data.guiAgentId?.replace(/Agent$/, "") }}
       </div>
     </div>
-    <div class="flex flex-col items-end mt-1">
+    <div class="mt-1 flex flex-col items-end">
       <div v-for="(output, index) in edgeIO.outputs" :key="['out', output.name, index].join('-')" class="relative flex items-center" ref="outputsRef">
         <span class="mr-2 text-xs whitespace-nowrap">{{ output.name }}</span>
         <div
-          class="w-4 h-4 rounded-full absolute right-[-10px] min-w-[12px]"
+          class="absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full"
           :class="nodeOutputClass(isExpectNearButton('inbound', index), nodeData)"
           @mousedown="(e) => onStartEdge(e, 'outbound', index)"
           @touchstart="(e) => onStartEdge(e, 'outbound', index)"
@@ -28,10 +30,10 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-start mt-1 mb-1">
+    <div class="mt-1 mb-1 flex flex-col items-start">
       <div v-for="(input, index) in edgeIO.inputs" :key="['in', input.name, index].join('-')" class="relative flex items-center" ref="inputsRef">
         <div
-          class="w-4 h-4 rounded-full absolute left-[-10px] min-w-[12px]"
+          class="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full"
           :class="nodeInputClass(isExpectNearButton('outbound', index), nodeData)"
           @mousedown="(e) => onStartEdge(e, 'inbound', index)"
           @touchstart="(e) => onStartEdge(e, 'inbound', index)"
@@ -39,10 +41,10 @@
         <span class="ml-2 text-xs whitespace-nowrap">{{ input.name }}</span>
       </div>
     </div>
-    <div class="w-full p-2 flex flex-col gap-1" v-if="nodeData.type === 'static'">
+    <div class="flex w-full flex-col gap-1 p-2" v-if="nodeData.type === 'static'">
       <NodeStaticValue :node-data="nodeData" @focus-event="focusEvent" @blur-event="blurEvent" @update-value="updateValue" />
     </div>
-    <div class="w-full p-2 flex flex-col gap-1" v-if="nodeData.type === 'computed'">
+    <div class="flex w-full flex-col gap-1 p-2" v-if="nodeData.type === 'computed'">
       <NodeComputedParams :node-data="nodeData" @focus-event="focusEvent" @blur-event="blurEvent" :node-index="nodeIndex" />
     </div>
   </div>
@@ -118,7 +120,12 @@ export default defineComponent({
       };
       const outputCenters = outputsRef.value.map(getCenterHeight);
       const inputCenters = inputsRef.value.map(getCenterHeight);
-      return { width: rect.width, height: rect.height, outputCenters, inputCenters };
+      return {
+        width: rect.width,
+        height: rect.height,
+        outputCenters,
+        inputCenters,
+      };
     };
     onMounted(() => {
       ctx.emit("updatePosition", getWH());
@@ -146,7 +153,14 @@ export default defineComponent({
       console.log("edge", event);
       isNewEdge.value = true;
       const { clientX, clientY } = getClientPos(event);
-      ctx.emit("newEdgeStart", { on: "start", nodeId: props.nodeData.nodeId, x: clientX, y: clientY, index, direction });
+      ctx.emit("newEdgeStart", {
+        on: "start",
+        nodeId: props.nodeData.nodeId,
+        x: clientX,
+        y: clientY,
+        index,
+        direction,
+      });
     };
     const onEndEdge = () => {
       isNewEdge.value = false;

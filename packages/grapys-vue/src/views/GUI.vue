@@ -145,37 +145,37 @@ export default defineComponent({
         <hr />
         <button
           @click="store.undo"
-          class="text-white font-bold items-center rounded-full px-4 py-2 m-1"
+          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white"
           :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
         >
           Undo
         </button>
         <button
           @click="store.redo"
-          class="text-white font-bold items-center rounded-full px-4 py-2 m-1"
+          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white"
           :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
         >
           Redo
         </button>
         <hr />
         <div>
-          <button @click="resetGraph" class="text-white font-bold items-center rounded-full px-4 py-2 m-1 bg-sky-500">Clear Graph</button>
+          <button @click="resetGraph" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Clear Graph</button>
         </div>
         <hr />
 
         <div>
-          <button @click="save" class="text-white font-bold items-center rounded-full px-4 py-2 m-1 bg-sky-500">Save Graph</button>
+          <button @click="save" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Save Graph</button>
         </div>
         <div>
-          <button @click="load" class="text-white font-bold items-center rounded-full px-4 py-2 m-1 bg-sky-500">Load Graph</button>
+          <button @click="load" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Load Graph</button>
         </div>
         <hr />
         <TemplateGraph @set-graph="setGraph" />
       </aside>
       <main class="flex-1">
-        <div class="h-[100vh] relative overflow-hidden border-4 rounded-md" @click="closeMenu">
+        <div class="relative h-[100vh] overflow-hidden rounded-md border-4" @click="closeMenu">
           <Loop />
-          <svg x="0" y="0" class="absolute pointer-events-none w-full h-[100%]" ref="svgRef">
+          <svg x="0" y="0" class="pointer-events-none absolute h-[100%] w-full" ref="svgRef">
             <Edge
               v-for="(edge, index) in edgeDataList"
               :key="['edge', edge.source, edge.target, index].join('-')"

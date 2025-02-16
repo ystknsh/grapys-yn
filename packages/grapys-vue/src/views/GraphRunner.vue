@@ -7,16 +7,16 @@
         <chat :messages="messages" :is-streaming="isStreaming" :stream-data="streamData" :stream-node-ids="streamNodes" />
       </div>
       <div class="mt-2">
-        <button class="text-white font-bold items-center rounded-full px-4 py-2 m-1 bg-sky-500 hover:bg-sky-700" @click="run">Run</button>
+        <button class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700" @click="run">Run</button>
       </div>
 
       <div>
-        <div class="w-10/12 m-auto my-4">
-          <div v-if="events.length > 0" class="font-bold text-red-600 hidden">Write message to bot!!</div>
+        <div class="m-auto my-4 w-10/12">
+          <div v-if="events.length > 0" class="hidden font-bold text-red-600">Write message to bot!!</div>
           <div class="flex">
-            <input v-model="userInput" class="border-2 p-2 rounded-md flex-1" :disabled="events.length == 0" />
+            <input v-model="userInput" class="flex-1 rounded-md border-2 p-2" :disabled="events.length == 0" />
             <button
-              class="text-white font-bold items-center rounded-md px-4 py-2 ml-1 hover:bg-sky-700 flex-none"
+              class="ml-1 flex-none items-center rounded-md px-4 py-2 font-bold text-white hover:bg-sky-700"
               :class="events.length == 0 ? 'bg-sky-200' : 'bg-sky-500'"
               @click="submitText(events[0])"
             >

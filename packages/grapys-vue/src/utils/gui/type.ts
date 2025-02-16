@@ -11,8 +11,20 @@ export type ApplicationData = {
 };
 
 export type Position = { x: number; y: number };
-export type NodePosition = { x: number; y: number; width: number; height: number };
-export type NodePositionData = { x: number; y: number; width?: number; height?: number; outputCenters?: number[]; inputCenters?: number[] };
+export type NodePosition = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+export type NodePositionData = {
+  x: number;
+  y: number;
+  width?: number;
+  height?: number;
+  outputCenters?: number[];
+  inputCenters?: number[];
+};
 export type GUINodeData = {
   type: string;
   nodeId: string;
@@ -67,7 +79,15 @@ export type GUINearestData = {
 };
 
 type NewEdgeMouseData = {
-  data: { position: { x: number; y: number; width?: number; outputCenters?: number[]; inputCenters?: number[] } };
+  data: {
+    position: {
+      x: number;
+      y: number;
+      width?: number;
+      outputCenters?: number[];
+      inputCenters?: number[];
+    };
+  };
   index?: number; // index and width, outputCenters, inputCenters never exists. for data type compatibility.
 };
 type NewEdgeNodeData = {
@@ -101,8 +121,20 @@ export type NearestData = {
 
 // TODO good name
 export type InputOutputType = { name: string; type?: string };
-export type ParamType = { name: string; type?: string; defaultValue?: number; max?: number; min?: number };
-export type InputOutput = { inputs: InputOutputType[]; outputs: InputOutputType[]; params?: ParamType[]; agent?: string; inputSchema?: unknown };
+export type ParamType = {
+  name: string;
+  type?: string;
+  defaultValue?: number;
+  max?: number;
+  min?: number;
+};
+export type InputOutput = {
+  inputs: InputOutputType[];
+  outputs: InputOutputType[];
+  params?: ParamType[];
+  agent?: string;
+  inputSchema?: unknown;
+};
 
 export type LoopData = {
   loopType: string;

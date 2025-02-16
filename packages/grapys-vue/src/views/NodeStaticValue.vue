@@ -1,12 +1,14 @@
 <template>
   <label class="text-xs text-gray-300">Value</label>
-  <select v-model="dataType" class="w-full border border-gray-300 rounded-md p-1 text-black resize-none">
-    <option v-for="(option, k) in options" :value="option.value" :key="k">{{ option.name }}</option>
+  <select v-model="dataType" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black">
+    <option v-for="(option, k) in options" :value="option.value" :key="k">
+      {{ option.name }}
+    </option>
   </select>
   <div v-show="['text', 'data'].includes(dataType)">
     <textarea
       placeholder="Enter the text"
-      class="w-full border border-gray-300 rounded-md p-1 text-black resize-none"
+      class="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
       v-model="textAreaValue"
       ref="textareaRef"
       :rows="rows"
@@ -16,7 +18,7 @@
     </div>
   </div>
   <div v-show="['number'].includes(dataType)">
-    <input type="number" class="w-full border border-gray-300 rounded-md p-1 text-black resize-none" v-model="numberValue" ref="inputRef" />
+    <input type="number" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" v-model="numberValue" ref="inputRef" />
   </div>
   <div v-show="['boolean'].includes(dataType)">
     <select v-model="booleanValue" ref="selectFormRef" @change="selectUpdate">

@@ -1,20 +1,20 @@
 <template>
-  <div class="w-36 text-white text-center cursor-grab select-none absolute flex flex-col rounded-md bg-green-400">
-    <div class="w-full text-center py-1 leading-none rounded-t-md bg-green-500">Loop</div>
+  <div class="absolute flex w-36 cursor-grab flex-col rounded-md bg-green-400 text-center text-white select-none">
+    <div class="w-full rounded-t-md bg-green-500 py-1 text-center leading-none">Loop</div>
     <div class="my-4 p-2">
-      <select class="w-full border border-gray-300 rounded-md p-1 text-black resize-none" @change="updateType" :value="loopType">
+      <select class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" @change="updateType" :value="loopType">
         <option value="none">None</option>
         <option value="while">While</option>
         <option value="count">Count</option>
       </select>
 
       <div v-if="loopType === 'while'" class="mt-2">
-        <select class="w-full border border-gray-300 rounded-md p-1 text-black resize-none" @change="updateWhile" :value="whileValue">
+        <select class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" @change="updateWhile" :value="whileValue">
           <option v-for="item in lists" :key="item">{{ item }}</option>
         </select>
       </div>
       <div v-show="loopType === 'count'" class="mt-2">
-        <input type="number" class="w-full border border-gray-300 rounded-md p-1 text-black" ref="countRef" v-model="countValue" />
+        <input type="number" class="w-full rounded-md border border-gray-300 p-1 text-black" ref="countRef" v-model="countValue" />
       </div>
     </div>
   </div>

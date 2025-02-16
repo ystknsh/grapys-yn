@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="menuVisible" :style="menuStyle" class="absolute bg-white border border-gray-300 shadow-md rounded-md py-2 w-40">
+  <ul v-if="menuVisible" :style="menuStyle" class="absolute w-40 rounded-md border border-gray-300 bg-white py-2 shadow-md">
     <slot />
   </ul>
 </template>

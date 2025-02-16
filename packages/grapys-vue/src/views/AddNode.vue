@@ -1,13 +1,15 @@
 <template>
   <div class="text-left">
-    NodeId:<input type="text" v-model="nodeId" class="w-full border-2 border-gray-300 rounded-md p-1 text-black" :class="isError ? 'border-red-600' : ''" />
-    <select class="w-full border-2 border-gray-300 rounded-md p-1 text-black resize-none mt-2" v-model="agent">
+    NodeId:<input type="text" v-model="nodeId" class="w-full rounded-md border-2 border-gray-300 p-1 text-black" :class="isError ? 'border-red-600' : ''" />
+    <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="agent">
       <option>StaticNode</option>
-      <option v-for="(agentName, k) in nodesKey" :key="k">{{ agentName }}</option>
+      <option v-for="(agentName, k) in nodesKey" :key="k">
+        {{ agentName }}
+      </option>
     </select>
   </div>
   <div>
-    <button @click="addNode" class="text-white font-bold items-center rounded-full px-4 py-2 m-1 bg-sky-500 hover:bg-sky-700">Add node</button>
+    <button @click="addNode" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">Add node</button>
   </div>
 </template>
 

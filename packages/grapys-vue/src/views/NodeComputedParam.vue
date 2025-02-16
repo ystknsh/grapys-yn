@@ -2,20 +2,20 @@
   <div>
     <label class="text-xs text-gray-300">{{ param.name }}</label>
     <div v-if="param.type === 'string'">
-      <input ref="inputRef" type="text" class="w-full border border-gray-300 rounded-md p-1 text-black" v-model="inputValue" />
+      <input ref="inputRef" type="text" class="w-full rounded-md border border-gray-300 p-1 text-black" v-model="inputValue" />
     </div>
     <div v-else-if="param.type === 'text'">
-      <textarea ref="textareaRef" :rows="rows" class="w-full border border-gray-300 rounded-md p-1 text-black resize-none" v-model="textAreaValue"></textarea>
+      <textarea ref="textareaRef" :rows="rows" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" v-model="textAreaValue"></textarea>
     </div>
     <div v-else-if="param.type === 'data'">
-      <textarea ref="textareaRef" :rows="rows" class="w-full border border-gray-300 rounded-md p-1 text-black resize-none" v-model="textAreaValue"></textarea>
+      <textarea ref="textareaRef" :rows="rows" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" v-model="textAreaValue"></textarea>
     </div>
     <div v-else-if="param.type === 'int'">
       <!-- TODO convert int after user input: min, max, defaultValue -->
       <input
         ref="inputRef"
         type="number"
-        class="w-full border border-gray-300 rounded-md p-1 text-black"
+        class="w-full rounded-md border border-gray-300 p-1 text-black"
         step="1"
         pattern="\d*"
         inputmode="numeric"
@@ -24,10 +24,10 @@
     </div>
     <div v-else-if="param.type === 'float'">
       <!-- TODO min, max, defaultValue -->
-      <input ref="inputRef" type="number" class="w-full border border-gray-300 rounded-md p-1 text-black" v-model="inputValue" />
+      <input ref="inputRef" type="number" class="w-full rounded-md border border-gray-300 p-1 text-black" v-model="inputValue" />
     </div>
     <div v-else-if="param.type === 'boolean'">
-      <select v-model="booleanValue" ref="selectFormRef" @change="selectUpdate" class="border border-gray-300 rounded-md">
+      <select v-model="booleanValue" ref="selectFormRef" @change="selectUpdate" class="rounded-md border border-gray-300">
         <option value="true">True</option>
         <option value="false">False</option>
       </select>

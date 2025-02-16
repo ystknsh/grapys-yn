@@ -1,11 +1,13 @@
 <template>
   <div>
     <b>Graph Template</b>
-    <select class="w-full border-2 border-gray-300 rounded-md p-1 text-black resize-none mt-2" v-model="template">
-      <option v-for="(graph, k) in graphs" :key="k" :value="k">{{ graph.name }}</option>
+    <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="template">
+      <option v-for="(graph, k) in graphs" :key="k" :value="k">
+        {{ graph.name }}
+      </option>
     </select>
     <div>
-      <button @click="setGraph" class="text-white font-bold items-center rounded-full px-4 py-2 m-1 bg-sky-500 hover:bg-sky-700">Set Graph</button>
+      <button @click="setGraph" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">Set Graph</button>
     </div>
   </div>
 </template>
