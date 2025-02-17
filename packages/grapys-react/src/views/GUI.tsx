@@ -14,6 +14,8 @@ import Node from "./Node";
 const GUI: FC = () => {
   const nodes = useLocalStore((state) => state.currentData.nodes);
   const initData = useLocalStore((state) => state.initData);
+  const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
+  const saveNodePosition = useLocalStore((state) => state.saveNodePositionData);
 
   const updateGraph = (graph: GraphData) => {
 
@@ -23,6 +25,7 @@ const GUI: FC = () => {
   useEffect(() => {
     updateGraph(graphChat);
   }, []);
+
   
   return (
   <div>
@@ -33,13 +36,17 @@ const GUI: FC = () => {
       </aside>
       <main className="flex-1">
       <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
-      <svg x="0" y="0" class="pointer-events-none absolute h-[100%] w-full">
+      <svg x="0" y="0" className="pointer-events-none absolute h-[100%] w-full">
       </svg>
       {nodes.map((node, index) => (
         <Node
         key={`${node.nodeId}-${index}`}
         nodeIndex={index}
         nodeData={node}
+
+        onUpdatePosition={(pos) => updateNodePosition(index, pos)}
+        onSavePosition={saveNodePosition}
+        
           />
 
       ))}
