@@ -12,6 +12,10 @@ export const useStore = defineStore("store", () => {
   });
   const index = ref(0);
 
+  get nodes() {
+    return get().currentData.nodes;
+  },
+  
   const reset = () => {
     updateData([], [], "reset", true);
   };
