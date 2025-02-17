@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useMemo } from "react";
 // import { useRef, useState } from 'react';
 import { useLocalStore } from "../store/index";
 
@@ -10,9 +10,22 @@ import { graphToGUIData, guiEdgeData2edgeData } from "../utils/gui/utils";
 import { GraphData } from "graphai";
 
 import Node from "./Node";
+import Edge from "./Edge";
 
 const GUI: FC = () => {
-  const nodes = useLocalStore((state) => state.currentData.nodes);
+  const nodes = useLocalStore((state) => state.nodes());
+  const edges = useLocalStore((state) => state.edges());
+  const nodeRecords = useMemo(() => {
+    return nodes.reduce((tmp: GUINodeDataRecord, current) => {
+      tmp[current.nodeId] = current;
+      return tmp;
+    }, {})    
+  }, [nodes]);
+  const edgeDataList = useMemo(() => {
+    return guiEdgeData2edgeData(edges, nodeRecords);
+  }, [edges, nodeRecords]);
+  
+  
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
   const saveNodePosition = useLocalStore((state) => state.saveNodePositionData);
@@ -37,7 +50,17 @@ const GUI: FC = () => {
               x="0"
               y="0"
               className="pointer-events-none absolute h-[100%] w-full"
-            ></svg>
+      >
+      {edgeDataList.map((edge, index) => (
+        <Edge
+        key={`edge-${edge.source}-${edge.target}-${index}`}
+          sourceData={edge.source}
+        targetData={edge.target}
+        className="pointer-events-auto"
+        onDoubleClick={(e) => openEdgeMenu(e, index)}
+          />
+      ))}
+      </svg>
             {nodes.map((node, index) => (
               <Node
                 key={`${node.nodeId}-${index}`}
