@@ -69,6 +69,9 @@ const Node: React.FC<NodeProps> = ({
       inputCenters: inputsRef.current.map(getCenterHeight),
     };
   };
+  useEffect(() => {
+    onUpdatePosition(getWH());
+  }, []);
 
   const onStartNode = useCallback(
     (event: React.MouseEvent | React.TouchEvent) => {
@@ -207,7 +210,7 @@ const Node: React.FC<NodeProps> = ({
               {output.name}
             </span>
             <div
-              className="absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full"
+              className={`absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeOutputClass(true, nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "outbound", index)}
             ></div>
           </div>
@@ -222,7 +225,7 @@ const Node: React.FC<NodeProps> = ({
             ref={(el) => (inputsRef.current[index] = el!)}
           >
             <div
-              className="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full"
+              className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full  ${nodeOutputClass(true, nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "inbound", index)}
             ></div>
             <span className="ml-2 text-xs whitespace-nowrap">{input.name}</span>

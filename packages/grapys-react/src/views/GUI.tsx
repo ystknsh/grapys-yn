@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo, componentDidMount } from "react";
 // import { useRef, useState } from 'react';
 import { useLocalStore } from "../store/index";
 
@@ -35,6 +35,7 @@ const GUI: FC = () => {
   };
   useEffect(() => {
     updateGraph(graphChat);
+    saveNodePosition();
   }, []);
 
   return (
