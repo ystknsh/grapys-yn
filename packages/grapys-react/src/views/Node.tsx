@@ -7,6 +7,8 @@ import {
   nodeInputClass,
 } from "../utils/gui/classUtils";
 
+import { agentProfiles, staticNodeParams } from "../utils/gui/data";
+
 interface NodeProps {
   nodeData: any;
   nearestData?: any;
@@ -29,6 +31,11 @@ const Node: React.FC<NodeProps> = ({
   onNewEdgeEnd,
   onOpenNodeMenu,
 }) => {
+  const agentParams =
+    nodeData.type === "computed"
+      ? agentProfiles[nodeData.data.guiAgentId ?? ""]
+      : staticNodeParams;
+
   const thisRef = useRef<HTMLDivElement>(null);
   const inputsRef = useRef<HTMLDivElement[]>([]);
   const outputsRef = useRef<HTMLDivElement[]>([]);
@@ -37,15 +44,16 @@ const Node: React.FC<NodeProps> = ({
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const startPosition = useRef({ x: 0, y: 0 });
   const distanceMoved = useRef(0);
-  console.log(nodeData);
+
   const transformStyle = {
     transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
     cursor: isDragging ? "grabbing" : "grab",
   };
 
   const getWH = () => {
-    if (!thisRef.current)
+    if (!thisRef.current) {
       return { width: 0, height: 0, outputCenters: [], inputCenters: [] };
+    }
     const rect = thisRef.current.getBoundingClientRect();
     const parentTop = rect.top;
 
@@ -99,6 +107,8 @@ const Node: React.FC<NodeProps> = ({
       onSavePosition();
     }
   }, [onSavePosition]);
+
+  const edgeIO = agentParams;
 
   const onStartEdge = useCallback(
     (
@@ -187,7 +197,7 @@ const Node: React.FC<NodeProps> = ({
       </div>
 
       <div className="mt-1 flex flex-col items-end">
-        {(nodeData.edgeIO?.outputs ?? []).map((output: any, index: number) => (
+        {(edgeIO.outputs ?? []).map((output: any, index: number) => (
           <div
             key={`out-${output.name}-${index}`}
             className="relative flex items-center"
@@ -205,7 +215,7 @@ const Node: React.FC<NodeProps> = ({
       </div>
 
       <div className="mt-1 mb-1 flex flex-col items-start">
-        {(nodeData.edgeIO?.inputs ?? []).map((input: any, index: number) => (
+        {(edgeIO.inputs ?? []).map((input: any, index: number) => (
           <div
             key={`in-${input.name}-${index}`}
             className="relative flex items-center"

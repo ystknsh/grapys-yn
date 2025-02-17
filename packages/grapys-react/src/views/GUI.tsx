@@ -19,13 +19,12 @@ const GUI: FC = () => {
     return nodes.reduce((tmp: GUINodeDataRecord, current) => {
       tmp[current.nodeId] = current;
       return tmp;
-    }, {})    
+    }, {});
   }, [nodes]);
   const edgeDataList = useMemo(() => {
     return guiEdgeData2edgeData(edges, nodeRecords);
   }, [edges, nodeRecords]);
-  
-  
+
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
   const saveNodePosition = useLocalStore((state) => state.saveNodePositionData);
@@ -50,17 +49,17 @@ const GUI: FC = () => {
               x="0"
               y="0"
               className="pointer-events-none absolute h-[100%] w-full"
-      >
-      {edgeDataList.map((edge, index) => (
-        <Edge
-        key={`edge-${edge.source}-${edge.target}-${index}`}
-          sourceData={edge.source}
-        targetData={edge.target}
-        className="pointer-events-auto"
-        onDoubleClick={(e) => openEdgeMenu(e, index)}
-          />
-      ))}
-      </svg>
+            >
+              {edgeDataList.map((edge, index) => (
+                <Edge
+                  key={`edge-${edge.source}-${edge.target}-${index}`}
+                  sourceData={edge.source}
+                  targetData={edge.target}
+                  className="pointer-events-auto"
+                  onDoubleClick={(e) => openEdgeMenu(e, index)}
+                />
+              ))}
+            </svg>
             {nodes.map((node, index) => (
               <Node
                 key={`${node.nodeId}-${index}`}

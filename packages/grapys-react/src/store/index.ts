@@ -9,7 +9,6 @@ import {
   LoopData,
 } from "../utils/gui/type";
 
-
 export interface LocalState {
   histories: HistoryData[];
   currentData: HistoryPayload;
@@ -32,7 +31,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
   edges: () => {
     return get().currentData.edges;
   },
-  
+
   reset: () =>
     set((state) => ({
       ...state,
