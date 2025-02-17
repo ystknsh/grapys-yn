@@ -1,6 +1,11 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { getClientPos } from "../utils/gui/utils";
-import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
+import {
+  nodeMainClass,
+  nodeHeaderClass,
+  nodeOutputClass,
+  nodeInputClass,
+} from "../utils/gui/classUtils";
 
 interface NodeProps {
   nodeData: any;
@@ -14,7 +19,16 @@ interface NodeProps {
   onOpenNodeMenu: (event: any) => void;
 }
 
-const Node: React.FC<NodeProps> = ({ nodeData, nearestData, onUpdatePosition, onSavePosition, onNewEdgeStart, onNewEdge, onNewEdgeEnd, onOpenNodeMenu }) => {
+const Node: React.FC<NodeProps> = ({
+  nodeData,
+  nearestData,
+  onUpdatePosition,
+  onSavePosition,
+  onNewEdgeStart,
+  onNewEdge,
+  onNewEdgeEnd,
+  onOpenNodeMenu,
+}) => {
   const thisRef = useRef<HTMLDivElement>(null);
   const inputsRef = useRef<HTMLDivElement[]>([]);
   const outputsRef = useRef<HTMLDivElement[]>([]);
@@ -23,14 +37,15 @@ const Node: React.FC<NodeProps> = ({ nodeData, nearestData, onUpdatePosition, on
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const startPosition = useRef({ x: 0, y: 0 });
   const distanceMoved = useRef(0);
-  console.log(nodeData)
+  console.log(nodeData);
   const transformStyle = {
     transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
     cursor: isDragging ? "grabbing" : "grab",
   };
 
   const getWH = () => {
-    if (!thisRef.current) return { width: 0, height: 0, outputCenters: [], inputCenters: [] };
+    if (!thisRef.current)
+      return { width: 0, height: 0, outputCenters: [], inputCenters: [] };
     const rect = thisRef.current.getBoundingClientRect();
     const parentTop = rect.top;
 
@@ -52,11 +67,17 @@ const Node: React.FC<NodeProps> = ({ nodeData, nearestData, onUpdatePosition, on
       if (isNewEdge) return;
       setIsDragging(true);
       const { clientX, clientY } = getClientPos(event);
-      setOffset({ x: clientX - nodeData.position.x, y: clientY - nodeData.position.y });
-      startPosition.current = { x: nodeData.position.x, y: nodeData.position.y };
+      setOffset({
+        x: clientX - nodeData.position.x,
+        y: clientY - nodeData.position.y,
+      });
+      startPosition.current = {
+        x: nodeData.position.x,
+        y: nodeData.position.y,
+      };
       distanceMoved.current = 0;
     },
-    [nodeData.position, isNewEdge]
+    [nodeData.position, isNewEdge],
   );
 
   const onMoveNode = useCallback(
@@ -66,9 +87,10 @@ const Node: React.FC<NodeProps> = ({ nodeData, nearestData, onUpdatePosition, on
       const x = clientX - offset.x;
       const y = clientY - offset.y;
       onUpdatePosition({ ...getWH(), x, y });
-      distanceMoved.current = (startPosition.current.x - x) ** 2 + (startPosition.current.y - y) ** 2;
+      distanceMoved.current =
+        (startPosition.current.x - x) ** 2 + (startPosition.current.y - y) ** 2;
     },
-    [isDragging, offset, onUpdatePosition]
+    [isDragging, offset, onUpdatePosition],
   );
 
   const onEndNode = useCallback(() => {
@@ -79,12 +101,22 @@ const Node: React.FC<NodeProps> = ({ nodeData, nearestData, onUpdatePosition, on
   }, [onSavePosition]);
 
   const onStartEdge = useCallback(
-    (event: React.MouseEvent | React.TouchEvent, direction: string, index: number) => {
+    (
+      event: React.MouseEvent | React.TouchEvent,
+      direction: string,
+      index: number,
+    ) => {
       setIsNewEdge(true);
       const { clientX, clientY } = getClientPos(event);
-      onNewEdgeStart({ nodeId: nodeData.nodeId, x: clientX, y: clientY, index, direction });
+      onNewEdgeStart({
+        nodeId: nodeData.nodeId,
+        x: clientX,
+        y: clientY,
+        index,
+        direction,
+      });
     },
-    [onNewEdgeStart, nodeData.nodeId]
+    [onNewEdgeStart, nodeData.nodeId],
   );
 
   const onMoveEdge = useCallback(
@@ -93,7 +125,7 @@ const Node: React.FC<NodeProps> = ({ nodeData, nearestData, onUpdatePosition, on
       const { clientX, clientY } = getClientPos(event);
       onNewEdge({ x: clientX, y: clientY });
     },
-    [isNewEdge, onNewEdge]
+    [isNewEdge, onNewEdge],
   );
 
   const onEndEdge = useCallback(() => {
@@ -140,29 +172,49 @@ const Node: React.FC<NodeProps> = ({ nodeData, nearestData, onUpdatePosition, on
       onTouchStart={onStartNode}
     >
       <div onDoubleClick={onOpenNodeMenu}>
-      <div className={`w-full rounded-t-md py-1 text-center leading-none ${nodeHeaderClass(false, nodeData)}`}>
+        <div
+          className={`w-full rounded-t-md py-1 text-center leading-none ${nodeHeaderClass(false, nodeData)}`}
+        >
           {nodeData.nodeId}
         </div>
         {nodeData.type === "computed" && (
-          <div className={`w-full py-1 text-center text-xs leading-none ${nodeHeaderClass(false, nodeData)}`}>
+          <div
+            className={`w-full py-1 text-center text-xs leading-none ${nodeHeaderClass(false, nodeData)}`}
+          >
             {nodeData.data.guiAgentId?.replace(/Agent$/, "")}
           </div>
         )}
       </div>
 
       <div className="mt-1 flex flex-col items-end">
-      {(nodeData.edgeIO?.outputs ?? []).map((output: any, index: number) => (
-          <div key={`out-${output.name}-${index}`} className="relative flex items-center" ref={(el) => (outputsRef.current[index] = el!)}>
-            <span className="mr-2 text-xs whitespace-nowrap">{output.name}</span>
-            <div className="absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full" onMouseDown={(e) => onStartEdge(e, "outbound", index)}></div>
+        {(nodeData.edgeIO?.outputs ?? []).map((output: any, index: number) => (
+          <div
+            key={`out-${output.name}-${index}`}
+            className="relative flex items-center"
+            ref={(el) => (outputsRef.current[index] = el!)}
+          >
+            <span className="mr-2 text-xs whitespace-nowrap">
+              {output.name}
+            </span>
+            <div
+              className="absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full"
+              onMouseDown={(e) => onStartEdge(e, "outbound", index)}
+            ></div>
           </div>
         ))}
       </div>
 
       <div className="mt-1 mb-1 flex flex-col items-start">
-      {(nodeData.edgeIO?.inputs ?? []).map((input: any, index: number) => (
-          <div key={`in-${input.name}-${index}`} className="relative flex items-center" ref={(el) => (inputsRef.current[index] = el!)}>
-            <div className="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full" onMouseDown={(e) => onStartEdge(e, "inbound", index)}></div>
+        {(nodeData.edgeIO?.inputs ?? []).map((input: any, index: number) => (
+          <div
+            key={`in-${input.name}-${index}`}
+            className="relative flex items-center"
+            ref={(el) => (inputsRef.current[index] = el!)}
+          >
+            <div
+              className="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full"
+              onMouseDown={(e) => onStartEdge(e, "inbound", index)}
+            ></div>
             <span className="ml-2 text-xs whitespace-nowrap">{input.name}</span>
           </div>
         ))}

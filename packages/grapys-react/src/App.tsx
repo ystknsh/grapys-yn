@@ -1,5 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
-import  GUI from "./views/GUI";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import GUI from "./views/GUI";
 
 function App() {
   return (
