@@ -9,6 +9,8 @@ import {
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
 
+import NodeStaticValue from "./NodeStaticValue";
+
 interface NodeProps {
   nodeData: any;
   nearestData?: any;
@@ -177,6 +179,27 @@ const Node: React.FC<NodeProps> = ({
     }
   }, [isNewEdge, onMoveEdge, onEndEdge]);
 
+  let currentWidth = 0;
+  let currentHeight = 0;
+  const onFocus = () => {
+    currentWidth = thisRef.current.offsetWidth;
+    currentHeight = thisRef.current.offsetHeight;
+    thisRef.current.style.width = currentWidth * 3 + "px";
+    thisRef.current.style.height = currentHeight * 3 + "px";
+    thisRef.current.style.zIndex = 100;
+    // ctx.emit("updatePosition", getWH());
+  };
+  const onBlur = () => {
+    thisRef.current.style.width = currentWidth + "px";
+    thisRef.current.style.height = currentHeight + "px";
+    thisRef.current.style.zIndex = 1;
+    // ctx.emit("updatePosition", getWH());
+  };
+  const onUpdateValue = (value: UpdateStaticValue) => {
+    console.log(value);
+    // ctx.emit("updateStaticNodeValue", value);
+  };
+
   return (
     <div
       className={`absolute flex w-36 cursor-grab flex-col rounded-md text-center text-white select-none ${nodeMainClass(false, nodeData)}`}
@@ -233,6 +256,17 @@ const Node: React.FC<NodeProps> = ({
           </div>
         ))}
       </div>
+
+      {nodeData.type === "static" && (
+        <div className="flex w-full flex-col gap-1 p-2">
+          <NodeStaticValue
+            nodeData={nodeData}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onUpdateValue={onUpdateValue}
+          />
+        </div>
+      )}
     </div>
   );
 };
