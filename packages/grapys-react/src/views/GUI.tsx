@@ -1,18 +1,17 @@
 import { FC, useEffect, useMemo, componentDidMount } from "react";
 // import { useRef, useState } from 'react';
-import { useLocalStore, node2Record } from "../store/index";
+
+import Node from "./Node";
+import Edge from "./Edge";
 
 import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
 import { graphChat } from "../graph/chat_tinyswallow";
 
+import { useNewEdge } from "../composable/gui";
 import { graphToGUIData, guiEdgeData2edgeData } from "../utils/gui/utils";
 import { GraphData } from "graphai";
-
-import { useNewEdge } from "../composable/gui";
-
-import Node from "./Node";
-import Edge from "./Edge";
+import { useLocalStore, node2Record } from "../store/index";
 
 const GUI: FC = () => {
   const nodes = useLocalStore((state) => state.nodes());
