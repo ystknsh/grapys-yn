@@ -119,6 +119,7 @@ const Node: React.FC<NodeProps> = ({
       direction: string,
       index: number,
     ) => {
+      event.stopPropagation();
       setIsNewEdge(true);
       const { clientX, clientY } = getClientPos(event);
       onNewEdgeStart({
