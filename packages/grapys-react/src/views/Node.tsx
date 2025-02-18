@@ -8,9 +8,10 @@ import {
 } from "../utils/gui/classUtils";
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
+import { useLocalStore } from "../store/index";
 
 import NodeStaticValue from "./NodeStaticValue";
-
+import NodeComputedParams from "./NodeComputedParams";
 interface NodeProps {
   nodeData: any;
   nearestData?: any;
@@ -26,6 +27,7 @@ interface NodeProps {
 const Node: React.FC<NodeProps> = ({
   nodeData,
   nearestData,
+  nodeIndex,
   onUpdatePosition,
   onSavePosition,
   onNewEdgeStart,
@@ -46,6 +48,8 @@ const Node: React.FC<NodeProps> = ({
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const startPosition = useRef({ x: 0, y: 0 });
   const distanceMoved = useRef(0);
+
+  const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
 
   const transformStyle = {
     transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
@@ -179,21 +183,21 @@ const Node: React.FC<NodeProps> = ({
     }
   }, [isNewEdge, onMoveEdge, onEndEdge]);
 
-  let currentWidth = 0;
-  let currentHeight = 0;
+  const [currentWidth, setCurrentWidth] = useState(0);
+  const [currentHeight, setCurrentHeight] = useState(0);
   const onFocus = () => {
-    currentWidth = thisRef.current.offsetWidth;
-    currentHeight = thisRef.current.offsetHeight;
-    thisRef.current.style.width = currentWidth * 3 + "px";
-    thisRef.current.style.height = currentHeight * 3 + "px";
+    setCurrentWidth(thisRef.current.offsetWidth);
+    setCurrentHeight(thisRef.current.offsetHeight);
+    thisRef.current.style.width = thisRef.current.offsetWidth * 3 + "px";
+    thisRef.current.style.height = thisRef.current.offsetHeight * 3 + "px";
     thisRef.current.style.zIndex = 100;
-    // ctx.emit("updatePosition", getWH());
+    onUpdatePosition(getWH());
   };
   const onBlur = () => {
     thisRef.current.style.width = currentWidth + "px";
     thisRef.current.style.height = currentHeight + "px";
     thisRef.current.style.zIndex = 1;
-    // ctx.emit("updatePosition", getWH());
+    onUpdatePosition(getWH());
   };
   const onUpdateValue = (value: UpdateStaticValue) => {
     console.log(value);
@@ -267,6 +271,16 @@ const Node: React.FC<NodeProps> = ({
           />
         </div>
       )}
+    {nodeData.type === "computed" && (
+    <div className="flex w-full flex-col gap-1 p-2">
+      <NodeComputedParams
+        nodeData={nodeData}
+        nodeIndex={nodeIndex}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
+    </div>
+    )}
     </div>
   );
 };
