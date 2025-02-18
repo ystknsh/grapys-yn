@@ -4,7 +4,7 @@ import Node from "./Node";
 import Edge from "./Edge";
 //import Loop from "./Loop.vue";
 
-//import AddNode from "./AddNode.vue";
+import AddNode from "./AddNode";
 // import ContextEdgeMenu from "./ContextEdgeMenu.vue";
 //import ContextNodeMenu from "./ContextNodeMenu.vue";
 
@@ -34,6 +34,8 @@ const GUI: FC = () => {
   const undoable = useLocalStore((state) => state.undoable());
   const redoable = useLocalStore((state) => state.redoable());
 
+  const resetGraph = useLocalStore((state) => state.reset);
+
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
   const saveNodePosition = useLocalStore((state) => state.saveNodePositionData);
@@ -62,6 +64,7 @@ const GUI: FC = () => {
       <div className="flex h-screen w-full">
         <aside className="w-48 p-4">
           <h2 className="text-lg font-bold">Menu</h2>
+          <AddNode />
           <hr />
           <button
             onClick={undo}
@@ -76,7 +79,14 @@ const GUI: FC = () => {
             Redo
           </button>
           <hr />
-          <div></div>
+          <div>
+            <button
+              onClick={resetGraph}
+              className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white"
+            >
+              Clear Graph
+            </button>
+          </div>
           <hr />
         </aside>
         <main className="flex-1">

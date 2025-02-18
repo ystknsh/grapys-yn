@@ -49,6 +49,16 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       currentData: { nodes: nodeData, edges: edgeData, loop: loopData },
     })),
 
+  pushNode: (nodeData: GUINodeData) => {
+    const { updateData, currentData } = get();
+    updateData(
+      [...currentData.nodes, nodeData],
+      [...currentData.edges],
+      "addNode",
+      true,
+    );
+  },
+
   updateNodePosition: (
     positionIndex: number,
     pos: { x: number; y: number; width: number; height: number },
