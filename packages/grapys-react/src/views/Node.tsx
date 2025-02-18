@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
 import { getClientPos } from "../utils/gui/utils";
 import {
   nodeMainClass,
@@ -7,14 +8,15 @@ import {
   nodeInputClass,
 } from "../utils/gui/classUtils";
 
+
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
 import { useLocalStore } from "../store/index";
 
 import NodeStaticValue from "./NodeStaticValue";
 import NodeComputedParams from "./NodeComputedParams";
 interface NodeProps {
-  nodeData: any;
-  nearestData?: any;
+  nodeData: GUINodeData;
+  nearestData?: GUINearestData;
   nodeIndex: number;
   onUpdatePosition: (position: any) => void;
   onSavePosition: () => void;
@@ -183,6 +185,14 @@ const Node: React.FC<NodeProps> = ({
     }
   }, [isNewEdge, onMoveEdge, onEndEdge]);
 
+  const expectNearNode = nodeData.nodeId === nearestData?.nodeId;
+  const isExpectNearButton = (direction: NewEdgeEventDirection, index: number) => {
+    if (!expectNearNode) {
+      return false;
+    }
+    return nearestData?.direction === direction && nearestData?.index === index;
+  };
+  
   const [currentWidth, setCurrentWidth] = useState(0);
   const [currentHeight, setCurrentHeight] = useState(0);
   const onFocus = () => {
@@ -201,12 +211,16 @@ const Node: React.FC<NodeProps> = ({
   };
   const onUpdateValue = (value: UpdateStaticValue) => {
     console.log(value);
-    // ctx.emit("updateStaticNodeValue", value);
+    // TODO
+  };
+  const openNodeMenu = (event: MouseEvent) => {
+    // TODO
+    // ctx.emit("openNodeMenu", event);
   };
 
   return (
     <div
-      className={`absolute flex w-36 cursor-grab flex-col rounded-md text-center text-white select-none ${nodeMainClass(false, nodeData)}`}
+      className={`absolute flex w-36 cursor-grab flex-col rounded-md text-center text-white select-none ${nodeMainClass(expectNearNode, nodeData)}`}
       style={transformStyle}
       ref={thisRef}
       onMouseDown={onStartNode}
@@ -214,13 +228,13 @@ const Node: React.FC<NodeProps> = ({
     >
       <div onDoubleClick={onOpenNodeMenu}>
         <div
-          className={`w-full rounded-t-md py-1 text-center leading-none ${nodeHeaderClass(false, nodeData)}`}
+          className={`w-full rounded-t-md py-1 text-center leading-none ${nodeHeaderClass(expectNearNode, nodeData)}`}
         >
           {nodeData.nodeId}
         </div>
         {nodeData.type === "computed" && (
           <div
-            className={`w-full py-1 text-center text-xs leading-none ${nodeHeaderClass(false, nodeData)}`}
+            className={`w-full py-1 text-center text-xs leading-none ${nodeHeaderClass(expectNearNode, nodeData)}`}
           >
             {nodeData.data.guiAgentId?.replace(/Agent$/, "")}
           </div>
@@ -238,7 +252,7 @@ const Node: React.FC<NodeProps> = ({
               {output.name}
             </span>
             <div
-              className={`absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeOutputClass(true, nodeData)}`}
+          className={`absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeOutputClass(isExpectNearButton('inbound', index), nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "outbound", index)}
             ></div>
           </div>
@@ -253,7 +267,7 @@ const Node: React.FC<NodeProps> = ({
             ref={(el) => (inputsRef.current[index] = el!)}
           >
             <div
-              className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full  ${nodeOutputClass(true, nodeData)}`}
+              className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full  ${nodeInputClass(isExpectNearButton('outbound', index), nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "inbound", index)}
             ></div>
             <span className="ml-2 text-xs whitespace-nowrap">{input.name}</span>
@@ -271,16 +285,16 @@ const Node: React.FC<NodeProps> = ({
           />
         </div>
       )}
-    {nodeData.type === "computed" && (
-    <div className="flex w-full flex-col gap-1 p-2">
-      <NodeComputedParams
-        nodeData={nodeData}
-        nodeIndex={nodeIndex}
-        onFocus={onFocus}
-        onBlur={onBlur}
-      />
-    </div>
-    )}
+      {nodeData.type === "computed" && (
+        <div className="flex w-full flex-col gap-1 p-2">
+          <NodeComputedParams
+            nodeData={nodeData}
+            nodeIndex={nodeIndex}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+        </div>
+      )}
     </div>
   );
 };

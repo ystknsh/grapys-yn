@@ -112,6 +112,36 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       true,
     );
   },
+
+    // history api
+  undoable: () => {
+    return get().index > 1;
+  },
+
+  undo: () => {
+    const { index, histories } = get();
+    if (get().index > 1) {
+      set((state) => ({
+        currentData: histories[index - 2].data,
+        index: index - 1,
+      }))
+    }
+  },
+  redoable: () => {
+    const { index, histories } = get();
+    return index < histories.length;
+  },
+
+  redo: () => {
+    const { index, histories } = get();
+    if (index < histories.length) {
+      set((state) => ({
+        currentData: histories[index].data,
+        index: index + 1,
+      }))
+    }
+  }
+  
 }));
 
 export const node2Record = (nodes: GUINodeData[]) => {

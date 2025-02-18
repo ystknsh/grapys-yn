@@ -1,27 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const NodeComputedParam = ({ param, appData, nodeIndex, onFocus, onBlur, updateValue }) => {
-  const [inputValue, setInputValue] = useState(appData.params?.[param.name] ?? ""); // 初期値を空文字に
+const NodeComputedParam = ({
+  param,
+  appData,
+  nodeIndex,
+  onFocus,
+  onBlur,
+  updateValue,
+}) => {
+  const [inputValue, setInputValue] = useState(
+    appData.params?.[param.name] ?? "",
+  ); // 初期値を空文字に
   const [booleanValue, setBooleanValue] = useState(
-    appData.params?.[param.name] === true ? "true" : "false"
+    appData.params?.[param.name] === true ? "true" : "false",
   );
-  const [textAreaValue, setTextAreaValue] = useState(String(appData.params?.[param.name] ?? ""));
+  const [textAreaValue, setTextAreaValue] = useState(
+    String(appData.params?.[param.name] ?? ""),
+  );
   const [rows, setRows] = useState(3);
 
   const inputRef = useRef(null);
   const textareaRef = useRef(null);
   const selectRef = useRef(null);
 
-  
   useEffect(() => {
     const updateValue = appData.params?.[param.name];
-    
+
     if (updateValue === undefined || updateValue === null) return; // undefined/null の場合は更新しない
-    
+
     switch (param.type) {
       case "text":
       case "data":
-        setTextAreaValue(typeof updateValue === "object" ? JSON.stringify(updateValue, null, 2) : updateValue);
+        setTextAreaValue(
+          typeof updateValue === "object"
+            ? JSON.stringify(updateValue, null, 2)
+            : updateValue,
+        );
         break;
       case "string":
       case "int":
@@ -35,18 +49,20 @@ const NodeComputedParam = ({ param, appData, nodeIndex, onFocus, onBlur, updateV
         break;
     }
   }, [appData]);
-  
+
   const handleFocus = () => {
     setRows(10);
     onFocus();
   };
-  
+
   const handleBlur = () => {
     setRows(3);
     onBlur();
     updateValue(nodeIndex, param.name, textAreaValue);
   };
 
+  // TODO much more features from vuew
+  
   return (
     <div>
       <label className="text-xs text-gray-300">{param.name}</label>

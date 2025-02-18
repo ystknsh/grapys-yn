@@ -1,8 +1,15 @@
 import { FC, useEffect, useMemo, componentDidMount } from "react";
-// import { useRef, useState } from 'react';
 
 import Node from "./Node";
 import Edge from "./Edge";
+//import Loop from "./Loop.vue";
+
+//import AddNode from "./AddNode.vue";
+// import ContextEdgeMenu from "./ContextEdgeMenu.vue";
+//import ContextNodeMenu from "./ContextNodeMenu.vue";
+
+// import GraphRunner from "./GraphRunner.vue";
+// import TemplateGraph from "./TemplateGraph.vue";
 
 import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
@@ -21,6 +28,9 @@ const GUI: FC = () => {
     () => guiEdgeData2edgeData(edges, nodeRecords),
     [edges, nodeRecords],
   );
+
+  const undo = useLocalStore((state) => state.undo);
+  const redo = useLocalStore((state) => state.redo);
 
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
@@ -50,6 +60,23 @@ const GUI: FC = () => {
       <div className="flex h-screen w-full">
         <aside className="w-48 p-4">
           <h2 className="text-lg font-bold">Menu</h2>
+      <hr />
+        <button
+    onClick={undo}
+          className="m-1 items-center rounded-full px-4 py-2 font-bold text-white"
+        >
+          Undo
+        </button>
+        <button
+    onClick={redo}
+          className="m-1 items-center rounded-full px-4 py-2 font-bold text-white"
+        >
+          Redo
+        </button>
+        <hr />
+        <div>
+        </div>
+        <hr />
         </aside>
         <main className="flex-1">
           <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
@@ -82,11 +109,13 @@ const GUI: FC = () => {
                 key={`${node.nodeId}-${index}`}
                 nodeIndex={index}
                 nodeData={node}
+                nearestData={nearestData}
                 onUpdatePosition={(pos) => updateNodePosition(index, pos)}
+
+                onSavePosition={saveNodePosition}
                 onNewEdgeStart={newEdgeStartEvent}
                 onNewEdge={newEdgeEvent}
                 onNewEdgeEnd={newEdgeEndEvent}
-                onSavePosition={saveNodePosition}
               />
             ))}
           </div>

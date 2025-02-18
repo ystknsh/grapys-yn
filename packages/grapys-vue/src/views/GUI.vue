@@ -13,7 +13,6 @@ import TemplateGraph from "./TemplateGraph.vue";
 
 import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
-// import { graphChat } from "../graph/chat";
 import { graphChat } from "../graph/chat_tinyswallow";
 
 import { useNewEdge } from "../composable/gui";
