@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, componentDidMount } from "react";
 // import { useRef, useState } from 'react';
-import { useLocalStore } from "../store/index";
+import { useLocalStore, node2Record } from "../store/index";
 
 import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
@@ -9,21 +9,19 @@ import { graphChat } from "../graph/chat_tinyswallow";
 import { graphToGUIData, guiEdgeData2edgeData } from "../utils/gui/utils";
 import { GraphData } from "graphai";
 
+import { useNewEdge } from "../composable/gui";
+
 import Node from "./Node";
 import Edge from "./Edge";
 
 const GUI: FC = () => {
   const nodes = useLocalStore((state) => state.nodes());
   const edges = useLocalStore((state) => state.edges());
-  const nodeRecords = useMemo(() => {
-    return nodes.reduce((tmp: GUINodeDataRecord, current) => {
-      tmp[current.nodeId] = current;
-      return tmp;
-    }, {});
-  }, [nodes]);
-  const edgeDataList = useMemo(() => {
-    return guiEdgeData2edgeData(edges, nodeRecords);
-  }, [edges, nodeRecords]);
+  const nodeRecords = useMemo(() => node2Record(nodes), [nodes]);
+  const edgeDataList = useMemo(
+    () => guiEdgeData2edgeData(edges, nodeRecords),
+    [edges, nodeRecords],
+  );
 
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
@@ -38,6 +36,16 @@ const GUI: FC = () => {
     saveNodePosition();
   }, []);
 
+  const {
+    svgRef,
+    newEdgeData,
+    newEdgeStartEvent,
+    newEdgeEvent,
+    newEdgeEndEvent,
+    nearestData,
+    edgeConnectable,
+  } = useNewEdge();
+
   return (
     <div>
       <div className="flex h-screen w-full">
@@ -50,6 +58,7 @@ const GUI: FC = () => {
               x="0"
               y="0"
               className="pointer-events-none absolute h-[100%] w-full"
+              ref={svgRef}
             >
               {edgeDataList.map((edge, index) => (
                 <Edge
@@ -60,6 +69,14 @@ const GUI: FC = () => {
                   onDoubleClick={(e) => openEdgeMenu(e, index)}
                 />
               ))}
+              {newEdgeData && (
+                <Edge
+                  sourceData={newEdgeData.source}
+                  targetData={newEdgeData.target}
+                  className="pointer-events-auto"
+                  isConnectable={edgeConnectable}
+                />
+              )}{" "}
             </svg>
             {nodes.map((node, index) => (
               <Node
@@ -67,6 +84,9 @@ const GUI: FC = () => {
                 nodeIndex={index}
                 nodeData={node}
                 onUpdatePosition={(pos) => updateNodePosition(index, pos)}
+                onNewEdgeStart={newEdgeStartEvent}
+                onNewEdge={newEdgeEvent}
+                onNewEdgeEnd={newEdgeEndEvent}
                 onSavePosition={saveNodePosition}
               />
             ))}

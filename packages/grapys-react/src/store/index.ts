@@ -102,4 +102,21 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       state.pushDataToHistory("position", state.currentData);
       return {};
     }),
+
+  pushEdge: (edgeData: GUIEdgeData) => {
+    const { currentData, updateData } = get();
+    updateData(
+      [...currentData.nodes],
+      [...currentData.edges, edgeData],
+      "addEdge",
+      true,
+    );
+  },
 }));
+
+export const node2Record = (nodes: GUINodeData[]) => {
+  return nodes.reduce((tmp: GUINodeDataRecord, current) => {
+    tmp[current.nodeId] = current;
+    return tmp;
+  }, {});
+};
