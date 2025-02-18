@@ -62,7 +62,7 @@ const NodeComputedParam = ({
   };
 
   // TODO much more features from vuew
-  
+
   return (
     <div>
       <label className="text-xs text-gray-300">{param.name}</label>

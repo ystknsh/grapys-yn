@@ -31,6 +31,8 @@ const GUI: FC = () => {
 
   const undo = useLocalStore((state) => state.undo);
   const redo = useLocalStore((state) => state.redo);
+  const undoable = useLocalStore((state) => state.undoable());
+  const redoable = useLocalStore((state) => state.redoable());
 
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
@@ -60,23 +62,22 @@ const GUI: FC = () => {
       <div className="flex h-screen w-full">
         <aside className="w-48 p-4">
           <h2 className="text-lg font-bold">Menu</h2>
-      <hr />
-        <button
-    onClick={undo}
-          className="m-1 items-center rounded-full px-4 py-2 font-bold text-white"
-        >
-          Undo
-        </button>
-        <button
-    onClick={redo}
-          className="m-1 items-center rounded-full px-4 py-2 font-bold text-white"
-        >
-          Redo
-        </button>
-        <hr />
-        <div>
-        </div>
-        <hr />
+          <hr />
+          <button
+            onClick={undo}
+            className={`m-1 items-center rounded-full px-4 py-2 font-bold text-white ${undoable ? "bg-sky-500 hover:bg-sky-700" : "bg-sky-200"}`}
+          >
+            Undo
+          </button>
+          <button
+            onClick={redo}
+            className={`m-1 items-center rounded-full px-4 py-2 font-bold text-white ${redoable ? "bg-sky-500 hover:bg-sky-700" : "bg-sky-200"}`}
+          >
+            Redo
+          </button>
+          <hr />
+          <div></div>
+          <hr />
         </aside>
         <main className="flex-1">
           <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
@@ -111,7 +112,6 @@ const GUI: FC = () => {
                 nodeData={node}
                 nearestData={nearestData}
                 onUpdatePosition={(pos) => updateNodePosition(index, pos)}
-
                 onSavePosition={saveNodePosition}
                 onNewEdgeStart={newEdgeStartEvent}
                 onNewEdge={newEdgeEvent}

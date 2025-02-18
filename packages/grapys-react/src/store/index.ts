@@ -113,7 +113,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     );
   },
 
-    // history api
+  // history api
   undoable: () => {
     return get().index > 1;
   },
@@ -124,7 +124,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       set((state) => ({
         currentData: histories[index - 2].data,
         index: index - 1,
-      }))
+      }));
     }
   },
   redoable: () => {
@@ -138,10 +138,9 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       set((state) => ({
         currentData: histories[index].data,
         index: index + 1,
-      }))
+      }));
     }
-  }
-  
+  },
 }));
 
 export const node2Record = (nodes: GUINodeData[]) => {

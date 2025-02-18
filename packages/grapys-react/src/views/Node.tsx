@@ -1,5 +1,10 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
+import type {
+  GUINodeData,
+  GUINearestData,
+  NewEdgeEventDirection,
+  UpdateStaticValue,
+} from "../utils/gui/type";
 import { getClientPos } from "../utils/gui/utils";
 import {
   nodeMainClass,
@@ -7,7 +12,6 @@ import {
   nodeOutputClass,
   nodeInputClass,
 } from "../utils/gui/classUtils";
-
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
 import { useLocalStore } from "../store/index";
@@ -186,13 +190,16 @@ const Node: React.FC<NodeProps> = ({
   }, [isNewEdge, onMoveEdge, onEndEdge]);
 
   const expectNearNode = nodeData.nodeId === nearestData?.nodeId;
-  const isExpectNearButton = (direction: NewEdgeEventDirection, index: number) => {
+  const isExpectNearButton = (
+    direction: NewEdgeEventDirection,
+    index: number,
+  ) => {
     if (!expectNearNode) {
       return false;
     }
     return nearestData?.direction === direction && nearestData?.index === index;
   };
-  
+
   const [currentWidth, setCurrentWidth] = useState(0);
   const [currentHeight, setCurrentHeight] = useState(0);
   const onFocus = () => {
@@ -252,7 +259,7 @@ const Node: React.FC<NodeProps> = ({
               {output.name}
             </span>
             <div
-          className={`absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeOutputClass(isExpectNearButton('inbound', index), nodeData)}`}
+              className={`absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeOutputClass(isExpectNearButton("inbound", index), nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "outbound", index)}
             ></div>
           </div>
@@ -267,7 +274,7 @@ const Node: React.FC<NodeProps> = ({
             ref={(el) => (inputsRef.current[index] = el!)}
           >
             <div
-              className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full  ${nodeInputClass(isExpectNearButton('outbound', index), nodeData)}`}
+              className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full  ${nodeInputClass(isExpectNearButton("outbound", index), nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "inbound", index)}
             ></div>
             <span className="ml-2 text-xs whitespace-nowrap">{input.name}</span>
