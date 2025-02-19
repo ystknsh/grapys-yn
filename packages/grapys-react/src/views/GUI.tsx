@@ -5,7 +5,7 @@ import Edge from "./Edge";
 import Loop from "./Loop";
 
 import AddNode from "./AddNode";
-// import ContextEdgeMenu from "./ContextEdgeMenu.vue";
+import ContextEdgeMenu from "./ContextEdgeMenu";
 import ContextNodeMenu from "./ContextNodeMenu";
 
 // import GraphRunner from "./GraphRunner.vue";
@@ -32,6 +32,7 @@ const GUI: FC = () => {
   const redoable = useLocalStore((state) => state.redoable());
 
   const contextNodeMenuRef = useRef<{ openMenu: (event: MouseEvent, rect: DOMRect, nodeIndex: number) => void; closeMenu: () => void } | null>(null);
+  const contextEdgeMenuRef = useRef<{ openMenu: (event: MouseEvent, rect: DOMRect, edgeIndex: number) => void; closeMenu: () => void } | null>(null);
 
   const resetGraph = useLocalStore((state) => state.reset);
 
@@ -50,8 +51,15 @@ const GUI: FC = () => {
 
   const { svgRef, newEdgeData, newEdgeStartEvent, newEdgeEvent, newEdgeEndEvent, nearestData, edgeConnectable } = useNewEdge();
 
+  const openEdgeMenu = (event: MouseEvent, edgeIndex: number) => {
+    if (svgRef.current) {
+      const rect = svgRef.current.getBoundingClientRect();
+      contextEdgeMenuRef.current?.openMenu(event.nativeEvent, rect, edgeIndex);
+    }
+  };
   const closeMenu = () => {
     contextNodeMenuRef.current?.closeMenu();
+    contextEdgeMenuRef.current?.closeMenu();
   };
 
   const openNodeMenu = (event: React.MouseEvent, nodeIndex: number) => {
@@ -91,14 +99,15 @@ const GUI: FC = () => {
         <main className="flex-1">
           <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
             <Loop />
-            <svg x="0" y="0" className="pointer-events-none absolute h-[100%] w-full" ref={svgRef}>
+            <svg x="0" y="0" className="absolute h-[100%] w-full" ref={svgRef}>
               {edgeDataList.map((edge, index) => (
                 <Edge
                   key={`edge-${edge.source}-${edge.target}-${index}`}
                   sourceData={edge.source}
                   targetData={edge.target}
                   className="pointer-events-auto"
-                  onDoubleClick={(e) => openEdgeMenu(e, index)}
+                  index="index"
+                  openEdgeMenu={openEdgeMenu}
                 />
               ))}
               {newEdgeData && (
@@ -120,6 +129,7 @@ const GUI: FC = () => {
               />
             ))}
             <ContextNodeMenu ref={contextNodeMenuRef} />
+            <ContextEdgeMenu ref={contextEdgeMenuRef} />
           </div>
           <pre>{JSON.stringify(nodes, null, 2)}</pre>
         </main>

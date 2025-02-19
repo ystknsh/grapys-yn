@@ -1,24 +1,12 @@
 import React, { useState, useMemo } from "react";
-
-interface PositionData {
-  x: number;
-  y: number;
-  width?: number;
-  outputCenters?: number[];
-  inputCenters?: number[];
-}
-
-interface EdgeData {
-  index?: number;
-  data: {
-    position: PositionData;
-  };
-}
+import { EdgeData2 } from "../utils/gui/type";
 
 interface EdgeProps {
-  sourceData: EdgeData;
-  targetData: EdgeData;
+  sourceData: EdgeData2;
+  targetData: EdgeData2;
   isConnectable?: boolean;
+  index: number;
+  openEdgeMenu: (event: MouseEvent, edgeIndex: number) => void;
 }
 
 const colors = {
@@ -27,18 +15,16 @@ const colors = {
   notConnectable: "pink",
 };
 
-const Edge: React.FC<EdgeProps> = ({ sourceData, targetData, isConnectable = true }) => {
+const Edge: React.FC<EdgeProps> = ({ sourceData, targetData, isConnectable = true, index, openEdgeMenu }) => {
   const [isHover, setIsHover] = useState(false);
 
   const edgePath = useMemo(() => {
-    // console.log( sourceData, targetData)
     const { x, y: y1, width, outputCenters } = sourceData?.data?.position ?? {};
     const x1 = x + (width ?? 0);
     const { index } = sourceData;
     const { x: x2, y: y2, inputCenters } = targetData?.data?.position ?? {};
     const { index: index2 } = targetData;
 
-    // console.log({index, outputCenters});
     const y1Offset = index !== undefined && outputCenters && outputCenters.length >= index ? outputCenters[index] : 0;
     const y2Offset = index2 !== undefined && inputCenters && inputCenters.length >= index2 ? inputCenters[index2] : 0;
 
@@ -63,6 +49,7 @@ const Edge: React.FC<EdgeProps> = ({ sourceData, targetData, isConnectable = tru
       stroke={isConnectable ? (isHover ? colors.hover : colors.edge) : colors.notConnectable}
       fill="none"
       strokeWidth={isHover ? 4 : 2}
+      onDoubleClick={(e) => openEdgeMenu(e, index)}
       onMouseOver={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     />
