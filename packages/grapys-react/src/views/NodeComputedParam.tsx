@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 
-const NodeComputedParam = ({ param, appData, nodeIndex, onFocus, onBlur, updateValue }) => {
-  const [inputValue, setInputValue] = useState(appData.params?.[param.name] ?? ""); // 初期値を空文字に
+interface NodeComputedParamProps {
+  param: ParamType;
+  appData: ApplicationData;
+  nodeIndex: number;
+  onFocus: () => void;
+  onBlur: () => void;
+  updateValue: (value: any) => void;
+}
+
+const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, nodeIndex, onFocus, onBlur, updateValue }) => {
+  const [inputValue, setInputValue] = useState(appData.params?.[param.name] ?? "");
   const [booleanValue, setBooleanValue] = useState(appData.params?.[param.name] === true ? "true" : "false");
   const [textAreaValue, setTextAreaValue] = useState(String(appData.params?.[param.name] ?? ""));
   const [rows, setRows] = useState(3);
@@ -13,7 +22,7 @@ const NodeComputedParam = ({ param, appData, nodeIndex, onFocus, onBlur, updateV
   useEffect(() => {
     const updateValue = appData.params?.[param.name];
 
-    if (updateValue === undefined || updateValue === null) return; // undefined/null の場合は更新しない
+    if (updateValue === undefined || updateValue === null) return;
 
     switch (param.type) {
       case "text":
@@ -23,7 +32,7 @@ const NodeComputedParam = ({ param, appData, nodeIndex, onFocus, onBlur, updateV
       case "string":
       case "int":
       case "float":
-        setInputValue(String(updateValue ?? "")); // 空文字をデフォルト値に
+        setInputValue(String(updateValue ?? ""));
         break;
       case "boolean":
         setBooleanValue(updateValue ? "true" : "false");

@@ -1,8 +1,16 @@
 import React from "react";
 import NodeComputedParam from "./NodeComputedParam";
 import { agentProfiles } from "../utils/gui/data";
+import type { GUINodeData } from "../utils/gui/type";
 
-const NodeComputedParams = ({ nodeData, nodeIndex, onFocus, onBlur }) => {
+interface NodeComputedParamsProps {
+  nodeData: GUINodeData;
+  nodeIndex: number;
+  onFocus: () => void;
+  onBlur: () => void;
+}
+
+const NodeComputedParams: React.FC<NodeComputedParamsProps> = ({ nodeData, nodeIndex, onFocus, onBlur }) => {
   const profile = agentProfiles[nodeData.data.guiAgentId ?? ""];
   const params = profile?.params ?? [];
 

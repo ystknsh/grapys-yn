@@ -182,17 +182,21 @@ const Node: React.FC<NodeProps> = ({
   const [currentWidth, setCurrentWidth] = useState(0);
   const [currentHeight, setCurrentHeight] = useState(0);
   const onFocus = () => {
-    setCurrentWidth(thisRef.current.offsetWidth);
-    setCurrentHeight(thisRef.current.offsetHeight);
-    thisRef.current.style.width = thisRef.current.offsetWidth * 3 + "px";
-    thisRef.current.style.height = thisRef.current.offsetHeight * 3 + "px";
-    thisRef.current.style.zIndex = 100;
+    if (thisRef.current) {
+      setCurrentWidth(thisRef.current.offsetWidth);
+      setCurrentHeight(thisRef.current.offsetHeight);
+      thisRef.current.style.width = thisRef.current.offsetWidth * 3 + "px";
+      thisRef.current.style.height = thisRef.current.offsetHeight * 3 + "px";
+      thisRef.current.style.zIndex = 100;
+    }
     onUpdatePosition(getWH());
   };
   const onBlur = () => {
-    thisRef.current.style.width = currentWidth + "px";
-    thisRef.current.style.height = currentHeight + "px";
-    thisRef.current.style.zIndex = 1;
+    if (thisRef.current) {
+      thisRef.current.style.width = currentWidth + "px";
+      thisRef.current.style.height = currentHeight + "px";
+      thisRef.current.style.zIndex = 1;
+    }
     onUpdatePosition(getWH());
   };
   const onUpdateValue = (value: UpdateStaticValue) => {

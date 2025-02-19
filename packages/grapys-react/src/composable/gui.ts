@@ -19,18 +19,19 @@ export const useNewEdge = () => {
 
   const newEdgeStartEvent = useCallback(
     (data: NewEdgeEventData) => {
-      setTargetNode(data.nodeId);
-      const { mousePosition, startEdgeData } = edgeStartEventData(data, svgRef.current, nodeRecords[data.nodeId]);
-      setMouseCurrentPosition(mousePosition);
-      setNewEdgeData(startEdgeData);
+      if (svgRef.current) {
+        setTargetNode(data.nodeId);
+        const { mousePosition, startEdgeData } = edgeStartEventData(data, svgRef.current, nodeRecords[data.nodeId]);
+        setMouseCurrentPosition(mousePosition);
+        setNewEdgeData(startEdgeData);
+      }
     },
     [nodeRecords],
   );
 
   const newEdgeEvent = useCallback(
     (data: NewEdgeEventData) => {
-      console.log("FFFF");
-      if (newEdgeData) {
+      if (newEdgeData && svgRef.current) {
         const { mousePosition, updateEdgeData } = edgeUpdateEventData(data, svgRef.current, newEdgeData);
         setMouseCurrentPosition(mousePosition);
         setNewEdgeData(updateEdgeData);

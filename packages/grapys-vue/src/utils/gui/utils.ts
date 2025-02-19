@@ -306,7 +306,7 @@ export const guiEdgeData2edgeData = (guiEdges: GUIEdgeData[], nodeRecords: GUINo
   });
 };
 
-export const edgeStartEventData = (data: NewEdgeEventData, parentElement: HTMLElement, nodeData: GUINodeData) => {
+export const edgeStartEventData = (data: NewEdgeEventData, parentElement: HTMLElement | SVGSVGElement, nodeData: GUINodeData) => {
   // Since x and y are clientX and clientY, adjust the height by the header.
   // If there is a horizontal menu, you will need to adjust x.
   const rect = parentElement.getBoundingClientRect();
@@ -341,7 +341,7 @@ export const edgeStartEventData = (data: NewEdgeEventData, parentElement: HTMLEl
   };
 };
 
-export const edgeUpdateEventData = (data: NewEdgeEventData, parentElement: HTMLElement, prevEdgeData: NewEdgeData) => {
+export const edgeUpdateEventData = (data: NewEdgeEventData, parentElement: HTMLElement | SVGSVGElement, prevEdgeData: NewEdgeData) => {
   const rect = parentElement.getBoundingClientRect();
   const mousePosition = { x: data.x - rect.left, y: data.y - rect.top };
 
@@ -474,7 +474,7 @@ export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeD
   return true;
 };
 
-export const convEdgePath = (soureIndex: number, sourcePosition: NodePositionData, targetIndex: number, targetPosition: NodePositionData) => {
+export const convEdgePath = (soureIndex?: number, sourcePosition: NodePositionData, targetIndex?: number, targetPosition: NodePositionData) => {
   const { x, y: y1, width, outputCenters } = sourcePosition;
   const x1 = x + (width ?? 0);
   const { x: x2, y: y2, inputCenters } = targetPosition;
