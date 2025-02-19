@@ -24,7 +24,6 @@ const NodeComputedParams: React.FC<NodeComputedParamsProps> = ({ nodeData, nodeI
           appData={nodeData.data}
           onFocus={onFocus}
           onBlur={onBlur}
-          updateValue={(index, name, value) => console.log(`Update: ${index}, ${name}, ${value}`)}
         />
       ))}
     </div>
