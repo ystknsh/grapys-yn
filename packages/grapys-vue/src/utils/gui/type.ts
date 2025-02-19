@@ -80,13 +80,7 @@ export type GUINearestData = {
 
 type NewEdgeMouseData = {
   data: {
-    position: {
-      x: number;
-      y: number;
-      width?: number;
-      outputCenters?: number[];
-      inputCenters?: number[];
-    };
+    position: NodePositionData;
   };
   index?: number; // index and width, outputCenters, inputCenters never exists. for data type compatibility.
 };

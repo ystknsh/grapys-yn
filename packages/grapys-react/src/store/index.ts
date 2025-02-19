@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GUINodeData, GUIEdgeData, GUINodeDataRecord, UpdateStaticValue, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
+import { GUINodeData, GUIEdgeData, GUINodeDataRecord, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
 
 export interface LocalState {
   histories: HistoryData[];
@@ -133,7 +133,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
   undo: () => {
     const { index, histories } = get();
     if (get().index > 1) {
-      set((state) => ({
+      set(() => ({
         currentData: histories[index - 2].data,
         index: index - 1,
       }));
@@ -147,7 +147,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
   redo: () => {
     const { index, histories } = get();
     if (index < histories.length) {
-      set((state) => ({
+      set(() => ({
         currentData: histories[index].data,
         index: index + 1,
       }));

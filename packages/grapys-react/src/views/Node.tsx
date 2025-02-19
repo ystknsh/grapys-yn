@@ -4,7 +4,7 @@ import { getClientPos } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
-import { useLocalStore } from "../store/index";
+// import { useLocalStore } from "../store/index";
 
 import NodeStaticValue from "./NodeStaticValue";
 import NodeComputedParams from "./NodeComputedParams";
@@ -42,7 +42,7 @@ const Node: React.FC<NodeProps> = ({
   const startPosition = useRef({ x: 0, y: 0 });
   const distanceMoved = useRef(0);
 
-  const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
+  // const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
 
   const transformStyle = {
     transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
@@ -199,10 +199,10 @@ const Node: React.FC<NodeProps> = ({
     console.log(value);
     // TODO
   };
-  const openNodeMenu = (event: MouseEvent) => {
-    // TODO
-    // ctx.emit("openNodeMenu", event);
-  };
+  //const openNodeMenu = (event: MouseEvent) => {
+  // TODO
+  // ctx.emit("openNodeMenu", event);
+  // };
 
   return (
     <div

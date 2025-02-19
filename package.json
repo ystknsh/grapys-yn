@@ -5,7 +5,7 @@
   "scripts": {
     "test": "yarn workspaces run test",
     "build": "yarn workspaces run build",
-    "eslint": "yarn workspaces run eslint",
+    "lint": "yarn workspaces run lint",
     "format": "yarn workspaces run format"
   },
   "private": true,

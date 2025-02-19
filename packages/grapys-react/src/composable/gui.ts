@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, useCallback, useContext } from "react";
+import { useRef, useState, useMemo, useCallback } from "react";
 import { useLocalStore, node2Record } from "../store/index";
 import { Position, NewEdgeEventData, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
 import { edgeStartEventData, edgeUpdateEventData, edgeEndEventData, pickNearestNode, pickNearestConnect, isEdgeConnectale } from "../utils/gui/utils";

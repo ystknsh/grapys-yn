@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, componentDidMount, useRef } from "react";
+import { FC, useEffect, useMemo, useRef } from "react";
 
 import Node from "./Node";
 import Edge from "./Edge";
@@ -11,7 +11,7 @@ import ContextNodeMenu from "./ContextNodeMenu";
 // import GraphRunner from "./GraphRunner.vue";
 // import TemplateGraph from "./TemplateGraph.vue";
 
-import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
+// import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
 import { graphChat } from "../graph/chat_tinyswallow";
 
@@ -57,10 +57,12 @@ const GUI: FC = () => {
       contextEdgeMenuRef.current?.openMenu(event.nativeEvent, rect, edgeIndex);
     }
   };
+  /*
   const closeMenu = () => {
     contextNodeMenuRef.current?.closeMenu();
     contextEdgeMenuRef.current?.closeMenu();
   };
+  */
 
   const openNodeMenu = (event: React.MouseEvent, nodeIndex: number) => {
     if (svgRef.current) {
