@@ -8,8 +8,8 @@ const options = [
 ];
 
 const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
-  const textareaRef = useRef(null);
-  const inputRef = useRef(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const selectFormRef = useRef(null);
 
   const [dataType, setDataType] = useState(nodeData.data.staticNodeType ?? "text");
@@ -32,14 +32,14 @@ const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
     return true;
   };
 
-  const handleFocus = (event) => {
+  const handleFocus = (event: FocusEvent) => {
     if (event.target instanceof HTMLTextAreaElement) {
       onFocus && onFocus();
       setRows(10);
     }
   };
 
-  const handleBlur = (event) => {
+  const handleBlur = (event: FocusEvent) => {
     if (event.target instanceof HTMLTextAreaElement) {
       setRows(3);
       onBlur && onBlur();

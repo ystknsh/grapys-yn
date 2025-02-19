@@ -5,6 +5,10 @@ export interface LocalState {
   histories: HistoryData[];
   currentData: HistoryPayload;
   index: number;
+  nodes: () => GUINodeData[];
+  edges: () => GUIEdgeData[];
+  loop: () => LoopData;
+  reset: () => void;
 }
 
 export const useLocalStore = create<LocalState>((set, get) => ({

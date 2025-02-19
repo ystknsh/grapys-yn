@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const NodeComputedParam = ({ param, appData, nodeIndex, onFocus, onBlur, updateValue }) => {
   const [inputValue, setInputValue] = useState(appData.params?.[param.name] ?? ""); // 初期値を空文字に
