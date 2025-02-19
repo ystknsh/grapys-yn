@@ -1,13 +1,5 @@
 import { create } from "zustand";
-import {
-  GUINodeData,
-  GUIEdgeData,
-  GUINodeDataRecord,
-  UpdateStaticValue,
-  HistoryData,
-  HistoryPayload,
-  LoopData,
-} from "../utils/gui/type";
+import { GUINodeData, GUIEdgeData, GUINodeDataRecord, UpdateStaticValue, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
 
 export interface LocalState {
   histories: HistoryData[];
@@ -44,29 +36,17 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       index: 0,
     })),
 
-  initData: (
-    nodeData: GUINodeData[],
-    edgeData: GUIEdgeData[],
-    loopData: LoopData,
-  ) =>
+  initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: LoopData) =>
     set(() => ({
       currentData: { nodes: nodeData, edges: edgeData, loop: loopData },
     })),
 
   pushNode: (nodeData: GUINodeData) => {
     const { updateData, currentData } = get();
-    updateData(
-      [...currentData.nodes, nodeData],
-      [...currentData.edges],
-      "addNode",
-      true,
-    );
+    updateData([...currentData.nodes, nodeData], [...currentData.edges], "addNode", true);
   },
 
-  updateNodePosition: (
-    positionIndex: number,
-    pos: { x: number; y: number; width: number; height: number },
-  ) => {
+  updateNodePosition: (positionIndex: number, pos: { x: number; y: number; width: number; height: number }) => {
     set((state) => {
       const newNodes = [...state.currentData.nodes];
 
@@ -79,12 +59,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     });
   },
 
-  updateData: (
-    nodeData: GUINodeData[],
-    edgeData: GUIEdgeData[],
-    name: string,
-    saveHistory: boolean,
-  ) =>
+  updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) =>
     set((state) => {
       const newData = {
         nodes: nodeData,
@@ -101,10 +76,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
 
   pushDataToHistory: (name: string, data: HistoryPayload) =>
     set((state) => {
-      const newHistories = [
-        ...state.histories.slice(0, state.index),
-        { data, name },
-      ];
+      const newHistories = [...state.histories.slice(0, state.index), { data, name }];
       return {
         histories: newHistories,
         index: state.index + 1,
@@ -130,12 +102,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
 
   pushEdge: (edgeData: GUIEdgeData) => {
     const { currentData, updateData } = get();
-    updateData(
-      [...currentData.nodes],
-      [...currentData.edges, edgeData],
-      "addEdge",
-      true,
-    );
+    updateData([...currentData.nodes], [...currentData.edges, edgeData], "addEdge", true);
   },
 
   // history api

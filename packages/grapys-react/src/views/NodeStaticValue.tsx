@@ -12,17 +12,11 @@ const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
   const inputRef = useRef(null);
   const selectFormRef = useRef(null);
 
-  const [dataType, setDataType] = useState(
-    nodeData.data.staticNodeType ?? "text",
-  );
-  const [numberValue, setNumberValue] = useState(
-    nodeData.data.staticNodeType ?? "",
-  );
+  const [dataType, setDataType] = useState(nodeData.data.staticNodeType ?? "text");
+  const [numberValue, setNumberValue] = useState(nodeData.data.staticNodeType ?? "");
   const [booleanValue, setBooleanValue] = useState("true");
   const [textAreaValue, setTextAreaValue] = useState(
-    nodeData.data.staticNodeType === "data"
-      ? JSON.stringify(nodeData.data.value, null, 2)
-      : (nodeData.data.value ?? ""),
+    nodeData.data.staticNodeType === "data" ? JSON.stringify(nodeData.data.value, null, 2) : (nodeData.data.value ?? ""),
   );
   const [rows, setRows] = useState(3);
 
@@ -49,18 +43,14 @@ const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
     if (event.target instanceof HTMLTextAreaElement) {
       setRows(3);
       onBlur && onBlur();
-      const value =
-        dataType === "data" && isValidData()
-          ? JSON.parse(textAreaValue)
-          : textAreaValue;
+      const value = dataType === "data" && isValidData() ? JSON.parse(textAreaValue) : textAreaValue;
       onUpdateValue && onUpdateValue({ value, staticNodeType: "text" });
     }
   };
 
   const handleNumberBlur = () => {
     if (dataType === "number") {
-      onUpdateValue &&
-        onUpdateValue({ value: Number(numberValue), staticNodeType: dataType });
+      onUpdateValue && onUpdateValue({ value: Number(numberValue), staticNodeType: dataType });
     }
   };
 
@@ -94,11 +84,7 @@ const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
   return (
     <div>
       <label className="text-xs text-gray-300">Value</label>
-      <select
-        value={dataType}
-        onChange={(e) => setDataType(e.target.value)}
-        className="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
-      >
+      <select value={dataType} onChange={(e) => setDataType(e.target.value)} className="w-full resize-none rounded-md border border-gray-300 p-1 text-black">
         {options.map((option, k) => (
           <option key={k} value={option.value}>
             {option.name}
@@ -115,9 +101,7 @@ const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
             ref={textareaRef}
             rows={rows}
           />
-          {dataType === "data" && (
-            <div>{isValidData() ? "valid" : "invalid"}</div>
-          )}
+          {dataType === "data" && <div>{isValidData() ? "valid" : "invalid"}</div>}
         </div>
       )}
       {dataType === "number" && (
@@ -130,12 +114,7 @@ const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
         />
       )}
       {dataType === "boolean" && (
-        <select
-          value={booleanValue}
-          onChange={(e) => setBooleanValue(e.target.value)}
-          ref={selectFormRef}
-          onBlur={handleBooleanChange}
-        >
+        <select value={booleanValue} onChange={(e) => setBooleanValue(e.target.value)} ref={selectFormRef} onBlur={handleBooleanChange}>
           <option value="true">True</option>
           <option value="false">False</option>
         </select>

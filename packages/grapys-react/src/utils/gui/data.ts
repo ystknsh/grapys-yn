@@ -23,11 +23,7 @@ const llmAgentProfile = {
     { name: "prompt", type: "string" },
     { name: "model", type: "string" },
   ],
-  outputs: [
-    { name: "message" },
-    { name: "messages" },
-    { name: "text", type: "string" },
-  ],
+  outputs: [{ name: "message" }, { name: "messages" }, { name: "text", type: "string" }],
   params: [
     { name: "system", type: "text" },
     { name: "prompt", type: "text" },

@@ -51,16 +51,10 @@ const AddNode = () => {
           type="text"
           value={nodeId}
           onChange={(e) => setNodeId(e.target.value)}
-          className={`w-full rounded-md border-2 border-gray-300 p-1 text-black ${
-            isError ? "border-red-600" : ""
-          }`}
+          className={`w-full rounded-md border-2 border-gray-300 p-1 text-black ${isError ? "border-red-600" : ""}`}
         />
       </div>
-      <select
-        className="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black"
-        value={agent}
-        onChange={(e) => setAgent(e.target.value)}
-      >
+      <select className="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" value={agent} onChange={(e) => setAgent(e.target.value)}>
         <option>StaticNode</option>
         {nodesKey.map((agentName, index) => (
           <option key={index} value={agentName}>
@@ -69,10 +63,7 @@ const AddNode = () => {
         ))}
       </select>
       <div>
-        <button
-          onClick={addNode}
-          className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700"
-        >
+        <button onClick={addNode} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">
           Add node
         </button>
       </div>

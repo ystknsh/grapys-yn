@@ -1,17 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type {
-  GUINodeData,
-  GUINearestData,
-  NewEdgeEventDirection,
-  UpdateStaticValue,
-} from "../utils/gui/type";
+import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
 import { getClientPos } from "../utils/gui/utils";
-import {
-  nodeMainClass,
-  nodeHeaderClass,
-  nodeOutputClass,
-  nodeInputClass,
-} from "../utils/gui/classUtils";
+import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
 import { useLocalStore } from "../store/index";
@@ -41,10 +31,7 @@ const Node: React.FC<NodeProps> = ({
   onNewEdgeEnd,
   onOpenNodeMenu,
 }) => {
-  const agentParams =
-    nodeData.type === "computed"
-      ? agentProfiles[nodeData.data.guiAgentId ?? ""]
-      : staticNodeParams;
+  const agentParams = nodeData.type === "computed" ? agentProfiles[nodeData.data.guiAgentId ?? ""] : staticNodeParams;
 
   const thisRef = useRef<HTMLDivElement>(null);
   const inputsRef = useRef<HTMLDivElement[]>([]);
@@ -110,8 +97,7 @@ const Node: React.FC<NodeProps> = ({
       const x = clientX - offset.x;
       const y = clientY - offset.y;
       onUpdatePosition({ ...getWH(), x, y });
-      distanceMoved.current =
-        (startPosition.current.x - x) ** 2 + (startPosition.current.y - y) ** 2;
+      distanceMoved.current = (startPosition.current.x - x) ** 2 + (startPosition.current.y - y) ** 2;
     },
     [isDragging, offset, onUpdatePosition],
   );
@@ -126,11 +112,7 @@ const Node: React.FC<NodeProps> = ({
   const edgeIO = agentParams;
 
   const onStartEdge = useCallback(
-    (
-      event: React.MouseEvent | React.TouchEvent,
-      direction: string,
-      index: number,
-    ) => {
+    (event: React.MouseEvent | React.TouchEvent, direction: string, index: number) => {
       event.stopPropagation();
       setIsNewEdge(true);
       const { clientX, clientY } = getClientPos(event);
@@ -190,10 +172,7 @@ const Node: React.FC<NodeProps> = ({
   }, [isNewEdge, onMoveEdge, onEndEdge]);
 
   const expectNearNode = nodeData.nodeId === nearestData?.nodeId;
-  const isExpectNearButton = (
-    direction: NewEdgeEventDirection,
-    index: number,
-  ) => {
+  const isExpectNearButton = (direction: NewEdgeEventDirection, index: number) => {
     if (!expectNearNode) {
       return false;
     }
@@ -234,15 +213,9 @@ const Node: React.FC<NodeProps> = ({
       onTouchStart={onStartNode}
     >
       <div onDoubleClick={onOpenNodeMenu}>
-        <div
-          className={`w-full rounded-t-md py-1 text-center leading-none ${nodeHeaderClass(expectNearNode, nodeData)}`}
-        >
-          {nodeData.nodeId}
-        </div>
+        <div className={`w-full rounded-t-md py-1 text-center leading-none ${nodeHeaderClass(expectNearNode, nodeData)}`}>{nodeData.nodeId}</div>
         {nodeData.type === "computed" && (
-          <div
-            className={`w-full py-1 text-center text-xs leading-none ${nodeHeaderClass(expectNearNode, nodeData)}`}
-          >
+          <div className={`w-full py-1 text-center text-xs leading-none ${nodeHeaderClass(expectNearNode, nodeData)}`}>
             {nodeData.data.guiAgentId?.replace(/Agent$/, "")}
           </div>
         )}
@@ -250,14 +223,8 @@ const Node: React.FC<NodeProps> = ({
 
       <div className="mt-1 flex flex-col items-end">
         {(edgeIO.outputs ?? []).map((output: any, index: number) => (
-          <div
-            key={`out-${output.name}-${index}`}
-            className="relative flex items-center"
-            ref={(el) => (outputsRef.current[index] = el!)}
-          >
-            <span className="mr-2 text-xs whitespace-nowrap">
-              {output.name}
-            </span>
+          <div key={`out-${output.name}-${index}`} className="relative flex items-center" ref={(el) => (outputsRef.current[index] = el!)}>
+            <span className="mr-2 text-xs whitespace-nowrap">{output.name}</span>
             <div
               className={`absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeOutputClass(isExpectNearButton("inbound", index), nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "outbound", index)}
@@ -268,13 +235,9 @@ const Node: React.FC<NodeProps> = ({
 
       <div className="mt-1 mb-1 flex flex-col items-start">
         {(edgeIO.inputs ?? []).map((input: any, index: number) => (
-          <div
-            key={`in-${input.name}-${index}`}
-            className="relative flex items-center"
-            ref={(el) => (inputsRef.current[index] = el!)}
-          >
+          <div key={`in-${input.name}-${index}`} className="relative flex items-center" ref={(el) => (inputsRef.current[index] = el!)}>
             <div
-              className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full  ${nodeInputClass(isExpectNearButton("outbound", index), nodeData)}`}
+              className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeInputClass(isExpectNearButton("outbound", index), nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "inbound", index)}
             ></div>
             <span className="ml-2 text-xs whitespace-nowrap">{input.name}</span>
@@ -284,22 +247,12 @@ const Node: React.FC<NodeProps> = ({
 
       {nodeData.type === "static" && (
         <div className="flex w-full flex-col gap-1 p-2">
-          <NodeStaticValue
-            nodeData={nodeData}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            onUpdateValue={onUpdateValue}
-          />
+          <NodeStaticValue nodeData={nodeData} onFocus={onFocus} onBlur={onBlur} onUpdateValue={onUpdateValue} />
         </div>
       )}
       {nodeData.type === "computed" && (
         <div className="flex w-full flex-col gap-1 p-2">
-          <NodeComputedParams
-            nodeData={nodeData}
-            nodeIndex={nodeIndex}
-            onFocus={onFocus}
-            onBlur={onBlur}
-          />
+          <NodeComputedParams nodeData={nodeData} nodeIndex={nodeIndex} onFocus={onFocus} onBlur={onBlur} />
         </div>
       )}
     </div>

@@ -24,10 +24,7 @@ const GUI: FC = () => {
   const nodes = useLocalStore((state) => state.nodes());
   const edges = useLocalStore((state) => state.edges());
   const nodeRecords = useMemo(() => node2Record(nodes), [nodes]);
-  const edgeDataList = useMemo(
-    () => guiEdgeData2edgeData(edges, nodeRecords),
-    [edges, nodeRecords],
-  );
+  const edgeDataList = useMemo(() => guiEdgeData2edgeData(edges, nodeRecords), [edges, nodeRecords]);
 
   const undo = useLocalStore((state) => state.undo);
   const redo = useLocalStore((state) => state.redo);
@@ -49,15 +46,7 @@ const GUI: FC = () => {
     saveNodePosition();
   }, []);
 
-  const {
-    svgRef,
-    newEdgeData,
-    newEdgeStartEvent,
-    newEdgeEvent,
-    newEdgeEndEvent,
-    nearestData,
-    edgeConnectable,
-  } = useNewEdge();
+  const { svgRef, newEdgeData, newEdgeStartEvent, newEdgeEvent, newEdgeEndEvent, nearestData, edgeConnectable } = useNewEdge();
 
   return (
     <div>
@@ -80,10 +69,7 @@ const GUI: FC = () => {
           </button>
           <hr />
           <div>
-            <button
-              onClick={resetGraph}
-              className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white"
-            >
+            <button onClick={resetGraph} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
               Clear Graph
             </button>
           </div>
@@ -92,12 +78,7 @@ const GUI: FC = () => {
         <main className="flex-1">
           <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
             <Loop />
-            <svg
-              x="0"
-              y="0"
-              className="pointer-events-none absolute h-[100%] w-full"
-              ref={svgRef}
-            >
+            <svg x="0" y="0" className="pointer-events-none absolute h-[100%] w-full" ref={svgRef}>
               {edgeDataList.map((edge, index) => (
                 <Edge
                   key={`edge-${edge.source}-${edge.target}-${index}`}
@@ -108,12 +89,7 @@ const GUI: FC = () => {
                 />
               ))}
               {newEdgeData && (
-                <Edge
-                  sourceData={newEdgeData.source}
-                  targetData={newEdgeData.target}
-                  className="pointer-events-auto"
-                  isConnectable={edgeConnectable}
-                />
+                <Edge sourceData={newEdgeData.source} targetData={newEdgeData.target} className="pointer-events-auto" isConnectable={edgeConnectable} />
               )}{" "}
             </svg>
             {nodes.map((node, index) => (

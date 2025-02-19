@@ -16,9 +16,7 @@ const NodeComputedParams = ({ nodeData, nodeIndex, onFocus, onBlur }) => {
           appData={nodeData.data}
           onFocus={onFocus}
           onBlur={onBlur}
-          updateValue={(index, name, value) =>
-            console.log(`Update: ${index}, ${name}, ${value}`)
-          }
+          updateValue={(index, name, value) => console.log(`Update: ${index}, ${name}, ${value}`)}
         />
       ))}
     </div>

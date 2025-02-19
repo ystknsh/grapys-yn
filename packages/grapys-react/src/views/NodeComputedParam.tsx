@@ -1,22 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const NodeComputedParam = ({
-  param,
-  appData,
-  nodeIndex,
-  onFocus,
-  onBlur,
-  updateValue,
-}) => {
-  const [inputValue, setInputValue] = useState(
-    appData.params?.[param.name] ?? "",
-  ); // 初期値を空文字に
-  const [booleanValue, setBooleanValue] = useState(
-    appData.params?.[param.name] === true ? "true" : "false",
-  );
-  const [textAreaValue, setTextAreaValue] = useState(
-    String(appData.params?.[param.name] ?? ""),
-  );
+const NodeComputedParam = ({ param, appData, nodeIndex, onFocus, onBlur, updateValue }) => {
+  const [inputValue, setInputValue] = useState(appData.params?.[param.name] ?? ""); // 初期値を空文字に
+  const [booleanValue, setBooleanValue] = useState(appData.params?.[param.name] === true ? "true" : "false");
+  const [textAreaValue, setTextAreaValue] = useState(String(appData.params?.[param.name] ?? ""));
   const [rows, setRows] = useState(3);
 
   const inputRef = useRef(null);
@@ -31,11 +18,7 @@ const NodeComputedParam = ({
     switch (param.type) {
       case "text":
       case "data":
-        setTextAreaValue(
-          typeof updateValue === "object"
-            ? JSON.stringify(updateValue, null, 2)
-            : updateValue,
-        );
+        setTextAreaValue(typeof updateValue === "object" ? JSON.stringify(updateValue, null, 2) : updateValue);
         break;
       case "string":
       case "int":
