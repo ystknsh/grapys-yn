@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { GUINodeData, GUIEdgeData, GUINodeDataRecord, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
 
+
 export interface LocalState {
   histories: HistoryData[];
   currentData: HistoryPayload;
@@ -9,7 +10,21 @@ export interface LocalState {
   edges: () => GUIEdgeData[];
   loop: () => LoopData;
   reset: () => void;
-}
+  initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: LoopData) => void;
+  pushNode: (nodeData: GUINodeData) => void;
+  updateNodePosition: (positionIndex: number, pos: { x: number; y: number; width: number; height: number }) => void;
+  updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) => void;
+  pushDataToHistory: (name: string, data: HistoryPayload) => void;
+  saveNodePositionData: () => void;
+  updateLoop: (loopData: LoopData) => void;
+  pushEdge: (edgeData: GUIEdgeData) => void;
+  deleteEdge: (edgeIndex: number) => void;
+  deleteNode: (nodeIndex: number) => void;
+  undoable: () => boolean;
+  undo: () => void;
+  redoable: () => boolean;
+  redo: () => void;
+};
 
 export const useLocalStore = create<LocalState>((set, get) => ({
   histories: [],
