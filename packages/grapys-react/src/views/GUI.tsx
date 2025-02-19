@@ -90,8 +90,8 @@ const GUI: FC = () => {
           <hr />
         </aside>
         <main className="flex-1">
-      <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
-      <Loop />
+          <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
+            <Loop />
             <svg
               x="0"
               y="0"
