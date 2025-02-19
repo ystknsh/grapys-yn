@@ -142,7 +142,6 @@ export const useStore = defineStore("store", () => {
 
   const updateLoop = (loopData: LoopData) => {
     const data = { nodes: nodes.value, edges: edges.value, loop: loopData };
-    console.log(data);
     currentData.value = data;
     pushDataToHistory("loopUpdate", data);
     // console.log(loopData)

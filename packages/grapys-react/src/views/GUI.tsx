@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo, componentDidMount } from "react";
 
 import Node from "./Node";
 import Edge from "./Edge";
-//import Loop from "./Loop.vue";
+import Loop from "./Loop";
 
 import AddNode from "./AddNode";
 // import ContextEdgeMenu from "./ContextEdgeMenu.vue";
@@ -90,7 +90,8 @@ const GUI: FC = () => {
           <hr />
         </aside>
         <main className="flex-1">
-          <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
+      <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
+      <Loop />
             <svg
               x="0"
               y="0"

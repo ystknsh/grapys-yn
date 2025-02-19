@@ -32,6 +32,10 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     return get().currentData.edges;
   },
 
+  loop: () => {
+    return get().currentData.loop;
+  },
+
   reset: () =>
     set((state) => ({
       ...state,
@@ -113,6 +117,13 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       return {};
     }),
 
+  updateLoop: (loopData: LoopData) => {
+    const { currentData, pushDataToHistory } = get();
+    const data = { nodes: currentData.nodes, edges: currentData.edges, loop: loopData };
+    pushDataToHistory("loopUpdate", data);
+    set({ currentData: data });
+  },
+  
   pushEdge: (edgeData: GUIEdgeData) => {
     const { currentData, updateData } = get();
     updateData(
