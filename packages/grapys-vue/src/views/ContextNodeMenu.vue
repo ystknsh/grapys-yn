@@ -18,12 +18,12 @@ export default defineComponent({
     const contextMenu = ref();
 
     const store = useStore();
-    const selectedEdgeIndex = ref(0);
+    const selectedNodeIndex = ref(0);
 
-    const openMenu = (event: MouseEvent | TouchEvent, topOffset: number, edgeIndex: number) => {
+    const openMenu = (event: MouseEvent | TouchEvent, rect: DOMRect, nodeIndex: number) => {
       event.preventDefault();
-      contextMenu.value.openMenu(event, topOffset);
-      selectedEdgeIndex.value = edgeIndex;
+      contextMenu.value.openMenu(event, rect);
+      selectedNodeIndex.value = nodeIndex;
     };
 
     const closeMenu = () => {
@@ -31,7 +31,7 @@ export default defineComponent({
     };
 
     const deleteNode = () => {
-      store.deleteNode(selectedEdgeIndex.value);
+      store.deleteNode(selectedNodeIndex.value);
     };
     return {
       contextMenu,

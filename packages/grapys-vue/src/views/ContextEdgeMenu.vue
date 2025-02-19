@@ -20,9 +20,9 @@ export default defineComponent({
     const store = useStore();
     const selectedEdgeIndex = ref(0);
 
-    const openMenu = (event: MouseEvent | TouchEvent, topOffset: number, edgeIndex: number) => {
+    const openMenu = (event: MouseEvent | TouchEvent, rect: DOMRect, edgeIndex: number) => {
       event.preventDefault();
-      contextMenu.value.openMenu(event, topOffset);
+      contextMenu.value.openMenu(event, rect);
       selectedEdgeIndex.value = edgeIndex;
     };
 
