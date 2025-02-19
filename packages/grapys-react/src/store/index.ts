@@ -104,6 +104,26 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     const { currentData, updateData } = get();
     updateData([...currentData.nodes], [...currentData.edges, edgeData], "addEdge", true);
   },
+  deleteEdge: (edgeIndex: number) => {
+    const { currentData, updateData } = get();
+    updateData([...currentData.nodes], [...currentData.edges.filter((__, idx) => idx !== edgeIndex)], "deleteEdge", true);
+  },
+  deleteNode: (nodeIndex: number) => {
+    const { currentData, updateData } = get();
+    console.log(currentData.nodes, nodeIndex);
+    const node = currentData.nodes[nodeIndex];
+    updateData(
+      [...currentData.nodes.filter((__, idx) => idx !== nodeIndex)],
+      [
+        ...currentData.edges.filter((edge) => {
+          const { source, target } = edge;
+          return source.nodeId !== node.nodeId && target.nodeId !== node.nodeId;
+        }),
+      ],
+      "deleteNode",
+      true,
+    );
+  },
 
   // history api
   undoable: () => {

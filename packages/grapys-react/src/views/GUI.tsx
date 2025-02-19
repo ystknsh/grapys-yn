@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, componentDidMount } from "react";
+import { FC, useEffect, useMemo, componentDidMount, useRef } from "react";
 
 import Node from "./Node";
 import Edge from "./Edge";
@@ -6,7 +6,7 @@ import Loop from "./Loop";
 
 import AddNode from "./AddNode";
 // import ContextEdgeMenu from "./ContextEdgeMenu.vue";
-//import ContextNodeMenu from "./ContextNodeMenu.vue";
+import ContextNodeMenu from "./ContextNodeMenu";
 
 // import GraphRunner from "./GraphRunner.vue";
 // import TemplateGraph from "./TemplateGraph.vue";
@@ -31,6 +31,8 @@ const GUI: FC = () => {
   const undoable = useLocalStore((state) => state.undoable());
   const redoable = useLocalStore((state) => state.redoable());
 
+  const contextNodeMenuRef = useRef<{ openMenu: (event: MouseEvent, rect: DOMRect, nodeIndex: number) => void; closeMenu: () => void } | null>(null);
+
   const resetGraph = useLocalStore((state) => state.reset);
 
   const initData = useLocalStore((state) => state.initData);
@@ -47,6 +49,17 @@ const GUI: FC = () => {
   }, []);
 
   const { svgRef, newEdgeData, newEdgeStartEvent, newEdgeEvent, newEdgeEndEvent, nearestData, edgeConnectable } = useNewEdge();
+
+  const closeMenu = () => {
+    contextNodeMenuRef.current?.closeMenu();
+  };
+
+  const openNodeMenu = (event: React.MouseEvent, nodeIndex: number) => {
+    if (svgRef.current) {
+      const rect = svgRef.current.getBoundingClientRect();
+      contextNodeMenuRef.current?.openMenu(event.nativeEvent, rect, nodeIndex);
+    }
+  };
 
   return (
     <div>
@@ -103,8 +116,10 @@ const GUI: FC = () => {
                 onNewEdgeStart={newEdgeStartEvent}
                 onNewEdge={newEdgeEvent}
                 onNewEdgeEnd={newEdgeEndEvent}
+                onOpenNodeMenu={(e) => openNodeMenu(e, index)}
               />
             ))}
+            <ContextNodeMenu ref={contextNodeMenuRef} />
           </div>
           <pre>{JSON.stringify(nodes, null, 2)}</pre>
         </main>
