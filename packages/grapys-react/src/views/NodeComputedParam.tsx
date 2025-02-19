@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import type { ParamType, ApplicationData } from "../utils/gui/type";
+import { useLocalStore } from "../store/index";
 
 interface NodeComputedParamProps {
   param: ParamType;
@@ -6,15 +8,15 @@ interface NodeComputedParamProps {
   nodeIndex: number;
   onFocus: () => void;
   onBlur: () => void;
-  updateValue: (value: any) => void;
 }
 
-const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, nodeIndex, onFocus, onBlur, updateValue }) => {
+const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, nodeIndex, onFocus, onBlur }) => {
   const [inputValue, setInputValue] = useState(appData.params?.[param.name] ?? "");
   const [booleanValue, setBooleanValue] = useState(appData.params?.[param.name] === true ? "true" : "false");
   const [textAreaValue, setTextAreaValue] = useState(String(appData.params?.[param.name] ?? ""));
   const [rows, setRows] = useState(3);
-
+  const updateNodeParam = useLocalStore((state) => state.updateNodeParam);
+  
   const inputRef = useRef(null);
   const textareaRef = useRef(null);
   const selectRef = useRef(null);
@@ -50,7 +52,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
   const handleBlur = () => {
     setRows(3);
     onBlur();
-    updateValue(nodeIndex, param.name, textAreaValue);
+    updateNodeParam(nodeIndex, param.name, textAreaValue);
   };
 
   // TODO much more features from vuew
@@ -65,7 +67,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
           className="w-full rounded-md border border-gray-300 p-1 text-black"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onBlur={() => updateValue(nodeIndex, param.name, inputValue)}
+          onBlur={() => updateNodeParam(nodeIndex, param.name, inputValue)}
         />
       )}
       {(param.type === "text" || param.type === "data") && (
@@ -86,7 +88,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
           className="w-full rounded-md border border-gray-300 p-1 text-black"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onBlur={() => updateValue(nodeIndex, param.name, Number(inputValue))}
+          onBlur={() => updateNodeParam(nodeIndex, param.name, Number(inputValue))}
         />
       )}
       {param.type === "boolean" && (
@@ -96,7 +98,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
           value={booleanValue}
           onChange={(e) => {
             setBooleanValue(e.target.value);
-            updateValue(nodeIndex, param.name, e.target.value === "true");
+            updateNodeParam(nodeIndex, param.name, e.target.value === "true");
           }}
         >
           <option value="true">True</option>

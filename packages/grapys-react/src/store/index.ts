@@ -15,6 +15,8 @@ export interface LocalState {
   updateNodePosition: (positionIndex: number, pos: { x: number; y: number; width: number; height: number }) => void;
   updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) => void;
   pushDataToHistory: (name: string, data: HistoryPayload) => void;
+  updateNodeParam: (positionIndex: number, key: string, value: unknown) => void;
+  updateStaticNodeValue: (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
   saveNodePositionData: () => void;
   updateLoop: (loopData: LoopData) => void;
   pushEdge: (edgeData: GUIEdgeData) => void;
@@ -78,6 +80,39 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     });
   },
 
+  updateNodeParam: (positionIndex: number, key: string, value: unknown) => {
+    const { updateData, currentData } = get();
+    const oldNode = currentData.nodes[positionIndex];
+    const newNode = {
+      ...oldNode,
+      data: {
+        ...oldNode.data,
+        params: oldNode.data.params ? { ...oldNode.data.params } : {},
+      },
+    };
+
+    if (value === "" || value === undefined || (value === null && newNode.data.params && newNode.data.params[key] !== undefined)) {
+      // delete operation
+      const { [key]: __, ...updatedParams } = newNode.data.params || {};
+      newNode.data.params = updatedParams;
+    } else {
+      // upsert
+      newNode.data.params = { ...(newNode.data.params || {}), [key]: value };
+    }
+    const newNodes = [...currentData.nodes];
+    newNodes[positionIndex] = newNode;
+    updateData(newNodes, [...currentData.edges], "updateParams", true);
+  },
+
+  updateStaticNodeValue: (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => {
+    const { updateData, currentData } = get();
+    const newNode = { ...currentData.nodes[positionIndex] };
+    newNode.data = { ...newNode.data, ...value };
+    const newNodes = [...nodes];
+    newNodes[positionIndex] = newNode;
+    updateData(newNodes, [...edges], "updateStaticValue", saveHistory);
+  },
+  
   updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) =>
     set((state) => {
       const newData = {

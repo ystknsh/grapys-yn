@@ -2,14 +2,18 @@ import { useRef, useState, forwardRef, useImperativeHandle } from "react";
 import ContextMenu from "./ContextMenu";
 import { useLocalStore } from "../store/index";
 
-const ContextEdgeMenu = forwardRef((props, ref) => {
-  const contextMenuRef = useRef(null);
+type ContextEdgeMenuHandle = {
+  openMenu: (event: React.MouseEvent | React.TouchEvent, rect: DOMRect) => void;
+  closeMenu: () => void;
+};
+
+const ContextEdgeMenu = forwardRef((__, ref) => {
+  const contextMenuRef = useRef<ContextEdgeMenuHandle | null>(null);
   const [selectedEdgeIndex, setSelectedEdgeIndex] = useState(0);
   const deleteEdge = useLocalStore((state) => state.deleteEdge);
 
   useImperativeHandle(ref, () => ({
-    openMenu: (event, rect, edgeIndex) => {
-      console.log("FFF");
+    openMenu: (event:  React.MouseEvent | React.TouchEvent, rect: DOMRect, edgeIndex: number) => {
       event.preventDefault();
       contextMenuRef.current?.openMenu(event, rect);
       setSelectedEdgeIndex(edgeIndex);

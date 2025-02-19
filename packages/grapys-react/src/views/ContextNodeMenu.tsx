@@ -3,8 +3,8 @@ import { useLocalStore } from "../store/index";
 
 import ContextMenu from "./ContextMenu";
 
-const EdgeContextMenu = forwardRef((props, ref) => {
-  const contextMenuRef = useRef<{ openMenu: (event: MouseEvent | TouchEvent, topOffset: number) => void; closeMenu: () => void } | null>(null);
+const EdgeContextMenu = forwardRef((__, ref) => {
+  const contextMenuRef = useRef<{ openMenu: (event: MouseEvent | TouchEvent, rect: DOMRect) => void; closeMenu: () => void } | null>(null);
   const [selectedNodeIndex, setSelectedNodeIndex] = useState(0);
   const deleteNode = useLocalStore((state) => state.deleteNode);
 

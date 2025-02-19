@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import type { GUINodeData } from "../utils/gui/type";
 
 const options = [
   { value: "text", name: "Text" },
@@ -7,7 +8,14 @@ const options = [
   { value: "boolean", name: "Boolean" },
 ];
 
-const NodeStaticValue = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
+interface NodeComputedParamProps {
+  nodeData: GUINodeData;
+  onFocus: () => void;
+  onBlur: () => void;
+  updateValue: (value: any) => void;
+}
+
+const NodeStaticValue: React.FC<NodeComputedParamProps> = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const selectFormRef = useRef(null);
