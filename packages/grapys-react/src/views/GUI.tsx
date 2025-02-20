@@ -9,7 +9,7 @@ import ContextEdgeMenu from "./ContextEdgeMenu";
 import ContextNodeMenu from "./ContextNodeMenu";
 
 // import GraphRunner from "./GraphRunner.vue";
-// import TemplateGraph from "./TemplateGraph.vue";
+import TemplateGraph from "./TemplateGraph";
 
 // import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
@@ -32,6 +32,8 @@ const GUI: FC = () => {
   const redo = useLocalStore((state) => state.redo);
   const undoable = useLocalStore((state) => state.undoable());
   const redoable = useLocalStore((state) => state.redoable());
+
+  const loadData = useLocalStore((state) => state.loadData);
 
   const contextNodeMenuRef = useRef<{ openMenu: (event: MouseEvent, rect: DOMRect, nodeIndex: number) => void; closeMenu: () => void } | null>(null);
   const contextEdgeMenuRef = useRef<{ openMenu: (event: MouseEvent, rect: DOMRect, edgeIndex: number) => void; closeMenu: () => void } | null>(null);
@@ -60,18 +62,40 @@ const GUI: FC = () => {
       contextEdgeMenuRef.current?.openMenu(event.nativeEvent, rect, edgeIndex);
     }
   };
-  /*
+
   const closeMenu = () => {
     contextNodeMenuRef.current?.closeMenu();
     contextEdgeMenuRef.current?.closeMenu();
   };
-  */
 
   const openNodeMenu = (event: React.MouseEvent, nodeIndex: number) => {
     if (svgRef.current) {
       const rect = svgRef.current.getBoundingClientRect();
       contextNodeMenuRef.current?.openMenu(event.nativeEvent, rect, nodeIndex);
     }
+  };
+
+  const save = () => {
+    const dataStr = JSON.stringify(newGraphData);
+    window.localStorage.setItem("GRAPHAIGUI", dataStr);
+  };
+
+  const load = () => {
+    const data = window.localStorage.getItem("GRAPHAIGUI");
+    try {
+      if (data) {
+        const graphData = JSON.parse(data);
+        loadData(graphData.metadata.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setGraph = async (graph: GraphData) => {
+    resetGraph();
+    /// await nextTick(); // to reset edge position. Due to duplicate edge keys, the position will be incorrect.
+    updateGraph(graph);
   };
 
   return (
@@ -100,9 +124,21 @@ const GUI: FC = () => {
             </button>
           </div>
           <hr />
+          <div>
+            <button onClick={save} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
+              Save Graph
+            </button>
+          </div>
+          <div>
+            <button onClick={load} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
+              Load Graph
+            </button>
+          </div>
+          <hr />
+          <TemplateGraph onSetGraph={setGraph} />
         </aside>
         <main className="flex-1">
-          <div className="relative h-[100vh] overflow-hidden rounded-md border-4">
+          <div className="relative h-[100vh] overflow-hidden rounded-md border-4" onClick={closeMenu}>
             <Loop />
             <svg x="0" y="0" className="absolute h-[100%] w-full" ref={svgRef}>
               {edgeDataList.map((edge, index) => (

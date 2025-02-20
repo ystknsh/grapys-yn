@@ -22,7 +22,7 @@ export interface LocalState {
   pushDataToHistory: (name: string, data: HistoryPayload) => void;
   saveNodePositionData: () => void;
 
-  // loadData
+  loadData: (data: HistoryPayload) => void;
 
   updateStaticNodeValue: (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
   updateLoop: (loopData: LoopData) => void;
@@ -72,6 +72,13 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       histories: [],
       index: 0,
     })),
+
+  loadData: (data: HistoryPayload) => {
+    set((state) => {
+      state.pushDataToHistory("load", data);
+      return { currentData: data };
+    });
+  },
 
   initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: LoopData) =>
     set(() => ({
