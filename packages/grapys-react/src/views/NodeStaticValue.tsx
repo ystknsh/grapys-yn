@@ -1,12 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import type { GUINodeData } from "../utils/gui/type";
-
-const options = [
-  { value: "text", name: "Text" },
-  { value: "number", name: "Number" },
-  { value: "data", name: "Data(JSON format array or object)" },
-  { value: "boolean", name: "Boolean" },
-];
+import { staticNodeOptions } from "../utils/gui/classUtils";
 
 interface NodeComputedParamProps {
   nodeData: GUINodeData;
@@ -93,7 +87,7 @@ const NodeStaticValue: React.FC<NodeComputedParamProps> = ({ nodeData, onFocus, 
     <div>
       <label className="text-xs text-gray-300">Value</label>
       <select value={dataType} onChange={(e) => setDataType(e.target.value)} className="w-full resize-none rounded-md border border-gray-300 p-1 text-black">
-        {options.map((option, k) => (
+        {staticNodeOptions.map((option, k) => (
           <option key={k} value={option.value}>
             {option.name}
           </option>

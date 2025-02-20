@@ -1,7 +1,7 @@
 <template>
   <label class="text-xs text-gray-300">Value</label>
   <select v-model="dataType" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black">
-    <option v-for="(option, k) in options" :value="option.value" :key="k">
+    <option v-for="(option, k) in staticNodeOptions" :value="option.value" :key="k">
       {{ option.name }}
     </option>
   </select>
@@ -31,13 +31,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed, PropType, onMounted, onBeforeUnmount, watch } from "vue";
 import type { GUINodeData } from "../utils/gui/type";
-
-const options = [
-  { value: "text", name: "Text" },
-  { value: "number", name: "Number" },
-  { value: "data", name: "Data(JSON format array or object)" },
-  { value: "boolean", name: "Boolean" },
-];
+import { staticNodeOptions } from "../utils/gui/classUtils";
 
 export default defineComponent({
   props: {
@@ -163,7 +157,7 @@ export default defineComponent({
       booleanValue,
       numberValue,
       textAreaValue,
-      options,
+      staticNodeOptions,
       isValidData,
       selectUpdate,
     };

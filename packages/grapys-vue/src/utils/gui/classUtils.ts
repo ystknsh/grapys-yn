@@ -36,3 +36,10 @@ export const edgeColors = {
   notConnectable: "pink",
 };
 
+export const staticNodeOptions = [
+  { value: "text", name: "Text" },
+  { value: "number", name: "Number" },
+  { value: "data", name: "Data(JSON format array or object)" },
+  { value: "boolean", name: "Boolean" },
+];
+

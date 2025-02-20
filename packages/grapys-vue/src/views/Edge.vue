@@ -42,7 +42,7 @@ export default defineComponent({
     return {
       edgePath,
       isHover,
-      colors,
+      edgeColors,
     };
   },
 });
