@@ -16,7 +16,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
   const [textAreaValue, setTextAreaValue] = useState(String(appData.params?.[param.name] ?? ""));
   const [rows, setRows] = useState(3);
   const updateNodeParam = useLocalStore((state) => state.updateNodeParam);
-  
+
   const inputRef = useRef(null);
   const textareaRef = useRef(null);
   const selectRef = useRef(null);

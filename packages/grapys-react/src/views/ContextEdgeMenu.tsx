@@ -3,7 +3,7 @@ import ContextMenu from "./ContextMenu";
 import { useLocalStore } from "../store/index";
 
 type ContextEdgeMenuHandle = {
-  openMenu: (event: React.MouseEvent | React.TouchEvent, rect: DOMRect) => void;
+  openMenu: (event: MouseEvent | TouchEvent, rect: DOMRect) => void;
   closeMenu: () => void;
 };
 
@@ -13,7 +13,7 @@ const ContextEdgeMenu = forwardRef((__, ref) => {
   const deleteEdge = useLocalStore((state) => state.deleteEdge);
 
   useImperativeHandle(ref, () => ({
-    openMenu: (event:  React.MouseEvent | React.TouchEvent, rect: DOMRect, edgeIndex: number) => {
+    openMenu: (event: MouseEvent | TouchEvent, rect: DOMRect, edgeIndex: number) => {
       event.preventDefault();
       contextMenuRef.current?.openMenu(event, rect);
       setSelectedEdgeIndex(edgeIndex);

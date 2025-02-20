@@ -9,9 +9,9 @@ const EdgeContextMenu = forwardRef((__, ref) => {
   const deleteNode = useLocalStore((state) => state.deleteNode);
 
   useImperativeHandle(ref, () => ({
-    openMenu: (event: React.MouseEvent | React.TouchEvent, rect: DOMRect, nodeIndex: number) => {
+    openMenu: (event: MouseEvent | TouchEvent, rect: DOMRect, nodeIndex: number) => {
       event.preventDefault();
-      contextMenuRef.current?.openMenu(event as MouseEvent, rect);
+      contextMenuRef.current?.openMenu(event, rect);
       setSelectedNodeIndex(nodeIndex);
     },
     closeMenu: () => {
@@ -20,7 +20,7 @@ const EdgeContextMenu = forwardRef((__, ref) => {
   }));
 
   return (
-    <ContextMenu ref={contextMenuRef} className="z-100">
+    <ContextMenu ref={contextMenuRef}>
       <li className="cursor-pointer px-4 py-2 hover:bg-gray-100" onClick={() => deleteNode(selectedNodeIndex)}>
         Delete
       </li>

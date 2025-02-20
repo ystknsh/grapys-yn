@@ -7,7 +7,7 @@ const LoopComponent = () => {
   const nodes = useLocalStore((state) => state.nodes());
   const loop = useLocalStore((state) => state.loop());
   const storeUpdateLoop = useLocalStore((state) => state.updateLoop);
-  const countRef = useRef(null);
+  const countRef = useRef<HTMLInputElement | null>(null);
 
   const lists = nodes.flatMap((node) => {
     const agent = node.data?.guiAgentId;
@@ -77,7 +77,7 @@ const LoopComponent = () => {
               className="w-full rounded-md border border-gray-300 p-1 text-black"
               ref={countRef}
               value={loop.count || "1"}
-              onChange={(e) => storeUpdateLoop({ ...loop, count: e.target.value })}
+              onChange={(e) => storeUpdateLoop({ ...loop, count: Number(e.target.value) })}
             />
           </div>
         )}

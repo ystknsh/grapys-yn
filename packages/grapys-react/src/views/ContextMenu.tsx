@@ -2,7 +2,7 @@ import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { getClientPos } from "../utils/gui/utils";
 
 type ContextMenuHandle = {
-  openMenu: (event: React.MouseEvent | React.TouchEvent, rect: DOMRect) => void;
+  openMenu: (event: MouseEvent | TouchEvent, rect: DOMRect) => void;
   closeMenu: () => void;
 };
 
@@ -10,14 +10,13 @@ type ContextMenuProps = {
   children: React.ReactNode;
 };
 
-
 const ContextMenu = forwardRef<ContextMenuHandle, ContextMenuProps>(({ children }, ref) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [menuStyle, setMenuStyle] = useState({ top: "0px", left: "0px" });
   const menuRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
-    openMenu: (event:  React.MouseEvent | React.TouchEvent, rect: DOMRect) => {
+    openMenu: (event: MouseEvent | TouchEvent, rect: DOMRect) => {
       event.preventDefault();
       const { clientX, clientY } = getClientPos(event);
       setMenuStyle({

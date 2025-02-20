@@ -24,7 +24,7 @@ const NodeStaticValue: React.FC<NodeComputedParamProps> = ({ nodeData, onFocus, 
   const [numberValue, setNumberValue] = useState(nodeData.data.staticNodeType ?? "");
   const [booleanValue, setBooleanValue] = useState("true");
   const [textAreaValue, setTextAreaValue] = useState<string>(
-    nodeData.data.staticNodeType === "data" ? JSON.stringify(nodeData.data.value, null, 2) : (nodeData.data.value ?? "") as string,
+    nodeData.data.staticNodeType === "data" ? JSON.stringify(nodeData.data.value, null, 2) : ((nodeData.data.value ?? "") as string),
   );
   const [rows, setRows] = useState(3);
 

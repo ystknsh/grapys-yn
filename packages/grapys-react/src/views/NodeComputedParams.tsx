@@ -17,14 +17,7 @@ const NodeComputedParams: React.FC<NodeComputedParamsProps> = ({ nodeData, nodeI
   return (
     <div>
       {params.map((param, k) => (
-        <NodeComputedParam
-          key={k}
-          param={param}
-          nodeIndex={nodeIndex}
-          appData={nodeData.data}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
+        <NodeComputedParam key={k} param={param} nodeIndex={nodeIndex} appData={nodeData.data} onFocus={onFocus} onBlur={onBlur} />
       ))}
     </div>
   );

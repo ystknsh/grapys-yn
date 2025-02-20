@@ -6,8 +6,8 @@ interface EdgeProps {
   sourceData: EdgeData2;
   targetData: EdgeData2;
   isConnectable?: boolean;
-  index: number;
-  openEdgeMenu: (event: MouseEvent, edgeIndex: number) => void;
+  index?: number;
+  openEdgeMenu?: (event: React.MouseEvent, edgeIndex: number) => void;
 }
 
 const colors = {
@@ -26,10 +26,11 @@ const Edge: React.FC<EdgeProps> = ({ sourceData, targetData, isConnectable = tru
   return (
     <path
       d={edgePath}
+      className="pointer-events-auto"
       stroke={isConnectable ? (isHover ? colors.hover : colors.edge) : colors.notConnectable}
       fill="none"
       strokeWidth={isHover ? 4 : 2}
-      onDoubleClick={(e) => openEdgeMenu(e, index)}
+      onDoubleClick={(e) => openEdgeMenu && openEdgeMenu(e, index ?? 0)}
       onMouseOver={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     />

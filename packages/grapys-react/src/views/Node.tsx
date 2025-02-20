@@ -225,7 +225,13 @@ const Node: React.FC<NodeProps> = ({
 
       <div className="mt-1 flex flex-col items-end">
         {(edgeIO.outputs ?? []).map((output: any, index: number) => (
-          <div key={`out-${output.name}-${index}`} className="relative flex items-center" ref={(el) => {outputsRef.current[index] = el!;}}>
+          <div
+            key={`out-${output.name}-${index}`}
+            className="relative flex items-center"
+            ref={(el) => {
+              outputsRef.current[index] = el!;
+            }}
+          >
             <span className="mr-2 text-xs whitespace-nowrap">{output.name}</span>
             <div
               className={`absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeOutputClass(isExpectNearButton("inbound", index), nodeData)}`}
@@ -237,7 +243,13 @@ const Node: React.FC<NodeProps> = ({
 
       <div className="mt-1 mb-1 flex flex-col items-start">
         {(edgeIO.inputs ?? []).map((input: any, index: number) => (
-          <div key={`in-${input.name}-${index}`} className="relative flex items-center" ref={(el) => {inputsRef.current[index] = el!;}}>
+          <div
+            key={`in-${input.name}-${index}`}
+            className="relative flex items-center"
+            ref={(el) => {
+              inputsRef.current[index] = el!;
+            }}
+          >
             <div
               className={`absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full ${nodeInputClass(isExpectNearButton("outbound", index), nodeData)}`}
               onMouseDown={(e) => onStartEdge(e, "inbound", index)}

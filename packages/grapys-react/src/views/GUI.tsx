@@ -51,7 +51,7 @@ const GUI: FC = () => {
 
   const { svgRef, newEdgeData, newEdgeStartEvent, newEdgeEvent, newEdgeEndEvent, nearestData, edgeConnectable } = useNewEdge();
 
-  const openEdgeMenu = (event: MouseEvent, edgeIndex: number) => {
+  const openEdgeMenu = (event: React.MouseEvent, edgeIndex: number) => {
     if (svgRef.current) {
       const rect = svgRef.current.getBoundingClientRect();
       contextEdgeMenuRef.current?.openMenu(event.nativeEvent, rect, edgeIndex);
@@ -107,14 +107,11 @@ const GUI: FC = () => {
                   key={`edge-${edge.source}-${edge.target}-${index}`}
                   sourceData={edge.source}
                   targetData={edge.target}
-                  className="pointer-events-auto"
-                  index="index"
+                  index={index}
                   openEdgeMenu={openEdgeMenu}
                 />
               ))}
-              {newEdgeData && (
-                <Edge sourceData={newEdgeData.source} targetData={newEdgeData.target} className="pointer-events-auto" isConnectable={edgeConnectable} />
-              )}{" "}
+              {newEdgeData && <Edge sourceData={newEdgeData.source} targetData={newEdgeData.target} isConnectable={edgeConnectable} />}{" "}
             </svg>
             {nodes.map((node, index) => (
               <Node

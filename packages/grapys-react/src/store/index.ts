@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { GUINodeData, GUIEdgeData, GUINodeDataRecord, UpdateStaticValue, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
 
-
 export interface LocalState {
   histories: HistoryData[];
   currentData: HistoryPayload;
@@ -26,7 +25,7 @@ export interface LocalState {
   undo: () => void;
   redoable: () => boolean;
   redo: () => void;
-};
+}
 
 export const useLocalStore = create<LocalState>((set, get) => ({
   histories: [],
@@ -112,7 +111,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     newNodes[positionIndex] = newNode;
     updateData(newNodes, [...currentData.edges], "updateStaticValue", saveHistory);
   },
-  
+
   updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) =>
     set((state) => {
       const newData = {
