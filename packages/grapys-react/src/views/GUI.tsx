@@ -8,7 +8,7 @@ import AddNode from "./AddNode";
 import ContextEdgeMenu from "./ContextEdgeMenu";
 import ContextNodeMenu from "./ContextNodeMenu";
 
-// import GraphRunner from "./GraphRunner.vue";
+import GraphRunner from "./GraphRunner";
 import TemplateGraph from "./TemplateGraph";
 
 // import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
@@ -170,6 +170,9 @@ const GUI: FC = () => {
             <ContextEdgeMenu ref={contextEdgeMenuRef} />
           </div>
         </main>
+      </div>
+      <div>
+        <GraphRunner graphData={newGraphData} />
       </div>
       {JSON.stringify(newGraphData, null, 2)}
     </div>

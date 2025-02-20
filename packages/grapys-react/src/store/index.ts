@@ -37,8 +37,8 @@ export interface LocalState {
   edges: () => GUIEdgeData[];
   loop: () => LoopData;
   // nodeRecords,
-  // streamNodes,
-  // resultNodes,
+  streamNodes: () => string[];
+  resultNodes: () => string[];
 
   undoable: () => boolean;
   redoable: () => boolean;
@@ -63,6 +63,24 @@ export const useLocalStore = create<LocalState>((set, get) => ({
 
   loop: () => {
     return get().currentData.loop;
+  },
+
+  streamNodes: () => {
+    const nodes = get().currentData.nodes;
+    return nodes
+      .filter((node) => {
+        return node.data?.params?.stream ?? false;
+      })
+      .map((node) => node.nodeId);
+  },
+
+  resultNodes: () => {
+    const nodes = get().currentData.nodes;
+    return nodes
+      .filter((node) => {
+        return node.data?.params?.isResult ?? false;
+      })
+      .map((node) => node.nodeId);
   },
 
   reset: () =>
