@@ -17,6 +17,7 @@ export const useTextInputEvent = () => {
     event.onEnd(data);
     setEventsObj((prev) => {
       const newEvents = { ...prev };
+    /* eslint-disable @typescript-eslint/no-dynamic-delete */
       delete newEvents[event.id];
       return newEvents;
     });
