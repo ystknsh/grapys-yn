@@ -28,3 +28,11 @@ export const nodeInputClass = (expectNearNode: boolean, nodeData: GUINodeData) =
   }
   return expectNearNode ? "bg-violet-200" : "bg-violet-500";
 };
+
+//
+export const edgeColors = {
+  edge: "red",
+  hover: "blue",
+  notConnectable: "pink",
+};
+

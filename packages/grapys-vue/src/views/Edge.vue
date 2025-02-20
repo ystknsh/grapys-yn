@@ -1,7 +1,7 @@
 <template>
   <path
     :d="edgePath"
-    :stroke="isConnectable ? (isHover ? colors.hover : colors.edge) : colors.notConnectable"
+    :stroke="isConnectable ? (isHover ? edgeColors.hover : edgeColors.edge) : edgeColors.notConnectable"
     fill="none"
     :stroke-width="isHover ? 4 : 2"
     @mouseover="isHover = true"
@@ -14,11 +14,7 @@ import { defineComponent, ref, computed, PropType } from "vue";
 import { EdgeData2 } from "../utils/gui/type";
 import { convEdgePath } from "../utils/gui/utils";
 
-const colors = {
-  edge: "red",
-  hover: "blue",
-  notConnectable: "pink",
-};
+import { edgeColors } from "../utils/gui/classUtils";
 
 export default defineComponent({
   components: {},

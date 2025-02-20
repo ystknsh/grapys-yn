@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
-import { EdgeData2 } from "../utils/gui/type";
+import type { EdgeData2 } from "../utils/gui/type";
 import { convEdgePath } from "../utils/gui/utils";
+import { edgeColors } from "../utils/gui/classUtils";
 
 interface EdgeProps {
   sourceData: EdgeData2;
@@ -9,12 +10,6 @@ interface EdgeProps {
   index?: number;
   openEdgeMenu?: (event: React.MouseEvent, edgeIndex: number) => void;
 }
-
-const colors = {
-  edge: "red",
-  hover: "blue",
-  notConnectable: "pink",
-};
 
 const Edge: React.FC<EdgeProps> = ({ sourceData, targetData, isConnectable = true, index, openEdgeMenu }) => {
   const [isHover, setIsHover] = useState(false);
@@ -27,7 +22,7 @@ const Edge: React.FC<EdgeProps> = ({ sourceData, targetData, isConnectable = tru
     <path
       d={edgePath}
       className="pointer-events-auto"
-      stroke={isConnectable ? (isHover ? colors.hover : colors.edge) : colors.notConnectable}
+      stroke={isConnectable ? (isHover ? edgeColors.hover : edgeColors.edge) : edgeColors.notConnectable}
       fill="none"
       strokeWidth={isHover ? 4 : 2}
       onDoubleClick={(e) => openEdgeMenu && openEdgeMenu(e, index ?? 0)}

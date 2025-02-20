@@ -496,3 +496,4 @@ export const convEdgePath = (soureIndex: number | undefined, sourcePosition: Nod
 
   return `M ${x1} ${y1dash} C ${x1 + controlXOffset} ${y1dash - controlYOffset}, ${x2 - controlXOffset} ${y2dash + controlYOffset}, ${x2} ${y2dash}`;
 };
+
