@@ -18,11 +18,13 @@ import { graphChat } from "../graph/chat_tinyswallow";
 import { useNewEdge } from "../composable/gui";
 import { graphToGUIData, guiEdgeData2edgeData } from "../utils/gui/utils";
 import { GraphData } from "graphai";
-import { useLocalStore, node2Record } from "../store/index";
+import { useLocalStore, node2Record, toGraph } from "../store/index";
 
 const GUI: FC = () => {
   const nodes = useLocalStore((state) => state.nodes());
   const edges = useLocalStore((state) => state.edges());
+  const loop = useLocalStore((state) => state.loop());
+  const currentData = useLocalStore((state) => state.currentData);
   const nodeRecords = useMemo(() => node2Record(nodes), [nodes]);
   const edgeDataList = useMemo(() => guiEdgeData2edgeData(edges, nodeRecords), [edges, nodeRecords]);
 
@@ -35,6 +37,7 @@ const GUI: FC = () => {
   const contextEdgeMenuRef = useRef<{ openMenu: (event: MouseEvent, rect: DOMRect, edgeIndex: number) => void; closeMenu: () => void } | null>(null);
 
   const resetGraph = useLocalStore((state) => state.reset);
+  const newGraphData = toGraph(nodeRecords, edges, loop, currentData);
 
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
@@ -130,9 +133,9 @@ const GUI: FC = () => {
             <ContextNodeMenu ref={contextNodeMenuRef} />
             <ContextEdgeMenu ref={contextEdgeMenuRef} />
           </div>
-          <pre>{JSON.stringify(nodes, null, 2)}</pre>
         </main>
       </div>
+      {JSON.stringify(newGraphData, null, 2)}
     </div>
   );
 };

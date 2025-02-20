@@ -1,30 +1,47 @@
 import { create } from "zustand";
 import { GUINodeData, GUIEdgeData, GUINodeDataRecord, UpdateStaticValue, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
+import { edges2inputs, store2graphData } from "../utils/gui/utils";
 
 export interface LocalState {
   histories: HistoryData[];
   currentData: HistoryPayload;
   index: number;
-  nodes: () => GUINodeData[];
-  edges: () => GUIEdgeData[];
-  loop: () => LoopData;
-  reset: () => void;
+
+  // react
+  updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) => void;
+
+  // methods
   initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: LoopData) => void;
   pushNode: (nodeData: GUINodeData) => void;
-  updateNodePosition: (positionIndex: number, pos: { x: number; y: number; width: number; height: number }) => void;
-  updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) => void;
-  pushDataToHistory: (name: string, data: HistoryPayload) => void;
-  updateNodeParam: (positionIndex: number, key: string, value: unknown) => void;
-  updateStaticNodeValue: (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
-  saveNodePositionData: () => void;
-  updateLoop: (loopData: LoopData) => void;
   pushEdge: (edgeData: GUIEdgeData) => void;
   deleteEdge: (edgeIndex: number) => void;
   deleteNode: (nodeIndex: number) => void;
-  undoable: () => boolean;
+
+  updateNodePosition: (positionIndex: number, pos: { x: number; y: number; width: number; height: number }) => void;
+  updateNodeParam: (positionIndex: number, key: string, value: unknown) => void;
+  pushDataToHistory: (name: string, data: HistoryPayload) => void;
+  saveNodePositionData: () => void;
+
+  // loadData
+
+  updateStaticNodeValue: (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
+  updateLoop: (loopData: LoopData) => void;
+
   undo: () => void;
-  redoable: () => boolean;
   redo: () => void;
+
+  reset: () => void;
+
+  // computed
+  nodes: () => GUINodeData[];
+  edges: () => GUIEdgeData[];
+  loop: () => LoopData;
+  // nodeRecords,
+  // streamNodes,
+  // resultNodes,
+
+  undoable: () => boolean;
+  redoable: () => boolean;
 }
 
 export const useLocalStore = create<LocalState>((set, get) => ({
@@ -213,4 +230,25 @@ export const node2Record = (nodes: GUINodeData[]) => {
     tmp[current.nodeId] = current;
     return tmp;
   }, {});
+};
+
+const loop2LoopObj = (loop: LoopData) => {
+  if (loop.loopType === "while") {
+    return {
+      while: loop.while,
+    };
+  }
+  if (loop.loopType === "count") {
+    return {
+      count: loop.count,
+    };
+  }
+  return {};
+};
+
+export const toGraph = (nodeRecords, edges, loop, currentData) => {
+  const edgeObject = edges2inputs(edges ?? [], nodeRecords);
+  const loopObject = loop2LoopObj(loop);
+
+  return store2graphData(nodeRecords, edgeObject, loopObject, currentData);
 };
