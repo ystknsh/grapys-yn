@@ -42,7 +42,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
       default:
         break;
     }
-  }, [appData]);
+  }, [appData, param.name, param.type]);
 
   const handleFocus = () => {
     setRows(10);

@@ -70,7 +70,7 @@ const Node: React.FC<NodeProps> = ({
   };
   useEffect(() => {
     onUpdatePosition(getWH());
-  }, []);
+  }, [onUpdatePosition]);
 
   const onStartNode = useCallback(
     (event: React.MouseEvent | React.TouchEvent) => {
