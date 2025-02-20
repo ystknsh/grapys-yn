@@ -1,10 +1,6 @@
-import { useRef, useCallback } from "react";
-
-import { useState, useRef, useCallback } from "react";
-import { GraphData, AgentFunctionContext, TransactionLog } from "graphai";
+import { useState, useCallback } from "react";
+import { AgentFunctionContext, TransactionLog } from "graphai";
 import { streamAgentFilterGenerator } from "@graphai/agent_filters";
-
-const randomInt = (num: number) => Math.floor(Math.random() * num);
 
 export const useStreamData = () => {
   const [streamData, setStreamData] = useState<Record<string, string>>({});

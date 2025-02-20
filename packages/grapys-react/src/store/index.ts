@@ -250,7 +250,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
   },
 }));
 
-export const node2Record = (nodes: GUINodeData[]) => {
+export const node2Record = (nodes: GUINodeData[]): GUINodeDataRecord => {
   return nodes.reduce((tmp: GUINodeDataRecord, current) => {
     tmp[current.nodeId] = current;
     return tmp;
@@ -271,7 +271,7 @@ const loop2LoopObj = (loop: LoopData) => {
   return {};
 };
 
-export const toGraph = (nodeRecords, edges, loop, currentData) => {
+export const toGraph = (nodeRecords: GUINodeDataRecord, edges: GUIEdgeData[], loop: LoopData, currentData: HistoryPayload) => {
   const edgeObject = edges2inputs(edges ?? [], nodeRecords);
   const loopObject = loop2LoopObj(loop);
 

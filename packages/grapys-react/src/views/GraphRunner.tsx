@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { GraphAI } from "graphai";
+import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/vanilla";
 import { openAIAgent } from "@graphai/openai_agent";
 import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agents/tinyswallow";
