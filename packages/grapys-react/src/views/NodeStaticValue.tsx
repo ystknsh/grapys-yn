@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import type { GUINodeData } from "../utils/gui/type";
 import { staticNodeOptions } from "../utils/gui/classUtils";
 
-interface NodeComputedParamProps {
+interface NodeStaticValueProps {
   nodeData: GUINodeData;
   onFocus: () => void;
   onBlur: () => void;
-  onUpdateValue: (value: any) => void;
+  onUpdateStaticValue: (value: any) => void;
 }
 
-const NodeStaticValue: React.FC<NodeComputedParamProps> = ({ nodeData, onFocus, onBlur, onUpdateValue }) => {
+const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, onBlur, onUpdateStaticValue }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const selectFormRef = useRef(null);
@@ -46,19 +46,19 @@ const NodeStaticValue: React.FC<NodeComputedParamProps> = ({ nodeData, onFocus, 
       setRows(3);
       onBlur && onBlur();
       const value = dataType === "data" && isValidData() ? JSON.parse(textAreaValue) : textAreaValue;
-      onUpdateValue && onUpdateValue({ value, staticNodeType: "text" });
+      onUpdateStaticValue && onUpdateStaticValue({ value, staticNodeType: "text" });
     }
   };
 
   const handleNumberBlur = () => {
     if (dataType === "number") {
-      onUpdateValue && onUpdateValue({ value: Number(numberValue), staticNodeType: dataType });
+      onUpdateStaticValue && onUpdateStaticValue({ value: Number(numberValue), staticNodeType: dataType });
     }
   };
 
   const handleBooleanChange = () => {
-    onUpdateValue &&
-      onUpdateValue({
+    onUpdateStaticValue &&
+      onUpdateStaticValue({
         value: booleanValue === "true",
         staticNodeType: dataType,
       });

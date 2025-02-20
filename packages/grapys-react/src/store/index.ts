@@ -24,7 +24,7 @@ export interface LocalState {
 
   loadData: (data: HistoryPayload) => void;
 
-  updateStaticNodeValue: (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
+  updateStaticNodeValue: (nodeIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
   updateLoop: (loopData: LoopData) => void;
 
   undo: () => void;
@@ -145,12 +145,12 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     updateData(newNodes, [...currentData.edges], "updateParams", true);
   },
 
-  updateStaticNodeValue: (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => {
+  updateStaticNodeValue: (nodeIndex: number, value: UpdateStaticValue, saveHistory: boolean) => {
     const { updateData, currentData } = get();
-    const newNode = { ...currentData.nodes[positionIndex] };
+    const newNode = { ...currentData.nodes[nodeIndex] };
     newNode.data = { ...newNode.data, ...value };
     const newNodes = [...currentData.nodes];
-    newNodes[positionIndex] = newNode;
+    newNodes[nodeIndex] = newNode;
     updateData(newNodes, [...currentData.edges], "updateStaticValue", saveHistory);
   },
 

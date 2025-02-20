@@ -55,7 +55,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
     updateNodeParam(nodeIndex, param.name, textAreaValue);
   };
 
-  // TODO much more features from vuew
+  // TODO much more features from vue
 
   return (
     <div>

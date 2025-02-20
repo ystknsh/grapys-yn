@@ -4,7 +4,7 @@ import { getClientPos } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
-// import { useLocalStore } from "../store/index";
+import { useLocalStore } from "../store/index";
 
 import NodeStaticValue from "./NodeStaticValue";
 import NodeComputedParams from "./NodeComputedParams";
@@ -42,7 +42,7 @@ const Node: React.FC<NodeProps> = ({
   const startPosition = useRef({ x: 0, y: 0 });
   const distanceMoved = useRef(0);
 
-  // const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
+  const updateStaticNodeValue = useLocalStore((state) => state.updateStaticNodeValue);
 
   const transformStyle = {
     transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
@@ -179,12 +179,12 @@ const Node: React.FC<NodeProps> = ({
     return nearestData?.direction === direction && nearestData?.index === index;
   };
 
-  const [currentWidth, setCurrentWidth] = useState(0);
-  const [currentHeight, setCurrentHeight] = useState(0);
+  const currentWidth = useRef(0);
+  const currentHeight = useRef(0);
   const onFocus = () => {
     if (thisRef.current) {
-      setCurrentWidth(thisRef.current.offsetWidth);
-      setCurrentHeight(thisRef.current.offsetHeight);
+      currentWidth.current = thisRef.current.offsetWidth;
+      currentHeight.current = thisRef.current.offsetHeight;
       thisRef.current.style.width = thisRef.current.offsetWidth * 3 + "px";
       thisRef.current.style.height = thisRef.current.offsetHeight * 3 + "px";
     }
@@ -192,14 +192,13 @@ const Node: React.FC<NodeProps> = ({
   };
   const onBlur = () => {
     if (thisRef.current) {
-      thisRef.current.style.width = currentWidth + "px";
-      thisRef.current.style.height = currentHeight + "px";
+      thisRef.current.style.width = currentWidth.current + "px";
+      thisRef.current.style.height = currentHeight.current + "px";
     }
     onUpdatePosition(getWH());
   };
-  const onUpdateValue = (value: UpdateStaticValue) => {
-    console.log(value);
-    // TODO
+  const onUpdateStaticValue = (value: UpdateStaticValue) => {
+    updateStaticNodeValue(nodeIndex, value, true);
   };
   //const openNodeMenu = (event: MouseEvent) => {
   // TODO
@@ -261,7 +260,7 @@ const Node: React.FC<NodeProps> = ({
 
       {nodeData.type === "static" && (
         <div className="flex w-full flex-col gap-1 p-2">
-          <NodeStaticValue nodeData={nodeData} onFocus={onFocus} onBlur={onBlur} onUpdateValue={onUpdateValue} />
+          <NodeStaticValue nodeData={nodeData} onFocus={onFocus} onBlur={onBlur} onUpdateStaticValue={onUpdateStaticValue} />
         </div>
       )}
       {nodeData.type === "computed" && (
