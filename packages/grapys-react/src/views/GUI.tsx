@@ -17,7 +17,7 @@ import { graphChat } from "../graph/chat_tinyswallow";
 
 import { useNewEdge } from "../composable/gui";
 import { graphToGUIData, guiEdgeData2edgeData } from "../utils/gui/utils";
-import { GraphData } from "graphai";
+import { GraphData, sleep } from "graphai";
 import { useLocalStore, node2Record, toGraph } from "../store/index";
 
 const GUI: FC = () => {
@@ -50,8 +50,11 @@ const GUI: FC = () => {
     initData(rawNode, rawEdge, loop);
   };
   useEffect(() => {
-    updateGraph(graphChat);
-    saveNodePosition();
+    (async () => {
+      updateGraph(graphChat);
+      await sleep(1);
+      saveNodePosition();
+    })();
   }, []);
 
   const { svgRef, newEdgeData, newEdgeStartEvent, newEdgeEvent, newEdgeEndEvent, nearestData, edgeConnectable } = useNewEdge();
@@ -94,8 +97,10 @@ const GUI: FC = () => {
 
   const setGraph = async (graph: GraphData) => {
     resetGraph();
-    /// await nextTick(); // to reset edge position. Due to duplicate edge keys, the position will be incorrect.
+    await sleep(1);
     updateGraph(graph);
+    await sleep(1);
+    saveNodePosition();
   };
 
   return (
