@@ -23,13 +23,11 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
 
   useEffect(() => {
     const updateValue = appData.params?.[param.name];
-
-    if (updateValue === undefined || updateValue === null) return;
-
+    
     switch (param.type) {
       case "text":
       case "data":
-        setTextAreaValue(typeof updateValue === "object" ? JSON.stringify(updateValue, null, 2) : updateValue);
+        setTextAreaValue(typeof updateValue === "object" ? JSON.stringify(updateValue, null, 2) : updateValue ?? "");
         break;
       case "string":
       case "int":
@@ -54,8 +52,6 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
     onBlur();
     updateNodeParam(nodeIndex, param.name, textAreaValue);
   };
-
-  // TODO much more features from vue
 
   return (
     <div>
