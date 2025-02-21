@@ -36,7 +36,7 @@ export default defineComponent({
   setup(props) {
     const isHover = ref(false);
     const edgePath = computed(() => {
-      return convEdgePath(props.sourceData.index, props.sourceData.data.position, props.targetData.index,  props.targetData.data.position)
+      return convEdgePath(props.sourceData.index, props.sourceData.data.position, props.targetData.index, props.targetData.data.position);
     });
 
     return {

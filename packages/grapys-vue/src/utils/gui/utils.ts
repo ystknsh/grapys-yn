@@ -474,7 +474,12 @@ export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeD
   return true;
 };
 
-export const convEdgePath = (soureIndex: number | undefined, sourcePosition: NodePositionData, targetIndex: number | undefined, targetPosition: NodePositionData) => {
+export const convEdgePath = (
+  soureIndex: number | undefined,
+  sourcePosition: NodePositionData,
+  targetIndex: number | undefined,
+  targetPosition: NodePositionData,
+) => {
   const { x, y: y1, width, outputCenters } = sourcePosition;
   const x1 = x + (width ?? 0);
   const { x: x2, y: y2, inputCenters } = targetPosition;
@@ -496,4 +501,3 @@ export const convEdgePath = (soureIndex: number | undefined, sourcePosition: Nod
 
   return `M ${x1} ${y1dash} C ${x1 + controlXOffset} ${y1dash - controlYOffset}, ${x2 - controlXOffset} ${y2dash + controlYOffset}, ${x2} ${y2dash}`;
 };
-

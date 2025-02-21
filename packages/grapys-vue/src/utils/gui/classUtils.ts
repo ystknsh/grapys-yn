@@ -42,4 +42,3 @@ export const staticNodeOptions = [
   { value: "data", name: "Data(JSON format array or object)" },
   { value: "boolean", name: "Boolean" },
 ];
-

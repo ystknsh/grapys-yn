@@ -20,8 +20,7 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "AppLayout",
-  components: {
-  },
+  components: {},
   setup() {
     const menu = ref(false);
 

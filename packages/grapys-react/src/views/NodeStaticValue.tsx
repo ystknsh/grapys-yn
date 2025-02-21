@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, ChangeEventHandler } from "react";
 import type { GUINodeData } from "../utils/gui/type";
 import { staticNodeOptions } from "../utils/gui/classUtils";
 import { isObject } from "graphai";
@@ -24,7 +24,7 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
   const selectFormRef = useRef(null);
 
   const [dataType, setDataType] = useState(nodeData.data.staticNodeType ?? "text");
-  const [numberValue, setNumberValue] = useState(nodeData.data.staticNodeType ?? "");
+  const [numberValue, setNumberValue] = useState("0");
   const [booleanValue, setBooleanValue] = useState("true");
   const [textAreaValue, setTextAreaValue] = useState<string>(
     nodeData.data.staticNodeType === "data" ? JSON.stringify(nodeData.data.value, null, 2) : ((nodeData.data.value ?? "") as string),
@@ -41,7 +41,7 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
       }
     }
     return true;
-  });
+  }, [textAreaValue, dataType]);
 
   const handleFocus = (event: FocusEvent) => {
     if (event.target instanceof HTMLTextAreaElement) {
@@ -49,29 +49,35 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
       setRows(10);
     }
   };
-  const handleBlur = useCallback((event: FocusEvent) => {
-    if (event.target instanceof HTMLTextAreaElement) {
-      setRows(3);
-      onBlur && onBlur();
-      const value = dataType === "data" && isValidData() ? JSON.parse(textAreaValue) : textAreaValue;
-      onUpdateStaticValue && onUpdateStaticValue({ value, staticNodeType: dataType });
-    }
-  });
+  const handleBlur = useCallback(
+    (event: FocusEvent) => {
+      if (event.target instanceof HTMLTextAreaElement) {
+        setRows(3);
+        onBlur && onBlur();
+        const value = dataType === "data" && isValidData() ? JSON.parse(textAreaValue) : textAreaValue;
+        onUpdateStaticValue && onUpdateStaticValue({ value, staticNodeType: dataType });
+      }
+    },
+    [dataType, textAreaValue],
+  );
 
   const handleNumberBlur = useCallback(() => {
     if (dataType === "number") {
       onUpdateStaticValue && onUpdateStaticValue({ value: Number(numberValue), staticNodeType: dataType });
     }
-  });
+  }, [dataType, numberValue]);
 
-  const handleBooleanChange = useCallback((e) => {
-    setBooleanValue(e.target.value);
-    onUpdateStaticValue &&
-      onUpdateStaticValue({
-        value: e.target.value === "true",
-        staticNodeType: dataType,
-      });
-  });
+  const handleBooleanChange: ChangeEventHandler<HTMLSelectElement> = useCallback(
+    (e) => {
+      setBooleanValue(e.target.value);
+      onUpdateStaticValue &&
+        onUpdateStaticValue({
+          value: e.target.value === "true",
+          staticNodeType: dataType,
+        });
+    },
+    [dataType, booleanValue],
+  );
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -90,29 +96,31 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
         inputRef.current.removeEventListener("blur", handleNumberBlur);
       }
     };
-  }, [handleBlur]);
+  }, [handleBlur, handleNumberBlur]);
 
   useEffect(() => {
     const { staticNodeType, value } = nodeData.data;
-    if (staticNodeType !== dataType) {
-      setDataType(staticNodeType);
-    }
-    if (["text", "data"].includes(staticNodeType)) {
-      const textData = isObject(value) ? JSON.stringify(value, null, 2) : value;
-      if (textAreaValue !== textData) {
-        setTextAreaValue(textData);
+    if (staticNodeType) {
+      if (staticNodeType !== dataType) {
+        setDataType(staticNodeType);
       }
-    }
-    if (["boolean"].includes(staticNodeType)) {
-      const valueText = value ? "true" : "false";
-      if (valueText !== booleanValue) {
-        setBooleanValue(valueText);
+      if (["text", "data"].includes(staticNodeType)) {
+        const textData = isObject(value) ? JSON.stringify(value, null, 2) : (value as string);
+        if (textAreaValue !== textData) {
+          setTextAreaValue(textData);
+        }
       }
-    }
-    if (["number"].includes(staticNodeType)) {
-      const valueText = String(value);
-      if (valueText !== numberValue) {
-        setNumberValue(valueText);
+      if (["boolean"].includes(staticNodeType)) {
+        const valueText = value ? "true" : "false";
+        if (valueText !== booleanValue) {
+          setBooleanValue(valueText);
+        }
+      }
+      if (["number"].includes(staticNodeType)) {
+        const valueText = String(value);
+        if (valueText !== numberValue) {
+          setNumberValue(valueText);
+        }
       }
     }
   }, [nodeData.data]);
