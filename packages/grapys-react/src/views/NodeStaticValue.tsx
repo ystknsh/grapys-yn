@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import type { GUINodeData } from "../utils/gui/type";
 import { staticNodeOptions } from "../utils/gui/classUtils";
+import { isObject } from "graphai";
 
 interface NodeStaticValueProps {
   nodeData: GUINodeData;
@@ -22,7 +23,7 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
   );
   const [rows, setRows] = useState(3);
 
-  const isValidData = () => {
+  const isValidData = useCallback(() => {
     if (dataType === "data") {
       try {
         JSON.parse(textAreaValue);
@@ -32,7 +33,7 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
       }
     }
     return true;
-  };
+  });
 
   const handleFocus = (event: FocusEvent) => {
     if (event.target instanceof HTMLTextAreaElement) {
@@ -40,29 +41,29 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
       setRows(10);
     }
   };
-
-  const handleBlur = (event: FocusEvent) => {
+  const handleBlur = useCallback((event: FocusEvent) => {
     if (event.target instanceof HTMLTextAreaElement) {
       setRows(3);
       onBlur && onBlur();
       const value = dataType === "data" && isValidData() ? JSON.parse(textAreaValue) : textAreaValue;
-      onUpdateStaticValue && onUpdateStaticValue({ value, staticNodeType: "text" });
+      onUpdateStaticValue && onUpdateStaticValue({ value, staticNodeType: dataType });
     }
-  };
+  });
 
-  const handleNumberBlur = () => {
+  const handleNumberBlur = useCallback(() => {
     if (dataType === "number") {
       onUpdateStaticValue && onUpdateStaticValue({ value: Number(numberValue), staticNodeType: dataType });
     }
-  };
+  });
 
-  const handleBooleanChange = () => {
+  const handleBooleanChange = useCallback((e) => {
+    setBooleanValue(e.target.value);
     onUpdateStaticValue &&
       onUpdateStaticValue({
-        value: booleanValue === "true",
+        value: e.target.value === "true",
         staticNodeType: dataType,
       });
-  };
+  });
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -81,7 +82,32 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
         inputRef.current.removeEventListener("blur", handleNumberBlur);
       }
     };
-  }, [textAreaValue, numberValue]);
+  }, [handleBlur]);
+
+  useEffect(() => {
+    const { staticNodeType, value } = nodeData.data;
+    if (staticNodeType !== dataType) {
+      setDataType(staticNodeType);
+    }
+    if (["text", "data"].includes(staticNodeType)) {
+      const textData = isObject(value) ? JSON.stringify(value, null, 2) : value;
+      if (textAreaValue !== textData) {
+        setTextAreaValue(textData);
+      }
+    }
+    if (["boolean"].includes(staticNodeType)) {
+      const valueText = value ? "true" : "false";
+      if (valueText !== booleanValue) {
+        setBooleanValue(valueText);
+      }
+    }
+    if (["number"].includes(staticNodeType)) {
+      const valueText = String(value);
+      if (valueText !== numberValue) {
+        setNumberValue(valueText);
+      }
+    }
+  }, [nodeData.data]);
 
   return (
     <div>
@@ -116,7 +142,7 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
         />
       )}
       {dataType === "boolean" && (
-        <select value={booleanValue} onChange={(e) => setBooleanValue(e.target.value)} ref={selectFormRef} onBlur={handleBooleanChange}>
+        <select value={booleanValue} onChange={handleBooleanChange} ref={selectFormRef}>
           <option value="true">True</option>
           <option value="false">False</option>
         </select>

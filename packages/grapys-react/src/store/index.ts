@@ -149,6 +149,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     const { updateData, currentData } = get();
     const newNode = { ...currentData.nodes[nodeIndex] };
     newNode.data = { ...newNode.data, ...value };
+    console.log(newNode);
     const newNodes = [...currentData.nodes];
     newNodes[nodeIndex] = newNode;
     updateData(newNodes, [...currentData.edges], "updateStaticValue", saveHistory);
