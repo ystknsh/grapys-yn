@@ -9,6 +9,14 @@ interface NodeStaticValueProps {
   onBlur: () => void;
   onUpdateStaticValue: (value: any) => void;
 }
+/*
+  Handle the value of a static node.
+  In the form, it is a text field, and nodeData contains the corresponding data.
+  If the data is in a valid JSON format, it is stored as data; otherwise, it is saved as text.
+  The form value can be changed either by user input or by modifications from history.
+  Be careful when making changes and thoroughly test to ensure history functions correctly.
+  History is saved on blur, except for boolean values, which are saved on change.
+*/
 
 const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, onBlur, onUpdateStaticValue }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);

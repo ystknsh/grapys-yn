@@ -35,7 +35,7 @@ const resultOf = (source: unknown, nodes: Record<string, string | string[]>) => 
   return source;
 };
 
-const isObject = (x: unknown): x is Record<string, unknown> => {
+export const isObject = (x: unknown): x is Record<string, unknown> => {
   return x !== null && typeof x === "object";
 };
 
