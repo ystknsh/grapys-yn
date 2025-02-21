@@ -83,13 +83,10 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       .map((node) => node.nodeId);
   },
 
-  reset: () =>
-    set((state) => ({
-      ...state,
-      currentData: { nodes: [], edges: [], loop: { loopType: "none" } },
-      histories: [],
-      index: 0,
-    })),
+  reset: () => {
+    const { updateData } = get();
+    updateData([], [], "reset", true);
+  },
 
   loadData: (data: HistoryPayload) => {
     set((state) => {
@@ -149,7 +146,6 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     const { updateData, currentData } = get();
     const newNode = { ...currentData.nodes[nodeIndex] };
     newNode.data = { ...newNode.data, ...value };
-    console.log(newNode);
     const newNodes = [...currentData.nodes];
     newNodes[nodeIndex] = newNode;
     updateData(newNodes, [...currentData.edges], "updateStaticValue", saveHistory);
@@ -206,7 +202,6 @@ export const useLocalStore = create<LocalState>((set, get) => ({
   },
   deleteNode: (nodeIndex: number) => {
     const { currentData, updateData } = get();
-    console.log(currentData.nodes, nodeIndex);
     const node = currentData.nodes[nodeIndex];
     updateData(
       [...currentData.nodes.filter((__, idx) => idx !== nodeIndex)],
