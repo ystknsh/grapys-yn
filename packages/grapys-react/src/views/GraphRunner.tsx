@@ -54,7 +54,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
         agentFilters,
         config: {
           openAIAgent: {
-            // apiKey: process.env.REACT_APP_OPEN_API_KEY,
+            apiKey: import.meta.env.VITE_OPEN_API_KEY,
             forWeb: true,
           },
         },
