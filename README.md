@@ -27,7 +27,7 @@ Currently, it only works on Chrome, so please use Chrome when using this feature
 
 ## Agent profiles
 In this repository, you can execute the created graph data directly.
-GraphAI agents support standard implementations.
+This feature support general GraphAI agents support.
 
-However, the agent profiles are not yet fully developed (contributions via PRs are welcome!).
+However, [the agent profiles](https://github.com/receptron/grapys/blob/main/packages/grapys-vue/src/utils/gui/data.ts)  are not yet fully developed (contributions via PRs are welcome!).
 Agent profiles manage the mapping information between GraphAI and GUI agents.
