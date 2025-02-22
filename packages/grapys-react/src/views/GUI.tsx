@@ -144,7 +144,6 @@ const GUI: FC = () => {
         </aside>
         <main className="flex-1">
           <div className="relative h-[100vh] overflow-hidden rounded-md border-4" onClick={closeMenu}>
-            <Loop />
             <svg x="0" y="0" className="absolute h-[100%] w-full" ref={svgRef}>
               {edgeDataList.map((edge, index) => (
                 <Edge
@@ -157,6 +156,7 @@ const GUI: FC = () => {
               ))}
               {newEdgeData && <Edge sourceData={newEdgeData.source} targetData={newEdgeData.target} isConnectable={edgeConnectable} />}{" "}
             </svg>
+            <Loop />
             {nodes.map((node, index) => (
               <Node
                 key={`${node.nodeId}-${index}`}
