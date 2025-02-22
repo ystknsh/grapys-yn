@@ -64,7 +64,7 @@ export type NewEdgeEventDirection = "outbound" | "inbound";
 
 // x, y is clientX, clientY of mouse pointer
 export type NewEdgeEventData = {
-  on: string;
+  // on: string;
   direction: NewEdgeEventDirection;
   index: number;
   nodeId: string;

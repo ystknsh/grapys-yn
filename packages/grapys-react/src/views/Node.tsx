@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
+import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeEventData } from "../utils/gui/type";
 import { getClientPos } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
@@ -14,10 +14,10 @@ interface NodeProps {
   nodeIndex: number;
   onUpdatePosition: (position: any) => void;
   onSavePosition: () => void;
-  onNewEdgeStart: (event: any) => void;
+  onNewEdgeStart: (data: NewEdgeEventData) => void;
   onNewEdge: (event: any) => void;
   onNewEdgeEnd: (event: any) => void;
-  onOpenNodeMenu: (event: any) => void;
+  onOpenNodeMenu: (event: React.MouseEvent) => void;
 }
 
 const Node: React.FC<NodeProps> = ({
@@ -112,7 +112,7 @@ const Node: React.FC<NodeProps> = ({
   const edgeIO = agentParams;
 
   const onStartEdge = useCallback(
-    (event: React.MouseEvent<Element> | React.TouchEvent<Element>, direction: string, index: number) => {
+    (event: React.MouseEvent<Element> | React.TouchEvent<Element>, direction: NewEdgeEventDirection, index: number) => {
       event.stopPropagation();
       setIsNewEdge(true);
       const { clientX, clientY } = getClientPos(event.nativeEvent);

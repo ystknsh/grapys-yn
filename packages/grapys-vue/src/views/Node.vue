@@ -154,7 +154,6 @@ export default defineComponent({
       isNewEdge.value = true;
       const { clientX, clientY } = getClientPos(event);
       ctx.emit("newEdgeStart", {
-        on: "start",
         nodeId: props.nodeData.nodeId,
         x: clientX,
         y: clientY,
@@ -164,12 +163,12 @@ export default defineComponent({
     };
     const onEndEdge = () => {
       isNewEdge.value = false;
-      ctx.emit("newEdgeEnd", { on: "end" });
+      ctx.emit("newEdgeEnd", {});
     };
     const onMoveEdge = (event: MouseEvent | TouchEvent) => {
       if (!isNewEdge.value) return;
       const { clientX, clientY } = getClientPos(event);
-      ctx.emit("newEdge", { on: "move", x: clientX, y: clientY });
+      ctx.emit("newEdge", { x: clientX, y: clientY });
     };
     // end of edge event
 
