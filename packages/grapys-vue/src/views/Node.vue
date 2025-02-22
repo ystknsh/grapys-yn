@@ -92,9 +92,11 @@ export default defineComponent({
     const offset = ref({ x: 0, y: 0 });
 
     const startPosition = { x: 0, y: 0 };
-    let d = 0;
+    // If it moves only a little, the data will not be saved because it stack much more histories.
+    let deltaDistance = 0; // square
+    const deltaDistanceThredhold = 4;
+    
     const onStartNode = (event: MouseEvent | TouchEvent) => {
-      console.log("node");
       if (isNewEdge.value) {
         return;
       }
@@ -107,7 +109,7 @@ export default defineComponent({
       // for update detection
       startPosition.x = position.x;
       startPosition.y = position.y;
-      d = 0;
+      deltaDistance = 0;
     };
 
     const getWH = () => {
@@ -138,12 +140,12 @@ export default defineComponent({
       const y = clientY - offset.value.y;
       const newPosition = { ...getWH(), x, y };
       ctx.emit("updatePosition", newPosition);
-      d = (startPosition.x - x) ** 2 + (startPosition.y - y) ** 2;
+      deltaDistance = (startPosition.x - x) ** 2 + (startPosition.y - y) ** 2;
     };
 
     const onEndNode = () => {
       isDragging.value = false;
-      if (d > 4) {
+      if (deltaDistance > deltaDistanceThredhold) {
         ctx.emit("savePosition");
       }
     };

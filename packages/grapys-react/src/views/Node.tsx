@@ -40,7 +40,10 @@ const Node: React.FC<NodeProps> = ({
   const [isNewEdge, setIsNewEdge] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const startPosition = useRef({ x: 0, y: 0 });
-  const distanceMoved = useRef(0);
+
+  // If it moves only a little, the data will not be saved because it stack much more histories.
+  const deltaDistance = useRef(0);
+  const deltaDistanceThredhold = 4; // square deltaDistance
 
   const updateStaticNodeValue = useLocalStore((state) => state.updateStaticNodeValue);
 
@@ -85,7 +88,7 @@ const Node: React.FC<NodeProps> = ({
         x: nodeData.position.x,
         y: nodeData.position.y,
       };
-      distanceMoved.current = 0;
+      deltaDistance.current = 0;
     },
     [nodeData.position, isNewEdge],
   );
@@ -97,14 +100,14 @@ const Node: React.FC<NodeProps> = ({
       const x = clientX - offset.x;
       const y = clientY - offset.y;
       onUpdatePosition({ ...getWH(), x, y });
-      distanceMoved.current = (startPosition.current.x - x) ** 2 + (startPosition.current.y - y) ** 2;
+      deltaDistance.current = (startPosition.current.x - x) ** 2 + (startPosition.current.y - y) ** 2;
     },
     [isDragging, offset, onUpdatePosition],
   );
 
   const onEndNode = useCallback(() => {
     setIsDragging(false);
-    if (distanceMoved.current > 4) {
+    if (deltaDistance.current > deltaDistanceThredhold) {
       onSavePosition();
     }
   }, [onSavePosition]);
