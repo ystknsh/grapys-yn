@@ -1,5 +1,14 @@
 import { ref, computed } from "vue";
-import { GUINodeData, GUIEdgeData, GUINodeDataRecord, UpdateStaticValue, UpdateNodePositionData, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
+import {
+  GUINodeData,
+  GUIEdgeData,
+  GUINodeDataRecord,
+  UpdateStaticValue,
+  UpdateNodePositionData,
+  HistoryData,
+  HistoryPayload,
+  LoopData,
+} from "../utils/gui/type";
 import { edges2inputs, store2graphData } from "../utils/gui/utils";
 import { defineStore } from "pinia";
 
