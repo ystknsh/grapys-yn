@@ -200,10 +200,6 @@ const Node: React.FC<NodeProps> = ({
   const onUpdateStaticValue = (value: UpdateStaticValue) => {
     updateStaticNodeValue(nodeIndex, value, true);
   };
-  //const openNodeMenu = (event: MouseEvent) => {
-  // TODO
-  // ctx.emit("openNodeMenu", event);
-  // };
 
   return (
     <div
