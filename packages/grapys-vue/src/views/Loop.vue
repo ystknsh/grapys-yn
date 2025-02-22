@@ -10,7 +10,7 @@
 
       <div v-if="loopType === 'while'" class="mt-2">
         <select class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" @change="updateWhile" :value="whileValue">
-          <option v-for="item in lists" :key="item">{{ item }}</option>
+          <option v-for="item in whileSources" :key="item">{{ item }}</option>
         </select>
       </div>
       <div v-show="loopType === 'count'" class="mt-2">
@@ -29,20 +29,21 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const lists = computed(() => {
-      const tmp: string[] = [];
+    const whileSources = computed(() => {
+      const sources: string[] = [];
       store.nodes.forEach((node) => {
         const agent = node.data.guiAgentId;
         if (agent) {
           const profile = agentProfiles[agent];
           profile.outputs.forEach((prop) => {
-            tmp.push(`:${node.nodeId}.${prop.name}`);
+            sources.push(`:${node.nodeId}.${prop.name}`);
           });
         } else {
-          tmp.push(`:${node.nodeId}`);
+          // static node
+          sources.push(`:${node.nodeId}`);
         }
       });
-      return tmp;
+      return sources;
     });
 
     const storeLoopData = computed(() => {
@@ -81,7 +82,7 @@ export default defineComponent({
 
     const loopType = ref(store.loop.loopType);
     const countValue = ref("1");
-    const whileValue = ref(lists.value[0]);
+    const whileValue = ref(whileSources.value[0]);
     const countRef = ref();
 
     const updateType = (event: Event) => {
@@ -115,7 +116,7 @@ export default defineComponent({
       countValue,
       whileValue,
 
-      lists,
+      whileSources,
 
       updateType,
       updateWhile,

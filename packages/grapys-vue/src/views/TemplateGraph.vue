@@ -27,7 +27,6 @@ export default defineComponent({
   setup(__, ctx) {
     const template = ref(0);
     const setGraph = () => {
-      console.log(graphs[template.value]);
       ctx.emit("setGraph", graphs[template.value].graph);
     };
     return {

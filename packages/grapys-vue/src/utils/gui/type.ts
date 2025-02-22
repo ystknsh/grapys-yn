@@ -121,7 +121,6 @@ export type NearestData = {
   direction: string;
 };
 
-// TODO good name
 export type InputOutputType = { name: string; type?: string };
 export type ParamType = {
   name: string;

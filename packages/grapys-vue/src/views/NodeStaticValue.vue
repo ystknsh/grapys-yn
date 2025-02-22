@@ -89,17 +89,7 @@ export default defineComponent({
         staticNodeType: dataType.value,
       });
     };
-    /*
-    watch([booleanValue, dataType], () => {
-      if (dataType.value === "boolean") {
-        // TODO history
-        ctx.emit("updateValue", {
-          value: booleanValue.value === "true",
-          staticNodeType: dataType.value,
-        });
-      }
-      });
-    */
+
     const selectUpdate = () => {
       ctx.emit("updateValue", {
         value: booleanValue.value === "true",

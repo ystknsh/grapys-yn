@@ -152,7 +152,6 @@ export default defineComponent({
 
     // edge event
     const onStartEdge = (event: MouseEvent | TouchEvent, direction: NewEdgeEventDirection, index: number) => {
-      console.log("edge", event);
       isNewEdge.value = true;
       const { clientX, clientY } = getClientPos(event);
       ctx.emit("newEdgeStart", {
@@ -165,7 +164,7 @@ export default defineComponent({
     };
     const onEndEdge = () => {
       isNewEdge.value = false;
-      ctx.emit("newEdgeEnd", {});
+      ctx.emit("newEdgeEnd");
     };
     const onMoveEdge = (event: MouseEvent | TouchEvent) => {
       if (!isNewEdge.value) return;
