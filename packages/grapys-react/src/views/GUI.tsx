@@ -180,6 +180,11 @@ const GUI: FC = () => {
         <GraphRunner graphData={newGraphData} />
       </div>
       {JSON.stringify(newGraphData, null, 2)}
+      <div className="bg-red-200 bg-red-300 bg-red-400 bg-red-500"></div>
+      <div className="bg-green-200 bg-green-300 bg-green-400 bg-green-500"></div>
+      <div className="bg-blue-200 bg-blue-300 bg-blue-400 bg-blue-500"></div>
+      <div className="bg-yellow-200 bg-yellow-300 bg-yellow-400 bg-yellow-500"></div>
+      <div className="bg-violet-200 bg-violet-500 "></div>
     </div>
   );
 };
