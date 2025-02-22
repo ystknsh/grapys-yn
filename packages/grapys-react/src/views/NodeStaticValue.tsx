@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, ChangeEventHandler } from "react";
-import type { GUINodeData } from "../utils/gui/type";
+import type { GUINodeData, UpdateStaticValue } from "../utils/gui/type";
 import { staticNodeOptions } from "../utils/gui/classUtils";
 import { isObject } from "graphai";
 
@@ -7,7 +7,7 @@ interface NodeStaticValueProps {
   nodeData: GUINodeData;
   onFocus: () => void;
   onBlur: () => void;
-  onUpdateStaticValue: (value: any) => void;
+  onUpdateStaticValue: (value: UpdateStaticValue) => void;
 }
 /*
   Handle the value of a static node.

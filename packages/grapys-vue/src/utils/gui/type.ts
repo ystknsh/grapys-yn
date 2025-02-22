@@ -34,7 +34,7 @@ export type GUINodeData = {
 
 export type UpdateStaticValue = {
   staticNodeType: string;
-  value: string;
+  value: string | number | boolean;
 };
 
 export type GUINodeDataRecord = Record<string, GUINodeData>;
