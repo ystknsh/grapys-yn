@@ -43,7 +43,7 @@ const GUI: FC = () => {
 
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
-  const saveNodePosition = useLocalStore((state) => state.saveNodePositionData);
+  const onSavePosition = useLocalStore((state) => state.saveNodePositionData);
 
   const updateGraph = (graph: GraphData) => {
     const { rawEdge, rawNode, loop } = graphToGUIData(graph);
@@ -53,11 +53,11 @@ const GUI: FC = () => {
     (async () => {
       updateGraph(graphChat);
       await sleep(1);
-      saveNodePosition();
+      onSavePosition();
     })();
   }, []);
 
-  const { svgRef, newEdgeData, newEdgeStartEvent, newEdgeEvent, newEdgeEndEvent, nearestData, edgeConnectable } = useNewEdge();
+  const { svgRef, newEdgeData, onNewEdgeStart, onNewEdge, onNewEdgeEnd, nearestData, edgeConnectable } = useNewEdge();
 
   const openEdgeMenu = (event: React.MouseEvent, edgeIndex: number) => {
     if (svgRef.current) {
@@ -100,7 +100,7 @@ const GUI: FC = () => {
     await sleep(1);
     updateGraph(graph);
     await sleep(1);
-    saveNodePosition();
+    onSavePosition();
   };
 
   return (
@@ -164,10 +164,10 @@ const GUI: FC = () => {
                 nodeData={node}
                 nearestData={nearestData}
                 onUpdatePosition={(pos) => updateNodePosition(index, pos)}
-                onSavePosition={saveNodePosition}
-                onNewEdgeStart={newEdgeStartEvent}
-                onNewEdge={newEdgeEvent}
-                onNewEdgeEnd={newEdgeEndEvent}
+                onSavePosition={onSavePosition}
+                onNewEdgeStart={onNewEdgeStart}
+                onNewEdge={onNewEdge}
+                onNewEdgeEnd={onNewEdgeEnd}
                 onOpenNodeMenu={(e) => openNodeMenu(e, index)}
               />
             ))}

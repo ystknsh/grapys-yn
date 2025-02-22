@@ -17,7 +17,7 @@ export const useNewEdge = () => {
   });
   const [targetNode, setTargetNode] = useState<string>("");
 
-  const newEdgeStartEvent = useCallback(
+  const onNewEdgeStart = useCallback(
     (data: NewEdgeStartEventData) => {
       if (svgRef.current) {
         setTargetNode(data.nodeId);
@@ -29,7 +29,7 @@ export const useNewEdge = () => {
     [nodeRecords],
   );
 
-  const newEdgeEvent = useCallback(
+  const onNewEdge = useCallback(
     (data: NewEdgeEventData) => {
       if (newEdgeData && svgRef.current) {
         const { mousePosition, updateEdgeData } = edgeUpdateEventData(data, svgRef.current, newEdgeData);
@@ -68,7 +68,7 @@ export const useNewEdge = () => {
     return isEdgeConnectale(expectEdge, edges, nodeRecords);
   }, [expectEdge, edges, nodeRecords]);
 
-  const newEdgeEndEvent = useCallback(() => {
+  const onNewEdgeEnd = useCallback(() => {
     if (expectEdge && edgeConnectable) {
       pushEdge(expectEdge);
     }
@@ -78,9 +78,9 @@ export const useNewEdge = () => {
   return {
     svgRef,
     newEdgeData,
-    newEdgeStartEvent,
-    newEdgeEvent,
-    newEdgeEndEvent,
+    onNewEdgeStart,
+    onNewEdge,
+    onNewEdgeEnd,
     nearestData,
     expectEdge,
     edgeConnectable,

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeStartEventData, NewEdgeEventData } from "../utils/gui/type";
+import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeStartEventData, NewEdgeEventData, InputOutputType } from "../utils/gui/type";
 import { getClientPos } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
@@ -223,7 +223,7 @@ const Node: React.FC<NodeProps> = ({
       </div>
 
       <div className="mt-1 flex flex-col items-end">
-        {(edgeIO.outputs ?? []).map((output: any, index: number) => (
+        {(edgeIO.outputs ?? []).map((output: InputOutputType, index: number) => (
           <div
             key={`out-${output.name}-${index}`}
             className="relative flex items-center"
@@ -241,7 +241,7 @@ const Node: React.FC<NodeProps> = ({
       </div>
 
       <div className="mt-1 mb-1 flex flex-col items-start">
-        {(edgeIO.inputs ?? []).map((input: any, index: number) => (
+        {(edgeIO.inputs ?? []).map((input: InputOutputType, index: number) => (
           <div
             key={`in-${input.name}-${index}`}
             className="relative flex items-center"
