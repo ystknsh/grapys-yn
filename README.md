@@ -31,3 +31,9 @@ GraphAI agents support standard implementations.
 
 However, the agent profiles are not yet fully developed (contributions via PRs are welcome!).
 Agent profiles manage the mapping information between GraphAI and GUI agents.
+
+
+## Contributions
+
+Both React and Vue versions support the same features, with some TypeScript files shared between them.
+If you contribute to the development of this tool and submit a PR to the repository, please test and verify that it works in both React and Vue.
