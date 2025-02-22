@@ -9,6 +9,14 @@ This is a tool for creating GraphAI workflows via a GUI. It is available in both
 
 <img width="1078" alt="grapys" src="https://github.com/user-attachments/assets/54f2083e-4c6a-4ea3-9f41-788ef607eefa" />
 
+### Supported Features  
+- Adding nodes and inputs (edges) via GUI  
+- Inputting and configuring values for `params/static` nodes  
+- Configuring loops  
+- Generating `GraphData` for GraphAI  
+- Managing updates with history, supporting undo/redo  
+- Saving data to local storage  
+- Executing chat using the created graph data  
 
 ## OpenAI llm
 
