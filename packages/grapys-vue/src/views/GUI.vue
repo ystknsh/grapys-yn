@@ -172,7 +172,7 @@ export default defineComponent({
         <TemplateGraph @set-graph="setGraph" />
       </aside>
       <main class="flex-1">
-        <div class="relative h-[100vh] overflow-hidden rounded-md border-4" @click="closeMenu">
+        <div class="relative h-[100vh] overflow-hidden rounded-md border-4 border-gray-200" @click="closeMenu">
           <Loop />
           <svg x="0" y="0" class="pointer-events-none absolute h-[100%] w-full" ref="svgRef">
             <Edge
