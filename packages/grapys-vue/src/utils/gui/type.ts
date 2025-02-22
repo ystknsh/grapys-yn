@@ -25,6 +25,8 @@ export type NodePositionData = {
   outputCenters?: number[];
   inputCenters?: number[];
 };
+export type UpdateNodePositionData = { x: number; y: number; width: number; height: number } | { width: number; height: number; outputCenters: number[]; inputCenters: number[]; };
+
 export type GUINodeData = {
   type: string;
   nodeId: string;

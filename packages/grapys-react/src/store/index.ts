@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GUINodeData, GUIEdgeData, GUINodeDataRecord, UpdateStaticValue, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
+import { GUINodeData, GUIEdgeData, GUINodeDataRecord, UpdateStaticValue, UpdateNodePositionData, HistoryData, HistoryPayload, LoopData } from "../utils/gui/type";
 import { edges2inputs, store2graphData } from "../utils/gui/utils";
 
 export interface LocalState {
@@ -17,7 +17,7 @@ export interface LocalState {
   deleteEdge: (edgeIndex: number) => void;
   deleteNode: (nodeIndex: number) => void;
 
-  updateNodePosition: (positionIndex: number, pos: { x: number; y: number; width: number; height: number }) => void;
+  updateNodePosition: (positionIndex: number, pos: UpdateNodePositionData) => void;
   updateNodeParam: (positionIndex: number, key: string, value: unknown) => void;
   pushDataToHistory: (name: string, data: HistoryPayload) => void;
   saveNodePositionData: () => void;
@@ -105,7 +105,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     updateData([...currentData.nodes, nodeData], [...currentData.edges], "addNode", true);
   },
 
-  updateNodePosition: (positionIndex: number, pos: { x: number; y: number; width: number; height: number }) => {
+  updateNodePosition: (positionIndex: number, pos: UpdateNodePositionData) => {
     set((state) => {
       const newNodes = [...state.currentData.nodes];
 

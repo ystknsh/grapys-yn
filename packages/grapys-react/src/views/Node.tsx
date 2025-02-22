@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeStartEventData, NewEdgeEventData, InputOutputType } from "../utils/gui/type";
+import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeStartEventData, NewEdgeEventData, InputOutputType, UpdateNodePositionData } from "../utils/gui/type";
 import { getClientPos } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
@@ -12,7 +12,7 @@ interface NodeProps {
   nodeData: GUINodeData;
   nearestData?: GUINearestData;
   nodeIndex: number;
-  onUpdatePosition: (position: any) => void;
+  onUpdatePosition: (position: UpdateNodePositionData) => void;
   onSavePosition: () => void;
   onNewEdgeStart: (data: NewEdgeStartEventData) => void;
   onNewEdge: (data: NewEdgeEventData) => void;
