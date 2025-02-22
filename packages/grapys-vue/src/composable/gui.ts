@@ -11,21 +11,20 @@ export const useNewEdge = () => {
   const mouseCurrentPosition = ref<Position>({ x: 0, y: 0 });
   const targetNode = ref<string>("");
 
-  const newEdgeStartEvent = (data: NewEdgeStartEventData) => {
+  const onNewEdgeStart = (data: NewEdgeStartEventData) => {
     targetNode.value = data.nodeId;
     const { mousePosition, startEdgeData } = edgeStartEventData(data, svgRef.value, store.nodeRecords[data.nodeId]);
     mouseCurrentPosition.value = mousePosition;
     newEdgeData.value = startEdgeData;
   };
-  const newEdgeEvent = (data: NewEdgeEventData) => {
+  const onNewEdge = (data: NewEdgeEventData) => {
     if (newEdgeData.value) {
       const { mousePosition, updateEdgeData } = edgeUpdateEventData(data, svgRef.value, newEdgeData.value);
       mouseCurrentPosition.value = mousePosition;
       newEdgeData.value = updateEdgeData;
     }
   };
-
-  const newEdgeEndEvent = () => {
+  const onNewEdgeEnd = () => {
     if (expectEdge.value && edgeConnectable.value) {
       store.pushEdge(expectEdge.value);
     }
@@ -66,9 +65,9 @@ export const useNewEdge = () => {
   return {
     svgRef,
     newEdgeData,
-    newEdgeStartEvent,
-    newEdgeEvent,
-    newEdgeEndEvent,
+    onNewEdgeStart,
+    onNewEdge,
+    onNewEdgeEnd,
     nearestData,
     expectEdge,
 

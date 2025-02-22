@@ -65,7 +65,7 @@ export default defineComponent({
       return guiEdgeData2edgeData(store.edges, store.nodeRecords);
     });
 
-    const { svgRef, newEdgeData, newEdgeStartEvent, newEdgeEvent, newEdgeEndEvent, nearestData, edgeConnectable } = useNewEdge();
+    const { svgRef, newEdgeData, onNewEdgeStart, onNewEdge, onNewEdgeEnd, nearestData, edgeConnectable } = useNewEdge();
 
     const openEdgeMenu = (event: MouseEvent, edgeIndex: number) => {
       const rect = svgRef.value.getBoundingClientRect();
@@ -109,9 +109,9 @@ export default defineComponent({
       store,
 
       edgeDataList,
-      newEdgeStartEvent,
-      newEdgeEvent,
-      newEdgeEndEvent,
+      onNewEdgeStart,
+      onNewEdge,
+      onNewEdgeEnd,
       newEdgeData,
       svgRef,
       nearestData,
@@ -200,9 +200,9 @@ export default defineComponent({
             @update-position="(pos) => updateNodePosition(index, pos)"
             @update-static-node-value="(value) => updateStaticNodeValue(index, value, true)"
             @save-position="saveNodePosition"
-            @new-edge-start="newEdgeStartEvent"
-            @new-edge="newEdgeEvent"
-            @new-edge-end="newEdgeEndEvent"
+            @new-edge-start="onNewEdgeStart"
+            @new-edge="onNewEdge"
+            @new-edge-end="onNewEdgeEnd"
             @open-node-menu="(event) => openNodeMenu(event, index)"
           />
           <ContextEdgeMenu ref="contextEdgeMenu" />
