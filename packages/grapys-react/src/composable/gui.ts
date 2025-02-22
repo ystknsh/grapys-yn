@@ -1,6 +1,6 @@
 import { useRef, useState, useMemo, useCallback } from "react";
 import { useLocalStore, node2Record } from "../store/index";
-import { Position, NewEdgeEventData, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
+import { Position, NewEdgeStartEventData, NewEdgeEventData, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
 import { edgeStartEventData, edgeUpdateEventData, edgeEndEventData, pickNearestNode, pickNearestConnect, isEdgeConnectale } from "../utils/gui/utils";
 
 export const useNewEdge = () => {
@@ -18,7 +18,7 @@ export const useNewEdge = () => {
   const [targetNode, setTargetNode] = useState<string>("");
 
   const newEdgeStartEvent = useCallback(
-    (data: NewEdgeEventData) => {
+    (data: NewEdgeStartEventData) => {
       if (svgRef.current) {
         setTargetNode(data.nodeId);
         const { mousePosition, startEdgeData } = edgeStartEventData(data, svgRef.current, nodeRecords[data.nodeId]);

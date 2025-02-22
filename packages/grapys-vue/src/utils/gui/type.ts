@@ -63,11 +63,15 @@ export type EdgeData = {
 export type NewEdgeEventDirection = "outbound" | "inbound";
 
 // x, y is clientX, clientY of mouse pointer
-export type NewEdgeEventData = {
-  // on: string;
+export type NewEdgeStartEventData = {
   direction: NewEdgeEventDirection;
   index: number;
   nodeId: string;
+  x: number;
+  y: number;
+};
+
+export type NewEdgeEventData = {
   x: number;
   y: number;
 };

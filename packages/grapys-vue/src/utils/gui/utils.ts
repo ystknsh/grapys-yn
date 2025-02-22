@@ -7,6 +7,7 @@ import {
   EdgeData,
   InputOutput,
   InputOutputType,
+  NewEdgeStartEventData,
   NewEdgeEventData,
   NewEdgeData,
   ClosestNodeData,
@@ -306,7 +307,7 @@ export const guiEdgeData2edgeData = (guiEdges: GUIEdgeData[], nodeRecords: GUINo
   });
 };
 
-export const edgeStartEventData = (data: NewEdgeEventData, parentElement: HTMLElement | SVGSVGElement, nodeData: GUINodeData) => {
+export const edgeStartEventData = (data: NewEdgeStartEventData, parentElement: HTMLElement | SVGSVGElement, nodeData: GUINodeData) => {
   // Since x and y are clientX and clientY, adjust the height by the header.
   // If there is a horizontal menu, you will need to adjust x.
   const rect = parentElement.getBoundingClientRect();

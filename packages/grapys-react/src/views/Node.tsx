@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeEventData } from "../utils/gui/type";
+import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeStartEventData, NewEdgeEventData } from "../utils/gui/type";
 import { getClientPos } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
@@ -14,9 +14,9 @@ interface NodeProps {
   nodeIndex: number;
   onUpdatePosition: (position: any) => void;
   onSavePosition: () => void;
-  onNewEdgeStart: (data: NewEdgeEventData) => void;
-  onNewEdge: (event: any) => void;
-  onNewEdgeEnd: (event: any) => void;
+  onNewEdgeStart: (data: NewEdgeStartEventData) => void;
+  onNewEdge: (data: NewEdgeEventData) => void;
+  onNewEdgeEnd: () => void;
   onOpenNodeMenu: (event: React.MouseEvent) => void;
 }
 
@@ -138,7 +138,7 @@ const Node: React.FC<NodeProps> = ({
 
   const onEndEdge = useCallback(() => {
     setIsNewEdge(false);
-    onNewEdgeEnd({});
+    onNewEdgeEnd();
   }, [onNewEdgeEnd]);
 
   useEffect(() => {
