@@ -10,7 +10,7 @@ This is a tool for creating GraphAI workflows via a GUI. It is available in both
 <img width="1078" alt="grapys" src="https://github.com/user-attachments/assets/54f2083e-4c6a-4ea3-9f41-788ef607eefa" />
 
 
-## openAI llm
+## OpenAI llm
 
 To use OpenAI's LLM in the browser, please set your OpenAI key in the following environment variable.
 This runs entirely within your browser, so your API key is never stored or sent anywhere else.
@@ -25,3 +25,9 @@ This repository provides an agent using a web LLM.
 For using this, you can chat entirely within the browser without relying on LLMs like OpenAI.
 Currently, it only works on Chrome, so please use Chrome when using this feature.
 
+## Agent profiles
+In this repository, you can execute the created graph data directly.
+GraphAI agents support standard implementations.
+
+However, the agent profiles are not yet fully developed (contributions via PRs are welcome!).
+Agent profiles manage the mapping information between GraphAI and GUI agents.
