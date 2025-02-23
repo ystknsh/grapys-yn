@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { GraphData } from "graphai";
-import { graphChat as graphChatOpenAI } from "../graph/chat";
-import { graphChat as graphChatTinySwallow } from "../graph/chat_tinyswallow";
-
-const graphs = [
-  { name: "Chat(WebLLM)", graph: graphChatTinySwallow },
-  { name: "Chat(OpenAI)", graph: graphChatOpenAI },
-];
+import { graphs } from "../graph";
 
 interface GraphSelectorProps {
   onSetGraph: (graph: GraphData) => void;

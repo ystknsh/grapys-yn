@@ -14,13 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { graphChat as graphChatOpenAI } from "../graph/chat";
-import { graphChat as graphChatTinySwallow } from "../graph/chat_tinyswallow";
-
-const graphs = [
-  { name: "Chat(WebLLM)", graph: graphChatTinySwallow },
-  { name: "Chat(OpenAI)", graph: graphChatOpenAI },
-];
+import { graphs } from "../graph";
 
 export default defineComponent({
   emits: ["setGraph"],
