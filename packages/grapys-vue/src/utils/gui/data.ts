@@ -147,6 +147,52 @@ export const stringAgentProfiles: Record<string, AgentProfile> = {
   },
 };
 
+/*
+export const dataAgentProfiles: Record<string, AgentProfile> = {
+  // need to update result(breaking change)
+  dataObjectMergeTemplateAgent: {
+    agent: "dataObjectMergeTemplateAgent",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+  dataSumTemplateAgentInfo: {
+    agent: "dataSumTemplateAgentInfo",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+  totalAgent: {
+    agent: "totalAgent",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+  propertyFilterAgent: {
+    agent: "propertyFilterAgent",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+  copyAgent: {
+    agent: "copyAgent",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+};
+*/
+export const compareAgentProfiles: Record<string, AgentProfile> = {
+  compareAgent: {
+    agent: "compareAgent",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+  
+};
+
+
 // copyAgent,
 
 //  copyMessageAgent,
@@ -180,6 +226,7 @@ export const agentProfiles: Record<string, AgentProfile> = {
   ...llmAgentProfiles,
   ...arrayAgentProfiles,
   ...stringAgentProfiles,
+  // ...dataAgentProfiles,
   convertAgent: {
     agent: "copyAgent",
     inputSchema: {

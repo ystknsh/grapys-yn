@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocalStore, node2Record } from "../store";
 import { agentProfiles } from "../utils/gui/data";
+import { getDefaultParams } from "../utils/gui/utils";
 
 const AddNode = () => {
   const nodesKey = Object.keys(agentProfiles);
@@ -24,12 +25,14 @@ const AddNode = () => {
 
     const isStatic = agent === "StaticNode";
     const targetAgent = agentProfiles[agent];
+    const params = getDefaultParams(targetAgent.params ?? []);
     const data = {
       data: isStatic
         ? {}
         : {
             agent: targetAgent?.agent || agent,
             guiAgentId: agent,
+            params,
           },
     };
 
