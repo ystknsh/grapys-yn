@@ -16,16 +16,14 @@ export type Position = { x: number; y: number };
 export type NodePosition = Position & {
   width: number;
   height: number;
-} ;
+};
 export type NodePositionData = Position & {
   width?: number;
   height?: number;
   outputCenters?: number[];
   inputCenters?: number[];
 };
-export type UpdateNodePositionData =
-  | NodePosition
-  | { width: number; height: number; outputCenters: number[]; inputCenters: number[] };
+export type UpdateNodePositionData = NodePosition | { width: number; height: number; outputCenters: number[]; inputCenters: number[] };
 
 export type GUINodeDataType = "computed" | "static";
 export type GUINodeData<T = ApplicationData> = {

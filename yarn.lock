@@ -367,6 +367,13 @@
   resolved "https://registry.npmjs.org/@graphai/agent_utils/-/agent_utils-0.0.3.tgz"
   integrity sha512-dybbO54rI9E1XfNaHhxLT9xES7G9KC2mXyDYaKvvcDF3bSF6/870CzQb3AOxqzy6WadkKPO+oFye85RM8uNaHg==
 
+"@graphai/data_agents@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@graphai/data_agents/-/data_agents-0.2.0.tgz#a5cc62c40b36953afd9ef84166d6bb367e67aef3"
+  integrity sha512-hMhI74ua763/WT5tfX8IgcKaBBPyUg8+qkanMG8jOPnnFF26LS2rDTwtXHBKtNEiL49NVkW/AFAFAuYHbLW/hQ==
+  dependencies:
+    deepmerge "^4.3.1"
+
 "@graphai/llm_utils@^0.2.0":
   version "0.2.0"
   resolved "https://registry.npmjs.org/@graphai/llm_utils/-/llm_utils-0.2.0.tgz"
@@ -1359,6 +1366,11 @@ deep-is@^0.1.3:
   version "0.1.4"
   resolved "https://registry.npmjs.org/deep-is/-/deep-is-0.1.4.tgz"
   integrity sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==
+
+deepmerge@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.3.1.tgz#44b5f2147cd3b00d4b56137685966f26fd25dd4a"
+  integrity sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==
 
 define-data-property@^1.0.1, define-data-property@^1.1.4:
   version "1.1.4"

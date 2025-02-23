@@ -51,20 +51,25 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     agent: "geminiAgent",
     ...llmAgentProfile,
   },
-}
-export const agentProfiles: Record<string, AgentProfile> = {
-  
-  eventAgent: {
-    agent: "eventAgent",
-    inputs: [{ name: "wait", type: "array" }],
-    outputs: [{ name: "text" }, { name: "message" }],
-    params: [{ name: "isResult", type: "boolean" }],
+};
+
+export const arrayAgentProfiles: Record<string, AgentProfile> = {
+  arrayFlatAgent: {
+    agent: "arrayFlatAgent",
+    inputs: [{ name: "array" }],
+    outputs: [{ name: "array" }],
+    params: [],
   },
-  ...llmAgentProfiles,
-  stringTemplateAgent: {
-    agent: "stringTemplateAgent",
-    inputs: [{ name: "text" }, { name: "message1" }, { name: "message2" }],
+  arrayJoinAgent: {
+    agent: "arrayJoinAgent",
+    inputs: [{ name: "array" }],
     outputs: [{ name: "text" }],
+    params: [],
+  },
+  popAgent: {
+    agent: "popAgent",
+    inputs: [{ name: "array" }],
+    outputs: [{ name: "item" }, { name: "array" }],
     params: [],
   },
   pushAgent: {
@@ -73,6 +78,108 @@ export const agentProfiles: Record<string, AgentProfile> = {
     outputs: [{ name: "array" }],
     params: [],
   },
+  shiftAgent: {
+    agent: "shiftAgent",
+    inputs: [{ name: "array" }],
+    outputs: [{ name: "item" }, { name: "array" }],
+    params: [],
+  },
+};
+
+export const stringAgentProfiles: Record<string, AgentProfile> = {
+  stringCaseVariantsAgent: {
+    agent: "stringCaseVariantsAgent",
+    inputs: [{ name: "text" }],
+    outputs: [
+      {
+        name: "kebabCase",
+      },
+      {
+        name: "lowerCamelCase",
+      },
+      {
+        name: "normalized",
+      },
+      {
+        name: "snakeCase",
+      },
+    ],
+    params: [],
+  },
+  /*
+  stringEmbeddingsAgent: {
+    agent: "stringEmbeddingsAgent",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+  */
+  stringSplitterAgent: {
+    agent: "stringSplitterAgent",
+    inputs: [{ name: "text" }],
+    outputs: [
+      {
+        name: "contents",
+      },
+      {
+        name: "count",
+      },
+      {
+        name: "chunkSize",
+      },
+      {
+        name: "overlap",
+      },
+    ],
+    params: [{ name: "chunkSize", type: "int", defaultValue: 64 }],
+  },
+  stringTemplateAgent: {
+    agent: "stringTemplateAgent",
+    inputs: [{ name: "text" }, { name: "message1" }, { name: "message2" }],
+    outputs: [{ name: "text" }],
+    params: [],
+  },
+  stringUpdateTextAgent: {
+    agent: "stringUpdateTextAgent",
+    inputs: [],
+    outputs: [],
+    params: [],
+  },
+};
+
+// copyAgent,
+
+//  copyMessageAgent,
+//  countingAgent,
+//  dotProductAgent,
+//  echoAgent,
+//  images2messageAgent,
+//  jsonParserAgent,
+//  mapAgent,
+//  mergeNodeIdAgent,
+//  nestedAgent,
+//  propertyFilterAgent,
+//  sleeperAgent,
+//  sortByValuesAgent,
+//  streamMockAgent,
+//??  totalAgent,
+//  vanillaFetchAgent
+
+export const agentProfiles: Record<string, AgentProfile> = {
+  // ??compareAgent,
+  // ??copy2ArrayAgent,
+  // ??dataSumTemplateAgent,
+  // dataObjectMergeTemplateAgent
+
+  eventAgent: {
+    agent: "eventAgent",
+    inputs: [{ name: "wait", type: "array" }],
+    outputs: [{ name: "text" }, { name: "message" }],
+    params: [{ name: "isResult", type: "boolean" }],
+  },
+  ...llmAgentProfiles,
+  ...arrayAgentProfiles,
+  ...stringAgentProfiles,
   convertAgent: {
     agent: "copyAgent",
     inputSchema: {
