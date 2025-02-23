@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeStartEventData, NewEdgeEventData, InputOutputType, UpdateNodePositionData } from "../utils/gui/type";
-import { getClientPos } from "../utils/gui/utils";
+import { getClientPos, getNodeSize } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
@@ -53,23 +53,7 @@ const Node: React.FC<NodeProps> = ({
   };
 
   const getWH = () => {
-    if (!thisRef.current) {
-      return { width: 0, height: 0, outputCenters: [], inputCenters: [] };
-    }
-    const rect = thisRef.current.getBoundingClientRect();
-    const parentTop = rect.top;
-
-    const getCenterHeight = (el: HTMLElement) => {
-      const oRect = el.getBoundingClientRect();
-      return oRect.top - parentTop + oRect.height / 2;
-    };
-
-    return {
-      width: rect.width,
-      height: rect.height,
-      outputCenters: outputsRef.current.map(getCenterHeight),
-      inputCenters: inputsRef.current.map(getCenterHeight),
-    };
+    return getNodeSize(thisRef.current, inputsRef.current, outputsRef.current);
   };
   useEffect(() => {
     onUpdatePosition(getWH());

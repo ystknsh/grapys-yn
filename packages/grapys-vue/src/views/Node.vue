@@ -53,7 +53,7 @@
 <script lang="ts">
 import { defineComponent, ref, watchEffect, computed, PropType, onMounted } from "vue";
 import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
-import { getClientPos } from "../utils/gui/utils";
+import { getClientPos, getNodeSize } from "../utils/gui/utils";
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
@@ -83,7 +83,7 @@ export default defineComponent({
   setup(props, ctx) {
     const agentParams = props.nodeData.type === "computed" ? agentProfiles[props.nodeData.data.guiAgentId ?? ""] : staticNodeParams;
 
-    const thisRef = ref();
+    const thisRef = ref<HTMLElement>();
     const inputsRef = ref<HTMLElement[]>([]);
     const outputsRef = ref<HTMLElement[]>([]);
 
@@ -113,21 +113,7 @@ export default defineComponent({
     };
 
     const getWH = () => {
-      const rect = thisRef.value.getBoundingClientRect();
-      const parentTop = rect.top;
-
-      const getCenterHeight = (el: HTMLElement) => {
-        const oRect = el.getBoundingClientRect();
-        return oRect.top - parentTop + oRect.height / 2;
-      };
-      const outputCenters = outputsRef.value.map(getCenterHeight);
-      const inputCenters = inputsRef.value.map(getCenterHeight);
-      return {
-        width: rect.width,
-        height: rect.height,
-        outputCenters,
-        inputCenters,
-      };
+      return getNodeSize(thisRef.value, inputsRef.value, outputsRef.value);
     };
     onMounted(() => {
       ctx.emit("updatePosition", getWH());
@@ -222,17 +208,19 @@ export default defineComponent({
     let currentWidth = 0;
     let currentHeight = 0;
     const focusEvent = () => {
-      currentWidth = thisRef.value.offsetWidth;
-      currentHeight = thisRef.value.offsetHeight;
-      thisRef.value.style.width = currentWidth * 3 + "px";
-      thisRef.value.style.height = currentHeight * 3 + "px";
-      thisRef.value.style.zIndex = 100;
+      if (thisRef.value) {
+        currentWidth = thisRef.value.offsetWidth;
+        currentHeight = thisRef.value.offsetHeight;
+        thisRef.value.style.width = currentWidth * 3 + "px";
+        thisRef.value.style.height = currentHeight * 3 + "px";
+      }
       ctx.emit("updatePosition", getWH());
     };
     const blurEvent = () => {
-      thisRef.value.style.width = currentWidth + "px";
-      thisRef.value.style.height = currentHeight + "px";
-      thisRef.value.style.zIndex = 1;
+      if (thisRef.value) {
+        thisRef.value.style.width = currentWidth + "px";
+        thisRef.value.style.height = currentHeight + "px";
+      }
       ctx.emit("updatePosition", getWH());
     };
     const updateValue = (value: UpdateStaticValue) => {
