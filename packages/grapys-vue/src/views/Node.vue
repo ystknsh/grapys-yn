@@ -2,10 +2,7 @@
   <div
     class="absolute flex w-36 cursor-grab flex-col rounded-md text-center text-white select-none"
     :class="nodeMainClass(expectNearNode, nodeData)"
-    :style="{
-      transform: transform,
-      cursor: isDragging ? 'grabbing' : 'grab',
-    }"
+    :style="transform"
     ref="thisRef"
     @mousedown="onStartNode"
     @touchstart="onStartNode"
@@ -53,7 +50,7 @@
 <script lang="ts">
 import { defineComponent, ref, watchEffect, computed, PropType, onMounted } from "vue";
 import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
-import { getClientPos, getNodeSize } from "../utils/gui/utils";
+import { getClientPos, getNodeSize, getTransformStyle } from "../utils/gui/utils";
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
@@ -95,7 +92,7 @@ export default defineComponent({
     // If it moves only a little, the data will not be saved because it stack much more histories.
     let deltaDistance = 0; // square
     const deltaDistanceThredhold = 4;
-    
+
     const onStartNode = (event: MouseEvent | TouchEvent) => {
       if (isNewEdge.value) {
         return;
@@ -192,7 +189,9 @@ export default defineComponent({
     });
 
     const transform = computed(() => {
-      return `translate(${props.nodeData.position.x}px, ${props.nodeData.position.y}px)`;
+      return getTransformStyle(props.nodeData, isDragging.value);
+
+      // return `translate(${props.nodeData.position.x}px, ${props.nodeData.position.y}px)`;
     });
     const expectNearNode = computed(() => {
       return props.nodeData.nodeId === props.nearestData?.nodeId;

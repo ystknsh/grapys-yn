@@ -503,7 +503,7 @@ export const convEdgePath = (
   return `M ${x1} ${y1dash} C ${x1 + controlXOffset} ${y1dash - controlYOffset}, ${x2 - controlXOffset} ${y2dash + controlYOffset}, ${x2} ${y2dash}`;
 };
 
-export const getNodeSize = (nodeDom: HTMLElement | undefined, inputDoms: HTMLElement[], outputDoms: HTMLElement[]) => {
+export const getNodeSize = (nodeDom: HTMLElement | null, inputDoms: HTMLElement[], outputDoms: HTMLElement[]) => {
   if (!nodeDom) {
     return { width: 0, height: 0, outputCenters: [], inputCenters: [] };
   }
@@ -519,5 +519,12 @@ export const getNodeSize = (nodeDom: HTMLElement | undefined, inputDoms: HTMLEle
     height: rect.height,
     inputCenters: inputDoms.map(getCenterHeight),
     outputCenters: outputDoms.map(getCenterHeight),
+  };
+};
+
+export const getTransformStyle = (nodeData: GUINodeData, isDragging: boolean) => {
+  return {
+    transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
+    cursor: isDragging ? "grabbing" : "grab",
   };
 };

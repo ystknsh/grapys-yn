@@ -3,7 +3,6 @@
   You need to add the generated class names to the safelist, but since Tailwind v4 does not support this method, you should manually include these classes in a non-intrusive part of your code to ensure they are not purged.
 */
 
-
 import { GUINodeData } from "./type";
 
 export const nodeMainClass = (expectNearNode: boolean, nodeData: GUINodeData) => {

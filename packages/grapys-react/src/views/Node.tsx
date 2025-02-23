@@ -1,6 +1,15 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue, NewEdgeStartEventData, NewEdgeEventData, InputOutputType, UpdateNodePositionData } from "../utils/gui/type";
-import { getClientPos, getNodeSize } from "../utils/gui/utils";
+import type {
+  GUINodeData,
+  GUINearestData,
+  NewEdgeEventDirection,
+  UpdateStaticValue,
+  NewEdgeStartEventData,
+  NewEdgeEventData,
+  InputOutputType,
+  UpdateNodePositionData,
+} from "../utils/gui/type";
+import { getClientPos, getNodeSize, getTransformStyle } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
@@ -47,10 +56,7 @@ const Node: React.FC<NodeProps> = ({
 
   const updateStaticNodeValue = useLocalStore((state) => state.updateStaticNodeValue);
 
-  const transformStyle = {
-    transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
-    cursor: isDragging ? "grabbing" : "grab",
-  };
+  const transformStyle = getTransformStyle(nodeData, isDragging);
 
   const getWH = () => {
     return getNodeSize(thisRef.current, inputsRef.current, outputsRef.current);

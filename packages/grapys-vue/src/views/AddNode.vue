@@ -39,7 +39,6 @@ export default defineComponent({
       }
       if (store.nodeRecords[nodeId.value]) {
         isError.value = true;
-
       }
 
       const isStatic = agent.value === "StaticNode";
