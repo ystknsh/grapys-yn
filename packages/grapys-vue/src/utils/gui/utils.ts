@@ -6,7 +6,7 @@ import {
   GUINearestData,
   EdgeData,
   AgentProfile,
-  InputOutputType,
+  InputOutputData,
   NewEdgeStartEventData,
   NewEdgeEventData,
   NewEdgeData,
@@ -43,7 +43,7 @@ export const graphToGUIData = (graphData: GraphData) => {
 
   const getIndex = (nodeId: string, propId: string, key: keyof AgentProfile) => {
     const agent = node2agent[nodeId];
-    const indexes = agent ? (agentProfiles[agent][key] as InputOutputType[]) : [];
+    const indexes = agent ? (agentProfiles[agent][key] as InputOutputData[]) : [];
     const index = indexes.findIndex((data) => data.name === propId);
     if (index === -1) {
       console.log(`${key} ${nodeId}.${propId} is not hit`);

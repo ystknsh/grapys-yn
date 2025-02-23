@@ -6,7 +6,7 @@ import type {
   UpdateStaticValue,
   NewEdgeStartEventData,
   NewEdgeEventData,
-  InputOutputType,
+  InputOutputData,
   UpdateNodePositionData,
 } from "../utils/gui/type";
 import { getClientPos, getNodeSize, getTransformStyle } from "../utils/gui/utils";
@@ -212,7 +212,7 @@ const Node: React.FC<NodeProps> = ({
       </div>
 
       <div className="mt-1 flex flex-col items-end">
-        {(edgeIO.outputs ?? []).map((output: InputOutputType, index: number) => (
+        {(edgeIO.outputs ?? []).map((output: InputOutputData, index: number) => (
           <div
             key={`out-${output.name}-${index}`}
             className="relative flex items-center"
@@ -230,7 +230,7 @@ const Node: React.FC<NodeProps> = ({
       </div>
 
       <div className="mt-1 mb-1 flex flex-col items-start">
-        {(edgeIO.inputs ?? []).map((input: InputOutputType, index: number) => (
+        {(edgeIO.inputs ?? []).map((input: InputOutputData, index: number) => (
           <div
             key={`in-${input.name}-${index}`}
             className="relative flex items-center"
