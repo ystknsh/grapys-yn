@@ -29,11 +29,11 @@ export type UpdateNodePositionData =
   | { x: number; y: number; width: number; height: number }
   | { width: number; height: number; outputCenters: number[]; inputCenters: number[] };
 
-export type GUINodeData = {
+export type GUINodeData<T = ApplicationData> = {
   type: string;
   nodeId: string;
   position: NodePositionData;
-  data: ApplicationData;
+  data: T;
 };
 
 export type UpdateStaticValue = {
@@ -121,7 +121,9 @@ export type NearestData = {
   direction: string;
 };
 
+
 export type InputOutputType = { name: string; type?: string };
+
 export type ParamType = {
   name: string;
   type?: string;
@@ -129,7 +131,7 @@ export type ParamType = {
   max?: number;
   min?: number;
 };
-export type InputOutput = {
+export type AgentProfile = {
   inputs: InputOutputType[];
   outputs: InputOutputType[];
   params?: ParamType[];

@@ -1,4 +1,4 @@
-import { InputOutput } from "./type";
+import { AgentProfile } from "./type";
 
 // data type
 //  - string
@@ -34,7 +34,7 @@ const llmAgentProfile = {
   ],
 };
 
-export const agentProfiles: Record<string, InputOutput> = {
+export const agentProfiles: Record<string, AgentProfile> = {
   eventAgent: {
     agent: "eventAgent",
     inputs: [{ name: "wait", type: "array" }],
@@ -87,7 +87,7 @@ export const agentProfiles: Record<string, InputOutput> = {
   },
 };
 
-export const staticNodeParams: InputOutput = {
+export const staticNodeParams: AgentProfile = {
   inputs: [{ name: "update" }],
   outputs: [{ name: "date" }],
 };
