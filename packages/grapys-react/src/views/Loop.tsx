@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocalStore } from "../store";
 
-import { agentProfiles } from "../utils/gui/data";
 import { getLoopWhileSources } from "../utils/gui/utils";
 
 const LoopComponent = () => {
