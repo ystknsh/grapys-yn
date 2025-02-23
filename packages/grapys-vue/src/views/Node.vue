@@ -80,7 +80,7 @@ export default defineComponent({
   setup(props, ctx) {
     const agentParams = props.nodeData.type === "computed" ? agentProfiles[props.nodeData.data.guiAgentId ?? ""] : staticNodeParams;
 
-    const thisRef = ref<HTMLElement>();
+    const thisRef = ref<HTMLElement | null>(null);
     const inputsRef = ref<HTMLElement[]>([]);
     const outputsRef = ref<HTMLElement[]>([]);
 
