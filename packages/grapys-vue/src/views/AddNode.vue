@@ -42,13 +42,20 @@ export default defineComponent({
       }
 
       const isStatic = agent.value === "StaticNode";
-      const targetAgent = agentProfiles[agent.value];
+      const targetAgent = agentProfiles[agent.value] ?? {};
+      const params = (targetAgent.params ?? []).reduce((tmp, param) => {
+        if (param.defaultValue !== undefined) {
+          tmp[param.name] = param.defaultValue;
+        }
+        return tmp;
+      }, {});
       const data = {
         data: isStatic
           ? {}
           : {
               agent: targetAgent.agent ? targetAgent.agent : agent.value,
               guiAgentId: agent.value,
+              params,
             },
       };
 
