@@ -1,11 +1,13 @@
 import type { DefaultParamsType } from "graphai";
 
+export type StaticNodeType = "text" |"data" | "number" | "boolean";
+
 export type ApplicationData = {
   // Application dependent data
   // agent?: string; // actual agent id
   guiAgentId?: string; // key of utils/gui/utils/data.
   value?: unknown; // ResultData<DefaultResultData>;
-  staticNodeType?: string;
+  staticNodeType?: StaticNodeType;
   params?: DefaultParamsType;
   isResult?: boolean;
 };
@@ -37,7 +39,7 @@ export type GUINodeData<T = ApplicationData> = {
 };
 
 export type UpdateStaticValue = {
-  staticNodeType: string;
+  staticNodeType: StaticNodeType;
   value: string | number | boolean;
 };
 

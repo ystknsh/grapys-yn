@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, ChangeEventHandler } from "react";
-import type { GUINodeData, UpdateStaticValue } from "../utils/gui/type";
+import type { GUINodeData, UpdateStaticValue, StaticNodeType } from "../utils/gui/type";
 import { staticNodeOptions } from "../utils/gui/classUtils";
 import { isObject } from "graphai";
 
@@ -128,7 +128,7 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
   return (
     <div>
       <label className="text-xs text-gray-300">Value</label>
-      <select value={dataType} onChange={(e) => setDataType(e.target.value)} className="w-full resize-none rounded-md border border-gray-300 p-1 text-black">
+      <select value={dataType} onChange={(e) => setDataType(e.target.value as StaticNodeType)} className="w-full resize-none rounded-md border border-gray-300 p-1 text-black">
         {staticNodeOptions.map((option, k) => (
           <option key={k} value={option.value}>
             {option.name}

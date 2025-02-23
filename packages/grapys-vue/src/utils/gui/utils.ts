@@ -14,6 +14,7 @@ import {
   EdgeEndPointData,
   HistoryPayload,
   NodePositionData,
+  StaticNodeType,
 } from "./type";
 import { inputs2dataSources, GraphData, isComputedNodeData, NodeData, StaticNodeData } from "graphai";
 import { LoopData } from "graphai/lib/type";
@@ -103,7 +104,7 @@ export const graphToGUIData = (graphData: GraphData) => {
           guiAgentId: node.agent as string,
         };
       }
-      const staticNodeType = (() => {
+      const staticNodeType: StaticNodeType = (() => {
         if (node.value === undefined) {
           return "text";
         }
