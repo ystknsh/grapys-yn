@@ -8,7 +8,6 @@ import {
   AgentProfile,
   InputOutputData,
   NewEdgeStartEventData,
-  NewEdgeEventData,
   NewEdgeData,
   ClosestNodeData,
   EdgeEndPointData,
@@ -344,7 +343,7 @@ export const edgeStartEventData = (data: NewEdgeStartEventData, parentElement: H
   };
 };
 
-export const edgeUpdateEventData = (data: NewEdgeEventData, parentElement: HTMLElement | SVGSVGElement, prevEdgeData: NewEdgeData) => {
+export const edgeUpdateEventData = (data: Position, parentElement: HTMLElement | SVGSVGElement, prevEdgeData: NewEdgeData) => {
   const rect = parentElement.getBoundingClientRect();
   const mousePosition = { x: data.x - rect.left, y: data.y - rect.top };
 
@@ -401,10 +400,6 @@ export const pickNearestNode = (nodes: GUINodeData[], targetNode: string, mouseC
     if (targetNode === node.nodeId) {
       return closest;
     }
-    /*
-    const nodeCenterX = node.position.x + (node.position.width ?? 0) / 2;
-    const nodeCenterY = node.position.y + (node.position.height ?? 0) / 2;
-    */
     const mouseX = mouseCurrentPosition.x;
     const mouseY = mouseCurrentPosition.y;
 

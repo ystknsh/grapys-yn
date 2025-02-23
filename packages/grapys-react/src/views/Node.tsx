@@ -5,7 +5,7 @@ import type {
   NewEdgeEventDirection,
   UpdateStaticValue,
   NewEdgeStartEventData,
-  NewEdgeEventData,
+  Position,
   InputOutputData,
   UpdateNodePositionData,
 } from "../utils/gui/type";
@@ -24,7 +24,7 @@ interface NodeProps {
   onUpdatePosition: (position: UpdateNodePositionData) => void;
   onSavePosition: () => void;
   onNewEdgeStart: (data: NewEdgeStartEventData) => void;
-  onNewEdge: (data: NewEdgeEventData) => void;
+  onNewEdge: (data: Position) => void;
   onNewEdgeEnd: () => void;
   onOpenNodeMenu: (event: React.MouseEvent) => void;
 }
