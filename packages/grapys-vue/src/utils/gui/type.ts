@@ -1,6 +1,6 @@
 import type { DefaultParamsType } from "graphai";
 
-export type StaticNodeType = "text" |"data" | "number" | "boolean";
+export type StaticNodeType = "text" | "data" | "number" | "boolean";
 
 export type ApplicationData = {
   // Application dependent data
@@ -143,13 +143,14 @@ export type AgentProfile = {
   inputSchema?: unknown;
 };
 
-export type LoopData = {
-  loopType: string;
+export type LoopDataType = "while" | "count" | "none";
+export type GUILoopData = {
+  loopType: LoopDataType;
   while?: string;
   count?: number;
 };
 export type HistoryPayload = {
-  loop: LoopData;
+  loop: GUILoopData;
   nodes: GUINodeData[];
   edges: GUIEdgeData[];
 };

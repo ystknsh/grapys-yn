@@ -7,7 +7,7 @@ import {
   UpdateNodePositionData,
   HistoryData,
   HistoryPayload,
-  LoopData,
+  GUILoopData,
 } from "../utils/gui/type";
 import { edges2inputs, store2graphData } from "../utils/gui/utils";
 import { defineStore } from "pinia";
@@ -101,7 +101,7 @@ export const useStore = defineStore("store", () => {
     pushDataToHistory("position", currentData.value);
   };
 
-  const initData = (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: LoopData) => {
+  const initData = (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: GUILoopData) => {
     const data = { nodes: nodeData, edges: edgeData, loop: loopData };
     currentData.value = data;
     // this time, node position is not set. save after mounted.
@@ -149,7 +149,7 @@ export const useStore = defineStore("store", () => {
     updateData(newNodes, [...edges.value], "updateStaticValue", saveHistory);
   };
 
-  const updateLoop = (loopData: LoopData) => {
+  const updateLoop = (loopData: GUILoopData) => {
     const data = { nodes: nodes.value, edges: edges.value, loop: loopData };
     currentData.value = data;
     pushDataToHistory("loopUpdate", data);

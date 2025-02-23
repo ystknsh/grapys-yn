@@ -24,6 +24,7 @@
 import { defineComponent, ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useStore } from "../store";
 import { getLoopWhileSources } from "../utils/gui/utils";
+import { LoopDataType, GUILoopData } from "../utils/gui/type";
 
 export default defineComponent({
   setup() {
@@ -33,12 +34,12 @@ export default defineComponent({
       return getLoopWhileSources(store.nodes);
     });
 
-    const loopType = ref(store.loop.loopType);
+    const loopType = ref<LoopDataType>(store.loop.loopType);
     const countValue = ref("1");
     const whileValue = ref(whileSources.value[0]);
     const countRef = ref();
 
-    const storeLoopData = computed(() => {
+    const storeLoopData = computed<GUILoopData>(() => {
       if (loopType.value === "while") {
         return {
           loopType: "while",
@@ -74,7 +75,7 @@ export default defineComponent({
 
     const updateType = (event: Event) => {
       if (event.target instanceof HTMLSelectElement) {
-        loopType.value = event?.target?.value ?? "";
+        loopType.value = (event?.target?.value ?? "") as LoopDataType;
         updateLoop();
       }
     };

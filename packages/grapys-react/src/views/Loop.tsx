@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useLocalStore } from "../store";
 
 import { getLoopWhileSources } from "../utils/gui/utils";
+import { LoopDataType } from "../utils/gui/type";
 
 const LoopComponent = () => {
   const nodes = useLocalStore((state) => state.nodes());
@@ -39,7 +40,7 @@ const LoopComponent = () => {
       <div className="my-4 p-2">
         <select
           className="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
-          onChange={(e) => storeUpdateLoop({ ...loop, loopType: e.target.value })}
+          onChange={(e) => storeUpdateLoop({ ...loop, loopType: e.target.value as LoopDataType })}
           value={loop.loopType}
         >
           <option value="none">None</option>

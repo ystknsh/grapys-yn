@@ -15,6 +15,7 @@ import {
   HistoryPayload,
   NodePositionData,
   StaticNodeType,
+  GUILoopData,
 } from "./type";
 import { inputs2dataSources, GraphData, isComputedNodeData, NodeData, StaticNodeData } from "graphai";
 import { LoopData } from "graphai/lib/type";
@@ -134,7 +135,7 @@ export const graphToGUIData = (graphData: GraphData) => {
   });
 
   // graph loop 2 store loop
-  const loop2loop = (graphLoop: LoopData) => {
+  const loop2loop = (graphLoop: LoopData): GUILoopData => {
     if (graphLoop.while) {
       return {
         loopType: "while",
@@ -503,7 +504,6 @@ export const convEdgePath = (
 
   return `M ${x1} ${y1dash} C ${x1 + controlXOffset} ${y1dash - controlYOffset}, ${x2 - controlXOffset} ${y2dash + controlYOffset}, ${x2} ${y2dash}`;
 };
-
 
 export const getNodeSize = (nodeDom: HTMLElement | null, inputDoms: HTMLElement[], outputDoms: HTMLElement[]) => {
   if (!nodeDom) {

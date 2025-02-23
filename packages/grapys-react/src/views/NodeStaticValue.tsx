@@ -128,7 +128,11 @@ const NodeStaticValue: React.FC<NodeStaticValueProps> = ({ nodeData, onFocus, on
   return (
     <div>
       <label className="text-xs text-gray-300">Value</label>
-      <select value={dataType} onChange={(e) => setDataType(e.target.value as StaticNodeType)} className="w-full resize-none rounded-md border border-gray-300 p-1 text-black">
+      <select
+        value={dataType}
+        onChange={(e) => setDataType(e.target.value as StaticNodeType)}
+        className="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
+      >
         {staticNodeOptions.map((option, k) => (
           <option key={k} value={option.value}>
             {option.name}

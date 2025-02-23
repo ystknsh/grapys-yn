@@ -7,7 +7,7 @@ import {
   UpdateNodePositionData,
   HistoryData,
   HistoryPayload,
-  LoopData,
+  GUILoopData,
 } from "../utils/gui/type";
 import { edges2inputs, store2graphData } from "../utils/gui/utils";
 
@@ -20,7 +20,7 @@ export interface LocalState {
   updateData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) => void;
 
   // methods
-  initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: LoopData) => void;
+  initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: GUILoopData) => void;
   pushNode: (nodeData: GUINodeData) => void;
   pushEdge: (edgeData: GUIEdgeData) => void;
   deleteEdge: (edgeIndex: number) => void;
@@ -34,7 +34,7 @@ export interface LocalState {
   loadData: (data: HistoryPayload) => void;
 
   updateStaticNodeValue: (nodeIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
-  updateLoop: (loopData: LoopData) => void;
+  updateLoop: (loopData: GUILoopData) => void;
 
   undo: () => void;
   redo: () => void;
@@ -44,7 +44,7 @@ export interface LocalState {
   // computed
   nodes: () => GUINodeData[];
   edges: () => GUIEdgeData[];
-  loop: () => LoopData;
+  loop: () => GUILoopData;
   // nodeRecords,
   streamNodes: () => string[];
   resultNodes: () => string[];
@@ -104,7 +104,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     });
   },
 
-  initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: LoopData) =>
+  initData: (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: GUILoopData) =>
     set(() => ({
       currentData: { nodes: nodeData, edges: edgeData, loop: loopData },
     })),
@@ -190,7 +190,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
       return {};
     }),
 
-  updateLoop: (loopData: LoopData) => {
+  updateLoop: (loopData: GUILoopData) => {
     const { currentData, pushDataToHistory } = get();
     const data = {
       nodes: currentData.nodes,
@@ -262,7 +262,7 @@ export const node2Record = (nodes: GUINodeData[]): GUINodeDataRecord => {
   }, {});
 };
 
-const loop2LoopObj = (loop: LoopData) => {
+const loop2LoopObj = (loop: GUILoopData) => {
   if (loop.loopType === "while") {
     return {
       while: loop.while,
@@ -276,7 +276,7 @@ const loop2LoopObj = (loop: LoopData) => {
   return {};
 };
 
-export const toGraph = (nodeRecords: GUINodeDataRecord, edges: GUIEdgeData[], loop: LoopData, currentData: HistoryPayload) => {
+export const toGraph = (nodeRecords: GUINodeDataRecord, edges: GUIEdgeData[], loop: GUILoopData, currentData: HistoryPayload) => {
   const edgeObject = edges2inputs(edges ?? [], nodeRecords);
   const loopObject = loop2LoopObj(loop);
 
