@@ -23,7 +23,6 @@
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useStore } from "../store";
-import { agentProfiles } from "../utils/gui/data";
 import { getLoopWhileSources } from "../utils/gui/utils";
 
 export default defineComponent({
