@@ -53,7 +53,7 @@ export const graphToGUIData = (graphData: GraphData) => {
   };
 
   let positionIndex = 1;
-  const rawNode = Object.keys(graphData.nodes).map((nodeId) => {
+  const rawNode: GUINodeData[] = Object.keys(graphData.nodes).map((nodeId) => {
     const node = graphData.nodes[nodeId];
     const isComputed = isComputedNodeData(node);
     const inputs = isComputed ? (graphData?.metadata?.inputs ?? node.inputs ?? {}) : node.update ? { update: node.update } : {};
@@ -370,7 +370,7 @@ export const edgeEndEventData = (newEdgeData: NewEdgeData, nearestData: GUINeare
   if (newEdgeData.direction === "outbound") {
     const sourceData = newEdgeData.source;
     const { nodeId, index } = sourceData;
-    const addEdge = {
+    const addEdge: GUIEdgeData = {
       type: "edge",
       source: {
         nodeId,
@@ -383,7 +383,7 @@ export const edgeEndEventData = (newEdgeData: NewEdgeData, nearestData: GUINeare
   if (newEdgeData.direction === "inbound") {
     const targetData = newEdgeData.target;
     const { nodeId, index } = targetData;
-    const addEdge = {
+    const addEdge: GUIEdgeData = {
       type: "edge",
       source: nearestData,
       target: {

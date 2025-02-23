@@ -31,8 +31,9 @@ export type UpdateNodePositionData =
   | { x: number; y: number; width: number; height: number }
   | { width: number; height: number; outputCenters: number[]; inputCenters: number[] };
 
+export type GUINodeDataType = "computed" | "static";
 export type GUINodeData<T = ApplicationData> = {
-  type: string;
+  type: GUINodeDataType;
   nodeId: string;
   position: NodePositionData;
   data: T;
@@ -50,8 +51,9 @@ export type EdgeEndPointData = {
   index: number;
 };
 
+export type GUIEdgeDataType = "edge"; // TODO
 export type GUIEdgeData = {
-  type: string;
+  type: GUIEdgeDataType;
   source: EdgeEndPointData;
   target: EdgeEndPointData;
 };
@@ -61,7 +63,7 @@ export type EdgeFormToData = {
 } & EdgeEndPointData;
 
 export type EdgeData = {
-  type: string;
+  type: GUIEdgeDataType;
   source: EdgeFormToData;
   target: EdgeFormToData;
 };
