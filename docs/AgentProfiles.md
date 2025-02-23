@@ -14,9 +14,9 @@
     - `inputSchema` (template-based mapping for inputs)
     - **(TODO: `defaultParams` needs to be implemented)**
 
-## examples
+## AgentProfiles examples
 
-```
+```TypeScript
 openAIAgent: {
     agent: "openAIAgent",
     inputs: [
@@ -89,24 +89,56 @@ Nested inputs or template-based inputs (`${}` syntax) are **not supported**:
 ```
 For such cases, use **`inputSchema`** (described later) to transform inputs through an intermediate layer.
 
----
-
 #### **Valid `output` example (inside an agent)**
-```javascript
+```TypeScript
 return {
   test: message,
 };
 ```
 
 #### **Invalid `output` example**
-```javascript
+```TypeScript
 return message;
 ```
 **Returning `message` directly will not work.**  
 You must **return it in an object (`record`) format**.
 
----
 
-### **Important Considerations for Implementing Agents**
+## Inputs
+- The GUI imposes restrictions based on the `input` type.  
+  - **For non-array types, multiple inputs are not allowed.**
+
+- For `array` inputs, there are two possible approaches:  
+  1. **Directly connecting an array.**  
+  2. **Allowing multiple text/object inputs to form an array.**  
+    - The correct method for handling this data properly is still an open issue.  
+    - The current implementation follows `edges2inputs`:
+
+```javascript
+      if (!targetProfile) {
+        nodeEdgeMap[propId] = records[nodeId][propId][0].sourceData;
+      } else if (targetProfile.IOData.type === "text") {
+        nodeEdgeMap[propId] = records[nodeId][propId][0].sourceData;
+      } else if (targetProfile.IOData.type === "array") {
+        nodeEdgeMap[propId] = records[nodeId][propId].map((data) => data.sourceData);
+      } else if (records[nodeId][propId].length === 1) {
+        nodeEdgeMap[propId] = records[nodeId][propId][0].sourceData;
+      } else {
+        nodeEdgeMap[propId] = records[nodeId][propId].map((data) => data.sourceData);
+      }
+```
+
+- Allowing multiple `text/object` inputs to form an `array` would introduce **dynamic input counts and require order management**.  
+  - It is **recommended to create a separate agent with a fixed number of inputs** to handle this case properly.
+
+
+## **Important Considerations for Implementing Agents**
 These restrictions must also be considered when implementing agents.  
 **Both `input` and `result` must be handled as `record` objects.**
+
+
+## About params/inputs
+- Configured in **AgentProfiles**.
+- Supports the following types: `text/string/boolean/float/int/number`.
+
+
