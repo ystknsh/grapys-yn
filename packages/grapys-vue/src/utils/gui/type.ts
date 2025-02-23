@@ -123,8 +123,8 @@ export type NearestData = {
   direction: string;
 };
 
-
-export type InputOutputData = { name: string; type?: string };
+export type InputOutputType = "text" | "array";
+export type InputOutputData = { name: string; type?: InputOutputType };
 
 export type ParamType = "string" | "text" | "data" | "boolean" | "float" | "int";
 

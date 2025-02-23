@@ -4,7 +4,7 @@ import { AgentProfile } from "./type";
 //  - string
 //    - string, form = input text
 //  - text
-//    - string, form = textarea
+//    - string, form = textarea (both string and text is string. the diff is form type on UI which is input or textarea)
 //  - boolean
 //  - float
 //    - number, form = input number
@@ -18,12 +18,12 @@ import { AgentProfile } from "./type";
 
 const llmAgentProfile: AgentProfile = {
   inputs: [
-    { name: "message", type: "string" },
-    { name: "messages", type: "string" },
-    { name: "prompt", type: "string" },
-    { name: "model", type: "string" },
+    { name: "message", type: "text" },
+    { name: "messages", type: "text" },
+    { name: "prompt", type: "text" },
+    { name: "model", type: "text" },
   ],
-  outputs: [{ name: "message" }, { name: "messages" }, { name: "text", type: "string" }],
+  outputs: [{ name: "message" }, { name: "messages" }, { name: "text", type: "text" }],
   params: [
     { name: "system", type: "text" },
     { name: "prompt", type: "text" },
