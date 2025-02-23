@@ -1,4 +1,4 @@
-import { Position, NewEdgeStartEventData, NewEdgeEventData, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
+import { Position, NewEdgeStartEventData, Position, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
 import { ref, computed } from "vue";
 import { useStore } from "../store";
 import { edgeStartEventData, edgeUpdateEventData, edgeEndEventData, pickNearestNode, pickNearestConnect, isEdgeConnectale } from "../utils/gui/utils";
@@ -17,7 +17,7 @@ export const useNewEdge = () => {
     mouseCurrentPosition.value = mousePosition;
     newEdgeData.value = startEdgeData;
   };
-  const onNewEdge = (data: NewEdgeEventData) => {
+  const onNewEdge = (data: Position) => {
     if (newEdgeData.value) {
       const { mousePosition, updateEdgeData } = edgeUpdateEventData(data, svgRef.value, newEdgeData.value);
       mouseCurrentPosition.value = mousePosition;

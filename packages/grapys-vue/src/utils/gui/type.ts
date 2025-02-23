@@ -73,8 +73,6 @@ export type NewEdgeStartEventData = Position & {
   nodeId: string;
 };
 
-export type NewEdgeEventData = Position;
-
 export type GUINearestData = {
   nodeId: string;
   index: number;
