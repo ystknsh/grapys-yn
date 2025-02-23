@@ -13,22 +13,18 @@ export type ApplicationData = {
 };
 
 export type Position = { x: number; y: number };
-export type NodePosition = {
-  x: number;
-  y: number;
+export type NodePosition = Position & {
   width: number;
   height: number;
-};
-export type NodePositionData = {
-  x: number;
-  y: number;
+} ;
+export type NodePositionData = Position & {
   width?: number;
   height?: number;
   outputCenters?: number[];
   inputCenters?: number[];
 };
 export type UpdateNodePositionData =
-  | { x: number; y: number; width: number; height: number }
+  | NodePosition
   | { width: number; height: number; outputCenters: number[]; inputCenters: number[] };
 
 export type GUINodeDataType = "computed" | "static";
@@ -71,18 +67,13 @@ export type EdgeData = {
 export type NewEdgeEventDirection = "outbound" | "inbound";
 
 // x, y is clientX, clientY of mouse pointer
-export type NewEdgeStartEventData = {
+export type NewEdgeStartEventData = Position & {
   direction: NewEdgeEventDirection;
   index: number;
   nodeId: string;
-  x: number;
-  y: number;
 };
 
-export type NewEdgeEventData = {
-  x: number;
-  y: number;
-};
+export type NewEdgeEventData = Position;
 
 export type GUINearestData = {
   nodeId: string;
