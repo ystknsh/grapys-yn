@@ -17,6 +17,7 @@
 import { defineComponent, ref, watch } from "vue";
 import { useStore } from "../store";
 import { agentProfiles } from "../utils/gui/data";
+import type { DefaultParamsType } from "graphai";
 
 export default defineComponent({
   components: {},
@@ -43,7 +44,7 @@ export default defineComponent({
 
       const isStatic = agent.value === "StaticNode";
       const targetAgent = agentProfiles[agent.value] ?? {};
-      const params = (targetAgent.params ?? []).reduce((tmp, param) => {
+      const params = (targetAgent.params ?? []).reduce((tmp: DefaultParamsType, param) => {
         if (param.defaultValue !== undefined) {
           tmp[param.name] = param.defaultValue;
         }

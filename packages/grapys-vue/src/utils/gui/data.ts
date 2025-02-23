@@ -141,8 +141,8 @@ export const stringAgentProfiles: Record<string, AgentProfile> = {
   },
   stringUpdateTextAgent: {
     agent: "stringUpdateTextAgent",
-    inputs: [],
-    outputs: [],
+    inputs: [{ name: "oldText" }, { name: "newText" }],
+    outputs: [{ name: "text" }],
     params: [],
   },
 };
