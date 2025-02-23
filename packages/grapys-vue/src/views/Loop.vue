@@ -24,27 +24,20 @@
 import { defineComponent, ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useStore } from "../store";
 import { agentProfiles } from "../utils/gui/data";
+import { getLoopWhileSources } from "../utils/gui/utils";
 
 export default defineComponent({
   setup() {
     const store = useStore();
 
     const whileSources = computed(() => {
-      const sources: string[] = [];
-      store.nodes.forEach((node) => {
-        const agent = node.data.guiAgentId;
-        if (agent) {
-          const profile = agentProfiles[agent];
-          profile.outputs.forEach((prop) => {
-            sources.push(`:${node.nodeId}.${prop.name}`);
-          });
-        } else {
-          // static node
-          sources.push(`:${node.nodeId}`);
-        }
-      });
-      return sources;
+      return getLoopWhileSources(store.nodes);
     });
+
+    const loopType = ref(store.loop.loopType);
+    const countValue = ref("1");
+    const whileValue = ref(whileSources.value[0]);
+    const countRef = ref();
 
     const storeLoopData = computed(() => {
       if (loopType.value === "while") {
@@ -79,11 +72,6 @@ export default defineComponent({
     const updateLoop = () => {
       store.updateLoop(storeLoopData.value);
     };
-
-    const loopType = ref(store.loop.loopType);
-    const countValue = ref("1");
-    const whileValue = ref(whileSources.value[0]);
-    const countRef = ref();
 
     const updateType = (event: Event) => {
       if (event.target instanceof HTMLSelectElement) {

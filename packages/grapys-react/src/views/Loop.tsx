@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useLocalStore } from "../store";
 
 import { agentProfiles } from "../utils/gui/data";
+import { getLoopWhileSources } from "../utils/gui/utils
 
 const LoopComponent = () => {
   const nodes = useLocalStore((state) => state.nodes());
@@ -9,14 +10,7 @@ const LoopComponent = () => {
   const storeUpdateLoop = useLocalStore((state) => state.updateLoop);
   const countRef = useRef<HTMLInputElement | null>(null);
 
-  const lists = nodes.flatMap((node) => {
-    const agent = node.data?.guiAgentId;
-    if (agent) {
-      const profile = agentProfiles[agent] || { outputs: [] };
-      return profile.outputs.map((prop) => `:${node.nodeId}.${prop.name}`);
-    }
-    return [`:${node.nodeId}`];
-  });
+  const whileSources = getLoopWhileSources(nodes);
 
   const updateLoop = () => {
     if (loop.loopType === "while") {
@@ -59,9 +53,9 @@ const LoopComponent = () => {
             <select
               className="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
               onChange={(e) => storeUpdateLoop({ ...loop, while: e.target.value })}
-              value={loop.while || lists[0]}
+              value={loop.while || whileSources[0]}
             >
-              {lists.map((item) => (
+              {whileSources.map((item) => (
                 <option key={item} value={item}>
                   {item}
                 </option>

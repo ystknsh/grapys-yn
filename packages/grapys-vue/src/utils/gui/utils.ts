@@ -503,6 +503,7 @@ export const convEdgePath = (
   return `M ${x1} ${y1dash} C ${x1 + controlXOffset} ${y1dash - controlYOffset}, ${x2 - controlXOffset} ${y2dash + controlYOffset}, ${x2} ${y2dash}`;
 };
 
+
 export const getNodeSize = (nodeDom: HTMLElement | null, inputDoms: HTMLElement[], outputDoms: HTMLElement[]) => {
   if (!nodeDom) {
     return { width: 0, height: 0, outputCenters: [], inputCenters: [] };
@@ -527,4 +528,15 @@ export const getTransformStyle = (nodeData: GUINodeData, isDragging: boolean) =>
     transform: `translate(${nodeData?.position?.x ?? 0}px, ${nodeData?.position?.y ?? 0}px)`,
     cursor: isDragging ? "grabbing" : "grab",
   };
+};
+
+export const getLoopWhileSources = (nodes: GUINodeData[]) => {
+  return nodes.flatMap((node) => {
+    const agent = node.data.guiAgentId;
+    if (agent) {
+      const profile = agentProfiles[agent] || { outputs: [] };
+      return profile.outputs.map((prop) => `:${node.nodeId}.${prop.name}`);
+    }
+    return [`:${node.nodeId}`];
+  });
 };
