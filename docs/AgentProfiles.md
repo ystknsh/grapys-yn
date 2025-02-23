@@ -131,6 +131,9 @@ You must **return it in an object (`record`) format**.
 - Allowing multiple `text/object` inputs to form an `array` would introduce **dynamic input counts and require order management**.  
   - It is **recommended to create a separate agent with a fixed number of inputs** to handle this case properly.
 
+## InputSchema
+
+T.B.D.
 
 ## **Important Considerations for Implementing Agents**
 These restrictions must also be considered when implementing agents.  
