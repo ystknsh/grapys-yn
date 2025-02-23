@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import type { ParamType, ApplicationData } from "../utils/gui/type";
+import type { ParamData, ApplicationData } from "../utils/gui/type";
 import { useLocalStore } from "../store/index";
 
 interface NodeComputedParamProps {
-  param: ParamType;
+  param: ParamData;
   appData: ApplicationData;
   nodeIndex: number;
   onFocus: () => void;

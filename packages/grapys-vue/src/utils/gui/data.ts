@@ -16,7 +16,7 @@ import { AgentProfile } from "./type";
 //  - messages
 //  - array
 
-const llmAgentProfile = {
+const llmAgentProfile: AgentProfile = {
   inputs: [
     { name: "message", type: "string" },
     { name: "messages", type: "string" },

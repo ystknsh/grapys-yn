@@ -124,9 +124,11 @@ export type NearestData = {
 
 export type InputOutputType = { name: string; type?: string };
 
-export type ParamType = {
+export type ParamType = "string" | "text" | "data" | "boolean" | "float" | "int";
+
+export type ParamData = {
   name: string;
-  type?: string;
+  type: ParamType;
   defaultValue?: number;
   max?: number;
   min?: number;
@@ -134,7 +136,7 @@ export type ParamType = {
 export type AgentProfile = {
   inputs: InputOutputType[];
   outputs: InputOutputType[];
-  params?: ParamType[];
+  params?: ParamData[];
   agent?: string;
   inputSchema?: unknown;
 };
