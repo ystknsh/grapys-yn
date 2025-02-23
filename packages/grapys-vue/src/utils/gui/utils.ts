@@ -15,8 +15,9 @@ import {
   NodePositionData,
   StaticNodeType,
   GUILoopData,
+  ParamData,
 } from "./type";
-import { inputs2dataSources, GraphData, isComputedNodeData, NodeData, StaticNodeData } from "graphai";
+import { inputs2dataSources, GraphData, isComputedNodeData, NodeData, StaticNodeData, DefaultParamsType } from "graphai";
 import { LoopData } from "graphai/lib/type";
 import { resultsOf } from "./result";
 import { agentProfiles } from "./data";
@@ -535,4 +536,13 @@ export const getLoopWhileSources = (nodes: GUINodeData[]) => {
     }
     return [`:${node.nodeId}`];
   });
+};
+
+export const getDefaultParams = (params: ParamData[]) => {
+  return params.reduce((tmp: DefaultParamsType, param) => {
+    if (param.defaultValue !== undefined) {
+      tmp[param.name] = param.defaultValue;
+    }
+    return tmp;
+  }, {});
 };
