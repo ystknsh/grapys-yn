@@ -139,9 +139,15 @@ T.B.D.
 These restrictions must also be considered when implementing agents.  
 **Both `input` and `result` must be handled as `record` objects.**
 
+## Static node value types.
+- type: text/data/number/boolean
 
-## About params/inputs
+## About inputs/output
 - Configured in **AgentProfiles**.
-- Supports the following types: `text/string/boolean/float/int/number`.
+- Supports the following types: `text/array/T.B.D.`. (not implemented yet)
+
+## About params
+- Configured in **AgentProfiles**.
+- Supports the following types: `string/text/data/boolean/float/int`.
 
 
