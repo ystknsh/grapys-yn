@@ -1,4 +1,4 @@
-import { Position, NewEdgeStartEventData, Position, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
+import { Position, NewEdgeStartEventData, NewEdgeData, ClosestNodeData, GUINearestData } from "../utils/gui/type";
 import { ref, computed } from "vue";
 import { useStore } from "../store";
 import { edgeStartEventData, edgeUpdateEventData, edgeEndEventData, pickNearestNode, pickNearestConnect, isEdgeConnectale } from "../utils/gui/utils";
