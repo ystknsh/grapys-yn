@@ -34,13 +34,7 @@ const llmAgentProfile: AgentProfile = {
   ],
 };
 
-export const agentProfiles: Record<string, AgentProfile> = {
-  eventAgent: {
-    agent: "eventAgent",
-    inputs: [{ name: "wait", type: "array" }],
-    outputs: [{ name: "text" }, { name: "message" }],
-    params: [{ name: "isResult", type: "boolean" }],
-  },
+export const llmAgentProfiles: Record<string, AgentProfile> = {
   tinyswallowAgent: {
     agent: "tinyswallowAgent",
     ...llmAgentProfile,
@@ -49,6 +43,24 @@ export const agentProfiles: Record<string, AgentProfile> = {
     agent: "openAIAgent",
     ...llmAgentProfile,
   },
+  anthropicAgent: {
+    agent: "anthropicAgent",
+    ...llmAgentProfile,
+  },
+  geminiAgent: {
+    agent: "geminiAgent",
+    ...llmAgentProfile,
+  },
+}
+export const agentProfiles: Record<string, AgentProfile> = {
+  
+  eventAgent: {
+    agent: "eventAgent",
+    inputs: [{ name: "wait", type: "array" }],
+    outputs: [{ name: "text" }, { name: "message" }],
+    params: [{ name: "isResult", type: "boolean" }],
+  },
+  ...llmAgentProfiles,
   stringTemplateAgent: {
     agent: "stringTemplateAgent",
     inputs: [{ name: "text" }, { name: "message1" }, { name: "message2" }],

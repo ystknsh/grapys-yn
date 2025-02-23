@@ -28,12 +28,6 @@ export const graphChat = {
       },
       inputs: { messages: ":messages", prompt: ":userInput.text" },
     },
-    output: {
-      agent: "stringTemplateAgent",
-      inputs: {
-        text: "\x1b[32mAgent\x1b[0m: ${:llm.text}",
-      },
-    },
     reducer: {
       agent: "pushAgent",
       inputs: {
