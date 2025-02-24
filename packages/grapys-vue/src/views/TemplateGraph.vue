@@ -7,7 +7,7 @@
       </option>
     </select>
     <div>
-      <button @click="setGraph" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">Set Graph</button>
+      <button @click="setGraph" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700 cursor-pointer">Set Graph</button>
     </div>
   </div>
 </template>

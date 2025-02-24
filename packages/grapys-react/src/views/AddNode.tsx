@@ -66,7 +66,7 @@ const AddNode = () => {
         ))}
       </select>
       <div>
-        <button onClick={addNode} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">
+        <button onClick={addNode} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700 cursor-pointer">
           Add node
         </button>
       </div>

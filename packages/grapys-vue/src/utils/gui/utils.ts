@@ -546,3 +546,14 @@ export const getDefaultParams = (params: ParamData[]) => {
     return tmp;
   }, {});
 };
+
+export const handleDownload = (graphData: GraphData) => {
+  const dataStr = JSON.stringify(graphData, null, 2);
+  const blob = new Blob([dataStr], {
+    type: `application/json`,
+  });
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = `graph.json`;
+  link.click();
+};
