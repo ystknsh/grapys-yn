@@ -6,15 +6,21 @@
       </div>
       <div class="mt-2">
         <button
-          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700" @click="run"
+          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700"
+          @click="run"
           :disabled="isRunning"
-          :class="isRunning ? 'bg-sky-200':'bg-sky-500'"
-          >Run</button>
+          :class="isRunning ? 'bg-sky-200' : 'bg-sky-500'"
+        >
+          Run
+        </button>
         <button
-          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700" @click="abort"
+          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700"
+          @click="abort"
           :disabled="!isRunning"
-          :class="!isRunning ? 'bg-sky-200':'bg-sky-500'"
-          >Stop</button>
+          :class="!isRunning ? 'bg-sky-200' : 'bg-sky-500'"
+        >
+          Stop
+        </button>
       </div>
 
       <div>
@@ -113,7 +119,7 @@ export default defineComponent({
       try {
         if (isRunning.value && graphai) {
           graphai.abort();
-          // graphai = null;
+          graphai = null;
         }
       } catch (error) {
         console.log(error);

@@ -150,20 +150,20 @@ export const stringAgentProfiles: Record<string, AgentProfile> = {
 export const dataAgentProfiles: Record<string, AgentProfile> = {
   dataObjectMergeAgent: {
     agent: "dataObjectMergeTemplateAgent",
-    inputs: [{name: "array"}],
-    outputs: [{name: "data"}],
+    inputs: [{ name: "array" }],
+    outputs: [{ name: "data" }],
     params: [],
   },
   dataSumTemplateAgent: {
     agent: "dataSumTemplateAgentInfo",
-    inputs: [{name: "array"}],
-    outputs: [{name: "data"}],
+    inputs: [{ name: "array" }],
+    outputs: [{ name: "data" }],
     params: [],
   },
   totalAgent: {
     agent: "totalAgent",
-    inputs: [{name: "array"}],
-    outputs: [{name: "result"}],
+    inputs: [{ name: "array" }],
+    outputs: [{ name: "result" }],
     params: [],
   },
   convertAgent: {
@@ -199,9 +199,7 @@ export const compareAgentProfiles: Record<string, AgentProfile> = {
     outputs: [],
     params: [],
   },
-  
 };
-
 
 // copyAgent,
 
@@ -233,15 +231,14 @@ export const agentProfilesCategory: Record<string, Record<string, AgentProfile>>
   event: eventAgentProfiles,
   llm: llmAgentProfiles,
   array: arrayAgentProfiles,
-  "string": stringAgentProfiles,
+  string: stringAgentProfiles,
   data: dataAgentProfiles,
   compare: compareAgentProfiles,
 };
 
-export const agentProfiles: Record<string, AgentProfile> = Object.values(agentProfilesCategory).reduce((tmp, current)=> {
-  return {...tmp, ...current};
+export const agentProfiles: Record<string, AgentProfile> = Object.values(agentProfilesCategory).reduce((tmp, current) => {
+  return { ...tmp, ...current };
 }, {});
-
 
 export const staticNodeParams: AgentProfile = {
   inputs: [{ name: "update" }],

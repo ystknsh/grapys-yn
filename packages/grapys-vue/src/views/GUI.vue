@@ -145,32 +145,34 @@ export default defineComponent({
         <hr />
         <button
           @click="store.undo"
-          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white cursor-pointer"
+          class="m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white"
           :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
         >
           Undo
         </button>
         <button
           @click="store.redo"
-          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white cursor-pointer"
+          class="m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white"
           :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
         >
           Redo
         </button>
         <hr />
         <div>
-          <button @click="resetGraph" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">Clear Graph</button>
+          <button @click="resetGraph" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Clear Graph</button>
         </div>
         <hr />
 
         <div>
-          <button @click="save" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">Save Graph</button>
+          <button @click="save" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Save Graph</button>
         </div>
         <div>
-          <button @click="load" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">Load Graph</button>
+          <button @click="load" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Load Graph</button>
         </div>
         <div>
-          <button @click="() => handleDownload(store.graphData)" class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">Download</button>
+          <button @click="() => handleDownload(store.graphData)" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
+            Download
+          </button>
         </div>
         <hr />
         <TemplateGraph @set-graph="setGraph" />

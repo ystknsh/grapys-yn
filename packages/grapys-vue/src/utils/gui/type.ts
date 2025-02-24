@@ -135,7 +135,7 @@ export type AgentProfile = {
 export type LoopDataType = "while" | "count" | "none";
 export type GUILoopData = {
   loopType: LoopDataType;
-  while?: string;
+  while?: string | true;
   count?: number;
 };
 export type HistoryPayload = {

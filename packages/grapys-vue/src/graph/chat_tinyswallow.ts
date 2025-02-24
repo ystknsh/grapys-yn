@@ -1,12 +1,9 @@
 export const graphChat = {
   version: 0.5,
   loop: {
-    while: ":continue",
+    while: true,
   },
   nodes: {
-    continue: {
-      value: true,
-    },
     messages: {
       value: [],
       update: ":reducer.array",

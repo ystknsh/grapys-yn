@@ -29,21 +29,20 @@ import { LoopDataType, GUILoopData } from "../utils/gui/type";
 export default defineComponent({
   setup() {
     const store = useStore();
-
     const whileSources = computed(() => {
       return getLoopWhileSources(store.nodes);
     });
 
     const loopType = ref<LoopDataType>(store.loop.loopType);
-    const countValue = ref("1");
-    const whileValue = ref(whileSources.value[0]);
+    const countValue = ref(store.loop && store.loop.loopType === "count" ? store.loop.count : "1");
+    const whileValue = ref(store.loop && store.loop.loopType === "while" ? (store.loop.while === true ? "true" : store.loop.while) : whileSources.value[0]);
     const countRef = ref();
 
     const storeLoopData = computed<GUILoopData>(() => {
       if (loopType.value === "while") {
         return {
           loopType: "while",
-          while: whileValue.value,
+          while: whileValue.value === "true" ? true : whileValue.value,
         };
       }
       if (loopType.value === "count") {

@@ -528,14 +528,16 @@ export const getTransformStyle = (nodeData: GUINodeData, isDragging: boolean) =>
 };
 
 export const getLoopWhileSources = (nodes: GUINodeData[]) => {
-  return nodes.flatMap((node) => {
-    const agent = node.data.guiAgentId;
-    if (agent) {
-      const profile = agentProfiles[agent] || { outputs: [] };
-      return profile.outputs.map((prop) => `:${node.nodeId}.${prop.name}`);
-    }
-    return [`:${node.nodeId}`];
-  });
+  return ["true"].concat(
+    nodes.flatMap((node) => {
+      const agent = node.data.guiAgentId;
+      if (agent) {
+        const profile = agentProfiles[agent] || { outputs: [] };
+        return profile.outputs.map((prop) => `:${node.nodeId}.${prop.name}`);
+      }
+      return [`:${node.nodeId}`];
+    }),
+  );
 };
 
 export const getDefaultParams = (params: ParamData[]) => {
