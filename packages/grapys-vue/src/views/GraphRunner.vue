@@ -105,20 +105,21 @@ export default defineComponent({
 
       try {
         await graphai.run();
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
       }
     };
-    const abort = async () => {
+    const abort = () => {
       try {
         if (isRunning.value && graphai) {
-          await graphai.abort();
+          graphai.abort();
           // graphai = null;
         }
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        isRunning.value = false;
       }
-      isRunning.value = false;
     };
     const streamNodes = computed(() => {
       return store.streamNodes;
