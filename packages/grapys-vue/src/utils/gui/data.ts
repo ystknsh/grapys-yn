@@ -148,7 +148,6 @@ export const stringAgentProfiles: Record<string, AgentProfile> = {
 };
 
 export const dataAgentProfiles: Record<string, AgentProfile> = {
-  // need to update result(breaking change)
   dataObjectMergeAgent: {
     agent: "dataObjectMergeTemplateAgent",
     inputs: [{name: "array"}],
@@ -165,6 +164,30 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     agent: "totalAgent",
     inputs: [{name: "array"}],
     outputs: [{name: "result"}],
+    params: [],
+  },
+  convertAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      context: {
+        inputs: {
+          person0: {
+            name: "interviewer",
+            system: ":interviewer",
+          },
+          person1: {
+            name: ":name",
+            system: "You are ${:name}.",
+            greeting: "Hi, I'm ${:name}",
+          },
+        },
+      },
+    },
+    inputs: [
+      { name: "interviewer", type: "text" },
+      { name: "name", type: "text" },
+    ],
+    outputs: [{ name: "array" }],
     params: [],
   },
 };
@@ -197,46 +220,28 @@ export const compareAgentProfiles: Record<string, AgentProfile> = {
 //  streamMockAgent,
 //??  totalAgent,
 //  vanillaFetchAgent
-
-export const agentProfiles: Record<string, AgentProfile> = {
-  // ??compareAgent,
-  // ??copy2ArrayAgent,
-
+export const eventAgentProfiles: Record<string, AgentProfile> = {
   eventAgent: {
     agent: "eventAgent",
     inputs: [{ name: "wait", type: "array" }],
     outputs: [{ name: "text" }, { name: "message" }],
     params: [{ name: "isResult", type: "boolean" }],
   },
-  ...llmAgentProfiles,
-  ...arrayAgentProfiles,
-  ...stringAgentProfiles,
-  ...dataAgentProfiles,
-  convertAgent: {
-    agent: "copyAgent",
-    inputSchema: {
-      context: {
-        inputs: {
-          person0: {
-            name: "interviewer",
-            system: ":interviewer",
-          },
-          person1: {
-            name: ":name",
-            system: "You are ${:name}.",
-            greeting: "Hi, I'm ${:name}",
-          },
-        },
-      },
-    },
-    inputs: [
-      { name: "interviewer", type: "text" },
-      { name: "name", type: "text" },
-    ],
-    outputs: [{ name: "array" }],
-    params: [],
-  },
 };
+
+export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
+  event: eventAgentProfiles,
+  llm: llmAgentProfiles,
+  array: arrayAgentProfiles,
+  "string": stringAgentProfiles,
+  data: dataAgentProfiles,
+  compare: compareAgentProfiles,
+};
+
+export const agentProfiles: Record<string, AgentProfile> = Object.values(agentProfilesCategory).reduce((tmp, current)=> {
+  return {...tmp, ...current};
+}, {});
+
 
 export const staticNodeParams: AgentProfile = {
   inputs: [{ name: "update" }],
