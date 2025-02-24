@@ -147,41 +147,28 @@ export const stringAgentProfiles: Record<string, AgentProfile> = {
   },
 };
 
-/*
 export const dataAgentProfiles: Record<string, AgentProfile> = {
   // need to update result(breaking change)
-  dataObjectMergeTemplateAgent: {
+  dataObjectMergeAgent: {
     agent: "dataObjectMergeTemplateAgent",
-    inputs: [],
-    outputs: [],
+    inputs: [{name: "array"}],
+    outputs: [{name: "data"}],
     params: [],
   },
-  dataSumTemplateAgentInfo: {
+  dataSumTemplateAgent: {
     agent: "dataSumTemplateAgentInfo",
-    inputs: [],
-    outputs: [],
+    inputs: [{name: "array"}],
+    outputs: [{name: "data"}],
     params: [],
   },
   totalAgent: {
     agent: "totalAgent",
-    inputs: [],
-    outputs: [],
-    params: [],
-  },
-  propertyFilterAgent: {
-    agent: "propertyFilterAgent",
-    inputs: [],
-    outputs: [],
-    params: [],
-  },
-  copyAgent: {
-    agent: "copyAgent",
-    inputs: [],
-    outputs: [],
+    inputs: [{name: "array"}],
+    outputs: [{name: "result"}],
     params: [],
   },
 };
-*/
+
 export const compareAgentProfiles: Record<string, AgentProfile> = {
   compareAgent: {
     agent: "compareAgent",
@@ -214,8 +201,6 @@ export const compareAgentProfiles: Record<string, AgentProfile> = {
 export const agentProfiles: Record<string, AgentProfile> = {
   // ??compareAgent,
   // ??copy2ArrayAgent,
-  // ??dataSumTemplateAgent,
-  // dataObjectMergeTemplateAgent
 
   eventAgent: {
     agent: "eventAgent",
@@ -226,7 +211,7 @@ export const agentProfiles: Record<string, AgentProfile> = {
   ...llmAgentProfiles,
   ...arrayAgentProfiles,
   ...stringAgentProfiles,
-  // ...dataAgentProfiles,
+  ...dataAgentProfiles,
   convertAgent: {
     agent: "copyAgent",
     inputSchema: {

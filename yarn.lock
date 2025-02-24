@@ -393,10 +393,10 @@
     "@anthropic-ai/sdk" "^0.36.2"
     "@graphai/llm_utils" "^0.2.0"
 
-"@graphai/data_agents@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@graphai/data_agents/-/data_agents-0.2.0.tgz#a5cc62c40b36953afd9ef84166d6bb367e67aef3"
-  integrity sha512-hMhI74ua763/WT5tfX8IgcKaBBPyUg8+qkanMG8jOPnnFF26LS2rDTwtXHBKtNEiL49NVkW/AFAFAuYHbLW/hQ==
+"@graphai/data_agents@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@graphai/data_agents/-/data_agents-0.2.1.tgz#6c0f63ead42d9d1f2bd0a2c353462dade922ab38"
+  integrity sha512-Ywof2A3bcINJR+zC+xIY6dmLdcMiPTJKPVEPhrdVsYo4FN4t/sRAqel4qJoSNQNAYOXDRM/ZeE4glSoZCJ5hSw==
   dependencies:
     deepmerge "^4.3.1"
 
@@ -421,10 +421,10 @@
     "@graphai/llm_utils" "^0.2.0"
     openai "^4.82.0"
 
-"@graphai/vanilla@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.npmjs.org/@graphai/vanilla/-/vanilla-0.2.14.tgz"
-  integrity sha512-YpffShATqtnDQwnF3yINTSbw1L9J4ZxHOIQkOUElS+kDzMy2bRQ4dPAZn9xRYcXWHukmm5q06l00mCJGQnC24g==
+"@graphai/vanilla@^0.2.15":
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/@graphai/vanilla/-/vanilla-0.2.15.tgz#29e580865ce153575893cc81732dfd7d7f7f280d"
+  integrity sha512-+L7TM/43yclAWqo3AC1k63rPGKwrhpA9tK5y5SeAXb4ZqL1q7akDmnENXPIiv+ZbF64/EKyNSl/dEKDK95E6Aw==
   dependencies:
     "@graphai/agent_utils" "0.0.3"
 

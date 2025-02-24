@@ -11,15 +11,6 @@
     "format": "prettier --write '{src/**/*,*}.{js,ts,vue,json}'"
   },
   "dependencies": {
-    "@graphai/agent_filters": "^0.2.2",
-    "@graphai/anthropic_agent": "^0.2.3",
-    "@graphai/data_agents": "^0.2.0",
-    "@graphai/gemini_agent": "^0.2.5",
-    "@graphai/openai_agent": "^0.2.7",
-    "@graphai/vanilla": "^0.2.14",
-    "@mlc-ai/web-llm": "^0.2.78",
-    "@receptron/event_agent_generator": "^0.0.4",
-    "graphai": "^0.6.24",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"

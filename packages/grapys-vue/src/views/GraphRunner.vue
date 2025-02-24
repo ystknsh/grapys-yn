@@ -1,13 +1,20 @@
 <template>
   <div>
-    <button @click="run">run</button>
-
-    <div class="items-center justify-center">
+    <div class="items-center justify-center text-center">
       <div class="mt-2">
         <chat :messages="messages" :is-streaming="isStreaming" :stream-data="streamData" :stream-node-ids="streamNodes" />
       </div>
       <div class="mt-2">
-        <button class="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700" @click="run">Run</button>
+        <button
+          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700" @click="run"
+          :disabled="isRunning"
+          :class="isRunning ? 'bg-sky-200':'bg-sky-500'"
+          >Run</button>
+        <button
+          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700" @click="abort"
+          :disabled="!isRunning"
+          :class="!isRunning ? 'bg-sky-200':'bg-sky-500'"
+          >Stop</button>
       </div>
 
       <div>
@@ -60,12 +67,10 @@ export default defineComponent({
     Chat,
   },
   setup() {
+    const isRunning = ref(false);
     const store = useStore();
     loadEngine();
 
-    // TODO
-    // const streamNodes = ["llm"];
-    // const outputNodes = ["llm", "userInput"];
     const { eventAgent, userInput, events, submitText } = textInputEvent();
     const { messages, chatMessagePlugin } = useChatPlugin();
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
@@ -77,8 +82,10 @@ export default defineComponent({
       },
     ];
 
+    let graphai: GraphAI | null = null;
     const run = async () => {
-      const graphai = new GraphAI(
+      isRunning.value = true;
+      graphai = new GraphAI(
         store.graphData,
         {
           ...agents,
@@ -93,13 +100,25 @@ export default defineComponent({
           config: graphConfigs,
         },
       );
-      // console.log(store.streamNodes);
-      // console.log(store.resultNodes);
       graphai.registerCallback(streamPlugin(store.streamNodes));
       graphai.registerCallback(chatMessagePlugin(store.resultNodes));
 
-      await graphai.run();
-      // console.log(store.graphData);
+      try {
+        await graphai.run();
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    const abort = async () => {
+      try {
+        if (isRunning.value) {
+          await graphai.abort();
+          // graphai = null;
+          isRunning.value = false;
+        }
+      } catch (e) {
+        console.log(e);
+      }
     };
     const streamNodes = computed(() => {
       return store.streamNodes;
@@ -116,6 +135,8 @@ export default defineComponent({
 
     return {
       run,
+      abort,
+      isRunning,
 
       streamData,
       isStreaming,
