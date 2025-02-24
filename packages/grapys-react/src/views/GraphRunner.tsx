@@ -2,12 +2,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/vanilla";
 import { openAIAgent } from "@graphai/openai_agent";
+// import { geminiAgent } from "@graphai/gemini_agent";
+import  geminiAgent from "../agents/gemini_agent";
+import { anthropicAgent } from "@graphai/anthropic_agent";
 import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agents/tinyswallow";
 import { useTextInputEvent } from "../agents/event_react";
 import Chat from "./Chat";
 import { useLocalStore } from "../store";
 import { useStreamData } from "../utils/react-plugin/stream";
 import { useChatPlugin } from "../utils/react-plugin/chat";
+
+import { graphConfigs } from "../graph";
 
 const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
   const streamNodes = useLocalStore((state) => state.streamNodes);
@@ -42,22 +47,20 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
   }, []);
 
   const run = useCallback(async () => {
+    console.log(graphConfigs);
     const graphai = new GraphAI(
       graphData,
       {
         ...agents,
         openAIAgent,
+        anthropicAgent,
+        geminiAgent,
         eventAgent,
         tinyswallowAgent,
       },
       {
         agentFilters,
-        config: {
-          openAIAgent: {
-            apiKey: import.meta.env.VITE_OPEN_API_KEY,
-            forWeb: true,
-          },
-        },
+        config: graphConfigs,
       },
     );
     graphai.registerCallback(streamPlugin(streamNodes()));

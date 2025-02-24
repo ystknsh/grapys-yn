@@ -11,7 +11,9 @@
     "format": "prettier --write '{src/**/*,*}.{js,ts,tsx}'"
   },
   "dependencies": {
+    "@graphai/anthropic_agent": "^0.2.3",
     "@graphai/data_agents": "^0.2.0",
+    "@graphai/gemini_agent": "^0.2.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.2.0",
