@@ -22,7 +22,7 @@ export const useStore = defineStore("store", () => {
   const index = ref(0);
 
   const reset = () => {
-    updateData([], [], "reset", true);
+    updateData([], [], { loopType: "none" }, "reset", true);
   };
 
   const nodes = computed(() => {
@@ -83,8 +83,8 @@ export const useStore = defineStore("store", () => {
     currentData.value = data;
     pushDataToHistory("load", data);
   };
-  const updateData = (nodeData: GUINodeData[], edgeData: GUIEdgeData[], name: string, saveHistory: boolean) => {
-    const data = { nodes: nodeData, edges: edgeData, loop: loop.value };
+  const updateData = (nodeData: GUINodeData[], edgeData: GUIEdgeData[], loopData: GUILoopData, name: string, saveHistory: boolean) => {
+    const data = { nodes: nodeData, edges: edgeData, loop: loopData };
     currentData.value = data;
     if (saveHistory) {
       pushDataToHistory(name, data);
@@ -109,7 +109,7 @@ export const useStore = defineStore("store", () => {
 
   // node
   const pushNode = (nodeData: GUINodeData) => {
-    updateData([...nodes.value, nodeData], [...edges.value], "addNode", true);
+    updateData([...nodes.value, nodeData], [...edges.value], { ...loop.value }, "addNode", true);
   };
 
   const updateNodePosition = (positionIndex: number, pos: UpdateNodePositionData) => {
@@ -117,7 +117,7 @@ export const useStore = defineStore("store", () => {
     newNode.position = { ...newNode.position, ...pos };
     const newNodes = [...nodes.value];
     newNodes[positionIndex] = newNode;
-    updateData(newNodes, [...edges.value], "updatePosition", false);
+    updateData(newNodes, [...edges.value], { ...loop.value }, "updatePosition", false);
   };
   const updateNodeParam = (positionIndex: number, key: string, value: unknown) => {
     const oldNode = nodes.value[positionIndex];
@@ -139,28 +139,25 @@ export const useStore = defineStore("store", () => {
     }
     const newNodes = [...nodes.value];
     newNodes[positionIndex] = newNode;
-    updateData(newNodes, [...edges.value], "updateParams", true);
+    updateData(newNodes, [...edges.value], { ...loop.value }, "updateParams", true);
   };
   const updateStaticNodeValue = (positionIndex: number, value: UpdateStaticValue, saveHistory: boolean) => {
     const newNode = { ...nodes.value[positionIndex] };
     newNode.data = { ...newNode.data, ...value };
     const newNodes = [...nodes.value];
     newNodes[positionIndex] = newNode;
-    updateData(newNodes, [...edges.value], "updateStaticValue", saveHistory);
+    updateData(newNodes, [...edges.value], { ...loop.value }, "updateStaticValue", saveHistory);
   };
 
   const updateLoop = (loopData: GUILoopData) => {
-    const data = { nodes: nodes.value, edges: edges.value, loop: loopData };
-    currentData.value = data;
-    pushDataToHistory("loopUpdate", data);
-    // console.log(loopData)
+    updateData([...nodes.value], [...edges.value], loopData, "loopUpdate", true);
   };
   // edge
   const pushEdge = (edgeData: GUIEdgeData) => {
-    updateData([...nodes.value], [...edges.value, edgeData], "addEdge", true);
+    updateData([...nodes.value], [...edges.value, edgeData], { ...loop.value }, "addEdge", true);
   };
   const deleteEdge = (edgeIndex: number) => {
-    updateData([...nodes.value], [...edges.value.filter((__, idx) => idx !== edgeIndex)], "deleteEdge", true);
+    updateData([...nodes.value], [...edges.value.filter((__, idx) => idx !== edgeIndex)], { ...loop.value }, "deleteEdge", true);
   };
   const deleteNode = (nodeIndex: number) => {
     const node = nodes.value[nodeIndex];
@@ -172,6 +169,7 @@ export const useStore = defineStore("store", () => {
           return source.nodeId !== node.nodeId && target.nodeId !== node.nodeId;
         }),
       ],
+      { ...loop.value },
       "deleteNode",
       true,
     );
