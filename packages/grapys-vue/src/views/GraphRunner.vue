@@ -111,14 +111,14 @@ export default defineComponent({
     };
     const abort = async () => {
       try {
-        if (isRunning.value) {
+        if (isRunning.value && graphai) {
           await graphai.abort();
           // graphai = null;
-          isRunning.value = false;
         }
       } catch (e) {
         console.log(e);
       }
+      isRunning.value = false;
     };
     const streamNodes = computed(() => {
       return store.streamNodes;
