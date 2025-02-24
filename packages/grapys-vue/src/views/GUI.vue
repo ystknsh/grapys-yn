@@ -137,7 +137,7 @@ export default defineComponent({
 <template>
   <div>
     <div class="flex h-screen">
-      <aside class="w-48 p-4">
+      <aside class="w-48 p-4 text-center">
         <h2 class="text-lg font-bold">Menu</h2>
 
         <AddNode />

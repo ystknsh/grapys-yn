@@ -106,7 +106,7 @@ const GUI: FC = () => {
   return (
     <div>
       <div className="flex h-screen w-full">
-        <aside className="w-48 p-4">
+        <aside className="w-48 p-4 text-center">
           <h2 className="text-lg font-bold">Menu</h2>
           <AddNode />
           <hr />
@@ -143,7 +143,7 @@ const GUI: FC = () => {
           <TemplateGraph onSetGraph={setGraph} />
         </aside>
         <main className="flex-1">
-          <div className="relative h-[100vh] overflow-hidden rounded-md border-4" onClick={closeMenu}>
+          <div className="relative h-[100vh] overflow-hidden rounded-md border-4 border-gray-200" onClick={closeMenu}>
             <svg x="0" y="0" className="absolute h-[100%] w-full" ref={svgRef}>
               {edgeDataList.map((edge, index) => (
                 <Edge
