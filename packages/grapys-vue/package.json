@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@graphai/agent_filters": "^0.2.2",
+    "@graphai/anthropic_agent": "^0.2.3",
     "@graphai/data_agents": "^0.2.0",
+    "@graphai/gemini_agent": "^0.2.5",
     "@graphai/openai_agent": "^0.2.7",
     "@graphai/vanilla": "^0.2.14",
     "@mlc-ai/web-llm": "^0.2.78",

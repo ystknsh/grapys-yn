@@ -27,6 +27,12 @@ This runs entirely within your browser, so your API key is never stored or sent 
 VITE_OPEN_API_KEY=xxxx yarn run dev
 ```
 
+```
+VITE_ANTHROPIC_API_KEY
+VITE_GOOGLE_GENAI_API_KEY
+```
+
+
 ## Web llm
 
 This repository provides an agent using a web LLM.

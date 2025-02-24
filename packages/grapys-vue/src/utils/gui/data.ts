@@ -28,8 +28,8 @@ const llmAgentProfile: AgentProfile = {
     { name: "system", type: "text" },
     { name: "prompt", type: "text" },
     { name: "model", type: "string" },
-    { name: "stream", type: "boolean" },
-    { name: "isResult", type: "boolean" },
+    { name: "stream", type: "boolean", defaultValue: true },
+    { name: "isResult", type: "boolean", defaultValue: true },
     { name: "temperature", type: "float", defaultValue: 0.7, max: 1, min: 0 },
   ],
 };

@@ -47,9 +47,13 @@ import Chat from "../components/Chat.vue";
 
 import * as agents from "@graphai/vanilla";
 import { openAIAgent } from "@graphai/openai_agent";
+import { geminiAgent } from "@graphai/gemini_agent";
+import { anthropicAgent } from "@graphai/anthropic_agent";
 
 import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agents/tinyswallow";
 import { textInputEvent } from "../agents/event";
+
+import { graphConfigs } from "../graph";
 
 export default defineComponent({
   components: {
@@ -79,17 +83,14 @@ export default defineComponent({
         {
           ...agents,
           openAIAgent,
+          anthropicAgent,
+          geminiAgent,
           eventAgent,
           tinyswallowAgent,
         },
         {
           agentFilters,
-          config: {
-            openAIAgent: {
-              apiKey: import.meta.env.VITE_OPEN_API_KEY,
-              forWeb: true,
-            },
-          },
+          config: graphConfigs,
         },
       );
       // console.log(store.streamNodes);

@@ -15,6 +15,19 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
+"@anthropic-ai/sdk@^0.36.2":
+  version "0.36.3"
+  resolved "https://registry.yarnpkg.com/@anthropic-ai/sdk/-/sdk-0.36.3.tgz#0ca754f047e2847c8b1d064550f05e9a8e7e16b3"
+  integrity sha512-+c0mMLxL/17yFZ4P5+U6bTWiCSFZUKJddrv01ud2aFBWnTPLdRncYV76D3q1tqfnL7aCnhRtykFnoCFzvr4U3Q==
+  dependencies:
+    "@types/node" "^18.11.18"
+    "@types/node-fetch" "^2.6.4"
+    abort-controller "^3.0.0"
+    agentkeepalive "^4.2.1"
+    form-data-encoder "1.7.2"
+    formdata-node "^4.3.2"
+    node-fetch "^2.6.7"
+
 "@babel/code-frame@^7.26.2":
   version "7.26.2"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.26.2.tgz#4b5fab97d33338eff916235055f0ebc21e573a85"
@@ -354,6 +367,11 @@
     "@eslint/core" "^0.12.0"
     levn "^0.4.1"
 
+"@google/generative-ai@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@google/generative-ai/-/generative-ai-0.21.0.tgz#a5011aab9e6082e706937b26ef23445933fa0d15"
+  integrity sha512-7XhUbtnlkSEZK15kN3t+tzIMxsbKm/dSkKBFalj+20NvPKe1kBY7mR2P7vuijEn+f06z5+A8bVGKO0v39cr6Wg==
+
 "@graphai/agent_filters@^0.2.2":
   version "0.2.2"
   resolved "https://registry.npmjs.org/@graphai/agent_filters/-/agent_filters-0.2.2.tgz"
@@ -367,12 +385,28 @@
   resolved "https://registry.npmjs.org/@graphai/agent_utils/-/agent_utils-0.0.3.tgz"
   integrity sha512-dybbO54rI9E1XfNaHhxLT9xES7G9KC2mXyDYaKvvcDF3bSF6/870CzQb3AOxqzy6WadkKPO+oFye85RM8uNaHg==
 
+"@graphai/anthropic_agent@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@graphai/anthropic_agent/-/anthropic_agent-0.2.3.tgz#eeed463f15fba45bb87d7186ab07d2526c0d4031"
+  integrity sha512-B0+RqMaKsn0gaRb9uMhYoYxnLwVtz8/Thk7ZmbAjqlX/9QQUljXM+0En/o7MsaU+88cHa1gx7b/jE4unMbWlgA==
+  dependencies:
+    "@anthropic-ai/sdk" "^0.36.2"
+    "@graphai/llm_utils" "^0.2.0"
+
 "@graphai/data_agents@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@graphai/data_agents/-/data_agents-0.2.0.tgz#a5cc62c40b36953afd9ef84166d6bb367e67aef3"
   integrity sha512-hMhI74ua763/WT5tfX8IgcKaBBPyUg8+qkanMG8jOPnnFF26LS2rDTwtXHBKtNEiL49NVkW/AFAFAuYHbLW/hQ==
   dependencies:
     deepmerge "^4.3.1"
+
+"@graphai/gemini_agent@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@graphai/gemini_agent/-/gemini_agent-0.2.5.tgz#9b403ff90ae3ea1e56cc56b4c7883cae62fa398e"
+  integrity sha512-3oU4lc4Okm9hWO18S05rG65ewHGvG2FFgC14uwBVL75KuzMTniB2lZmSaDEkFkY02n5YFFg45gZ4kHvceKQ40g==
+  dependencies:
+    "@google/generative-ai" "^0.21.0"
+    "@graphai/llm_utils" "^0.2.0"
 
 "@graphai/llm_utils@^0.2.0":
   version "0.2.0"
