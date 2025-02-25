@@ -47,10 +47,10 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
     });
   }, []);
 
-  let graphai: GraphAI | null = null;
+  const [graphai, setGraphai] = useState<GraphAI | null>(null);
   const run = useCallback(async () => {
     setIsRunning(true);
-    graphai = new GraphAI(
+    const graph = new GraphAI(
       graphData,
       {
         ...agents,
@@ -65,28 +65,28 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
         config: graphConfigs,
       },
     );
-    graphai.registerCallback(streamPlugin(streamNodes()));
-    graphai.registerCallback(chatMessagePlugin(resultNodes()));
-
+    graph.registerCallback(streamPlugin(streamNodes()));
+    graph.registerCallback(chatMessagePlugin(resultNodes()));
+    setGraphai(graph);
     try {
-      await graphai.run();
+      await graph.run();
     } catch (error) {
       console.log(error);
     }
-  }, [eventAgent, streamPlugin, chatMessagePlugin]);
+  }, [eventAgent, streamPlugin, chatMessagePlugin, graphData]);
 
   const abort = useCallback(() => {
     try {
       if (isRunning && graphai) {
         graphai.abort();
-        graphai = null;
+        setGraphai(null);
       }
     } catch (error) {
       console.log(error);
     } finally {
       setIsRunning(false);
     }
-  });
+  }, [graphai, isRunning]);
 
   return (
     <div>
