@@ -268,7 +268,7 @@ const loop2LoopObj = (loop: GUILoopData) => {
       count: loop.count,
     };
   }
-  return {};
+  return undefined;
 };
 
 export const toGraph = (nodeRecords: GUINodeDataRecord, edges: GUIEdgeData[], loop: GUILoopData, currentData: HistoryPayload) => {

@@ -25,6 +25,7 @@
 
       <div>
         <div class="m-auto my-4 w-10/12">
+          {{ events }}
           <div v-if="events.length > 0" class="hidden font-bold text-red-600">Write message to bot!!</div>
           <div class="flex">
             <input v-model="userInput" class="flex-1 rounded-md border-2 p-2" :disabled="events.length == 0" />
@@ -77,7 +78,7 @@ export default defineComponent({
     const store = useStore();
     loadEngine();
 
-    const { eventAgent, userInput, events, submitText } = textInputEvent();
+    const { eventAgent, userInput, events, submitText, clearEvents } = textInputEvent();
     const { messages, chatMessagePlugin } = useChatPlugin();
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
 
@@ -119,6 +120,7 @@ export default defineComponent({
       try {
         if (isRunning.value && graphai) {
           graphai.abort();
+          clearEvents();
           graphai = null;
         }
       } catch (error) {

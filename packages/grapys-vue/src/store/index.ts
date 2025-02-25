@@ -48,7 +48,7 @@ export const useStore = defineStore("store", () => {
         count: loop.value.count,
       };
     }
-    return {};
+    return undefined;
   });
 
   const nodeRecords = computed<GUINodeDataRecord>(() => {

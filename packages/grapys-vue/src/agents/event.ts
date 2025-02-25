@@ -22,10 +22,16 @@ export const textInputEvent = () => {
     return Object.values(eventsObj.value);
   });
 
+  const clearEvents = () => {
+    Object.values(eventsObj.value).forEach(event => event.reject());
+    eventsObj.value = {};
+  };
+  
   return {
     eventAgent,
     userInput,
     events,
     submitText,
+    clearEvents,
   };
 };
