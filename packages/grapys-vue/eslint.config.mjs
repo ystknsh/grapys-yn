@@ -53,7 +53,7 @@ export default [
       "camelcase": "off",
       "max-lines": "off",
       "max-lines-per-function": "off",
-      "max-params": ["error", 4],
+      "max-params": ["error", 5],
       "prefer-named-capture-group": "off",
       "require-unicode-regexp": "off",
       "no-ternary": "off",

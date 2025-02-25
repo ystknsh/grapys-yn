@@ -52,8 +52,8 @@ const LoopComponent = () => {
           <div className="mt-2">
             <select
               className="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
-              onChange={(e) => storeUpdateLoop({ ...loop, while: e.target.value })}
-              value={loop.while || whileSources[0]}
+              onChange={(e) => storeUpdateLoop({ ...loop, while: e.target.value === "true" ? true : e.target.value })}
+          value={(loop.while === true ? "true" : loop.while) || whileSources[0]}
             >
               {whileSources.map((item) => (
                 <option key={item} value={item}>
