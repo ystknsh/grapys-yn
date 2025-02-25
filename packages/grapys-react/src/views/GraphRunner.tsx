@@ -15,6 +15,7 @@ import { useChatPlugin } from "../utils/react-plugin/chat";
 import { graphConfigs } from "../graph";
 
 const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
+  const [isRunning, setIsRunning] = useState(false);
   const streamNodes = useLocalStore((state) => state.streamNodes);
   const resultNodes = useLocalStore((state) => state.resultNodes);
 
@@ -46,9 +47,10 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
     });
   }, []);
 
+  let graphai: GraphAI | null = null;
   const run = useCallback(async () => {
-    console.log(graphConfigs);
-    const graphai = new GraphAI(
+    setIsRunning(true);
+    graphai = new GraphAI(
       graphData,
       {
         ...agents,
@@ -66,18 +68,50 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
     graphai.registerCallback(streamPlugin(streamNodes()));
     graphai.registerCallback(chatMessagePlugin(resultNodes()));
 
-    await graphai.run();
+    try {
+      await graphai.run();
+    } catch (error) {
+      console.log(error);
+    }
   }, [eventAgent, streamPlugin, chatMessagePlugin]);
+
+  const abort = useCallback(() => {
+    try {
+      if (isRunning && graphai) {
+        graphai.abort();
+        graphai = null;
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsRunning(false);
+    }
+  });
 
   return (
     <div>
-      <div className="items-center justify-center">
+      <div className="items-center justify-center text-center">
         <div className="mt-2">
           <Chat messages={messages} isStreaming={isStreaming} streamData={streamData} streamNodeIds={streamNodes()} />
         </div>
         <div className="mt-2">
-          <button onClick={run} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">
+          <button
+            onClick={run}
+            className={`m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700 ${
+              isRunning ? "bg-sky-200" : "bg-sky-500"
+            }`}
+            disabled={isRunning}
+          >
             Run
+          </button>
+          <button
+            onClick={abort}
+            className={`m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700 ${
+              !isRunning ? "bg-sky-200" : "bg-sky-500"
+            }`}
+            disabled={!isRunning}
+          >
+            Stop
           </button>
         </div>
 
@@ -94,7 +128,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
                 disabled={events.length === 0}
               />
               <button
-                className={`ml-1 flex-none items-center rounded-md px-4 py-2 font-bold text-white hover:bg-sky-700 ${
+                className={`ml-1 flex-none cursor-pointer items-center rounded-md px-4 py-2 font-bold text-white hover:bg-sky-700 ${
                   events.length === 0 ? "bg-sky-200" : "bg-sky-500"
                 }`}
                 onClick={() => {

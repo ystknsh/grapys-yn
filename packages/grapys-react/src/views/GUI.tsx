@@ -103,7 +103,6 @@ const GUI: FC = () => {
     onSavePosition();
   };
 
-
   return (
     <div>
       <div className="flex h-screen w-full">
@@ -113,36 +112,39 @@ const GUI: FC = () => {
           <hr />
           <button
             onClick={undo}
-            className={`m-1 items-center rounded-full px-4 py-2 font-bold text-white cursor-pointer ${undoable ? "bg-sky-500 hover:bg-sky-700" : "bg-sky-200"}`}
+            className={`m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white ${undoable ? "bg-sky-500 hover:bg-sky-700" : "bg-sky-200"}`}
           >
             Undo
           </button>
           <button
             onClick={redo}
-            className={`m-1 items-center rounded-full px-4 py-2 font-bold text-white cursor-pointer ${redoable ? "bg-sky-500 hover:bg-sky-700" : "bg-sky-200"}`}
+            className={`m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white ${redoable ? "bg-sky-500 hover:bg-sky-700" : "bg-sky-200"}`}
           >
             Redo
           </button>
           <hr />
           <div>
-            <button onClick={resetGraph} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">
+            <button onClick={resetGraph} className="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
               Clear Graph
             </button>
           </div>
           <hr />
           <div>
-            <button onClick={save} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">
+            <button onClick={save} className="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
               Save Graph
             </button>
           </div>
           <div>
-            <button onClick={load} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">
+            <button onClick={load} className="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
               Load Graph
             </button>
           </div>
           <div>
-      <button onClick={() => handleDownload(newGraphData)} className="m-1 items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white cursor-pointer">
-      Download
+            <button
+              onClick={() => handleDownload(newGraphData)}
+              className="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white"
+            >
+              Download
             </button>
           </div>
           <hr />

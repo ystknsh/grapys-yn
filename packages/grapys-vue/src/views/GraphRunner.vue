@@ -6,7 +6,7 @@
       </div>
       <div class="mt-2">
         <button
-          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700"
+          class="cursor-pointer m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700"
           @click="run"
           :disabled="isRunning"
           :class="isRunning ? 'bg-sky-200' : 'bg-sky-500'"
@@ -14,7 +14,7 @@
           Run
         </button>
         <button
-          class="m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700"
+          class="cursor-pointer m-1 items-center rounded-full px-4 py-2 font-bold text-white hover:bg-sky-700"
           @click="abort"
           :disabled="!isRunning"
           :class="!isRunning ? 'bg-sky-200' : 'bg-sky-500'"
@@ -29,7 +29,7 @@
           <div class="flex">
             <input v-model="userInput" class="flex-1 rounded-md border-2 p-2" :disabled="events.length == 0" />
             <button
-              class="ml-1 flex-none items-center rounded-md px-4 py-2 font-bold text-white hover:bg-sky-700"
+              class="cursor-pointer ml-1 flex-none items-center rounded-md px-4 py-2 font-bold text-white hover:bg-sky-700"
               :class="events.length == 0 ? 'bg-sky-200' : 'bg-sky-500'"
               @click="submitText(events[0])"
             >
