@@ -521,10 +521,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@receptron/event_agent_generator@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.npmjs.org/@receptron/event_agent_generator/-/event_agent_generator-0.0.4.tgz"
-  integrity sha512-TnKEB73ztifGDFt+LihTL2m11E2tyaclW0nCph0rulJLFla9Kw8FoINLPuB4JYoK6IrUDIUuSlt55Dj7+SENIA==
+"@receptron/event_agent_generator@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@receptron/event_agent_generator/-/event_agent_generator-0.0.5.tgz#e60a5a4bf0c4bee2167c1fd49d32999572101b3f"
+  integrity sha512-wEzC1aqPTGp8rq1B5hok58tztXO0nUuVInXQWJgx3hSHT7J3v5iC9G5xAR0DfuBO3r5uEY3pkHbuSs9GlE1Nbw==
 
 "@rollup/rollup-android-arm-eabi@4.34.7":
   version "4.34.7"
