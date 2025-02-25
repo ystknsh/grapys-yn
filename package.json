@@ -48,6 +48,6 @@
     "@graphai/vanilla": "^0.2.15",
     "@mlc-ai/web-llm": "^0.2.78",
     "@receptron/event_agent_generator": "^0.0.4",
-    "graphai": "^0.6.24"
+    "graphai": "^0.6.25"
   }
 }
