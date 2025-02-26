@@ -74,7 +74,7 @@ export default defineComponent({
 
         ctx.emit("updateValue", {
           value,
-          staticNodeType: "text",
+          staticNodeType: dataType.value,
         });
       }
     };
@@ -117,6 +117,7 @@ export default defineComponent({
         }
       },
     );
+
     const isValidData = computed(() => {
       if (dataType.value === "data") {
         try {
