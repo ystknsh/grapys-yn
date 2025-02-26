@@ -18,7 +18,6 @@ import { AgentProfile } from "./type";
 
 const llmAgentProfile: AgentProfile = {
   inputs: [
-    { name: "message", type: "text" },
     { name: "messages", type: "text" },
     { name: "prompt", type: "text" },
     { name: "model", type: "text" },
