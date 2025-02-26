@@ -11,8 +11,8 @@
   "private": true,
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "@tailwindcss/postcss": "^4.0.8",
-    "@tailwindcss/vite": "^4.0.8",
+    "@tailwindcss/postcss": "^4.0.9",
+    "@tailwindcss/vite": "^4.0.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
@@ -29,10 +29,10 @@
     "postcss": "^8.5.3",
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4.0.8",
+    "tailwindcss": "^4.0.9",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.25.0",
-    "vite": "^6.1.1"
+    "vite": "^6.2.0"
   },
   "workspaces": [
     "packages/*"
@@ -48,6 +48,6 @@
     "@graphai/vanilla": "^0.2.15",
     "@mlc-ai/web-llm": "^0.2.78",
     "@receptron/event_agent_generator": "^0.0.6",
-    "graphai": "^0.6.25"
+    "graphai": "^0.6.26"
   }
 }

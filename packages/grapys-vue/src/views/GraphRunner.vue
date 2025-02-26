@@ -25,7 +25,6 @@
 
       <div>
         <div class="m-auto my-4 w-10/12">
-          {{ events }}
           <div v-if="events.length > 0" class="hidden font-bold text-red-600">Write message to bot!!</div>
           <div class="flex">
             <input v-model="userInput" class="flex-1 rounded-md border-2 p-2" :disabled="events.length == 0" />
@@ -109,6 +108,10 @@ export default defineComponent({
       );
       graphai.registerCallback(streamPlugin(store.streamNodes));
       graphai.registerCallback(chatMessagePlugin(store.resultNodes));
+      // graphai.onLogCallback = ({ nodeId, state, inputs, result, errorMessage }) => {
+        // logs.value.push({ nodeId, state, inputs, result, errorMessage });
+        // console.log(nodeId, state);
+      // };
 
       try {
         await graphai.run();
