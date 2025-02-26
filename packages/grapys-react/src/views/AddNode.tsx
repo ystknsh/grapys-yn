@@ -25,14 +25,13 @@ const AddNode = () => {
 
     const isStatic = agent === "StaticNode";
     const targetAgent = agentProfiles[agent];
-    const params = getDefaultParams(targetAgent.params ?? []);
     const data = {
       data: isStatic
         ? {}
         : {
             agent: targetAgent?.agent || agent,
             guiAgentId: agent,
-            params,
+            params: getDefaultParams(targetAgent.params ?? []),
           },
     };
 
