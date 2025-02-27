@@ -23,10 +23,10 @@ export const textInputEvent = () => {
   });
 
   const clearEvents = () => {
-    Object.values(eventsObj.value).forEach(event => event.reject());
+    Object.values(eventsObj.value).forEach((event) => event.reject());
     eventsObj.value = {};
   };
-  
+
   return {
     eventAgent,
     userInput,

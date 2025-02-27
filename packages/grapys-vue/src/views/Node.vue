@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="flex w-full flex-col gap-1 p-2" v-if="nodeData.type === 'static'">
-      <NodeStaticValue :node-data="nodeData" @focus-event="focusEvent" @blur-event="blurEvent" @update-value="updateValue" />
+      <NodeStaticValue :node-data="nodeData" @focus-event="focusEvent" @blur-event="blurEvent" @update-static-value="updateStaticValue" />
     </div>
     <div class="flex w-full flex-col gap-1 p-2" v-if="nodeData.type === 'computed'">
       <NodeComputedParams :node-data="nodeData" @focus-event="focusEvent" @blur-event="blurEvent" :node-index="nodeIndex" />
@@ -222,7 +222,7 @@ export default defineComponent({
       }
       ctx.emit("updatePosition", getWH());
     };
-    const updateValue = (value: UpdateStaticValue) => {
+    const updateStaticValue = (value: UpdateStaticValue) => {
       ctx.emit("updateStaticNodeValue", value);
     };
     const openNodeMenu = (event: MouseEvent) => {
@@ -246,7 +246,7 @@ export default defineComponent({
       expectNearNode,
       isExpectNearButton,
 
-      updateValue,
+      updateStaticValue,
       openNodeMenu,
       // helper
       nodeMainClass,
