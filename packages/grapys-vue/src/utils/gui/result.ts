@@ -1,6 +1,6 @@
 const resultsOfInner = (input: unknown, nodes: Record<string, string | string[]>): unknown => {
   if (Array.isArray(input)) {
-    return input.map((inp) => resultsOfInner(inp, nodes));
+    return input.map((inp) => resultsOfInner(inp, nodes)).filter((a) => a);
   }
   if (isNamedInputs(input)) {
     return resultsOf(input, nodes);
@@ -10,7 +10,7 @@ const resultsOfInner = (input: unknown, nodes: Record<string, string | string[]>
     if (templateMatch.length > 0) {
       const results = resultsOfInner(templateMatch, nodes);
       return Array.from(templateMatch.keys()).reduce((tmp, key) => {
-        return tmp.replaceAll("${" + templateMatch[key] + "}", (results as Record<string, string>)[key]);
+        return tmp.replaceAll("${" + templateMatch[key] + "}", "${" + (results as Record<string, string>)[key] + "}");
       }, input);
     }
   }
@@ -20,7 +20,10 @@ const resultsOfInner = (input: unknown, nodes: Record<string, string | string[]>
 export const resultsOf = (inputs: Record<string, unknown>, nodes: Record<string, string | string[]>) => {
   return Object.keys(inputs).reduce((tmp: Record<string, string | string[]>, key) => {
     const input = inputs[key];
-    tmp[key] = (isNamedInputs(input) ? resultsOf(input, nodes) : resultsOfInner(input, nodes)) as string | string[];
+    const result = (isNamedInputs(input) ? resultsOf(input, nodes) : resultsOfInner(input, nodes)) as string | string[];
+    if (result !== undefined) {
+      tmp[key] = result;
+    }
     return tmp;
   }, {});
 };
@@ -29,8 +32,10 @@ const resultOf = (source: unknown, nodes: Record<string, string | string[]>) => 
   if (typeof source === "string" && source[0] === ":") {
     const key = source.slice(1);
     if (nodes && nodes[key]) {
-      return "${" + nodes[key] + "}";
+      // return "${" + nodes[key] + "}";
+      return nodes[key];
     }
+    return;
   }
   return source;
 };
