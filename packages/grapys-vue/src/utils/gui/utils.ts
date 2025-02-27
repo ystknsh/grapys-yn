@@ -59,7 +59,7 @@ export const graphToGUIData = (graphData: GraphData) => {
     };
   }
   // TODO: Is this old data structure?
-  const positions = graphData?.metadata?.positions ?? {};
+  // const positions = graphData?.metadata?.positions ?? {};
 
   const nodeIds = Object.keys(graphData.nodes);
   const rawEdge: GUIEdgeData[] = [];
@@ -122,7 +122,7 @@ export const graphToGUIData = (graphData: GraphData) => {
       });
     });
 
-    const position = positions[nodeId] ?? {
+    const position = {
       x: (positionIndex % 4) * 200 + 100,
       y: Math.floor(positionIndex / 4) * 300 + 50,
     };
@@ -131,7 +131,6 @@ export const graphToGUIData = (graphData: GraphData) => {
       if (isComputed) {
         return {
           params: node.params,
-          // agent: node.agent as string,
           guiAgentId: node.agent as string,
         };
       }
