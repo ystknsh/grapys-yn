@@ -1,6 +1,6 @@
 const resultsOfInner = (input: unknown, nodes: Record<string, string | string[]>): unknown => {
   if (Array.isArray(input)) {
-    return input.map((inp) => resultsOfInner(inp, nodes)).filter((a) => a);
+    return input.map((inp) => resultsOfInner(inp, nodes)).filter((ret) => ret);
   }
   if (isNamedInputs(input)) {
     return resultsOf(input, nodes);
@@ -20,7 +20,7 @@ const resultsOfInner = (input: unknown, nodes: Record<string, string | string[]>
 export const resultsOf = (inputs: Record<string, unknown>, nodes: Record<string, string | string[]>) => {
   return Object.keys(inputs).reduce((tmp: Record<string, string | string[]>, key) => {
     const input = inputs[key];
-    const result = (isNamedInputs(input) ? resultsOf(input, nodes) : resultsOfInner(input, nodes)) as string | string[];
+    const result = (isNamedInputs(input) ? resultsOf(input, nodes) : resultsOfInner(input, nodes)) as string | string[] | undefined;
     if (result !== undefined) {
       tmp[key] = result;
     }
