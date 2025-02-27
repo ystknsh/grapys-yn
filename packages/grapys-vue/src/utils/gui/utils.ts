@@ -31,7 +31,34 @@ export const getClientPos = (event: MouseEvent | TouchEvent) => {
   return { clientX, clientY };
 };
 
+const loop2loop = (graphLoop: LoopData): GUILoopData => {
+  if (graphLoop.while) {
+    return {
+      loopType: "while",
+      while: graphLoop.while,
+    };
+  }
+  if (graphLoop.count) {
+    return {
+      loopType: "count",
+      count: graphLoop.count,
+    };
+  }
+  return {
+    loopType: "none",
+  };
+};
+
 export const graphToGUIData = (graphData: GraphData) => {
+  if (graphData?.metadata?.data?.nodes && graphData?.metadata?.data?.edges) {
+    const { nodes, edges, loop } = graphData?.metadata?.data;
+    return {
+      rawEdge: edges,
+      rawNode: nodes,
+      loop: loop2loop(loop ?? {}),
+    };
+  }
+  // TODO: Is this old data structure?
   const positions = graphData?.metadata?.positions ?? {};
 
   const nodeIds = Object.keys(graphData.nodes);
@@ -44,6 +71,8 @@ export const graphToGUIData = (graphData: GraphData) => {
 
   const getIndex = (nodeId: string, propId: string, key: keyof AgentProfile) => {
     const agent = node2agent[nodeId];
+
+    console.log(agent);
     const indexes = agent ? (agentProfiles[agent][key] as InputOutputData[]) : [];
     const index = indexes.findIndex((data) => data.name === propId);
     if (index === -1) {
@@ -68,6 +97,7 @@ export const graphToGUIData = (graphData: GraphData) => {
             source.propIds.forEach((outputPropId) => {
               if (nodeIds.includes(outputNodeId)) {
                 const sourceIndex = getIndex(outputNodeId, outputPropId, "outputs");
+                console.log(nodeId, inputProp);
                 const targetIndex = isComputed ? getIndex(nodeId, inputProp, "inputs") : 0;
                 rawEdge.push({
                   source: {
@@ -135,23 +165,6 @@ export const graphToGUIData = (graphData: GraphData) => {
   });
 
   // graph loop 2 store loop
-  const loop2loop = (graphLoop: LoopData): GUILoopData => {
-    if (graphLoop.while) {
-      return {
-        loopType: "while",
-        while: graphLoop.while,
-      };
-    }
-    if (graphLoop.count) {
-      return {
-        loopType: "count",
-        count: graphLoop.count,
-      };
-    }
-    return {
-      loopType: "none",
-    };
-  };
   const { loop: graphLoop } = graphData;
   return {
     rawEdge,

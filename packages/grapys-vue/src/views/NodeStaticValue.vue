@@ -48,7 +48,7 @@ export default defineComponent({
     const rows = ref(3);
 
     const dataType = ref(props.nodeData.data.staticNodeType ?? "text");
-    const numberValue = ref(props.nodeData.data.staticNodeType === "number" ? (String(props.nodeData.data.value ?? "0")) : "0");
+    const numberValue = ref(props.nodeData.data.staticNodeType === "number" ? String(props.nodeData.data.value ?? "0") : "0");
     const booleanValue = ref(props.nodeData.data.staticNodeType === "boolean" ? (props.nodeData.data.value === true ? "true" : "false") : "false");
     const textAreaValue = ref(
       String(props.nodeData.data.staticNodeType === "data" ? JSON.stringify(props.nodeData.data.value, null, 2) : (props.nodeData.data.value ?? "")),
