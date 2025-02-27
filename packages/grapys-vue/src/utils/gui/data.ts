@@ -18,12 +18,12 @@ import { AgentProfile } from "./type";
 
 const llmAgentProfile: AgentProfile = {
   inputs: [
-    { name: "message", type: "text" },
-    { name: "messages", type: "text" },
+    { name: "message", type: "message" },
+    { name: "messages", type: "array" },
     { name: "prompt", type: "text" },
     { name: "model", type: "text" },
   ],
-  outputs: [{ name: "message" }, { name: "messages" }, { name: "text", type: "text" }],
+  outputs: [{ name: "message", type: "message" }, { name: "messages" }, { name: "text", type: "text" }],
   params: [
     { name: "system", type: "text" },
     { name: "prompt", type: "text" },
@@ -189,6 +189,29 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     ],
     outputs: [{ name: "array" }],
     params: [],
+  },
+  messageAggregatorAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      array: [":message1", ":message2", ":message3", ":message4"],
+    },
+    inputs: [
+      { name: "message1", type: "message" },
+      { name: "message2", type: "message" },
+      { name: "message3", type: "message" },
+      { name: "message4", type: "message" },
+    ],
+    outputs: [{ name: "array" }],
+    params: [],
+  },
+  resultAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      result: ":message1",
+    },
+    inputs: [{ name: "message1", type: "message" }],
+    outputs: [{ name: "result" }],
+    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
   },
 };
 
