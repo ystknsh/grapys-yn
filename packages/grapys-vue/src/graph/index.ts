@@ -15,7 +15,7 @@ export const graphs = [
   { name: "Reducer(push)", graph: graphDataReducerPush },
   { name: "Reducer(pop)", graph: graphDataReducerPop },
   { name: "Tools(co2)", graph: graphDataTools },
-  { name: "Tools(graphDataReception)", graph: graphDataReception },
+  { name: "Tools(Reception)", graph: graphDataReception },
   { name: "StreamTest", graph: graphDataStreamTest },
   { name: "StreamTest2", graph: graphDataStreamTest2 },
 ];
