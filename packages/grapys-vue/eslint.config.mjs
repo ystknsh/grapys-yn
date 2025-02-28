@@ -76,7 +76,7 @@ export default [
       "sonarjs/cognitive-complexity": ["error", 20],
       "sonarjs/no-duplicate-string": "off",
       "sonarjs/todo-tag": "off",
-      "sonarjs/elseif-without-else": "error",
+      "sonarjs/elseif-without-else": "off",
       "sonarjs/max-switch-cases": "error",
       "sonarjs/no-all-duplicated-branches": "error",
       "sonarjs/no-commented-code": "off",
