@@ -2,7 +2,7 @@ import { GraphData } from "graphai";
 export const graphChat: GraphData = {
   version: 0.5,
   nodes: {
-    "inputNode": {
+    inputNode: {
       agent: "eventAgent",
       params: {
         isResult: false,
@@ -10,7 +10,7 @@ export const graphChat: GraphData = {
       inputs: {},
       isResult: false,
     },
-    "resultNode": {
+    resultNode: {
       agent: "copyAgent",
       params: {
         isResult: true,
