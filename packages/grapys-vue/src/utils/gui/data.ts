@@ -269,12 +269,28 @@ export const eventAgentProfiles: Record<string, AgentProfile> = {
   },
 };
 
+export const testAgentProfiles: Record<string, AgentProfile> = {
+  streamMockAgent: {
+    agent: "streamMockAgent",
+    inputs: [{ name: "message", type: "text" }],
+    outputs: [{ name: "message" }],
+    params: [
+      { name: "message", type: "string" },
+      { name: "sleep", type: "int" },
+      { name: "stream", type: "boolean", defaultValue: true },
+      { name: "isResult", type: "boolean", defaultValue: true },
+    ],
+    // presetParams: { isResult: true, stream: true },
+  },
+};
+
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
   event: eventAgentProfiles,
   llm: llmAgentProfiles,
   array: arrayAgentProfiles,
   string: stringAgentProfiles,
   data: dataAgentProfiles,
+  test: testAgentProfiles,
   compare: compareAgentProfiles,
 };
 

@@ -223,15 +223,7 @@ export default defineComponent({
       <div class="text-left">
         <pre>
         {{ JSON.stringify(store.graphData, null, 2) }}
-      </pre
-        >
-      </div>
-    </div>
-    <div>
-      <div class="text-left">
-        <div v-for="(history, k) in store.histories" :key="k">
-          {{ history.name }}
-        </div>
+        </pre>
       </div>
     </div>
   </div>

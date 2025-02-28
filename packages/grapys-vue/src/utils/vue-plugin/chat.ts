@@ -7,7 +7,13 @@ export const useChatPlugin = () => {
     return (log: TransactionLog) => {
       const { nodeId, state, result } = log;
       if (targetNodeId.includes(nodeId) && state === "completed" && result) {
-        messages.value.push((result as { message: { role: string; content: string } }).message);
+        if (result.message) {
+          if (result.message.role) {
+            messages.value.push((result as { message: { role: string; content: string } }).message);
+          } else {
+            messages.value.push({ role: "bot", content: result.message });
+          }
+        }
       }
     };
   };
