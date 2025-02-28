@@ -116,6 +116,8 @@ export default defineComponent({
         await graphai.run();
       } catch (error) {
         console.log(error);
+      } finally {
+        isRunning.value = false;
       }
     };
     const abort = () => {

@@ -21,8 +21,15 @@ const llmAgentProfile: AgentProfile = {
     { name: "messages", type: "array" },
     { name: "prompt", type: "text" },
     { name: "model", type: "text" },
+    { name: "tools", type: "data" },
   ],
-  outputs: [{ name: "message", type: "message" }, { name: "messages" }, { name: "text", type: "text" }],
+  outputs: [
+    { name: "message", type: "message" },
+    { name: "messages" },
+    { name: "text", type: "text" },
+    { name: "tool", type: "data" },
+    { name: "tool_calls", type: "array" },
+  ],
   params: [
     { name: "system", type: "text" },
     { name: "prompt", type: "text" },
