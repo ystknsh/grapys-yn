@@ -51,7 +51,7 @@ const loop2loop = (graphLoop: LoopData): GUILoopData => {
 
 export const graphToGUIData = (graphData: GraphData) => {
   if (graphData?.metadata?.data?.nodes && graphData?.metadata?.data?.edges) {
-    const { nodes, edges, loop } = graphData?.metadata?.data;
+    const { nodes, edges, loop } = graphData?.metadata?.data ?? {};
     return {
       rawEdge: edges,
       rawNode: nodes,
