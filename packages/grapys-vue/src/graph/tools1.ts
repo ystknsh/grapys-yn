@@ -1,4 +1,5 @@
 export const graphData = {
+  nodes: {},
   metadata: {
     data: {
       nodes: [

@@ -1,3 +1,4 @@
+import { GraphData } from "graphai";
 import { graphChat as graphChatOpenAI } from "../graph/chat";
 import { graphChat as graphChatTinySwallow } from "../graph/chat_tinyswallow";
 import { graphChat as graphChatAlone } from "../graph/chat_alone";
@@ -8,7 +9,7 @@ import { graphData as graphDataStreamTest } from "../graph/stream_test";
 import { graphData as graphDataStreamTest2 } from "../graph/stream_test2";
 import { graphData as graphDataReception } from "../graph/reception";
 
-export const graphs = [
+export const graphs: { name: string; graph: GraphData }[] = [
   { name: "Chat(WebLLM)", graph: graphChatTinySwallow },
   { name: "Chat(Alone)", graph: graphChatAlone },
   { name: "Chat(OpenAI)", graph: graphChatOpenAI },
