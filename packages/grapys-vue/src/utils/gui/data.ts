@@ -207,9 +207,9 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
   resultAgent: {
     agent: "copyAgent",
     inputSchema: {
-      message: ":message1",
+      message: ":message",
     },
-    inputs: [{ name: "message1", type: "message" }],
+    inputs: [{ name: "message", type: "message" }],
     outputs: [{ name: "result" }],
     params: [{ name: "isResult", type: "boolean", defaultValue: true }],
   },
@@ -218,8 +218,8 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     inputSchema: {
       message: {
         role: "bot",
-        content: ":data"
-      }
+        content: ":data",
+      },
     },
     inputs: [{ name: "data", type: "data" }],
     outputs: [],
