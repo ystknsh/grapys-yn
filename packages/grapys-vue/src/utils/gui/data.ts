@@ -18,7 +18,7 @@ import { AgentProfile } from "./type";
 
 const llmAgentProfile: AgentProfile = {
   inputs: [
-    { name: "messages", type: "array" },
+    { name: "messages", type: "text" }, // If it is made into an array, it will be broken. TODO: fix
     { name: "prompt", type: "text" },
     { name: "model", type: "text" },
     { name: "tools", type: "data" },
