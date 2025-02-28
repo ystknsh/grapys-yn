@@ -220,6 +220,15 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     outputs: [{ name: "result" }],
     params: [{ name: "isResult", type: "boolean", defaultValue: true }],
   },
+  toolsResultAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      message: ":tools",
+    },
+    inputs: [{ name: "tools", type: "data" }],
+    outputs: [{ name: "result" }],
+    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
+  },
   dataToChatBotAgent: {
     agent: "copyAgent",
     inputSchema: {

@@ -6,6 +6,7 @@ import { graphData as graphDataReducerPop } from "../graph/reducer_pop";
 import { graphData as graphDataTools } from "../graph/tools1";
 import { graphData as graphDataStreamTest } from "../graph/stream_test";
 import { graphData as graphDataStreamTest2 } from "../graph/stream_test2";
+import { graphData as graphDataReception } from "../graph/reception";
 
 export const graphs = [
   { name: "Chat(WebLLM)", graph: graphChatTinySwallow },
@@ -13,7 +14,8 @@ export const graphs = [
   { name: "Chat(OpenAI)", graph: graphChatOpenAI },
   { name: "Reducer(push)", graph: graphDataReducerPush },
   { name: "Reducer(pop)", graph: graphDataReducerPop },
-  { name: "Tools", graph: graphDataTools },
+  { name: "Tools(co2)", graph: graphDataTools },
+  { name: "Tools(graphDataReception)", graph: graphDataReception },
   { name: "StreamTest", graph: graphDataStreamTest },
   { name: "StreamTest2", graph: graphDataStreamTest2 },
 ];
