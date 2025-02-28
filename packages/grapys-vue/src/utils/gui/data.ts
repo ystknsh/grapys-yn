@@ -203,6 +203,7 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     outputs: [{ name: "array" }],
     params: [],
   },
+  // To output userInput (event) data to chat
   resultAgent: {
     agent: "copyAgent",
     inputSchema: {
@@ -210,6 +211,18 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     },
     inputs: [{ name: "message1", type: "message" }],
     outputs: [{ name: "result" }],
+    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
+  },
+  dataToChatBotAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      message: {
+        role: "bot",
+        content: ":data"
+      }
+    },
+    inputs: [{ name: "data", type: "data" }],
+    outputs: [],
     params: [{ name: "isResult", type: "boolean", defaultValue: true }],
   },
 };

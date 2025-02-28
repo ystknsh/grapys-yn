@@ -108,10 +108,9 @@ export default defineComponent({
       );
       graphai.registerCallback(streamPlugin(store.streamNodes));
       graphai.registerCallback(chatMessagePlugin(store.resultNodes));
-      // graphai.onLogCallback = ({ nodeId, state, inputs, result, errorMessage }) => {
-      // logs.value.push({ nodeId, state, inputs, result, errorMessage });
-      // console.log(nodeId, state);
-      // };
+      graphai.onLogCallback = ({ nodeId, state, inputs, result, errorMessage }) => {
+        console.log({nodeId, state, result});
+      };
 
       try {
         await graphai.run();
