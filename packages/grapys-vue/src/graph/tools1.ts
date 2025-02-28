@@ -1,5 +1,4 @@
-import { GraphData } from "graphai";
-export const graphData: GraphData = {
+export const graphData = {
   metadata: {
     data: {
       nodes: [
