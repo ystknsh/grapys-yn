@@ -15,10 +15,10 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@anthropic-ai/sdk@^0.36.2":
-  version "0.36.3"
-  resolved "https://registry.yarnpkg.com/@anthropic-ai/sdk/-/sdk-0.36.3.tgz#0ca754f047e2847c8b1d064550f05e9a8e7e16b3"
-  integrity sha512-+c0mMLxL/17yFZ4P5+U6bTWiCSFZUKJddrv01ud2aFBWnTPLdRncYV76D3q1tqfnL7aCnhRtykFnoCFzvr4U3Q==
+"@anthropic-ai/sdk@^0.39.0":
+  version "0.39.0"
+  resolved "https://registry.yarnpkg.com/@anthropic-ai/sdk/-/sdk-0.39.0.tgz#624d5b33413a9cc322febb64e9d48bdcf5a98cdc"
+  integrity sha512-eMyDIPRZbt1CCLErRCi3exlAvNkBtRe+kW5vvJyef93PmNr/clstYgHhtvmkxN82nlKgzyGPCyGxrm0JQ1ZIdg==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -367,10 +367,10 @@
     "@eslint/core" "^0.12.0"
     levn "^0.4.1"
 
-"@google/generative-ai@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/@google/generative-ai/-/generative-ai-0.21.0.tgz#a5011aab9e6082e706937b26ef23445933fa0d15"
-  integrity sha512-7XhUbtnlkSEZK15kN3t+tzIMxsbKm/dSkKBFalj+20NvPKe1kBY7mR2P7vuijEn+f06z5+A8bVGKO0v39cr6Wg==
+"@google/generative-ai@^0.22.0":
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/@google/generative-ai/-/generative-ai-0.22.0.tgz#e77a1a3911f4f98bf9e965ad7c4b1ee2130abd26"
+  integrity sha512-mLR3PDWCk5O/BWNyDvFDIiwKeXQmFGZ+kJFd9m73QrUPCFREttJyVbBPTW4y9CwTbaltLMDaLDfroCrRv5Bl8Q==
 
 "@graphai/agent_filters@^0.2.2":
   version "0.2.2"
@@ -385,12 +385,12 @@
   resolved "https://registry.npmjs.org/@graphai/agent_utils/-/agent_utils-0.0.3.tgz"
   integrity sha512-dybbO54rI9E1XfNaHhxLT9xES7G9KC2mXyDYaKvvcDF3bSF6/870CzQb3AOxqzy6WadkKPO+oFye85RM8uNaHg==
 
-"@graphai/anthropic_agent@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@graphai/anthropic_agent/-/anthropic_agent-0.2.3.tgz#eeed463f15fba45bb87d7186ab07d2526c0d4031"
-  integrity sha512-B0+RqMaKsn0gaRb9uMhYoYxnLwVtz8/Thk7ZmbAjqlX/9QQUljXM+0En/o7MsaU+88cHa1gx7b/jE4unMbWlgA==
+"@graphai/anthropic_agent@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@graphai/anthropic_agent/-/anthropic_agent-1.0.0.tgz#e9a203d18995fa901af3a3906c5d3bd3bf21d6cb"
+  integrity sha512-WCjZrCCPzaNa7nn4t3O1wXwcuXb9xXCZHiSxsdp3JCQnrXo/iuwqTBqh71TOl1STr3KufZapES2pG86DSsDHnw==
   dependencies:
-    "@anthropic-ai/sdk" "^0.36.2"
+    "@anthropic-ai/sdk" "^0.39.0"
     "@graphai/llm_utils" "^0.2.0"
 
 "@graphai/data_agents@^0.2.1":
@@ -400,12 +400,12 @@
   dependencies:
     deepmerge "^4.3.1"
 
-"@graphai/gemini_agent@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@graphai/gemini_agent/-/gemini_agent-0.2.5.tgz#9b403ff90ae3ea1e56cc56b4c7883cae62fa398e"
-  integrity sha512-3oU4lc4Okm9hWO18S05rG65ewHGvG2FFgC14uwBVL75KuzMTniB2lZmSaDEkFkY02n5YFFg45gZ4kHvceKQ40g==
+"@graphai/gemini_agent@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@graphai/gemini_agent/-/gemini_agent-1.0.0.tgz#3f1f0da498f2a87352de7200a845017bbb25c22a"
+  integrity sha512-33sbAwIj/LobUDqhcYXd3xmaRe5eDvHYIKH/C8+G6PS4FeTh28YRRUMs7jKlMsafpxcCQeohC01IOcDIbK3LFQ==
   dependencies:
-    "@google/generative-ai" "^0.21.0"
+    "@google/generative-ai" "^0.22.0"
     "@graphai/llm_utils" "^0.2.0"
 
 "@graphai/llm_utils@^0.2.0":
@@ -413,18 +413,18 @@
   resolved "https://registry.npmjs.org/@graphai/llm_utils/-/llm_utils-0.2.0.tgz"
   integrity sha512-8QJxmrbXz2tMPfJVfx0OG4hQzMDLQbs2Mv7sMnYEDbOdZuS11l3kLZeDoA9KGGlts3cT15WjQ/V9tqhT7I24mA==
 
-"@graphai/openai_agent@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@graphai/openai_agent/-/openai_agent-0.2.7.tgz#bf8b07761e84f7601b7cc75f9d60cbeed0b94bec"
-  integrity sha512-vGnPncCZnxBL1gNrivurjTGZpcwu0ofukd2aTb2xNcPBrLwgPECCw6FVe0nTaQOHLMp+RPY//J0U181gJz9Dxw==
+"@graphai/openai_agent@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@graphai/openai_agent/-/openai_agent-1.0.0.tgz#e09f5bbbb54671353ec10a6d94e2b5a4b9e5bf05"
+  integrity sha512-afvsMVcK6pbkZyYvkvmJw3c/ecSJ8BxWVIlhNp4/3pJynfU1J8O1aA8UTKkVgysOAL1v/6E1d0PsEFznDQOjeA==
   dependencies:
     "@graphai/llm_utils" "^0.2.0"
-    openai "^4.82.0"
+    openai "^4.86.1"
 
-"@graphai/vanilla@^0.2.15":
-  version "0.2.15"
-  resolved "https://registry.yarnpkg.com/@graphai/vanilla/-/vanilla-0.2.15.tgz#29e580865ce153575893cc81732dfd7d7f7f280d"
-  integrity sha512-+L7TM/43yclAWqo3AC1k63rPGKwrhpA9tK5y5SeAXb4ZqL1q7akDmnENXPIiv+ZbF64/EKyNSl/dEKDK95E6Aw==
+"@graphai/vanilla@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@graphai/vanilla/-/vanilla-1.0.0.tgz#c9ea897f2e2846cfcd49800955341107698d0c9e"
+  integrity sha512-K2H5CQdRJ2Gvceg39MOQiNzH0zDYELXDA940SEua+NUzq4mBzOXN/HSloctVI8hs/v++LxoA4fEM1dwJTMTkVw==
   dependencies:
     "@graphai/agent_utils" "0.0.3"
 
@@ -1006,10 +1006,10 @@
   dependencies:
     rfdc "^1.4.1"
 
-"@vue/language-core@2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@vue/language-core/-/language-core-2.2.4.tgz#5cad43a4cd6f388bebc3e8c6f303df489f5e8829"
-  integrity sha512-eGGdw7eWUwdIn9Fy/irJ7uavCGfgemuHQABgJ/hU1UgZFnbTg9VWeXvHQdhY+2SPQZWJqWXvRWIg67t4iWEa+Q==
+"@vue/language-core@2.2.6":
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/@vue/language-core/-/language-core-2.2.6.tgz#0f0256f7594d1825f84f91a868534700dea55252"
+  integrity sha512-7IQTvwVOvhYSzcizZ2hAdqJjI+SaJS2GO7EnDlSlQ77drwl5UzNa2IZm9pO9MdMxrlw24CGI/Lo3xpCjM26veg==
   dependencies:
     "@volar/language-core" "~2.4.11"
     "@vue/compiler-dom" "^3.5.0"
@@ -1607,10 +1607,10 @@ eslint-config-prettier@^10.0.2:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-10.0.2.tgz#47444de8aa104ce82c2f91ad2a5e96b62c01e20d"
   integrity sha512-1105/17ZIMjmCOJOPNfVdbXafLCLj3hPmkmB7dLgt7XsQ/zkxSuDerE/xgO3RxoHysR1N1whmquY0lSn2O0VLg==
 
-eslint-plugin-react-hooks@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-5.1.0.tgz#3d34e37d5770866c34b87d5b499f5f0b53bf0854"
-  integrity sha512-mpJRtPgHN2tNAvZ35AMfqeB3Xqeo273QxrHJsbBEPWODRM4r0yB6jfoROqKEYrOn27UtRPpcpHc2UqyBSuUNTw==
+eslint-plugin-react-hooks@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-5.2.0.tgz#1be0080901e6ac31ce7971beed3d3ec0a423d9e3"
+  integrity sha512-+f15FfK64YQwZdJNELETdn5ibXEUQmW1DZL6KXhNnc2heoy/sg9VJJeT7n8TlMWouzWqSWavFkIhHyIbIAEapg==
 
 eslint-plugin-react-refresh@^0.4.18:
   version "0.4.19"
@@ -1996,10 +1996,10 @@ graceful-fs@^4.2.4:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
-graphai@^0.6.26:
-  version "0.6.26"
-  resolved "https://registry.yarnpkg.com/graphai/-/graphai-0.6.26.tgz#26a90013261b72bccfa526a523e2946d9c735189"
-  integrity sha512-mysBzdQheaDQ06rKbPW86800kzARBJX9aE6oKX0wQMjWFECrSEI2YCisotOq8Jhri5Z8w8gZm6W2xmf+oFezxA==
+graphai@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/graphai/-/graphai-1.0.0.tgz#ae80a39ae68755f99d2da3ab30365c68a39beae8"
+  integrity sha512-Yy9c9s+eU1irmZt7/trDzBxe5VoKNJyaPAoWbkMDsgLvOW6Fy99apnUOO/GRUxzt4he/VCss+mWHLOiZGRmKbg==
 
 graphemer@^1.4.0:
   version "1.4.0"
@@ -2584,10 +2584,10 @@ object.values@^1.1.6:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
-openai@^4.82.0:
-  version "4.85.1"
-  resolved "https://registry.npmjs.org/openai/-/openai-4.85.1.tgz"
-  integrity sha512-jkX2fntHljUvSH3MkWh4jShl10oNkb+SsCj4auKlbu2oF4KWAnmHLNR5EpnUHK1ZNW05Rp0fjbJzYwQzMsH8ZA==
+openai@^4.86.1:
+  version "4.86.1"
+  resolved "https://registry.yarnpkg.com/openai/-/openai-4.86.1.tgz#4147252d5e6255e2ae716ea59b1d4e54a1c1472a"
+  integrity sha512-x3iCLyaC3yegFVZaxOmrYJjitKxZ9hpVbLi+ZlT5UHuHTMlEQEbKXkGOM78z9qm2T5GF+XRUZCP2/aV4UPFPJQ==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -3166,10 +3166,15 @@ typescript-eslint@^8.25.0:
     "@typescript-eslint/parser" "8.25.0"
     "@typescript-eslint/utils" "8.25.0"
 
-typescript@^5, typescript@~5.7.2:
+typescript@^5:
   version "5.7.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.7.3.tgz"
   integrity sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==
+
+typescript@~5.8.2:
+  version "5.8.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.8.2.tgz#8170b3702f74b79db2e5a96207c15e65807999e4"
+  integrity sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==
 
 unbox-primitive@^1.1.0:
   version "1.1.0"
@@ -3247,13 +3252,13 @@ vue-router@^4.5.0:
   dependencies:
     "@vue/devtools-api" "^6.6.4"
 
-vue-tsc@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-2.2.4.tgz#1e87eebbdde3078333304b9e5499b67157040305"
-  integrity sha512-3EVHlxtpMXcb5bCaK7QDFTbEkMusDfVk0HVRrkv5hEb+Clpu9a96lKUXJAeD/akRlkoA4H8MCHgBDN19S6FnzA==
+vue-tsc@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-2.2.6.tgz#497ac056928a350c9b4b7c2adbf8b0d56db94cce"
+  integrity sha512-TI6eAnWPatONEpVAZt1etbSrh8tDpHOLSlRqKGudOK5WKVnBGzHXUi0KR4UCsf2o5P+5285w4HF+5avhfH7IMA==
   dependencies:
     "@volar/typescript" "~2.4.11"
-    "@vue/language-core" "2.2.4"
+    "@vue/language-core" "2.2.6"
 
 vue@^3.5.13:
   version "3.5.13"
