@@ -513,6 +513,10 @@ export const convEdgePath = (
   return `M ${x1} ${y1dash} C ${x1 + controlXOffset} ${y1dash - controlYOffset}, ${x2 - controlXOffset} ${y2dash + controlYOffset}, ${x2} ${y2dash}`;
 };
 
+const round = (data: number) => {
+  return Math.round(data * 100) / 100;
+};
+
 export const getNodeSize = (nodeDom: HTMLElement | null, inputDoms: HTMLElement[], outputDoms: HTMLElement[]) => {
   if (!nodeDom) {
     return { width: 0, height: 0, outputCenters: [], inputCenters: [] };
@@ -522,11 +526,11 @@ export const getNodeSize = (nodeDom: HTMLElement | null, inputDoms: HTMLElement[
 
   const getCenterHeight = (el: HTMLElement) => {
     const oRect = el.getBoundingClientRect();
-    return oRect.top - parentTop + oRect.height / 2;
+    return round(oRect.top - parentTop + oRect.height / 2);
   };
   return {
-    width: rect.width,
-    height: rect.height,
+    width: round(rect.width),
+    height: round(rect.height),
     inputCenters: inputDoms.map(getCenterHeight),
     outputCenters: outputDoms.map(getCenterHeight),
   };
