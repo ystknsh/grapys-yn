@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { TransactionLog } from "graphai";
+import { TransactionLog, isObject } from "graphai";
 
 interface Message {
   role: string;
@@ -13,8 +13,15 @@ export const useChatPlugin = () => {
     return (log: TransactionLog) => {
       const { nodeId, state, result } = log;
       if (targetNodeId.includes(nodeId) && state === "completed" && result) {
-        const newMessage = (result as { message: Message }).message;
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        if (isObject(result) && result.message) {
+          if (isObject(result.message) && result.message.role) {
+            const newMessage = (result as { message: Message }).message;
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+          } else if (typeof result.message === "string") {
+            const newMessage = { role: "bot", content: result.message };
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+          }
+        }
       }
     };
   }, []);

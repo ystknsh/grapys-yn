@@ -70,6 +70,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
     setGraphai(graph);
     try {
       await graph.run();
+      setIsRunning(false);
     } catch (error) {
       console.log(error);
     }
