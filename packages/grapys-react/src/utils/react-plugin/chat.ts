@@ -20,6 +20,9 @@ export const useChatPlugin = () => {
           } else if (typeof result.message === "string") {
             const newMessage = { role: "bot", content: result.message };
             setMessages((prevMessages) => [...prevMessages, newMessage]);
+          } else {
+            const newMessage = { role: "bot", content: JSON.stringify(result.message) };
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
           }
         }
       }

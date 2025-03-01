@@ -12,6 +12,8 @@ export const useChatPlugin = () => {
             messages.value.push((result as { message: { role: string; content: string } }).message);
           } else if (typeof result.message === "string") {
             messages.value.push({ role: "bot", content: result.message });
+          } else {
+            messages.value.push({ role: "bot", content: JSON.stringify(result.message) });
           }
         }
       }
