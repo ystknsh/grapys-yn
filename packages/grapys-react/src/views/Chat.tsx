@@ -16,10 +16,10 @@ const Chat: React.FC<ChatProps> = ({ messages, isStreaming, streamData, streamNo
   return (
     <div className="m-auto w-10/12 text-left">
       {messages.map((m, k) => (
-        <div key={k}>{m.role === "user" ? <div className="mr-8">👱{m.content}</div> : <div className="ml-20">🤖{m.content}</div>}</div>
+        <div key={k}>{m.role === "user" ? <div className="mr-8">👱{m.content}</div> : <div className="ml-20">🤖({m.nodeId}){m.content}</div>}</div>
       ))}
       {streamNodeIds.map((nodeId, k) => (
-        <div key={k}>{isStreaming[nodeId] && <div className="ml-20">🤖{streamData[nodeId]}</div>}</div>
+        <div key={k}>{isStreaming[nodeId] && <div className="ml-20">🤖({nodeId}){streamData[nodeId]}</div>}</div>
       ))}
     </div>
   );
