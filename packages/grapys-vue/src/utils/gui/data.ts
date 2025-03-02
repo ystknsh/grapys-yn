@@ -1,6 +1,7 @@
 import { AgentProfile } from "./type";
 
 // data type
+//  If type is not defined, it will not be displayed in the UI. Its defaultValue will always be set.
 //  - string
 //    - string, form = input text
 //  - text
@@ -34,7 +35,7 @@ const llmAgentProfile: AgentProfile = {
     { name: "system", type: "text" },
     { name: "prompt", type: "text" },
     { name: "model", type: "string" },
-    { name: "stream", type: "boolean", defaultValue: true },
+    { name: "stream", defaultValue: true },
     { name: "isResult", type: "boolean", defaultValue: true },
     { name: "temperature", type: "float", defaultValue: 0.7, max: 1, min: 0 },
   ],

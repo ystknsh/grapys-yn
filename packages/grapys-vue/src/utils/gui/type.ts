@@ -119,7 +119,7 @@ export type ParamType = "string" | "text" | "data" | "boolean" | "float" | "int"
 
 export type ParamData = {
   name: string;
-  type: ParamType;
+  type?: ParamType;
   defaultValue?: number | boolean | string;
   max?: number;
   min?: number;
