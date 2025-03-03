@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect, computed, PropType, onMounted } from "vue";
+import { defineComponent, ref, watchEffect, computed, PropType, onMounted, watch } from "vue";
 import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
 import { getClientPos, getNodeSize, getTransformStyle } from "../utils/gui/utils";
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
@@ -93,7 +93,7 @@ export default defineComponent({
     const isNewEdge = ref(false);
     const offset = ref({ x: 0, y: 0 });
 
-    const agentIndex = ref(0);
+    const agentIndex = ref(props.nodeData.data.agentIndex ?? 0);
 
     const startPosition = { x: 0, y: 0 };
     // If it moves only a little, the data will not be saved because it stack much more histories.
@@ -238,6 +238,13 @@ export default defineComponent({
       // this is not static node value, but it works
       ctx.emit("updateStaticNodeValue", { agentIndex: agentIndex.value, agent });
     };
+    watch(
+      () => props.nodeData.data.agentIndex,
+      (value) => {
+        agentIndex.value = value;
+      },
+    );
+
     return {
       focusEvent,
       blurEvent,
