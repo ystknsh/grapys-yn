@@ -50,6 +50,8 @@ const Node: React.FC<NodeProps> = ({
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const startPosition = useRef({ x: 0, y: 0 });
 
+  const [agentIndex, setAgentIndex] = useState<number>(nodeData.data.agentIndex ?? 0);
+
   // If it moves only a little, the data will not be saved because it stack much more histories.
   const deltaDistance = useRef(0);
   const deltaDistanceThredhold = 4; // square deltaDistance
@@ -101,8 +103,6 @@ const Node: React.FC<NodeProps> = ({
       onSavePosition();
     }
   }, [onSavePosition]);
-
-  const edgeIO = agentParams;
 
   const onStartEdge = useCallback(
     (event: React.MouseEvent<Element> | React.TouchEvent<Element>, direction: NewEdgeEventDirection, index: number) => {
@@ -194,6 +194,17 @@ const Node: React.FC<NodeProps> = ({
     updateStaticNodeValue(nodeIndex, value, true);
   };
 
+  useEffect(() => {
+    setAgentIndex(nodeData.data.agentIndex ?? 0);
+  }, [nodeData.data.agentIndex]);
+
+  const updateAgentIndex = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newIndex = Number(event.target.value);
+    setAgentIndex(newIndex);
+    const agent = agentParams.agents[newIndex];
+    onUpdateStaticValue({ agentIndex: newIndex, agent });
+  };
+
   return (
     <div
       className={`absolute flex w-36 cursor-grab flex-col rounded-md text-center text-white select-none ${nodeMainClass(expectNearNode, nodeData)}`}
@@ -211,8 +222,20 @@ const Node: React.FC<NodeProps> = ({
         )}
       </div>
 
+      <div>
+        {agentParams.agents && (
+          <select value={agentIndex} onChange={updateAgentIndex}>
+            {Object.entries(agentParams.agents).map(([key, agent]) => (
+              <option key={key} value={key}>
+                {agent}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
+
       <div className="mt-1 flex flex-col items-end">
-        {(edgeIO.outputs ?? []).map((output: InputOutputData, index: number) => (
+        {(agentParams.outputs ?? []).map((output: InputOutputData, index: number) => (
           <div
             key={`out-${output.name}-${index}`}
             className="relative flex items-center"
@@ -230,7 +253,7 @@ const Node: React.FC<NodeProps> = ({
       </div>
 
       <div className="mt-1 mb-1 flex flex-col items-start">
-        {(edgeIO.inputs ?? []).map((input: InputOutputData, index: number) => (
+        {(agentParams.inputs ?? []).map((input: InputOutputData, index: number) => (
           <div
             key={`in-${input.name}-${index}`}
             className="relative flex items-center"

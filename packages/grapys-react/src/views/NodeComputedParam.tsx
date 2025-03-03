@@ -55,7 +55,7 @@ const NodeComputedParam: React.FC<NodeComputedParamProps> = ({ param, appData, n
 
   return (
     <div>
-      { param.type && (<label className="text-xs text-gray-300">{param.name}</label>) }
+      {param.type && <label className="text-xs text-gray-300">{param.name}</label>}
       {param.type === "string" && (
         <input
           ref={inputRef}

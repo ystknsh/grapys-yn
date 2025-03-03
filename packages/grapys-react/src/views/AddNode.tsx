@@ -25,18 +25,17 @@ const AddNode = () => {
 
     const isStatic = agent === "StaticNode";
     const targetAgent = agentProfiles[agent];
-    const data = {
-      data: isStatic
-        ? {}
-        : {
-            agent: targetAgent?.agent || agent,
-            guiAgentId: agent,
-            params: getDefaultParams(targetAgent.params ?? []),
-          },
-    };
+    const data = isStatic
+      ? {}
+      : {
+          agent: targetAgent.agents ? targetAgent.agents[0] : targetAgent.agent,
+          guiAgentId: agent,
+          params: getDefaultParams(targetAgent.params ?? []),
+          ...(targetAgent.agents ? { agentIndex: 0 } : {}),
+        };
 
     pushNode({
-      ...data,
+      data,
       nodeId,
       type: isStatic ? "static" : "computed",
       position: { x: Math.random() * 200, y: Math.random() * 200 },
