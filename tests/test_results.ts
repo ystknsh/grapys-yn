@@ -14,3 +14,20 @@ test("test result", async () => {
   assert.deepStrictEqual(result, { array: [ ':another3.inputs', ':another4.text' ] });
 
 });
+
+
+test("test result prop function", async () => {
+  const inputSchema = {
+    data: ":message1.toJSON()",
+    array: ":message2.length()"
+  };
+  const inputs = {
+    message1: ":another1.inputs",
+    message2: ":another2.text",
+  };
+
+  const result = resultsOf(inputSchema, inputs);
+  console.log(result);
+  assert.deepStrictEqual(result, { data: ":another1.inputs.toJSON()", array: ":another2.text.length()"});
+
+});

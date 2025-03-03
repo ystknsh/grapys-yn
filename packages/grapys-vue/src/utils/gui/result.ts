@@ -29,10 +29,15 @@ export const resultsOf = (inputs: Record<string, unknown>, nodes: Record<string,
 };
 
 const resultOf = (source: unknown, nodes: Record<string, string | string[]>) => {
+  
   if (typeof source === "string" && source[0] === ":") {
-    const key = source.slice(1);
+    const props = source.slice(1).split(".");
+    const key = props[0];
+    
     if (nodes && nodes[key]) {
-      // return "${" + nodes[key] + "}";
+      if (props.length > 1) {
+        return [nodes[key], ...props.slice(1)].join(".")
+      }
       return nodes[key];
     }
     return;
