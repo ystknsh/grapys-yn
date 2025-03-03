@@ -273,7 +273,7 @@ export const store2graphData = (nodeRecords: GUINodeDataRecord, edgeObject: Edge
     // static node don't have profile and guiAgentId
     if (profile) {
       tmp[node.nodeId] = {
-        agent: profile.agent,
+        agent: profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent,
         params: node.data.params,
         inputs: inputs ?? {},
         isResult: node.data?.params?.isResult ?? false,

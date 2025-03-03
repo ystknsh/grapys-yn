@@ -47,18 +47,17 @@ export default defineComponent({
       const targetAgent = agentProfiles[agent.value] ?? {};
       const params = getDefaultParams(targetAgent.params ?? []);
 
-      const data = {
-        data: isStatic
-          ? {}
-          : {
-              agent: targetAgent.agent ? targetAgent.agent : agent.value,
-              guiAgentId: agent.value,
-              params,
-            },
-      };
+      const data = isStatic
+        ? {}
+        : {
+            agent: targetAgent.agents ? targetAgent.agents[0] : targetAgent.agent,
+            guiAgentId: agent.value,
+            params,
+            ...(targetAgent.agents ? { agentIndex: 0 } : {}),
+          };
 
       store.pushNode({
-        ...data,
+        data,
         nodeId: nodeId.value,
         type: isStatic ? "static" : "computed",
         position: { x: Math.random() * 200, y: Math.random() * 200 },
