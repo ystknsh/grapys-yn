@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="nodeData.data.guiAgentId === 'openAIImageAgent' && result?.data[0]?.url">
-      <img :src="result?.data[0].url" />
+    <div v-if="nodeData.data.guiAgentId === 'openAIImageAgent' && result?.url">
+      <img :src="result?.url" />
     </div>
   </div>
 </template>
