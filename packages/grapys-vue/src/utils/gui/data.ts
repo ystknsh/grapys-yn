@@ -246,11 +246,22 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     outputs: [],
     params: [{ name: "isResult", type: "boolean", defaultValue: true }],
   },
+};
+export const serviceAgentProfiles: Record<string, AgentProfile> = {
   browserlessAgent: {
     agent: "browserlessAgent",
     inputs: [{ name: "url", type: "string" }],
     outputs: [{ name: "text", type: "string" }],
     params: [],
+  },
+  sleeperAgent: {
+    agent: "sleeperAgent",
+    inputs: [
+      { name: "data", type: "data" },
+      { name: "wait", type: "array" },
+    ],
+    outputs: [{ name: "data", type: "data" }],
+    params: [{ name: "duration", type: "int" }],
   },
 };
 
@@ -311,6 +322,7 @@ export const agentProfilesCategory: Record<string, Record<string, AgentProfile>>
   string: stringAgentProfiles,
   data: dataAgentProfiles,
   test: testAgentProfiles,
+  service: serviceAgentProfiles,
   compare: compareAgentProfiles,
 };
 
