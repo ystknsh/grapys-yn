@@ -3,8 +3,9 @@ import { GraphAI, GraphData } from "graphai";
 import * as agents from "@graphai/vanilla";
 import { openAIAgent } from "@graphai/openai_agent";
 import { geminiAgent } from "@graphai/gemini_agent";
-// import  geminiAgent from "../agents/gemini_agent";
 import { anthropicAgent } from "@graphai/anthropic_agent";
+import { browserlessAgent } from "@graphai/browserless_agent";
+
 import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agents/tinyswallow";
 import { useTextInputEvent } from "../agents/event_react";
 import Chat from "./Chat";
@@ -59,6 +60,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
         geminiAgent,
         eventAgent,
         tinyswallowAgent,
+        browserlessAgent,
       },
       {
         agentFilters,
