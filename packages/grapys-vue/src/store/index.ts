@@ -21,6 +21,8 @@ export const useStore = defineStore("store", () => {
   });
   const index = ref(0);
 
+  const graphAIResults = ref<Record<string, unknown>>({});
+
   const reset = () => {
     updateData([], [], { loopType: "none" }, "reset", true);
   };
@@ -196,6 +198,13 @@ export const useStore = defineStore("store", () => {
     }
   };
 
+  // graphAIResult
+  const setResult = (nodeId: string, result: unknown) => {
+    const ret = graphAIResults.value;
+    ret[nodeId] = result;
+    graphAIResults.value = ret;
+  };
+
   return {
     // variables
     histories,
@@ -234,5 +243,9 @@ export const useStore = defineStore("store", () => {
 
     undoable,
     redoable,
+
+    // graphAIResult
+    setResult,
+    graphAIResults,
   };
 });

@@ -55,11 +55,12 @@ import { useStore } from "../store";
 
 import { useStreamData } from "../utils/vue-plugin/stream";
 import { useChatPlugin } from "../utils/vue-plugin/chat";
+import { useGraphAIResult } from "../utils/vue-plugin/result";
 
 import Chat from "../components/Chat.vue";
 
 import * as agents from "@graphai/vanilla";
-import { openAIAgent } from "@graphai/openai_agent";
+import { openAIAgent, openAIImageAgent } from "@graphai/openai_agent";
 import { geminiAgent } from "@graphai/gemini_agent";
 import { anthropicAgent } from "@graphai/anthropic_agent";
 import { browserlessAgent } from "@graphai/browserless_agent";
@@ -81,6 +82,7 @@ export default defineComponent({
     const { eventAgent, userInput, events, submitText, clearEvents } = textInputEvent();
     const { messages, chatMessagePlugin } = useChatPlugin();
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
+    const { graphAIResultPlugin } = useGraphAIResult();
 
     const agentFilters = [
       {
@@ -97,6 +99,7 @@ export default defineComponent({
         {
           ...agents,
           openAIAgent,
+          openAIImageAgent,
           anthropicAgent,
           geminiAgent,
           eventAgent,
@@ -110,6 +113,7 @@ export default defineComponent({
       );
       graphai.registerCallback(streamPlugin(store.streamNodes));
       graphai.registerCallback(chatMessagePlugin(store.resultNodes));
+      graphai.registerCallback(graphAIResultPlugin(store.setResult));
       graphai.onLogCallback = ({ nodeId, state, inputs, result }) => {
         console.log({ nodeId, state, inputs, result });
       };

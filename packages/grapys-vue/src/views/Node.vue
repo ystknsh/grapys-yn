@@ -49,6 +49,9 @@
     <div class="flex w-full flex-col gap-1 p-2" v-if="nodeData.type === 'computed'">
       <NodeComputedParams :node-data="nodeData" @focus-event="focusEvent" @blur-event="blurEvent" :node-index="nodeIndex" />
     </div>
+    <div class="flex w-full flex-col gap-1 p-2">
+      <NodeResult :node-data="nodeData" />
+    </div>
   </div>
 </template>
 
@@ -61,11 +64,13 @@ import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from 
 
 import NodeStaticValue from "./NodeStaticValue.vue";
 import NodeComputedParams from "./NodeComputedParams.vue";
+import NodeResult from "./NodeResult.vue";
 
 export default defineComponent({
   components: {
     NodeStaticValue,
     NodeComputedParams,
+    NodeResult,
   },
   props: {
     nodeData: {

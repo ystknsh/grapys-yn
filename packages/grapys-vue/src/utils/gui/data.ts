@@ -62,6 +62,20 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     agents: ["openAIAgent", "geminiAgent"],
     ...llmAgentProfile,
   },
+  openAIImageAgent: {
+    agent: "openAIImageAgent",
+    inputs: [
+      { name: "prompt", type: "text" },
+      { name: "model", type: "text" },
+    ],
+    outputs: [{ name: "data" }],
+    params: [
+      { name: "system", type: "text" },
+      { name: "prompt", type: "text" },
+      { name: "model", type: "string" },
+      { name: "isResult", type: "boolean", defaultValue: true },
+    ],
+  },
 };
 
 export const arrayAgentProfiles: Record<string, AgentProfile> = {

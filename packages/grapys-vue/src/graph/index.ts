@@ -28,6 +28,10 @@ export const graphConfigs = {
     apiKey: import.meta.env.VITE_OPEN_API_KEY,
     forWeb: true,
   },
+  openAIImageAgent: {
+    apiKey: import.meta.env.VITE_OPEN_API_KEY,
+    forWeb: true,
+  },
   anthropicAgent: {
     apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
     forWeb: true,
