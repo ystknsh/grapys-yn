@@ -277,6 +277,7 @@ export const store2graphData = (nodeRecords: GUINodeDataRecord, edgeObject: Edge
         params: node.data.params,
         inputs: inputs ?? {},
         isResult: node.data?.params?.isResult ?? false,
+        output: profile?.output,
         // anyInput (boolean)
         // if/unless (edge)
         // defaultValue (object?)

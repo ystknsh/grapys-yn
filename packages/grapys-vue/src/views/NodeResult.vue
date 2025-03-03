@@ -20,9 +20,7 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
-    // console.log(props.nodeData.nodeId);
     const result = computed(() => {
-      console.log("AA", store.graphAIResults, store.graphAIResults[props.nodeData.nodeId]);
       return store.graphAIResults[props.nodeData.nodeId];
     });
     return {
