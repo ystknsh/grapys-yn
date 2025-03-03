@@ -15,8 +15,13 @@
         {{ nodeData.data.guiAgentId?.replace(/Agent$/, "") }}
       </div>
     </div>
+    <div v-if="agentParams.agents">
+      <select v-model="agentIndex" @change="updateAgentIndex">
+        <option :value="key" v-for="(agent, key) in agentParams.agents">{{ agent }}</option>
+      </select>
+    </div>
     <div class="mt-1 flex flex-col items-end">
-      <div v-for="(output, index) in edgeIO.outputs" :key="['out', output.name, index].join('-')" class="relative flex items-center" ref="outputsRef">
+      <div v-for="(output, index) in agentParams.outputs" :key="['out', output.name, index].join('-')" class="relative flex items-center" ref="outputsRef">
         <span class="mr-2 text-xs whitespace-nowrap">{{ output.name }}</span>
         <div
           class="absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full"
@@ -28,7 +33,7 @@
     </div>
 
     <div class="mt-1 mb-1 flex flex-col items-start">
-      <div v-for="(input, index) in edgeIO.inputs" :key="['in', input.name, index].join('-')" class="relative flex items-center" ref="inputsRef">
+      <div v-for="(input, index) in agentParams.inputs" :key="['in', input.name, index].join('-')" class="relative flex items-center" ref="inputsRef">
         <div
           class="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full"
           :class="nodeInputClass(isExpectNearButton('outbound', index), nodeData)"
@@ -87,6 +92,8 @@ export default defineComponent({
     const isDragging = ref(false);
     const isNewEdge = ref(false);
     const offset = ref({ x: 0, y: 0 });
+
+    const agentIndex = ref(0);
 
     const startPosition = { x: 0, y: 0 };
     // If it moves only a little, the data will not be saved because it stack much more histories.
@@ -155,8 +162,6 @@ export default defineComponent({
       ctx.emit("newEdge", { x: clientX, y: clientY });
     };
     // end of edge event
-
-    const edgeIO = agentParams;
 
     watchEffect((onCleanup) => {
       if (isDragging.value) {
@@ -228,6 +233,11 @@ export default defineComponent({
     const openNodeMenu = (event: MouseEvent) => {
       ctx.emit("openNodeMenu", event);
     };
+    const updateAgentIndex = () => {
+      const agent = agentParams.agents[agentIndex.value];
+      // this is not static node value, but it works
+      ctx.emit("updateStaticNodeValue", { agentIndex: agentIndex.value, agent });
+    };
     return {
       focusEvent,
       blurEvent,
@@ -235,7 +245,7 @@ export default defineComponent({
       transform,
       onStartNode,
       isDragging,
-      edgeIO,
+      agentParams,
       thisRef,
       isNewEdge,
       onStartEdge,
@@ -253,6 +263,9 @@ export default defineComponent({
       nodeHeaderClass,
       nodeOutputClass,
       nodeInputClass,
+
+      agentIndex,
+      updateAgentIndex,
     };
   },
 });
