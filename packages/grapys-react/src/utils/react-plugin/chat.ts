@@ -1,13 +1,9 @@
 import { useState, useCallback } from "react";
 import { TransactionLog, isObject } from "graphai";
-
-interface Message {
-  role: string;
-  content: string;
-}
+import { GUIMessage } from "../gui/type";
 
 export const useChatPlugin = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<GUIMessage[]>([]);
 
   const chatMessagePlugin = useCallback((targetNodeId: string[]) => {
     return (log: TransactionLog) => {
@@ -15,7 +11,7 @@ export const useChatPlugin = () => {
       if (targetNodeId.includes(nodeId) && state === "completed" && result) {
         if (isObject(result) && result.message) {
           if (isObject(result.message) && result.message.role) {
-            const newMessage = {...(result as { message: Message }).message, nodeId};
+            const newMessage = {...(result as { message: GUIMessage }).message, nodeId};
             setMessages((prevMessages) => [...prevMessages, newMessage]);
           } else if (typeof result.message === "string") {
             const newMessage = { role: "bot", content: result.message, nodeId };

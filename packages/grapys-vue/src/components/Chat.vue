@@ -11,10 +11,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import { GUIMessage } from "../utils/gui/type";
+
 export default defineComponent({
   props: {
     messages: {
-      type: Array<{ role: string; content: string }>,
+      type: Array<GUIMessage>,
       default: () => [],
     },
     isStreaming: {

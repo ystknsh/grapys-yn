@@ -144,3 +144,9 @@ export type HistoryPayload = {
   edges: GUIEdgeData[];
 };
 export type HistoryData = { name: string; data: HistoryPayload };
+
+export type GUIMessage = {
+  role: string;
+  content: string;
+  nodeId: string;
+};

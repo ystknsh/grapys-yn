@@ -1,8 +1,9 @@
 import { ref } from "vue";
 import { TransactionLog, isObject } from "graphai";
+import { GUIMessage } from "../gui/type";
 
 export const useChatPlugin = () => {
-  const messages = ref<{ role: string; content: string }[]>([]);
+  const messages = ref<GUIMessage[]>([]);
   const chatMessagePlugin = (targetNodeId: string[]) => {
     return (log: TransactionLog) => {
       const { nodeId, state, result } = log;

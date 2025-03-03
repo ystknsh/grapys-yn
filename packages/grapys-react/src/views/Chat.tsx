@@ -1,12 +1,8 @@
 import React from "react";
-
-interface Message {
-  role: string;
-  content: string;
-}
+import { GUIMessage } from "../utils/gui/type";
 
 interface ChatProps {
-  messages: Message[];
+  messages: GUIMessage[];
   isStreaming: Record<string, boolean>;
   streamData: Record<string, string>;
   streamNodeIds: string[];

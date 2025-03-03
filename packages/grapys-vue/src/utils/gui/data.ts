@@ -59,7 +59,7 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     ...llmAgentProfile,
   },
   llmAgent: {
-    agent: ["geminiAgent"],
+    agent: "geminiAgent",
     ...llmAgentProfile,
   },
 };
@@ -250,9 +250,9 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
 export const serviceAgentProfiles: Record<string, AgentProfile> = {
   browserlessAgent: {
     agent: "browserlessAgent",
-    inputs: [{ name: "url", type: "string" }],
-    outputs: [{ name: "text", type: "string" }],
-    params: [],
+    inputs: [{ name: "url", type: "text" }],
+    outputs: [{ name: "text", type: "text" }],
+    params: [{name: "text_content",  type: "boolean", defaultValue: true }],
   },
   sleeperAgent: {
     agent: "sleeperAgent",
