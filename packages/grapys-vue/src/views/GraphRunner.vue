@@ -62,6 +62,7 @@ import * as agents from "@graphai/vanilla";
 import { openAIAgent } from "@graphai/openai_agent";
 import { geminiAgent } from "@graphai/gemini_agent";
 import { anthropicAgent } from "@graphai/anthropic_agent";
+import { browserlessAgent } from "@graphai/browserless_agent";
 
 import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agents/tinyswallow";
 import { textInputEvent } from "../agents/event";
@@ -100,6 +101,7 @@ export default defineComponent({
           geminiAgent,
           eventAgent,
           tinyswallowAgent,
+          browserlessAgent,
         },
         {
           agentFilters,

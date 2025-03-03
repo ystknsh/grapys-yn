@@ -58,6 +58,10 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     agent: "geminiAgent",
     ...llmAgentProfile,
   },
+  llmAgent: {
+    agent: ["geminiAgent"],
+    ...llmAgentProfile,
+  },
 };
 
 export const arrayAgentProfiles: Record<string, AgentProfile> = {
@@ -241,6 +245,12 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     inputs: [{ name: "data", type: "data" }],
     outputs: [],
     params: [{ name: "isResult", type: "boolean", defaultValue: true }],
+  },
+  browserlessAgent: {
+    agent: "browserlessAgent",
+    inputs: [{ name: "url", type: "string" }],
+    outputs: [{ name: "text", type: "string"}],
+    params: [],
   },
 };
 

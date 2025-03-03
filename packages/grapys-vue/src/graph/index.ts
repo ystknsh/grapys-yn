@@ -34,4 +34,7 @@ export const graphConfigs = {
     apiKey: import.meta.env.VITE_GOOGLE_GENAI_API_KEY,
     forWeb: true,
   },
+  browserlessAgent: {
+    apiKey: import.meta.env.VITE_BROWSERLESS_API_TOKEN,
+  },
 };
