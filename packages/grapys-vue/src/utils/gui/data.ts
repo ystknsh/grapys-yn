@@ -268,9 +268,12 @@ export const serviceAgentProfiles: Record<string, AgentProfile> = {
 export const compareAgentProfiles: Record<string, AgentProfile> = {
   compareAgent: {
     agent: "compareAgent",
-    inputs: [],
-    outputs: [],
-    params: [],
+    inputs: [
+      { name: "leftValue", type: "data" },
+      { name: "rightValue", type: "data" },
+    ],
+    outputs: [{ name: "result", type: "data" }],
+    params: [{ name: "operator", type: "enum", values: ["==", "!=", ">", ">=", "<", "<=", "||", "&&", "XOR"] }],
   },
 };
 

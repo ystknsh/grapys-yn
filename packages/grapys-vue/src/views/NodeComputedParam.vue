@@ -1,6 +1,7 @@
 <template>
   <div v-if="param.type">
     <label class="text-xs text-gray-300">{{ param.name }}</label>
+
     <div v-if="param.type === 'string'">
       <input ref="inputRef" type="text" class="w-full rounded-md border border-gray-300 p-1 text-black" v-model="inputValue" />
     </div>
@@ -30,6 +31,11 @@
       <select v-model="booleanValue" ref="selectFormRef" @change="selectUpdate" class="rounded-md border border-gray-300">
         <option value="true">True</option>
         <option value="false">False</option>
+      </select>
+    </div>
+    <div v-else-if="param.type === 'enum'">
+      <select v-model="enumValue" @change="enumUpdate">
+        <option :value="value" v-for="(value, k) in param.values" :key="k">{{ value }}</option>
       </select>
     </div>
   </div>
@@ -71,6 +77,7 @@ export default defineComponent({
     const inputValue = ref(value ?? "");
     const booleanValue = ref(value === true ? "true" : "false");
     const textAreaValue = ref(String(value ?? ""));
+    const enumValue = ref(value ?? (props.param.type === "enum" ? props.param.values[0] : ""));
 
     watch(
       () => props.appData,
@@ -102,6 +109,9 @@ export default defineComponent({
             booleanValue.value = booleanText;
           }
         }
+        if (props.param.type === "enum" && updateValue !== enumValue.value) {
+          enumValue.value = updateValue ?? props.param.values[0];
+        }
         // inputValue
       },
     );
@@ -115,7 +125,6 @@ export default defineComponent({
       if (event.target instanceof HTMLTextAreaElement) {
         rows.value = 3;
         ctx.emit("blurEvent");
-        console.log(textAreaValue.value);
         store.updateNodeParam(props.nodeIndex, key, textAreaValue.value);
       }
     };
@@ -131,6 +140,9 @@ export default defineComponent({
     */
     const selectUpdate = () => {
       store.updateNodeParam(props.nodeIndex, key, booleanValue.value === "true");
+    };
+    const enumUpdate = () => {
+      store.updateNodeParam(props.nodeIndex, key, enumValue.value);
     };
 
     onMounted(() => {
@@ -156,8 +168,10 @@ export default defineComponent({
       booleanValue,
       inputValue,
       textAreaValue,
+      enumValue,
 
       selectUpdate,
+      enumUpdate,
 
       inputRef,
       textareaRef,
