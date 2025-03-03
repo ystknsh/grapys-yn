@@ -59,7 +59,7 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     ...llmAgentProfile,
   },
   llmAgent: {
-    agent: "geminiAgent",
+    agents: ["openAIAgent", "geminiAgent"],
     ...llmAgentProfile,
   },
 };
@@ -252,7 +252,7 @@ export const serviceAgentProfiles: Record<string, AgentProfile> = {
     agent: "browserlessAgent",
     inputs: [{ name: "url", type: "text" }],
     outputs: [{ name: "text", type: "text" }],
-    params: [{name: "text_content",  type: "boolean", defaultValue: true }],
+    params: [{ name: "text_content", type: "boolean", defaultValue: true }],
   },
   sleeperAgent: {
     agent: "sleeperAgent",

@@ -6,6 +6,7 @@ export type ApplicationData = {
   // Application dependent data
   // agent?: string; // actual agent id
   guiAgentId?: string; // key of utils/gui/utils/data.
+  agentIndex?: number; // If agents exist in AgentProfile, choose one.
   value?: unknown; // ResultData<DefaultResultData>;
   staticNodeType?: StaticNodeType;
   params?: DefaultParamsType;
@@ -129,6 +130,7 @@ export type AgentProfile = {
   outputs: InputOutputData[];
   params?: ParamData[];
   agent?: string;
+  agents?: string[];
   inputSchema?: unknown;
 };
 
