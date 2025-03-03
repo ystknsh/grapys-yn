@@ -249,7 +249,7 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
   browserlessAgent: {
     agent: "browserlessAgent",
     inputs: [{ name: "url", type: "string" }],
-    outputs: [{ name: "text", type: "string"}],
+    outputs: [{ name: "text", type: "string" }],
     params: [],
   },
 };
