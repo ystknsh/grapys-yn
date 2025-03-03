@@ -9,6 +9,7 @@ import { graphData as graphDataStreamTest } from "../graph/stream_test";
 import { graphData as graphDataStreamTest2 } from "../graph/stream_test2";
 import { graphData as graphDataReception } from "../graph/reception";
 import { graphData as graphDataBrowserless } from "../graph/browserless";
+import { graphData as graphDataImageGenerator } from "../graph/image_generator";
 
 export const graphs: { name: string; graph: GraphData }[] = [
   { name: "Chat(WebLLM)", graph: graphChatTinySwallow },
@@ -21,6 +22,7 @@ export const graphs: { name: string; graph: GraphData }[] = [
   { name: "Browserless", graph: graphDataBrowserless },
   { name: "StreamTest", graph: graphDataStreamTest },
   { name: "StreamTest2", graph: graphDataStreamTest2 },
+  { name: "ImageGenerator", graph: graphDataImageGenerator },
 ];
 
 export const graphConfigs = {

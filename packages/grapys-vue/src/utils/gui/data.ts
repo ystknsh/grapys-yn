@@ -68,10 +68,7 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
       { name: "prompt", type: "text" },
       { name: "model", type: "text" },
     ],
-    outputs: [
-      { name: "data" },
-      { name: "url", type: "text" }
-    ],
+    outputs: [{ name: "data" }, { name: "url", type: "text" }],
     params: [
       { name: "system", type: "text" },
       { name: "prompt", type: "text" },
