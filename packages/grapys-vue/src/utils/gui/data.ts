@@ -333,6 +333,21 @@ export const testAgentProfiles: Record<string, AgentProfile> = {
   },
 };
 
+export const nestedAgentProfiles: Record<string, AgentProfile> = {
+  nestedAgent: {
+    agent: "nestedAgent",
+    inputs: [{ name: "message", type: "text" }],
+    outputs: [{ name: "message" }],
+    params: [
+      { name: "message", type: "string" },
+      { name: "sleep", type: "int" },
+      { name: "stream", type: "boolean", defaultValue: true },
+      { name: "isResult", type: "boolean", defaultValue: true },
+    ],
+    // presetParams: { isResult: true, stream: true },
+  },
+};
+
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
   event: eventAgentProfiles,
   llm: llmAgentProfiles,

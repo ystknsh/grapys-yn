@@ -37,6 +37,10 @@ export type GUINodeData<T = ApplicationData> = {
 export type UpdateStaticValue = {
   staticNodeType: StaticNodeType;
   value: string | number | boolean;
+}
+export type UpdateAgentValue = {
+  agentIndex: number;
+  agent?: string;
 };
 
 export type GUINodeDataRecord = Record<string, GUINodeData>;

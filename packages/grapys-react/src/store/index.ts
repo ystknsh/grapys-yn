@@ -4,6 +4,7 @@ import {
   GUIEdgeData,
   GUINodeDataRecord,
   UpdateStaticValue,
+  UpdateAgentValue,
   UpdateNodePositionData,
   HistoryData,
   HistoryPayload,
@@ -33,7 +34,7 @@ export interface LocalState {
 
   loadData: (data: HistoryPayload) => void;
 
-  updateStaticNodeValue: (nodeIndex: number, value: UpdateStaticValue, saveHistory: boolean) => void;
+  updateStaticNodeValue: (nodeIndex: number, value: UpdateStaticValue | UpdateAgentValue, saveHistory: boolean) => void;
   updateLoop: (loopData: GUILoopData) => void;
 
   undo: () => void;
@@ -151,7 +152,7 @@ export const useLocalStore = create<LocalState>((set, get) => ({
     updateData(newNodes, [...currentData.edges], { ...currentData.loop }, "updateParams", true);
   },
 
-  updateStaticNodeValue: (nodeIndex: number, value: UpdateStaticValue, saveHistory: boolean) => {
+  updateStaticNodeValue: (nodeIndex: number, value: UpdateStaticValue | UpdateAgentValue, saveHistory: boolean) => {
     const { updateData, currentData } = get();
     const newNode = { ...currentData.nodes[nodeIndex] };
     newNode.data = { ...newNode.data, ...value };

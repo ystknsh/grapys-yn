@@ -8,6 +8,7 @@ import type {
   Position,
   InputOutputData,
   UpdateNodePositionData,
+  UpdateAgentValue,
 } from "../utils/gui/type";
 import { getClientPos, getNodeSize, getTransformStyle } from "../utils/gui/utils";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
@@ -190,7 +191,7 @@ const Node: React.FC<NodeProps> = ({
     }
     onUpdatePosition(getWH());
   };
-  const onUpdateStaticValue = (value: UpdateStaticValue) => {
+  const onUpdateStaticValue = (value: UpdateStaticValue | UpdateAgentValue) => {
     updateStaticNodeValue(nodeIndex, value, true);
   };
 
@@ -201,7 +202,7 @@ const Node: React.FC<NodeProps> = ({
   const updateAgentIndex = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newIndex = Number(event.target.value);
     setAgentIndex(newIndex);
-    const agent = agentParams.agents[newIndex];
+    const agent = agentParams?.agents?.[newIndex];
     onUpdateStaticValue({ agentIndex: newIndex, agent });
   };
 
