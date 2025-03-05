@@ -305,10 +305,8 @@ export const compareAgentProfiles: Record<string, AgentProfile> = {
 //  mapAgent,
 //  mergeNodeIdAgent,
 //  nestedAgent,
-//  propertyFilterAgent,
 //  sleeperAgent,
 //  sortByValuesAgent,
-//  streamMockAgent,
 //??  totalAgent,
 //  vanillaFetchAgent
 export const eventAgentProfiles: Record<string, AgentProfile> = {

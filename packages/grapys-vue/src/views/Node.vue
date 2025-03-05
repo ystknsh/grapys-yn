@@ -239,14 +239,16 @@ export default defineComponent({
       ctx.emit("openNodeMenu", event);
     };
     const updateAgentIndex = () => {
-      const agent = agentParams.agents[agentIndex.value];
+      const agent = agentParams?.agents?.[agentIndex.value];
       // this is not static node value, but it works
       ctx.emit("updateStaticNodeValue", { agentIndex: agentIndex.value, agent });
     };
     watch(
       () => props.nodeData.data.agentIndex,
       (value) => {
-        agentIndex.value = value;
+        if (value !== undefined) {
+          agentIndex.value = value;
+        }
       },
     );
 

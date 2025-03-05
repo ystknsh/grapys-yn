@@ -77,7 +77,7 @@ export default defineComponent({
     const inputValue = ref(value ?? "");
     const booleanValue = ref(value === true ? "true" : "false");
     const textAreaValue = ref(String(value ?? ""));
-    const enumValue = ref(value ?? (props.param.type === "enum" ? props.param.values[0] : ""));
+    const enumValue = ref(value ?? (props.param.type === "enum" ? props.param?.values?.[0] : ""));
 
     watch(
       () => props.appData,
@@ -110,7 +110,7 @@ export default defineComponent({
           }
         }
         if (props.param.type === "enum" && updateValue !== enumValue.value) {
-          enumValue.value = updateValue ?? props.param.values[0];
+          enumValue.value = updateValue ?? props.param?.values?.[0];
         }
         // inputValue
       },

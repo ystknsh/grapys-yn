@@ -58,8 +58,6 @@ export const graphToGUIData = (graphData: GraphData) => {
       loop: loop2loop(loop ?? {}),
     };
   }
-  // TODO: Is this old data structure?
-  // const positions = graphData?.metadata?.positions ?? {};
 
   const nodeIds = Object.keys(graphData.nodes);
   const rawEdge: GUIEdgeData[] = [];
@@ -72,7 +70,6 @@ export const graphToGUIData = (graphData: GraphData) => {
   const getIndex = (nodeId: string, propId: string, key: keyof AgentProfile) => {
     const agent = node2agent[nodeId];
 
-    console.log(agent);
     const indexes = agent ? (agentProfiles[agent][key] as InputOutputData[]) : [];
     const index = indexes.findIndex((data) => data.name === propId);
     if (index === -1) {
@@ -97,7 +94,6 @@ export const graphToGUIData = (graphData: GraphData) => {
             source.propIds.forEach((outputPropId) => {
               if (nodeIds.includes(outputNodeId)) {
                 const sourceIndex = getIndex(outputNodeId, outputPropId, "outputs");
-                console.log(nodeId, inputProp);
                 const targetIndex = isComputed ? getIndex(nodeId, inputProp, "inputs") : 0;
                 rawEdge.push({
                   source: {
@@ -269,7 +265,6 @@ export const store2graphData = (nodeRecords: GUINodeDataRecord, edgeObject: Edge
     const { guiAgentId } = nodeRecords[node.nodeId].data;
     const profile = agentProfiles[guiAgentId ?? ""];
     const inputs = profile?.inputSchema ? resultsOf(profile.inputSchema as NodeEdgeMap, edgeObject[node.nodeId]) : edgeObject[node.nodeId];
-
     // static node don't have profile and guiAgentId
     if (profile) {
       tmp[node.nodeId] = {

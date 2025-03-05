@@ -116,7 +116,7 @@ export type NearestData = {
 export type InputOutputType = "text" | "array" | "message" | "data";
 export type InputOutputData = { name: string; type?: InputOutputType };
 
-export type ParamType = "string" | "text" | "data" | "boolean" | "float" | "int";
+export type ParamType = "string" | "text" | "data" | "boolean" | "float" | "int" | "enum";
 
 export type ParamData = {
   name: string;
@@ -124,6 +124,7 @@ export type ParamData = {
   defaultValue?: number | boolean | string;
   max?: number;
   min?: number;
+  values?: string[];
 };
 export type AgentProfile = {
   inputs: InputOutputData[];
@@ -132,6 +133,7 @@ export type AgentProfile = {
   agent?: string;
   agents?: string[];
   inputSchema?: unknown;
+  output?: Record<string, string>; 
 };
 
 export type LoopDataType = "while" | "count" | "none";

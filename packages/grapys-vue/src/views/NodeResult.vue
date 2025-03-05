@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watchEffect, computed, PropType, onMounted, watch } from "vue";
-
+import { GUINodeData } from "../utils/gui/type";
 import { useStore } from "../store";
 
 export default defineComponent({
@@ -21,7 +21,7 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
     const result = computed(() => {
-      return store.graphAIResults[props.nodeData.nodeId];
+      return store.graphAIResults[props.nodeData.nodeId] as {url?: string};
     });
     return {
       result,
