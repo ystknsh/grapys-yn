@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect, computed, PropType, onMounted, watch } from "vue";
+import { defineComponent, computed, PropType } from "vue";
 import { GUINodeData } from "../utils/gui/type";
 import { useStore } from "../store";
 

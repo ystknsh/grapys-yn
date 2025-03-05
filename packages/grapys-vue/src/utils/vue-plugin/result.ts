@@ -1,6 +1,4 @@
-import { ref } from "vue";
-import { TransactionLog, isObject } from "graphai";
-import { GUIMessage } from "../gui/type";
+import { TransactionLog } from "graphai";
 
 export const useGraphAIResult = () => {
   const graphAIResultPlugin = (setResult: (nodeId: string, result: unknown) => void) => {

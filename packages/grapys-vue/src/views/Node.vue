@@ -17,7 +17,7 @@
     </div>
     <div v-if="agentParams.agents">
       <select v-model="agentIndex" @change="updateAgentIndex">
-        <option :value="key" v-for="(agent, key) in agentParams.agents">{{ agent }}</option>
+        <option :value="key" v-for="(agent, key) in agentParams.agents" :key="key">{{ agent }}</option>
       </select>
     </div>
     <div class="mt-1 flex flex-col items-end">
