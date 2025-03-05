@@ -9,7 +9,7 @@ import {
   HistoryPayload,
   GUILoopData,
 } from "../utils/gui/type";
-import { edges2inputs, store2graphData } from "../utils/gui/utils";
+import { edges2inputs, store2graphData } from "../utils/gui/graph";
 import { defineStore } from "pinia";
 
 export const useStore = defineStore("store", () => {
