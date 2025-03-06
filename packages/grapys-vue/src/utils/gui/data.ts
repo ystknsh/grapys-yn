@@ -132,7 +132,7 @@ export const stringAgentProfiles: Record<string, AgentProfile> = {
         name: "snakeCase",
       },
     ],
-    params: [],
+    params: [{ name: "suffix", type: "string" }],
   },
   /*
   stringEmbeddingsAgent: {
@@ -265,6 +265,25 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
   },
 };
 export const serviceAgentProfiles: Record<string, AgentProfile> = {
+  fetchAgent: {
+    agent: "vanillaFetchAgent",
+    inputs: [
+      { name: "query", type: "text" },
+      { name: "body", type: "data" },
+      { name: "header", type: "data" },
+    ],
+    outputs: [{ name: "data", type: "data" }],
+    params: [
+      { name: "url", type: "string" },
+      { name: "method", type: "enum", values: ["GET", "HEAD", "POST", "OPTIONS", "PUT", "DELETE", "PATCH"] },
+      { name: "query", type: "string" },
+      { name: "body", type: "data" },
+      { name: "header", type: "data" },
+      { name: "type", type: "enum", values: ["json", "text"] },
+      { name: "isResult", defaultValue: true },
+      { name: "flatResponse", defaultValue: false },
+    ],
+  },
   browserlessAgent: {
     agent: "browserlessAgent",
     inputs: [{ name: "url", type: "text" }],

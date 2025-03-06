@@ -1,16 +1,6 @@
-import {
-  GUIEdgeData,
-  GUINodeDataRecord,
-  HistoryPayload,
-} from "./type";
-import {
-  NodeData,
-  LoopData,
-  StaticNodeData,
-} from "graphai";
-import { 
-  edgeEnd2agentProfile
-} from "./utils";
+import { GUIEdgeData, GUINodeDataRecord, HistoryPayload } from "./type";
+import { NodeData, LoopData, StaticNodeData } from "graphai";
+import { edgeEnd2agentProfile } from "./utils";
 import { agentProfiles } from "./data";
 import { resultsOf } from "./result";
 
@@ -128,4 +118,3 @@ export const store2graphData = (nodeRecords: GUINodeDataRecord, edgeObject: Edge
   };
   return newGraphData;
 };
-

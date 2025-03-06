@@ -37,7 +37,7 @@ export type GUINodeData<T = ApplicationData> = {
 export type UpdateStaticValue = {
   staticNodeType: StaticNodeType;
   value: string | number | boolean;
-}
+};
 export type UpdateAgentValue = {
   agentIndex: number;
   agent?: string;
@@ -137,7 +137,7 @@ export type AgentProfile = {
   agent?: string;
   agents?: string[];
   inputSchema?: unknown;
-  output?: Record<string, string>; 
+  output?: Record<string, string>;
 };
 
 export type LoopDataType = "while" | "count" | "none";

@@ -21,7 +21,7 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
     const result = computed(() => {
-      return store.graphAIResults[props.nodeData.nodeId] as {url?: string};
+      return store.graphAIResults[props.nodeData.nodeId] as { url?: string };
     });
     return {
       result,

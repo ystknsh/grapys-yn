@@ -181,7 +181,6 @@ export const edgeEnd2agentProfile = (edgeEndPointData: EdgeEndPointData, nodeRec
   }
 };
 
-
 // composable
 export const guiEdgeData2edgeData = (guiEdges: GUIEdgeData[], nodeRecords: GUINodeDataRecord): EdgeData[] => {
   return guiEdges.map((edge) => {
