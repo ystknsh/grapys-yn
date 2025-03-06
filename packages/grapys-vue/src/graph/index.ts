@@ -1,5 +1,6 @@
 import { GraphData } from "graphai";
 import { graphChat as graphChatOpenAI } from "../graph/chat";
+import { graphChat as graphChatOllama } from "../graph/chat_ollama";
 import { graphChat as graphChatTinySwallow } from "../graph/chat_tinyswallow";
 import { graphChat as graphChatAlone } from "../graph/chat_alone";
 import { graphData as graphDataReducerPush } from "../graph/reducer_push";
@@ -16,6 +17,7 @@ export const graphs: { name: string; graph: GraphData }[] = [
   { name: "Chat(WebLLM)", graph: graphChatTinySwallow },
   { name: "Chat(Alone)", graph: graphChatAlone },
   { name: "Chat(OpenAI)", graph: graphChatOpenAI },
+  { name: "Chat(Ollama)", graph: graphChatOllama },
   { name: "Reducer(push)", graph: graphDataReducerPush },
   { name: "Reducer(pop)", graph: graphDataReducerPop },
   { name: "Tools(co2)", graph: graphDataTools },
