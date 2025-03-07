@@ -54,11 +54,7 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     agent: "openAIAgent",
     inputs: llmAgentProfile.inputs,
     outputs: llmAgentProfile.outputs,
-    params: [
-      ...llmAgentProfile.params,
-      { name: "model", defaultValue: "llama3" },
-      { name: "baseURL", defaultValue: "http://127.0.0.1:11434/v1"},
-    ],
+    params: [...llmAgentProfile.params, { name: "model", defaultValue: "llama3" }, { name: "baseURL", defaultValue: "http://127.0.0.1:11434/v1" }],
   },
   anthropicAgent: {
     agent: "anthropicAgent",
