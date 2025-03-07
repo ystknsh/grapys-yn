@@ -23,7 +23,6 @@ import { useLocalStore, node2Record, toGraph } from "../store/index";
 const GUI: FC = () => {
   const nodes = useLocalStore((state) => state.nodes());
   const edges = useLocalStore((state) => state.edges());
-  const loop = useLocalStore((state) => state.loop());
   const currentData = useLocalStore((state) => state.currentData);
   const nodeRecords = useMemo(() => node2Record(nodes), [nodes]);
   const edgeDataList = useMemo(() => guiEdgeData2edgeData(edges, nodeRecords), [edges, nodeRecords]);
@@ -39,7 +38,7 @@ const GUI: FC = () => {
   const contextEdgeMenuRef = useRef<{ openMenu: (event: MouseEvent, rect: DOMRect, edgeIndex: number) => void; closeMenu: () => void } | null>(null);
 
   const resetGraph = useLocalStore((state) => state.reset);
-  const newGraphData = toGraph(nodeRecords, edges, loop, currentData);
+  const newGraphData = toGraph(currentData);
 
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);

@@ -9,7 +9,7 @@ import {
   HistoryPayload,
   GUILoopData,
 } from "../utils/gui/type";
-import { edges2inputs, store2graphData } from "../utils/gui/graph";
+import { store2graphData } from "../utils/gui/graph";
 import { defineStore } from "pinia";
 
 export const useStore = defineStore("store", () => {
@@ -38,20 +38,6 @@ export const useStore = defineStore("store", () => {
   const loop = computed(() => {
     return currentData.value.loop;
   });
-  // stpre loop 2 graph loop
-  const loopObj = computed(() => {
-    if (loop.value.loopType === "while") {
-      return {
-        while: loop.value.while,
-      };
-    }
-    if (loop.value.loopType === "count") {
-      return {
-        count: loop.value.count,
-      };
-    }
-    return undefined;
-  });
 
   const nodeRecords = computed<GUINodeDataRecord>(() => {
     return nodes.value.reduce((tmp: GUINodeDataRecord, current) => {
@@ -59,11 +45,8 @@ export const useStore = defineStore("store", () => {
       return tmp;
     }, {});
   });
-  const edgeObject = computed(() => {
-    return edges2inputs(edges.value, nodeRecords.value);
-  });
   const graphData = computed(() => {
-    return store2graphData(nodeRecords.value, edgeObject.value, loopObj.value, currentData.value);
+    return store2graphData(currentData.value);
   });
   const streamNodes = computed(() => {
     return nodes.value
