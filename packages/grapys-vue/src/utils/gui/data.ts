@@ -50,6 +50,16 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     agent: "openAIAgent",
     ...llmAgentProfile,
   },
+  ollamaAgent: {
+    agent: "openAIAgent",
+    inputs: llmAgentProfile.inputs,
+    outputs: llmAgentProfile.outputs,
+    params: [
+      ...llmAgentProfile.params,
+      { name: "model", defaultValue: "llama3" },
+      { name: "baseURL", defaultValue: "http://127.0.0.1:11434/v1"},
+    ],
+  },
   anthropicAgent: {
     agent: "anthropicAgent",
     ...llmAgentProfile,
@@ -370,12 +380,12 @@ export const nestedAgentProfiles: Record<string, AgentProfile> = {
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
   event: eventAgentProfiles,
   llm: llmAgentProfiles,
+  service: serviceAgentProfiles,
+  test: testAgentProfiles,
+  compare: compareAgentProfiles,
+  data: dataAgentProfiles,
   array: arrayAgentProfiles,
   string: stringAgentProfiles,
-  data: dataAgentProfiles,
-  test: testAgentProfiles,
-  service: serviceAgentProfiles,
-  compare: compareAgentProfiles,
 };
 
 export const agentProfiles: Record<string, AgentProfile> = Object.values(agentProfilesCategory).reduce((tmp, current) => {

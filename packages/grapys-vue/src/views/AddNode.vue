@@ -3,9 +3,12 @@
     NodeId:<input type="text" v-model="nodeId" class="w-full rounded-md border-2 border-gray-300 p-1 text-black" :class="isError ? 'border-red-600' : ''" />
     <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="agent">
       <option>StaticNode</option>
-      <option v-for="(agentName, k) in nodesKey" :key="k">
-        {{ agentName }}
-      </option>
+      
+      <optgroup :label="category" v-for="(category, key) in Object.keys(agentProfilesCategory)">
+        <option v-for="(agentName, k) in Object.keys(agentProfilesCategory[category])" :key="k">
+          {{ agentName }}
+        </option>
+      </optgroup>
     </select>
   </div>
   <div>
@@ -16,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
 import { useStore } from "../store";
-import { agentProfiles } from "../utils/gui/data";
+import { agentProfilesCategory, agentProfiles } from "../utils/gui/data";
 import { getDefaultParams } from "../utils/gui/utils";
 
 export default defineComponent({
@@ -67,6 +70,7 @@ export default defineComponent({
     };
     return {
       addNode,
+      agentProfilesCategory,
       nodesKey,
       nodeId,
       agent,

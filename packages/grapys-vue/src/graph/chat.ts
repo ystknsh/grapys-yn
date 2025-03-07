@@ -2,12 +2,9 @@ import { GraphData } from "graphai";
 export const graphChat: GraphData = {
   version: 0.5,
   loop: {
-    while: ":continue",
+    while: true,
   },
   nodes: {
-    continue: {
-      value: true,
-    },
     messages: {
       value: [],
       update: ":reducer.array",
