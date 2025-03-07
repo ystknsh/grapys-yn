@@ -1,5 +1,5 @@
-import { GUIEdgeData, GUINodeDataRecord, HistoryPayload } from "./type";
-import { NodeData, LoopData, StaticNodeData } from "graphai";
+import { GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload } from "./type";
+import { NodeData, StaticNodeData } from "graphai";
 import { edgeEnd2agentProfile } from "./utils";
 import { agentProfiles } from "./data";
 import { resultsOf } from "./result";

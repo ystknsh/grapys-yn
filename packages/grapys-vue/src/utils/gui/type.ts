@@ -138,6 +138,7 @@ export type AgentProfile = {
   agents?: string[];
   inputSchema?: unknown;
   output?: Record<string, string>;
+  isNestedGraph?: boolean;
 };
 
 export type LoopDataType = "while" | "count" | "none";
