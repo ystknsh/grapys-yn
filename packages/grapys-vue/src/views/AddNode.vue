@@ -4,8 +4,8 @@
     <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="agent">
       <option>StaticNode</option>
 
-      <optgroup :label="category" v-for="(category, key) in Object.keys(agentProfilesCategory)">
-        <option v-for="(agentName, k) in Object.keys(agentProfilesCategory[category])" :key="k">
+      <optgroup :label="category" v-for="(category, categoryKey) in Object.keys(agentProfilesCategory)" :key="categoryKey">
+        <option v-for="(agentName, agentKey) in Object.keys(agentProfilesCategory[category])" :key="agentKey">
           {{ agentName }}
         </option>
       </optgroup>
