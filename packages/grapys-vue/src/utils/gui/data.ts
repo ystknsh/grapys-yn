@@ -396,5 +396,5 @@ export const agentProfiles: Record<string, AgentProfile> = Object.values(agentPr
 
 export const staticNodeParams: AgentProfile = {
   inputs: [{ name: "update" }],
-  outputs: [{ name: "date" }],
+  outputs: [{ name: "value" }],
 };
