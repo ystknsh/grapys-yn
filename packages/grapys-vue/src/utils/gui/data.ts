@@ -338,7 +338,13 @@ export const compareAgentProfiles: Record<string, AgentProfile> = {
 //  sortByValuesAgent,
 //??  totalAgent,
 //  vanillaFetchAgent
-export const eventAgentProfiles: Record<string, AgentProfile> = {
+export const userInputAgentProfiles: Record<string, AgentProfile> = {
+  userInputAgent: {
+    agent: "eventAgent",
+    inputs: [{ name: "wait", type: "array" }],
+    outputs: [{ name: "text" }, { name: "message" }],
+    params: [{ name: "isResult", type: "boolean" }],
+  },
   eventAgent: {
     agent: "eventAgent",
     inputs: [{ name: "wait", type: "array" }],
@@ -378,7 +384,7 @@ export const nestedAgentProfiles: Record<string, AgentProfile> = {
 };
 
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
-  event: eventAgentProfiles,
+  userInput: userInputAgentProfiles,
   llm: llmAgentProfiles,
   service: serviceAgentProfiles,
   test: testAgentProfiles,
