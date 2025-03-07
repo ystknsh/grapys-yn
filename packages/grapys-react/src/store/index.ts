@@ -10,7 +10,7 @@ import {
   HistoryPayload,
   GUILoopData,
 } from "../utils/gui/type";
-import { edges2inputs, store2graphData } from "../utils/gui/graph";
+import { store2graphData } from "../utils/gui/graph";
 
 export interface LocalState {
   histories: HistoryData[];
@@ -258,23 +258,6 @@ export const node2Record = (nodes: GUINodeData[]): GUINodeDataRecord => {
   }, {});
 };
 
-const loop2LoopObj = (loop: GUILoopData) => {
-  if (loop.loopType === "while") {
-    return {
-      while: loop.while,
-    };
-  }
-  if (loop.loopType === "count") {
-    return {
-      count: loop.count,
-    };
-  }
-  return undefined;
-};
-
-export const toGraph = (nodeRecords: GUINodeDataRecord, edges: GUIEdgeData[], loop: GUILoopData, currentData: HistoryPayload) => {
-  const edgeObject = edges2inputs(edges ?? [], nodeRecords);
-  const loopObject = loop2LoopObj(loop);
-
-  return store2graphData(nodeRecords, edgeObject, loopObject, currentData);
+export const toGraph = (currentData: HistoryPayload) => {
+  return store2graphData(currentData);
 };

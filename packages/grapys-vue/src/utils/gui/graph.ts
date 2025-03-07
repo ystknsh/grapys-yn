@@ -79,8 +79,29 @@ export const edges2inputs = (edges: GUIEdgeData[], nodeRecords: GUINodeDataRecor
   }, {});
 };
 
-export const store2graphData = (nodeRecords: GUINodeDataRecord, edgeObject: EdgeRecord, loop: LoopData | undefined, currentData: HistoryPayload) => {
-  const nodes = Object.values(nodeRecords);
+const loop2LoopObj = (loop: GUILoopData) => {
+  if (loop.loopType === "while") {
+    return {
+      while: loop.while,
+    };
+  }
+  if (loop.loopType === "count") {
+    return {
+      count: loop.count,
+    };
+  }
+  return undefined;
+};
+
+export const store2graphData = (currentData: HistoryPayload) => {
+  const { nodes, edges, loop } = currentData;
+  const nodeRecords = nodes.reduce((tmp: GUINodeDataRecord, current) => {
+    tmp[current.nodeId] = current;
+    return tmp;
+  }, {});
+  const edgeObject = edges2inputs(edges, nodeRecords);
+
+  // const nodes = Object.values(nodeRecords);
   const newNodes = nodes.reduce((tmp: Record<string, NodeData>, node) => {
     const { guiAgentId } = nodeRecords[node.nodeId].data;
     const profile = agentProfiles[guiAgentId ?? ""];
@@ -111,7 +132,7 @@ export const store2graphData = (nodeRecords: GUINodeDataRecord, edgeObject: Edge
   const newGraphData = {
     version: 0.5,
     nodes: newNodes,
-    loop,
+    loop: loop2LoopObj(loop),
     metadata: {
       data: currentData,
     },
