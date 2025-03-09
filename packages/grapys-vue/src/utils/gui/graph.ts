@@ -16,7 +16,12 @@ type SourceTargetTmpObject = Record<string, Record<string, SourceTargetIntermedi
 type NodeEdgeMap = Record<string, string | string[]>;
 type EdgeRecord = Record<string, NodeEdgeMap>;
 
-export const edges2inputs = (edges: GUIEdgeData[], nodeRecords: GUINodeDataRecord) => {
+export const edges2inputs = (edges: GUIEdgeData[], nodes: GUINodeData[]) => {
+  const nodeRecords = nodes.reduce((tmp: GUINodeDataRecord, current) => {
+    tmp[current.nodeId] = current;
+    return tmp;
+  }, {});
+
   const records = edges
     .map((edge) => {
       const { source: sourceEdge, target: targetEdge } = edge;
@@ -95,19 +100,16 @@ const loop2LoopObj = (loop: GUILoopData) => {
 
 export const store2graphData = (currentData: HistoryPayload) => {
   const { nodes, edges, loop } = currentData;
-  const nodeRecords = nodes.reduce((tmp: GUINodeDataRecord, current) => {
-    tmp[current.nodeId] = current;
-    return tmp;
-  }, {});
-  const edgeObject = edges2inputs(edges, nodeRecords);
+  const edgeObject = edges2inputs(edges, nodes);
 
-  // const nodes = Object.values(nodeRecords);
   const newNodes = nodes.reduce((tmp: Record<string, NodeData>, node) => {
-    const { guiAgentId } = nodeRecords[node.nodeId].data;
+    const { guiAgentId } = node.data;
     const profile = agentProfiles[guiAgentId ?? ""];
     const inputs = profile?.inputSchema ? resultsOf(profile.inputSchema as NodeEdgeMap, edgeObject[node.nodeId]) : edgeObject[node.nodeId];
     // static node don't have profile and guiAgentId
+
     if (profile) {
+      const agent = profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent;
       tmp[node.nodeId] = {
         agent: profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent,
         params: node.data.params,

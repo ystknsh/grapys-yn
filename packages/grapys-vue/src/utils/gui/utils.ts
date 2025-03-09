@@ -18,6 +18,8 @@ import {
 } from "./type";
 import { inputs2dataSources, GraphData, isComputedNodeData, DefaultParamsType, LoopData } from "graphai";
 import { agentProfiles } from "./data";
+import { store2graphData } from "./graph";
+import { graphs } from "../../graph";
 
 const isTouch = (event: MouseEvent | TouchEvent): event is TouchEvent => {
   return "touches" in event;
@@ -171,7 +173,17 @@ export const edgeEnd2agentProfile = (edgeEndPointData: EdgeEndPointData, nodeRec
     const specializedAgent = node.data.guiAgentId ?? ""; // undefined is static node.
 
     const profile = agentProfiles[specializedAgent];
-    const IOData = sorceOrTarget === "source" ? profile.outputs[edgeEndPointData.index] : profile.inputs[edgeEndPointData.index];
+    const IOData = (() => {
+      // output
+      if (sorceOrTarget === "source") {
+        return profile.outputs[edgeEndPointData.index];
+      }
+      // inputs
+      if (profile.isNestedGraph) {
+        return nestedGraphInputs(graphs[node.data.nestedGraphIndex].graph)[edgeEndPointData.index];
+      }
+      return profile.inputs[edgeEndPointData.index];
+    })();
 
     return {
       agent: specializedAgent,
@@ -299,7 +311,6 @@ export const pickNearestNode = (nodes: GUINodeData[], targetNode: string, mouseC
     const closestX = Math.max(x, Math.min(mouseX, x + (width ?? 0)));
     const closestY = Math.max(y, Math.min(mouseY, y + (height ?? 0)));
 
-    // const distance = Math.sqrt((nodeCenterX - mouseX) ** 2 + (nodeCenterY - mouseY) ** 2);
     const distance = Math.sqrt((closestX - mouseX) ** 2 + (closestY - mouseY) ** 2);
 
     if (!closest || distance < closest.distance) {
@@ -313,8 +324,10 @@ export const pickNearestNode = (nodes: GUINodeData[], targetNode: string, mouseC
 export const pickNearestConnect = (nearestNode: ClosestNodeData, newEdgeData: NewEdgeData, mouseCurrentPosition: Position) => {
   const nodePos = nearestNode.node.position;
   const { inputCenters, outputCenters } = nodePos;
+
   const isOutput = newEdgeData.direction === "outbound";
   const centers = (isOutput ? inputCenters : outputCenters) ?? [];
+
   return centers.reduce((closest: null | { index: number; distance: number }, center: number, index: number) => {
     const nodeX = nodePos.x + (isOutput ? 0 : (nodePos?.width ?? 0));
     const nodeY = nodePos.y + center;
@@ -452,4 +465,16 @@ export const handleDownload = (graphData: GraphData) => {
   link.href = window.URL.createObjectURL(blob);
   link.download = `graph.json`;
   link.click();
+};
+
+export const nestedGraphInputs = (graphData: GraphData) => {
+  const nodes = graphData?.metadata?.data ? store2graphData(graphData?.metadata?.data).nodes : graphData.nodes;
+  const staticInputs = Object.keys(nodes)
+    .filter((nodeId) => {
+      return !nodes[nodeId].agent;
+    })
+    .map((nodeId) => {
+      return { name: nodeId, type: "data" };
+    });
+  return staticInputs;
 };

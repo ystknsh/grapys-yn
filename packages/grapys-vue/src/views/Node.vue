@@ -33,7 +33,12 @@
     </div>
 
     <div class="mt-1 mb-1 flex flex-col items-start">
-      <div v-for="(input, index) in inputs" :key="['in', input.name, index].join('-')" class="relative flex items-center" ref="inputsRef">
+      <div
+        v-for="(input, index) in inputs"
+        :key="['in', input.name, index, nestedGraph?.id ?? ''].join('-')"
+        class="relative flex items-center"
+        ref="inputsRef"
+      >
         <div
           class="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full"
           :class="nodeInputClass(isExpectNearButton('outbound', index), nodeData)"
@@ -53,7 +58,7 @@
       <NodeResult :node-data="nodeData" />
     </div>
     <div v-if="agentProfile.isNestedGraph">
-      <select v-model="nestedGraphIndex">
+      <select v-model="nestedGraphIndex" @change="updateNestedGraphIndex">
         <option :value="key" v-for="(graph, key) in graphs" :key="key">{{ graph.name }}</option>
       </select>
     </div>
@@ -63,9 +68,8 @@
 <script lang="ts">
 import { defineComponent, ref, watchEffect, computed, PropType, onMounted, watch } from "vue";
 import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
-import { getClientPos, getNodeSize, getTransformStyle } from "../utils/gui/utils";
+import { getClientPos, getNodeSize, getTransformStyle, nestedGraphInputs } from "../utils/gui/utils";
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
-import { store2graphData } from "../utils/gui/graph";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
 import { graphs } from "../graph";
 
@@ -129,8 +133,15 @@ export default defineComponent({
       deltaDistance = 0;
     };
 
+    // some time inputsRef/outputsRef order is broken when nestedGraph change.
+    const sortedInputs = computed(() => {
+      return inputsRef.value.sort((a, b) => (a.getBoundingClientRect().top > b.getBoundingClientRect().top ? 1 : -1));
+    });
+    const sortedOutputs = computed(() => {
+      return outputsRef.value.sort((a, b) => (a.getBoundingClientRect().top > b.getBoundingClientRect().top ? 1 : -1));
+    });
     const getWH = () => {
-      return getNodeSize(thisRef.value, inputsRef.value, outputsRef.value);
+      return getNodeSize(thisRef.value, sortedInputs.value, sortedOutputs.value);
     };
     onMounted(() => {
       ctx.emit("updatePosition", getWH());
@@ -260,21 +271,23 @@ export default defineComponent({
       },
     );
 
+    const nestedGraph = computed(() => {
+      return graphs[nestedGraphIndex.value];
+    });
+    const updateNestedGraphIndex = (e) => {
+      ctx.emit("updateStaticNodeValue", { nestedGraphIndex: nestedGraphIndex.value, nestedGraphId: nestedGraph.value.id });
+      ctx.emit("updatePosition", getWH());
+      // TODO remove Edge
+    };
+
     const inputs = computed(() => {
       if (agentProfile.isNestedGraph) {
-        const graph = graphs[nestedGraphIndex.value].graph
-        const nodes = (graph?.metadata?.data) ? store2graphData(graph?.metadata?.data).nodes : graph.nodes;
-        const staticInputs = Object.keys(nodes).filter(nodeId => {
-          return !nodes[nodeId].agent;
-        }).map(nodeId => {
-          return { name: nodeId, type: "data" }
-        });
-        return staticInputs;
+        return nestedGraphInputs(nestedGraph.value.graph);
       } else {
         return agentProfile.inputs;
       }
     });
-    
+
     return {
       focusEvent,
       blurEvent,
@@ -307,6 +320,8 @@ export default defineComponent({
 
       graphs,
       nestedGraphIndex,
+      nestedGraph,
+      updateNestedGraphIndex,
     };
   },
 });

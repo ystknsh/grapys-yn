@@ -29,7 +29,6 @@ export const graphs: { name: string; graph: GraphData }[] = [
   { name: "ImageGenerator", graph: graphDataImageGenerator, id: "Ck2ETL93rwYXtMLv" },
 ];
 
-
 export const graphConfigs = {
   openAIAgent: {
     apiKey: import.meta.env.VITE_OPEN_API_KEY,
