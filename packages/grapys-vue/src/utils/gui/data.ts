@@ -367,11 +367,17 @@ export const testAgentProfiles: Record<string, AgentProfile> = {
 export const nestedAgentProfiles: Record<string, AgentProfile> = {
   nestedAgent: {
     agent: "nestedAgent",
-    inputs: [{ name: "message", type: "text" }],
-    outputs: [{ name: "message" }],
+    inputs: [],
+    outputs: [{ name: "result" }],
     params: [],
     isNestedGraph: true,
-    // presetParams: { isResult: true, stream: true },
+  },
+  mapAgent: {
+    agent: "mapAgent",
+    inputs: [{ name: "rows", type: "array" }],
+    outputs: [{ name: "result" }],
+    params: [],
+    isMap: true,
   },
 };
 

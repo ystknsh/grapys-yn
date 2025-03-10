@@ -180,6 +180,7 @@ export const edgeEnd2agentProfile = (edgeEndPointData: EdgeEndPointData, nodeRec
       }
       // inputs
       if (profile.isNestedGraph) {
+        // not map
         return nestedGraphInputs(graphs[node.data.nestedGraphIndex].graph)[edgeEndPointData.index];
       }
       return profile.inputs[edgeEndPointData.index];

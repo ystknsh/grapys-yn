@@ -4,6 +4,8 @@ import { edgeEnd2agentProfile } from "./utils";
 import { agentProfiles } from "./data";
 import { resultsOf } from "./result";
 
+import { graphs } from "../../graph";
+
 // for store to generate new graphData
 type SourceTargetIntermediateData = {
   sourceData: string;
@@ -120,6 +122,11 @@ export const store2graphData = (currentData: HistoryPayload) => {
         // if/unless (edge)
         // defaultValue (object?)
         // retry ?
+        ...(profile.isNestedGraph || profile.isMap
+          ? {
+              graph: graphs[node.data.nestedGraphIndex].graph,
+            }
+          : {}),
       };
     } else {
       tmp[node.nodeId] = {

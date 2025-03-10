@@ -57,7 +57,7 @@
     <div class="flex w-full flex-col gap-1 p-2">
       <NodeResult :node-data="nodeData" />
     </div>
-    <div v-if="agentProfile.isNestedGraph">
+    <div v-if="agentProfile.isNestedGraph || agentProfile.isMap">
       <select v-model="nestedGraphIndex" @change="updateNestedGraphIndex">
         <option :value="key" v-for="(graph, key) in graphs" :key="key">{{ graph.name }}</option>
       </select>
@@ -282,6 +282,7 @@ export default defineComponent({
 
     const inputs = computed(() => {
       if (agentProfile.isNestedGraph) {
+        // not map
         return nestedGraphInputs(nestedGraph.value.graph);
       } else {
         return agentProfile.inputs;
