@@ -160,3 +160,5 @@ export type GUIMessage = {
   content: string;
   nodeId: string;
 };
+
+export type NestedGraphList = { name: string; graph: GraphData }[];

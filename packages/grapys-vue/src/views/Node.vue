@@ -59,7 +59,7 @@
     </div>
     <div v-if="agentProfile.isNestedGraph || agentProfile.isMap">
       <select v-model="nestedGraphIndex" @change="updateNestedGraphIndex">
-        <option :value="key" v-for="(graph, key) in graphs" :key="key">{{ graph.name }}</option>
+        <option :value="key" v-for="(graph, key) in nestedGraphs" :key="key">{{ graph.name }}</option>
       </select>
     </div>
   </div>
@@ -67,11 +67,12 @@
 
 <script lang="ts">
 import { defineComponent, ref, watchEffect, computed, PropType, onMounted, watch } from "vue";
+import { useStore } from "../store";
 import type { GUINodeData, GUINearestData, NewEdgeEventDirection, UpdateStaticValue } from "../utils/gui/type";
 import { getClientPos, getNodeSize, getTransformStyle, nestedGraphInputs } from "../utils/gui/utils";
 import { agentProfiles, staticNodeParams } from "../utils/gui/data";
 import { nodeMainClass, nodeHeaderClass, nodeOutputClass, nodeInputClass } from "../utils/gui/classUtils";
-import { graphs } from "../graph";
+// import { graphs } from "../graph";
 
 import NodeStaticValue from "./NodeStaticValue.vue";
 import NodeComputedParams from "./NodeComputedParams.vue";
@@ -99,6 +100,8 @@ export default defineComponent({
   },
   emits: ["updatePosition", "savePosition", "newEdgeStart", "newEdge", "newEdgeEnd", "updateStaticNodeValue", "openNodeMenu"],
   setup(props, ctx) {
+    const store = useStore();
+
     const agentProfile = props.nodeData.type === "computed" ? agentProfiles[props.nodeData.data.guiAgentId ?? ""] : staticNodeParams;
 
     const thisRef = ref<HTMLElement | null>(null);
@@ -272,7 +275,7 @@ export default defineComponent({
     );
 
     const nestedGraph = computed(() => {
-      return graphs[nestedGraphIndex.value];
+      return store.nestedGraphs[nestedGraphIndex.value];
     });
     const updateNestedGraphIndex = (e) => {
       ctx.emit("updateStaticNodeValue", { nestedGraphIndex: nestedGraphIndex.value, nestedGraphId: nestedGraph.value.id });
@@ -319,7 +322,7 @@ export default defineComponent({
       agentIndex,
       updateAgentIndex,
 
-      graphs,
+      nestedGraphs: store.nestedGraphs,
       nestedGraphIndex,
       nestedGraph,
       updateNestedGraphIndex,

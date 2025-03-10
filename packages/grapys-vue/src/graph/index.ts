@@ -1,3 +1,4 @@
+import { NestedGraphList } from "../utils/gui/type";
 import { GraphData } from "graphai";
 import { graphChat as graphChatOpenAI } from "../graph/chat";
 import { graphChat as graphChatOllama } from "../graph/chat_ollama";
@@ -13,7 +14,7 @@ import { graphData as graphDataBrowserless } from "../graph/browserless";
 import { graphData as graphDataImageGenerator } from "../graph/image_generator";
 import { graphData as graphDataFetch } from "../graph/fetch";
 
-export const graphs: { name: string; graph: GraphData }[] = [
+export const graphs: NestedGraphList = [
   { name: "Chat(WebLLM)", graph: graphChatTinySwallow, id: "pkrDLhdU5zUb77mN" },
   { name: "Chat(Alone)", graph: graphChatAlone, id: "dJ5cw36SevqDkxFN" },
   { name: "Chat(OpenAI)", graph: graphChatOpenAI, id: "VTG5pDThGX5eBJLp" },

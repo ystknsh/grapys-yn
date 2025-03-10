@@ -19,7 +19,7 @@ import {
 import { inputs2dataSources, GraphData, isComputedNodeData, DefaultParamsType, LoopData } from "graphai";
 import { agentProfiles } from "./data";
 import { store2graphData } from "./graph";
-import { graphs } from "../../graph";
+// import { graphs } from "../../graph";
 
 const isTouch = (event: MouseEvent | TouchEvent): event is TouchEvent => {
   return "touches" in event;
@@ -167,7 +167,12 @@ export const graphToGUIData = (graphData: GraphData) => {
   };
 };
 
-export const edgeEnd2agentProfile = (edgeEndPointData: EdgeEndPointData, nodeRecords: GUINodeDataRecord, sorceOrTarget: "source" | "target") => {
+export const edgeEnd2agentProfile = (
+  edgeEndPointData: EdgeEndPointData,
+  nodeRecords: GUINodeDataRecord,
+  sorceOrTarget: "source" | "target",
+  nestedGraphs: NestedGraphList,
+) => {
   const node = nodeRecords[edgeEndPointData.nodeId];
   if (node && node.type === "computed") {
     const specializedAgent = node.data.guiAgentId ?? ""; // undefined is static node.
@@ -181,7 +186,7 @@ export const edgeEnd2agentProfile = (edgeEndPointData: EdgeEndPointData, nodeRec
       // inputs
       if (profile.isNestedGraph) {
         // not map
-        return nestedGraphInputs(graphs[node.data.nestedGraphIndex].graph)[edgeEndPointData.index];
+        return nestedGraphInputs(nestedGraphs[node.data.nestedGraphIndex].graph)[edgeEndPointData.index];
       }
       return profile.inputs[edgeEndPointData.index];
     })();
@@ -356,7 +361,7 @@ const sameTargetEdge = (edge1: EdgeData | GUIEdgeData, edge2: EdgeData | GUIEdge
   return edge1.target.nodeId === edge2.target.nodeId && edge1.target.index === edge2.target.index;
 };
 
-export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeData[], nodeRecords: GUINodeDataRecord) => {
+export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeData[], nodeRecords: GUINodeDataRecord, nestedGraphs: NestedGraphList) => {
   if (!expectEdge) {
     return false;
   }
@@ -366,7 +371,7 @@ export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeD
   const existanceEdges = edges.filter((edge) => {
     return sameTargetEdge(edge, expectEdge);
   });
-  const profile = edgeEnd2agentProfile(expectEdge.target, nodeRecords, "target");
+  const profile = edgeEnd2agentProfile(expectEdge.target, nodeRecords, "target", nestedGraphs);
   if (!profile) {
     // maybe static node
     return true;
