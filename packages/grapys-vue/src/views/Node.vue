@@ -285,13 +285,14 @@ export default defineComponent({
 
     const inputs = computed(() => {
       if (agentProfile.isNestedGraph) {
-        // not map
+        // not do mapAgent
         return nestedGraphInputs(nestedGraph.value.graph);
       } else {
         return agentProfile.inputs;
       }
     });
     const outputs = computed(() => {
+      // not do mapAgent
       if (agentProfile.isNestedGraph) {
         return nestedGraph.value.graph?.metadata?.forNested?.outputs ?? agentProfile.outputs;
       }
