@@ -450,8 +450,8 @@ export const getLoopWhileSources = (nodes: GUINodeData[], nestedGraphs: NestedGr
       const agent = node.data.guiAgentId;
       if (agent) {
         const profile = agentProfiles[agent] || { outputs: [] };
-        const { outputs } = profile.isNestedGraph ? nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested ?? profile ?? {} : profile
-        return (outputs ?? [] ).map((prop) => `:${node.nodeId}.${prop.name}`);
+        const { outputs } = profile.isNestedGraph ? (nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested ?? profile ?? {}) : profile;
+        return (outputs ?? []).map((prop) => `:${node.nodeId}.${prop.name}`);
       }
       return [`:${node.nodeId}`];
     }),

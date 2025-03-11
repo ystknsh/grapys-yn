@@ -200,6 +200,53 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
     outputs: [{ name: "result" }],
     params: [],
   },
+};
+export const copyAgentProfiles: Record<string, AgentProfile> = {
+  itemToArrayAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      array: [":item1", ":item2", ":item3", ":item4"],
+    },
+    inputs: [
+      { name: "item1", type: "message" },
+      { name: "item2", type: "message" },
+      { name: "item3", type: "message" },
+      { name: "item4", type: "message" },
+    ],
+    outputs: [{ name: "array" }],
+    params: [],
+  },
+  // To output userInput (event) data to chat
+  resultAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      message: ":message",
+    },
+    inputs: [{ name: "message", type: "message" }],
+    outputs: [{ name: "message" }],
+    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
+  },
+  toolsResultAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      message: ":tools",
+    },
+    inputs: [{ name: "tools", type: "data" }],
+    outputs: [{ name: "message" }],
+    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
+  },
+  dataToChatBotAgent: {
+    agent: "copyAgent",
+    inputSchema: {
+      message: {
+        role: "bot",
+        content: ":data",
+      },
+    },
+    inputs: [{ name: "data", type: "data" }],
+    outputs: [{ name: "message" }],
+    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
+  },
   convertAgent: {
     agent: "copyAgent",
     inputSchema: {
@@ -221,53 +268,8 @@ export const dataAgentProfiles: Record<string, AgentProfile> = {
       { name: "interviewer", type: "text" },
       { name: "name", type: "text" },
     ],
-    outputs: [{ name: "array" }],
+    outputs: [{ name: "person0" }, { name: "person1" }],
     params: [],
-  },
-  messageAggregatorAgent: {
-    agent: "copyAgent",
-    inputSchema: {
-      array: [":message1", ":message2", ":message3", ":message4"],
-    },
-    inputs: [
-      { name: "message1", type: "message" },
-      { name: "message2", type: "message" },
-      { name: "message3", type: "message" },
-      { name: "message4", type: "message" },
-    ],
-    outputs: [{ name: "array" }],
-    params: [],
-  },
-  // To output userInput (event) data to chat
-  resultAgent: {
-    agent: "copyAgent",
-    inputSchema: {
-      message: ":message",
-    },
-    inputs: [{ name: "message", type: "message" }],
-    outputs: [{ name: "result" }],
-    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
-  },
-  toolsResultAgent: {
-    agent: "copyAgent",
-    inputSchema: {
-      message: ":tools",
-    },
-    inputs: [{ name: "tools", type: "data" }],
-    outputs: [{ name: "result" }],
-    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
-  },
-  dataToChatBotAgent: {
-    agent: "copyAgent",
-    inputSchema: {
-      message: {
-        role: "bot",
-        content: ":data",
-      },
-    },
-    inputs: [{ name: "data", type: "data" }],
-    outputs: [],
-    params: [{ name: "isResult", type: "boolean", defaultValue: true }],
   },
 };
 export const serviceAgentProfiles: Record<string, AgentProfile> = {
@@ -389,6 +391,7 @@ export const agentProfilesCategory: Record<string, Record<string, AgentProfile>>
   compare: compareAgentProfiles,
   graph: nestedAgentProfiles,
   data: dataAgentProfiles,
+  copy: copyAgentProfiles,
   array: arrayAgentProfiles,
   string: stringAgentProfiles,
 };
