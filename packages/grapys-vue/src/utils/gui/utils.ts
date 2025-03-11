@@ -16,10 +16,9 @@ import {
   GUILoopData,
   ParamData,
 } from "./type";
-import { inputs2dataSources, GraphData, isComputedNodeData, DefaultParamsType, LoopData } from "graphai";
+import { inputs2dataSources, GraphData, isComputedNodeData, isStaticNodeData, DefaultParamsType, LoopData } from "graphai";
 import { agentProfiles } from "./data";
 import { store2graphData } from "./graph";
-// import { graphs } from "../../graph";
 
 const isTouch = (event: MouseEvent | TouchEvent): event is TouchEvent => {
   return "touches" in event;
@@ -479,10 +478,10 @@ export const handleDownload = (graphData: GraphData) => {
 };
 
 export const nestedGraphInputs = (graphData: GraphData) => {
-  const nodes = graphData?.metadata?.data ? store2graphData(graphData?.metadata?.data).nodes : graphData.nodes;
+  const nodes = graphData?.metadata?.data ? store2graphData(graphData?.metadata?.data, []).nodes : graphData.nodes;
   const staticInputs = Object.keys(nodes)
     .filter((nodeId) => {
-      return !nodes[nodeId].agent;
+      return isStaticNodeData(nodes[nodeId]);
     })
     .map((nodeId) => {
       return { name: nodeId, type: "data" };

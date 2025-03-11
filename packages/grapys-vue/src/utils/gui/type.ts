@@ -11,6 +11,7 @@ export type ApplicationData = {
   staticNodeType?: StaticNodeType;
   params?: DefaultParamsType;
   isResult?: boolean;
+  nestedGraphIndex?: number;
 };
 
 export type Position = { x: number; y: number };
@@ -161,4 +162,4 @@ export type GUIMessage = {
   nodeId: string;
 };
 
-export type NestedGraphList = { name: string; graph: GraphData }[];
+export type NestedGraphList = { name: string; graph: GraphData; id: string }[];

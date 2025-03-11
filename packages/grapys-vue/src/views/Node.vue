@@ -277,7 +277,7 @@ export default defineComponent({
     const nestedGraph = computed(() => {
       return store.nestedGraphs[nestedGraphIndex.value];
     });
-    const updateNestedGraphIndex = (e) => {
+    const updateNestedGraphIndex = () => {
       ctx.emit("updateNestedGraph", { nestedGraphIndex: nestedGraphIndex.value, nestedGraphId: nestedGraph.value.id });
       ctx.emit("updatePosition", getWH());
       // TODO remove Edge
