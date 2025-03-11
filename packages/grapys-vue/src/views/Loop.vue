@@ -30,7 +30,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const whileSources = computed(() => {
-      return getLoopWhileSources(store.nodes);
+      return getLoopWhileSources(store.nodes, store.nestedGraphs);
     });
 
     const loopType = ref<LoopDataType>(store.loop.loopType);

@@ -1,5 +1,5 @@
 import { GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload } from "./type";
-import { NodeData, StaticNodeData } from "graphai";
+import { NodeData, StaticNodeData, LoopData } from "graphai";
 import { edgeEnd2agentProfile } from "./utils";
 import { agentProfiles } from "./data";
 import { resultsOf } from "./result";
@@ -87,7 +87,8 @@ export const edges2inputs = (edges: GUIEdgeData[], nodes: GUINodeData[], nestedG
   }, {});
 };
 
-const loop2LoopObj = (loop: GUILoopData) => {
+// GUILoopData 2 LoopData(GraphAI loop)
+const loop2LoopObj = (loop: GUILoopData): LoopData => {
   if (loop.loopType === "while") {
     return {
       while: loop.while,

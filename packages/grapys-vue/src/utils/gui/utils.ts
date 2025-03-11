@@ -444,14 +444,14 @@ export const getTransformStyle = (nodeData: GUINodeData, isDragging: boolean) =>
   };
 };
 
-export const getLoopWhileSources = (nodes: GUINodeData[]) => {
+export const getLoopWhileSources = (nodes: GUINodeData[], nestedGraphs: NestedGraphList) => {
   return ["true"].concat(
     nodes.flatMap((node) => {
       const agent = node.data.guiAgentId;
       if (agent) {
         const profile = agentProfiles[agent] || { outputs: [] };
-        // TODO for nested.
-        return profile.outputs.map((prop) => `:${node.nodeId}.${prop.name}`);
+        const { outputs } = profile.isNestedGraph ? nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested ?? profile ?? {} : profile
+        return (outputs ?? [] ).map((prop) => `:${node.nodeId}.${prop.name}`);
       }
       return [`:${node.nodeId}`];
     }),
