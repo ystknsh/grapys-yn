@@ -1,4 +1,4 @@
-import { NestedGraphList } from "../utils/gui/type";
+import { NestedGraphList } from "../../utils/gui/type";
 
 import { graphSimple } from "./simple";
 

@@ -15,6 +15,7 @@ import {
   StaticNodeType,
   GUILoopData,
   ParamData,
+  NestedGraphList,
 } from "./type";
 import { inputs2dataSources, GraphData, isComputedNodeData, isStaticNodeData, DefaultParamsType, LoopData } from "graphai";
 import { agentProfiles } from "./data";

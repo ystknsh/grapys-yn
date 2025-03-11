@@ -1,5 +1,5 @@
-import { GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload } from "./type";
-import { NodeData, StaticNodeData, LoopData } from "graphai";
+import type { GUINodeData, GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload, NestedGraphList } from "./type";
+import type { GraphData, NodeData, StaticNodeData, LoopData } from "graphai";
 import { edgeEnd2agentProfile } from "./utils";
 import { agentProfiles } from "./data";
 import { resultsOf } from "./result";
@@ -88,7 +88,7 @@ export const edges2inputs = (edges: GUIEdgeData[], nodes: GUINodeData[], nestedG
 };
 
 // GUILoopData 2 LoopData(GraphAI loop)
-const loop2LoopObj = (loop: GUILoopData): LoopData => {
+const loop2LoopObj = (loop: GUILoopData): LoopData | undefined => {
   if (loop.loopType === "while") {
     return {
       while: loop.while,
@@ -130,7 +130,7 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
         // retry ?
         ...(profile.isNestedGraph || profile.isMap
           ? {
-              graph: convertGraph2Graph(nestedGraphs[node.data.nestedGraphIndex].graph),
+            graph: convertGraph2Graph(nestedGraphs[node.data.nestedGraphIndex].graph, []),
             }
           : {}),
       };

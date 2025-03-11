@@ -1,4 +1,4 @@
-import type { DefaultParamsType } from "graphai";
+import type { GraphData, DefaultParamsType } from "graphai";
 
 export type StaticNodeType = "text" | "data" | "number" | "boolean";
 
