@@ -115,7 +115,7 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
 
     // static node don't have profile and guiAgentId
     if (profile) {
-      const output = profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested.output : profile?.output;
+      const output = profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested?.output : profile?.output;
       const agent = profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent;
       tmp[node.nodeId] = {
         agent: profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent,

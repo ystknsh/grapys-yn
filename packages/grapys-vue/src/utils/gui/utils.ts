@@ -183,7 +183,7 @@ export const edgeEnd2agentProfile = (
       if (sorceOrTarget === "source") {
         // only for nested not map agent
         if (profile.isNestedGraph) {
-          return nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested.outputs[edgeEndPointData.index];
+          return nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested?.outputs[edgeEndPointData.index];
         }
         return profile.outputs[edgeEndPointData.index];
       }

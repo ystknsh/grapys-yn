@@ -282,6 +282,14 @@ export default defineComponent({
       ctx.emit("updatePosition", getWH());
       // TODO remove Edge
     };
+    watch(
+      () => props.nodeData.data.nestedGraphIndex,
+      (value) => {
+        if (value !== undefined) {
+          nestedGraphIndex.value = value;
+        }
+      },
+    );
 
     const inputs = computed(() => {
       if (agentProfile.isNestedGraph) {
