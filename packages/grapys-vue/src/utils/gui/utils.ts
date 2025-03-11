@@ -15,9 +15,11 @@ import {
   StaticNodeType,
   GUILoopData,
   ParamData,
+  NestedGraphList,
 } from "./type";
-import { inputs2dataSources, GraphData, isComputedNodeData, DefaultParamsType, LoopData } from "graphai";
+import { inputs2dataSources, GraphData, isComputedNodeData, isStaticNodeData, DefaultParamsType, LoopData } from "graphai";
 import { agentProfiles } from "./data";
+import { store2graphData } from "./graph";
 
 const isTouch = (event: MouseEvent | TouchEvent): event is TouchEvent => {
   return "touches" in event;
@@ -165,13 +167,33 @@ export const graphToGUIData = (graphData: GraphData) => {
   };
 };
 
-export const edgeEnd2agentProfile = (edgeEndPointData: EdgeEndPointData, nodeRecords: GUINodeDataRecord, sorceOrTarget: "source" | "target") => {
+export const edgeEnd2agentProfile = (
+  edgeEndPointData: EdgeEndPointData,
+  nodeRecords: GUINodeDataRecord,
+  sorceOrTarget: "source" | "target",
+  nestedGraphs: NestedGraphList,
+) => {
   const node = nodeRecords[edgeEndPointData.nodeId];
   if (node && node.type === "computed") {
     const specializedAgent = node.data.guiAgentId ?? ""; // undefined is static node.
 
     const profile = agentProfiles[specializedAgent];
-    const IOData = sorceOrTarget === "source" ? profile.outputs[edgeEndPointData.index] : profile.inputs[edgeEndPointData.index];
+    const IOData = (() => {
+      // output
+      if (sorceOrTarget === "source") {
+        // only for nested not map agent
+        if (profile.isNestedGraph) {
+          return nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph?.metadata?.forNested?.outputs[edgeEndPointData.index];
+        }
+        return profile.outputs[edgeEndPointData.index];
+      }
+      // inputs
+      if (profile.isNestedGraph) {
+        // only for nested not map agent
+        return nestedGraphInputs(nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph)[edgeEndPointData.index];
+      }
+      return profile.inputs[edgeEndPointData.index];
+    })();
 
     return {
       agent: specializedAgent,
@@ -299,7 +321,6 @@ export const pickNearestNode = (nodes: GUINodeData[], targetNode: string, mouseC
     const closestX = Math.max(x, Math.min(mouseX, x + (width ?? 0)));
     const closestY = Math.max(y, Math.min(mouseY, y + (height ?? 0)));
 
-    // const distance = Math.sqrt((nodeCenterX - mouseX) ** 2 + (nodeCenterY - mouseY) ** 2);
     const distance = Math.sqrt((closestX - mouseX) ** 2 + (closestY - mouseY) ** 2);
 
     if (!closest || distance < closest.distance) {
@@ -313,8 +334,10 @@ export const pickNearestNode = (nodes: GUINodeData[], targetNode: string, mouseC
 export const pickNearestConnect = (nearestNode: ClosestNodeData, newEdgeData: NewEdgeData, mouseCurrentPosition: Position) => {
   const nodePos = nearestNode.node.position;
   const { inputCenters, outputCenters } = nodePos;
+
   const isOutput = newEdgeData.direction === "outbound";
   const centers = (isOutput ? inputCenters : outputCenters) ?? [];
+
   return centers.reduce((closest: null | { index: number; distance: number }, center: number, index: number) => {
     const nodeX = nodePos.x + (isOutput ? 0 : (nodePos?.width ?? 0));
     const nodeY = nodePos.y + center;
@@ -342,7 +365,7 @@ const sameTargetEdge = (edge1: EdgeData | GUIEdgeData, edge2: EdgeData | GUIEdge
   return edge1.target.nodeId === edge2.target.nodeId && edge1.target.index === edge2.target.index;
 };
 
-export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeData[], nodeRecords: GUINodeDataRecord) => {
+export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeData[], nodeRecords: GUINodeDataRecord, nestedGraphs: NestedGraphList) => {
   if (!expectEdge) {
     return false;
   }
@@ -352,7 +375,7 @@ export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeD
   const existanceEdges = edges.filter((edge) => {
     return sameTargetEdge(edge, expectEdge);
   });
-  const profile = edgeEnd2agentProfile(expectEdge.target, nodeRecords, "target");
+  const profile = edgeEnd2agentProfile(expectEdge.target, nodeRecords, "target", nestedGraphs);
   if (!profile) {
     // maybe static node
     return true;
@@ -421,13 +444,14 @@ export const getTransformStyle = (nodeData: GUINodeData, isDragging: boolean) =>
   };
 };
 
-export const getLoopWhileSources = (nodes: GUINodeData[]) => {
+export const getLoopWhileSources = (nodes: GUINodeData[], nestedGraphs: NestedGraphList) => {
   return ["true"].concat(
     nodes.flatMap((node) => {
       const agent = node.data.guiAgentId;
       if (agent) {
         const profile = agentProfiles[agent] || { outputs: [] };
-        return profile.outputs.map((prop) => `:${node.nodeId}.${prop.name}`);
+        const { outputs } = profile.isNestedGraph ? (nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph?.metadata?.forNested ?? profile ?? {}) : profile;
+        return (outputs ?? []).map((prop: InputOutputData) => `:${node.nodeId}.${prop.name}`);
       }
       return [`:${node.nodeId}`];
     }),
@@ -452,4 +476,16 @@ export const handleDownload = (graphData: GraphData) => {
   link.href = window.URL.createObjectURL(blob);
   link.download = `graph.json`;
   link.click();
+};
+
+export const nestedGraphInputs = (graphData: GraphData) => {
+  const nodes = graphData?.metadata?.data ? store2graphData(graphData?.metadata?.data, []).nodes : graphData.nodes;
+  const staticInputs = Object.keys(nodes)
+    .filter((nodeId) => {
+      return isStaticNodeData(nodes[nodeId]);
+    })
+    .map((nodeId) => {
+      return { name: nodeId, type: "data" };
+    });
+  return staticInputs;
 };

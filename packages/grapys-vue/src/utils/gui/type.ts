@@ -1,4 +1,4 @@
-import type { DefaultParamsType } from "graphai";
+import type { GraphData, DefaultParamsType } from "graphai";
 
 export type StaticNodeType = "text" | "data" | "number" | "boolean";
 
@@ -11,6 +11,7 @@ export type ApplicationData = {
   staticNodeType?: StaticNodeType;
   params?: DefaultParamsType;
   isResult?: boolean;
+  nestedGraphIndex?: number;
 };
 
 export type Position = { x: number; y: number };
@@ -138,6 +139,8 @@ export type AgentProfile = {
   agents?: string[];
   inputSchema?: unknown;
   output?: Record<string, string>;
+  isNestedGraph?: boolean;
+  isMap?: boolean;
 };
 
 export type LoopDataType = "while" | "count" | "none";
@@ -158,3 +161,5 @@ export type GUIMessage = {
   content: string;
   nodeId: string;
 };
+
+export type NestedGraphList = { name: string; graph: GraphData; id: string }[];

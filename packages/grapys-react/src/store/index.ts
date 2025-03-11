@@ -9,6 +9,7 @@ import {
   HistoryData,
   HistoryPayload,
   GUILoopData,
+  NestedGraphList,
 } from "../utils/gui/type";
 import { store2graphData } from "../utils/gui/graph";
 
@@ -259,5 +260,6 @@ export const node2Record = (nodes: GUINodeData[]): GUINodeDataRecord => {
 };
 
 export const toGraph = (currentData: HistoryPayload) => {
-  return store2graphData(currentData);
+  const nestedGraphs: NestedGraphList = []; // TODO: for nested graph
+  return store2graphData(currentData, nestedGraphs);
 };

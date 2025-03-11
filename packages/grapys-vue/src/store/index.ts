@@ -11,6 +11,7 @@ import {
 } from "../utils/gui/type";
 import { store2graphData } from "../utils/gui/graph";
 import { defineStore } from "pinia";
+import { graphs } from "../graph/nested";
 
 export const useStore = defineStore("store", () => {
   const histories = ref<HistoryData[]>([]);
@@ -46,7 +47,7 @@ export const useStore = defineStore("store", () => {
     }, {});
   });
   const graphData = computed(() => {
-    return store2graphData(currentData.value);
+    return store2graphData(currentData.value, graphs);
   });
   const streamNodes = computed(() => {
     return nodes.value
@@ -134,6 +135,25 @@ export const useStore = defineStore("store", () => {
     updateData(newNodes, [...edges.value], { ...loop.value }, "updateStaticValue", saveHistory);
   };
 
+  const updateNestedGraph = (positionIndex: number, value: UpdateStaticValue) => {
+    const newNode = { ...nodes.value[positionIndex] };
+    newNode.data = { ...newNode.data, ...value };
+    const newNodes = [...nodes.value];
+    newNodes[positionIndex] = newNode;
+    updateData(
+      newNodes,
+      [
+        ...edges.value.filter((edge) => {
+          const { source, target } = edge;
+          return source.nodeId !== newNode.nodeId && target.nodeId !== newNode.nodeId;
+        }),
+      ],
+      { ...loop.value },
+      "NestedGraph",
+      true,
+    );
+  };
+
   const updateLoop = (loopData: GUILoopData) => {
     updateData([...nodes.value], [...edges.value], loopData, "loopUpdate", true);
   };
@@ -208,6 +228,7 @@ export const useStore = defineStore("store", () => {
     loadData,
 
     updateStaticNodeValue,
+    updateNestedGraph,
     updateLoop,
 
     undo,
@@ -230,5 +251,8 @@ export const useStore = defineStore("store", () => {
     // graphAIResult
     setResult,
     graphAIResults,
+
+    // for nested agent
+    nestedGraphs: graphs,
   };
 });

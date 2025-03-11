@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useLocalStore } from "../store";
 
 import { getLoopWhileSources } from "../utils/gui/utils";
-import { LoopDataType } from "../utils/gui/type";
+import { LoopDataType, NestedGraphList } from "../utils/gui/type";
 
 const LoopComponent = () => {
   const nodes = useLocalStore((state) => state.nodes());
@@ -10,7 +10,8 @@ const LoopComponent = () => {
   const storeUpdateLoop = useLocalStore((state) => state.updateLoop);
   const countRef = useRef<HTMLInputElement | null>(null);
 
-  const whileSources = getLoopWhileSources(nodes);
+  const nestedGraphs: NestedGraphList = []; // TODO: for nested graph
+  const whileSources = getLoopWhileSources(nodes, nestedGraphs);
 
   const updateLoop = () => {
     if (loop.loopType === "while") {
