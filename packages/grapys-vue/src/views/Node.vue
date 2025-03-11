@@ -138,10 +138,10 @@ export default defineComponent({
 
     // some time inputsRef/outputsRef order is broken when nestedGraph change.
     const sortedInputs = computed(() => {
-      return inputsRef.value.sort((a, b) => (a.getBoundingClientRect().top > b.getBoundingClientRect().top ? 1 : -1));
+      return [...inputsRef.value].sort((aa, bb) => (aa.getBoundingClientRect().top > bb.getBoundingClientRect().top ? 1 : -1));
     });
     const sortedOutputs = computed(() => {
-      return outputsRef.value.sort((a, b) => (a.getBoundingClientRect().top > b.getBoundingClientRect().top ? 1 : -1));
+      return [...outputsRef.value].sort((aa, bb) => (aa.getBoundingClientRect().top > bb.getBoundingClientRect().top ? 1 : -1));
     });
     const getWH = () => {
       return getNodeSize(thisRef.value, sortedInputs.value, sortedOutputs.value);
@@ -295,9 +295,8 @@ export default defineComponent({
       if (agentProfile.isNestedGraph) {
         // not do mapAgent
         return nestedGraphInputs(nestedGraph.value.graph);
-      } else {
-        return agentProfile.inputs;
       }
+      return agentProfile.inputs;
     });
     const outputs = computed(() => {
       // not do mapAgent

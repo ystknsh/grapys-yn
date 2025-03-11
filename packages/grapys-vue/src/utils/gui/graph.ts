@@ -119,7 +119,7 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
       const output = profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested?.output : profile?.output;
       const agent = profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent;
       tmp[node.nodeId] = {
-        agent: profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent,
+        agent,
         params: node.data.params,
         inputs: inputs ?? {},
         isResult: node.data?.params?.isResult ?? false,

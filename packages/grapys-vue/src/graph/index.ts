@@ -1,5 +1,4 @@
 import { NestedGraphList } from "../utils/gui/type";
-import { GraphData } from "graphai";
 import { graphChat as graphChatOpenAI } from "../graph/chat";
 import { graphChat as graphChatOllama } from "../graph/chat_ollama";
 import { graphChat as graphChatTinySwallow } from "../graph/chat_tinyswallow";
