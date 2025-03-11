@@ -129,7 +129,7 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
         // retry ?
         ...(profile.isNestedGraph || profile.isMap
           ? {
-              graph: nestedGraphs[node.data.nestedGraphIndex].graph,
+              graph: convertGraph2Graph(nestedGraphs[node.data.nestedGraphIndex].graph),
             }
           : {}),
       };
@@ -164,4 +164,14 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
     },
   };
   return newGraphData;
+};
+
+// convert template graph (graph or metadata) to graph
+export const convertGraph2Graph = (graphData: GraphData, nestedGraphs: NestedGraphList) => {
+  const graph =
+    graphData?.metadata?.data?.nodes && graphData?.metadata?.data?.edges
+      ? store2graphData(graphData?.metadata.data as HistoryPayload, nestedGraphs)
+      : graphData;
+  const { version, nodes, loop } = graph;
+  return { version, nodes, loop };
 };
