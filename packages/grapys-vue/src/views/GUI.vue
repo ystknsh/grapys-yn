@@ -60,6 +60,9 @@ export default defineComponent({
     const updateStaticNodeValue = (index: number, value: UpdateStaticValue, saveHistory: boolean) => {
       store.updateStaticNodeValue(index, value, saveHistory);
     };
+    const updateNestedGraph = (index: number, value: UpdateStaticValue) => {
+      store.updateNestedGraph(index, value);
+    };
 
     const edgeDataList = computed<EdgeData[]>(() => {
       return guiEdgeData2edgeData(store.edges, store.nodeRecords);
@@ -105,6 +108,7 @@ export default defineComponent({
       updateNodePosition,
       saveNodePosition,
       updateStaticNodeValue,
+      updateNestedGraph,
 
       store,
 
@@ -205,6 +209,7 @@ export default defineComponent({
             :nearest-data="nearestData"
             @update-position="(pos) => updateNodePosition(index, pos)"
             @update-static-node-value="(value) => updateStaticNodeValue(index, value, true)"
+            @update-nested-graph="(value) => updateNestedGraph(index, value)"
             @save-position="saveNodePosition"
             @new-edge-start="onNewEdgeStart"
             @new-edge="onNewEdge"

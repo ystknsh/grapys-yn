@@ -98,7 +98,7 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["updatePosition", "savePosition", "newEdgeStart", "newEdge", "newEdgeEnd", "updateStaticNodeValue", "openNodeMenu"],
+  emits: ["updatePosition", "savePosition", "newEdgeStart", "newEdge", "newEdgeEnd", "updateStaticNodeValue", "updateNestedGraph", "openNodeMenu"],
   setup(props, ctx) {
     const store = useStore();
 
@@ -278,7 +278,7 @@ export default defineComponent({
       return store.nestedGraphs[nestedGraphIndex.value];
     });
     const updateNestedGraphIndex = (e) => {
-      ctx.emit("updateStaticNodeValue", { nestedGraphIndex: nestedGraphIndex.value, nestedGraphId: nestedGraph.value.id });
+      ctx.emit("updateNestedGraph", { nestedGraphIndex: nestedGraphIndex.value, nestedGraphId: nestedGraph.value.id });
       ctx.emit("updatePosition", getWH());
       // TODO remove Edge
     };
