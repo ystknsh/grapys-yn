@@ -113,7 +113,7 @@ export default defineComponent({
     const offset = ref({ x: 0, y: 0 });
 
     const agentIndex = ref(props.nodeData.data.agentIndex ?? 0);
-    const nestedGraphIndex = ref(0);
+    const nestedGraphIndex = ref(props.nodeData.data.nestedGraphIndex ?? 0);
 
     const startPosition = { x: 0, y: 0 };
     // If it moves only a little, the data will not be saved because it stack much more histories.
