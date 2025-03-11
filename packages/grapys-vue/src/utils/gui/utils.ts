@@ -183,14 +183,14 @@ export const edgeEnd2agentProfile = (
       if (sorceOrTarget === "source") {
         // only for nested not map agent
         if (profile.isNestedGraph) {
-          return nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested?.outputs[edgeEndPointData.index];
+          return nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph?.metadata?.forNested?.outputs[edgeEndPointData.index];
         }
         return profile.outputs[edgeEndPointData.index];
       }
       // inputs
       if (profile.isNestedGraph) {
         // only for nested not map agent
-        return nestedGraphInputs(nestedGraphs[node.data.nestedGraphIndex].graph)[edgeEndPointData.index];
+        return nestedGraphInputs(nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph)[edgeEndPointData.index];
       }
       return profile.inputs[edgeEndPointData.index];
     })();
@@ -450,8 +450,8 @@ export const getLoopWhileSources = (nodes: GUINodeData[], nestedGraphs: NestedGr
       const agent = node.data.guiAgentId;
       if (agent) {
         const profile = agentProfiles[agent] || { outputs: [] };
-        const { outputs } = profile.isNestedGraph ? (nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested ?? profile ?? {}) : profile;
-        return (outputs ?? []).map((prop) => `:${node.nodeId}.${prop.name}`);
+        const { outputs } = profile.isNestedGraph ? (nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph?.metadata?.forNested ?? profile ?? {}) : profile;
+        return (outputs ?? []).map((prop: InputOutputData) => `:${node.nodeId}.${prop.name}`);
       }
       return [`:${node.nodeId}`];
     }),

@@ -1,4 +1,4 @@
-import type { GUINodeData, GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload, NestedGraphList } from "./type";
+import type { GUINodeData, GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload, NestedGraphList, InputOutputData } from "./type";
 import type { GraphData, NodeData, StaticNodeData, LoopData } from "graphai";
 import { edgeEnd2agentProfile } from "./utils";
 import { agentProfiles } from "./data";
@@ -106,8 +106,8 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
   const { nodes, edges, loop } = currentData;
   const edgeObject = edges2inputs(edges, nodes, nestedGraphs);
 
-  const nestedOutput = {};
-  const nestedOutputs = [];
+  const nestedOutput: Record<string, string> = {};
+  const nestedOutputs: InputOutputData[] = [];
 
   const newNodes = nodes.reduce((tmp: Record<string, NodeData>, node) => {
     const { guiAgentId } = node.data;
@@ -116,7 +116,7 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
 
     // static node don't have profile and guiAgentId
     if (profile) {
-      const output = profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested?.output : profile?.output;
+      const output = profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph?.metadata?.forNested?.output : profile?.output;
       const agent = profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent;
       tmp[node.nodeId] = {
         agent,
@@ -130,7 +130,7 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
         // retry ?
         ...(profile.isNestedGraph || profile.isMap
           ? {
-            graph: convertGraph2Graph(nestedGraphs[node.data.nestedGraphIndex].graph, []),
+              graph: convertGraph2Graph(nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph, []),
             }
           : {}),
       };
