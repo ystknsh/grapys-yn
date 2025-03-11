@@ -21,7 +21,7 @@
       </select>
     </div>
     <div class="mt-1 flex flex-col items-end">
-      <div v-for="(output, index) in agentProfile.outputs" :key="['out', output.name, index].join('-')" class="relative flex items-center" ref="outputsRef">
+      <div v-for="(output, index) in outputs" :key="['out', output.name, index].join('-')" class="relative flex items-center" ref="outputsRef">
         <span class="mr-2 text-xs whitespace-nowrap">{{ output.name }}</span>
         <div
           class="absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full"
@@ -291,6 +291,12 @@ export default defineComponent({
         return agentProfile.inputs;
       }
     });
+    const outputs = computed(() => {
+      if (agentProfile.isNestedGraph) {
+        return nestedGraph.value.graph?.metadata?.forNested?.outputs ?? agentProfile.outputs;
+      }
+      return agentProfile.outputs;
+    });
 
     return {
       focusEvent,
@@ -307,6 +313,7 @@ export default defineComponent({
       inputsRef,
       inputs,
       outputsRef,
+      outputs,
 
       expectNearNode,
       isExpectNearButton,

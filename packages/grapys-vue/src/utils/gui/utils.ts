@@ -181,11 +181,13 @@ export const edgeEnd2agentProfile = (
     const IOData = (() => {
       // output
       if (sorceOrTarget === "source") {
+        if (profile.isNestedGraph) {
+          return nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested.outputs[edgeEndPointData.index];
+        }
         return profile.outputs[edgeEndPointData.index];
       }
       // inputs
       if (profile.isNestedGraph) {
-        // not map
         return nestedGraphInputs(nestedGraphs[node.data.nestedGraphIndex].graph)[edgeEndPointData.index];
       }
       return profile.inputs[edgeEndPointData.index];
@@ -446,6 +448,7 @@ export const getLoopWhileSources = (nodes: GUINodeData[]) => {
       const agent = node.data.guiAgentId;
       if (agent) {
         const profile = agentProfiles[agent] || { outputs: [] };
+        // TODO for nested.
         return profile.outputs.map((prop) => `:${node.nodeId}.${prop.name}`);
       }
       return [`:${node.nodeId}`];

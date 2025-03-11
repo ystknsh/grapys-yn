@@ -30,6 +30,7 @@ export const edges2inputs = (edges: GUIEdgeData[], nodes: GUINodeData[], nestedG
 
       const sourceData = (() => {
         const sourceAgentProfile = edgeEnd2agentProfile(sourceEdge, nodeRecords, "source", nestedGraphs);
+
         if (sourceAgentProfile) {
           const props = sourceAgentProfile.IOData?.name;
           return `:${sourceEdge.nodeId}.${props}`;
@@ -111,16 +112,17 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
     const { guiAgentId } = node.data;
     const profile = agentProfiles[guiAgentId ?? ""];
     const inputs = profile?.inputSchema ? resultsOf(profile.inputSchema as NodeEdgeMap, edgeObject[node.nodeId]) : edgeObject[node.nodeId];
-    // static node don't have profile and guiAgentId
 
+    // static node don't have profile and guiAgentId
     if (profile) {
+      const output = profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data.nestedGraphIndex].graph?.metadata?.forNested.output : profile?.output;
       const agent = profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent;
       tmp[node.nodeId] = {
         agent: profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent,
         params: node.data.params,
         inputs: inputs ?? {},
         isResult: node.data?.params?.isResult ?? false,
-        output: profile?.output,
+        output,
         // anyInput (boolean)
         // if/unless (edge)
         // defaultValue (object?)
@@ -148,7 +150,6 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
     return tmp;
   }, {});
 
-  console.log({ nestedOutput, nestedOutputs });
   // save inputs
   const newGraphData = {
     version: 0.5,
