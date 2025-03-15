@@ -1,4 +1,5 @@
-export const graphChat = {
+import { GraphData } from "graphai";
+export const graphChat: GraphData = {
   metadata: {
     data: {
       nodes: [
