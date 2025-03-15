@@ -1,6 +1,4 @@
-import {
-  GraphDataMetaData,
-} from "../utils/gui/type";
+import { GraphDataMetaData } from "../utils/gui/type";
 import { GraphData } from "graphai";
 
 export const graphData: GraphData & GraphDataMetaData = {

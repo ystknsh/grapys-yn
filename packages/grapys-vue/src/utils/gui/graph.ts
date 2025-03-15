@@ -68,16 +68,10 @@ export const edges2inputs = (edges: GUIEdgeData[], nodes: GUINodeData[], nestedG
     const inputsRecord = Object.keys(records[nodeId]).reduce((nodeEdgeMap: NodeEdgeMap, propId) => {
       const { targetIndex } = records[nodeId][propId][0];
       const targetProfile = edgeEnd2agentProfile({ nodeId, index: targetIndex }, nodeRecords, "target", nestedGraphs);
-      if (!targetProfile) {
-        nodeEdgeMap[propId] = records[nodeId][propId][0].sourceData;
-      } else if (targetProfile.IOData.type === "text") {
-        nodeEdgeMap[propId] = records[nodeId][propId][0].sourceData;
-      } else if (targetProfile.IOData.type === "array") {
+      if (targetProfile && targetProfile.IOData.type === "wait") {
         nodeEdgeMap[propId] = records[nodeId][propId].map((data) => data.sourceData);
-      } else if (records[nodeId][propId].length === 1) {
-        nodeEdgeMap[propId] = records[nodeId][propId][0].sourceData;
       } else {
-        nodeEdgeMap[propId] = records[nodeId][propId].map((data) => data.sourceData);
+        nodeEdgeMap[propId] = records[nodeId][propId][0].sourceData;
       }
       return nodeEdgeMap;
     }, {});
@@ -116,7 +110,8 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
 
     // static node don't have profile and guiAgentId
     if (profile) {
-      const output = profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph?.metadata?.forNested?.output : profile?.output;
+      const output =
+        profile.isNestedGraph || profile.isMap ? nestedGraphs[node.data?.nestedGraphIndex ?? 0].graph?.metadata?.forNested?.output : profile?.output;
       const agent = profile.agents ? profile.agents[node.data.agentIndex ?? 0] : profile.agent;
       tmp[node.nodeId] = {
         agent,

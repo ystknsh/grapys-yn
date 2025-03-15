@@ -162,7 +162,6 @@ export type GUIMessage = {
   nodeId: string;
 };
 
-
 export type GraphDataMetaData = {
   metadata?: {
     data?: HistoryPayload;
@@ -170,7 +169,7 @@ export type GraphDataMetaData = {
       output: Record<string, unknown>; // ComputedNode output
       outputs: InputOutputData[];
     };
-  }
+  };
 };
 
 export type NestedGraphList = { name: string; graph: GraphData & GraphDataMetaData; id: string }[];

@@ -302,7 +302,7 @@ export const serviceAgentProfiles: Record<string, AgentProfile> = {
     agent: "sleeperAgent",
     inputs: [
       { name: "data", type: "data" },
-      { name: "wait", type: "array" },
+      { name: "wait", type: "wait" },
     ],
     outputs: [{ name: "data", type: "data" }],
     params: [{ name: "duration", type: "int" }],
@@ -339,13 +339,13 @@ export const compareAgentProfiles: Record<string, AgentProfile> = {
 export const userInputAgentProfiles: Record<string, AgentProfile> = {
   userInputAgent: {
     agent: "eventAgent",
-    inputs: [{ name: "wait", type: "array" }],
+    inputs: [{ name: "wait", type: "wait" }],
     outputs: [{ name: "text" }, { name: "message" }],
     params: [{ name: "isResult", type: "boolean" }],
   },
   eventAgent: {
     agent: "eventAgent",
-    inputs: [{ name: "wait", type: "array" }],
+    inputs: [{ name: "wait", type: "wait" }],
     outputs: [{ name: "text" }, { name: "message" }],
     params: [{ name: "isResult", type: "boolean" }],
   },
