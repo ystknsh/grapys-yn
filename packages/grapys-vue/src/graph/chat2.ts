@@ -7,8 +7,8 @@ export const graphChat: GraphData = {
           type: "static",
           nodeId: "messages",
           position: {
-            x: 193,
-            y: 83,
+            x: 27,
+            y: 161,
             width: 143.99,
             height: 264.28,
             inputCenters: [55.95],
@@ -23,8 +23,8 @@ export const graphChat: GraphData = {
           type: "computed",
           nodeId: "userInput",
           position: {
-            x: 185,
-            y: 376,
+            x: 220,
+            y: 15,
             width: 143.99,
             height: 183.88,
             inputCenters: [91.93],
@@ -42,8 +42,8 @@ export const graphChat: GraphData = {
           type: "computed",
           nodeId: "llm",
           position: {
-            x: 397,
-            y: 89,
+            x: 222,
+            y: 242,
             width: 143.99,
             height: 616.55,
             inputCenters: [139.9, 155.89, 171.88, 187.86],
@@ -58,8 +58,51 @@ export const graphChat: GraphData = {
             guiAgentId: "openAIAgent",
           },
         },
+        {
+          type: "computed",
+          nodeId: "reducer",
+          position: {
+            x: 630,
+            y: 244,
+            width: 143.99,
+            height: 151.88,
+            inputCenters: [75.94, 91.93, 107.92],
+            outputCenters: [55.95],
+          },
+          data: {
+            guiAgentId: "pushAgent",
+          },
+        },
+        {
+          data: {
+            agent: "copyAgent",
+            guiAgentId: "itemToArrayAgent",
+            params: {},
+          },
+          nodeId: "toArray",
+          type: "computed",
+          position: {
+            x: 428.20882624422705,
+            y: 374.6261401440973,
+            width: 143.99,
+            height: 167.87,
+            inputCenters: [75.94, 91.93, 107.92, 123.91],
+            outputCenters: [55.95],
+          },
+        },
       ],
       edges: [
+        {
+          source: {
+            nodeId: "reducer",
+            index: 0,
+          },
+          target: {
+            nodeId: "messages",
+            index: 0,
+          },
+          type: "edge",
+        },
         {
           source: {
             nodeId: "messages",
@@ -83,14 +126,49 @@ export const graphChat: GraphData = {
           type: "edge",
         },
         {
+          source: {
+            nodeId: "messages",
+            index: 0,
+          },
+          target: {
+            nodeId: "reducer",
+            index: 0,
+          },
+          type: "edge",
+        },
+        {
           type: "edge",
           source: {
-            nodeId: "llm",
+            nodeId: "userInput",
             index: 1,
           },
           target: {
-            nodeId: "messages",
+            nodeId: "toArray",
             index: 0,
+            direction: "outbound",
+          },
+        },
+        {
+          type: "edge",
+          source: {
+            nodeId: "llm",
+            index: 0,
+          },
+          target: {
+            nodeId: "toArray",
+            index: 1,
+            direction: "outbound",
+          },
+        },
+        {
+          type: "edge",
+          source: {
+            nodeId: "toArray",
+            index: 0,
+          },
+          target: {
+            nodeId: "reducer",
+            index: 2,
             direction: "outbound",
           },
         },
