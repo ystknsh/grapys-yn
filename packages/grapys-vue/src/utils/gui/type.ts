@@ -166,7 +166,10 @@ export type GUIMessage = {
 export type GraphDataMetaData = {
   metadata?: {
     data?: HistoryPayload;
-    forNested?: unknown;
+    forNested?: {
+      output: Record<string, unknown>; // ComputedNode output
+      outputs: InputOutputData[];
+    };
   }
 };
 
