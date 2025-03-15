@@ -1,4 +1,4 @@
-import type { GUINodeData, GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload, NestedGraphList, InputOutputData } from "./type";
+import type { GUINodeData, GUIEdgeData, GUILoopData, GUINodeDataRecord, HistoryPayload, NestedGraphList, InputOutputData, GraphDataMetaData } from "./type";
 import type { GraphData, NodeData, StaticNodeData, LoopData } from "graphai";
 import { edgeEnd2agentProfile } from "./utils";
 import { agentProfiles } from "./data";
@@ -168,7 +168,7 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
 };
 
 // convert template graph (graph or metadata) to graph
-export const convertGraph2Graph = (graphData: GraphData, nestedGraphs: NestedGraphList) => {
+export const convertGraph2Graph = (graphData: GraphData & GraphDataMetaData, nestedGraphs: NestedGraphList) => {
   const graph =
     graphData?.metadata?.data?.nodes && graphData?.metadata?.data?.edges
       ? store2graphData(graphData?.metadata.data as HistoryPayload, nestedGraphs)

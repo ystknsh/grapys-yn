@@ -16,6 +16,7 @@ import {
   GUILoopData,
   ParamData,
   NestedGraphList,
+  GraphDataMetaData,
 } from "./type";
 import { inputs2dataSources, GraphData, isComputedNodeData, isStaticNodeData, DefaultParamsType, LoopData } from "graphai";
 import { agentProfiles } from "./data";
@@ -48,7 +49,7 @@ const loop2loop = (graphLoop: LoopData): GUILoopData => {
   };
 };
 
-export const graphToGUIData = (graphData: GraphData) => {
+export const graphToGUIData = (graphData: GraphData & GraphDataMetaData) => {
   if (graphData?.metadata?.data?.nodes && graphData?.metadata?.data?.edges) {
     const { nodes, edges, loop } = graphData?.metadata?.data ?? {};
     return {
@@ -81,7 +82,7 @@ export const graphToGUIData = (graphData: GraphData) => {
   const rawNode: GUINodeData[] = Object.keys(graphData.nodes).map((nodeId) => {
     const node = graphData.nodes[nodeId];
     const isComputed = isComputedNodeData(node);
-    const inputs = isComputed ? (graphData?.metadata?.inputs ?? node.inputs ?? {}) : node.update ? { update: node.update } : {};
+    const inputs = isComputed ? (node.inputs ?? {}) : node.update ? { update: node.update } : {};
     Object.keys(inputs).forEach((inputProp) => {
       // node, props
       // inputs(to), oututs(from)
@@ -467,7 +468,7 @@ export const getDefaultParams = (params: ParamData[]) => {
   }, {});
 };
 
-export const handleDownload = (graphData: GraphData) => {
+export const handleDownload = (graphData: GraphData & GraphDataMetaData) => {
   const dataStr = JSON.stringify(graphData, null, 2);
   const blob = new Blob([dataStr], {
     type: `application/json`,
@@ -478,7 +479,7 @@ export const handleDownload = (graphData: GraphData) => {
   link.click();
 };
 
-export const nestedGraphInputs = (graphData: GraphData) => {
+export const nestedGraphInputs = (graphData: GraphData & GraphDataMetaData) => {
   const nodes = graphData?.metadata?.data ? store2graphData(graphData?.metadata?.data, []).nodes : graphData.nodes;
   const staticInputs = Object.keys(nodes)
     .filter((nodeId) => {

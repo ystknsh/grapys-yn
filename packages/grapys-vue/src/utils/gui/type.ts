@@ -162,4 +162,12 @@ export type GUIMessage = {
   nodeId: string;
 };
 
-export type NestedGraphList = { name: string; graph: GraphData; id: string }[];
+
+export type GraphDataMetaData = {
+  metadata?: {
+    data?: HistoryPayload;
+    forNested?: unknown;
+  }
+};
+
+export type NestedGraphList = { name: string; graph: GraphData & GraphDataMetaData; id: string }[];
