@@ -227,8 +227,6 @@ export default defineComponent({
 
     const transform = computed(() => {
       return getTransformStyle(props.nodeData, isDragging.value);
-
-      // return `translate(${props.nodeData.position.x}px, ${props.nodeData.position.y}px)`;
     });
     const expectNearNode = computed(() => {
       return props.nodeData.nodeId === props.nearestData?.nodeId;

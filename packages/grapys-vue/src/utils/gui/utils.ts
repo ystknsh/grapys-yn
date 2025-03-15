@@ -311,9 +311,12 @@ export const edgeEndEventData = (newEdgeData: NewEdgeData, nearestData: GUINeare
 
 export const pickNearestNode = (nodes: GUINodeData[], targetNode: string, mouseCurrentPosition: Position) => {
   return nodes.reduce((closest: null | ClosestNodeData, node) => {
+    /*
     if (targetNode === node.nodeId) {
       return closest;
     }
+    */
+    
     const mouseX = mouseCurrentPosition.x;
     const mouseY = mouseCurrentPosition.y;
 
@@ -370,6 +373,10 @@ export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeD
   if (!expectEdge) {
     return false;
   }
+  if (expectEdge.target.nodeId === expectEdge.source.nodeId) {
+    return false;
+  }
+
   if (edges.find((edge) => sameEdge(edge, expectEdge))) {
     return false;
   }
