@@ -309,7 +309,7 @@ export const edgeEndEventData = (newEdgeData: NewEdgeData, nearestData: GUINeare
   return null;
 };
 
-export const pickNearestNode = (nodes: GUINodeData[], targetNode: string, mouseCurrentPosition: Position) => {
+export const pickNearestNode = (nodes: GUINodeData[], __targetNode: string, mouseCurrentPosition: Position) => {
   return nodes.reduce((closest: null | ClosestNodeData, node) => {
     /*
     if (targetNode === node.nodeId) {
