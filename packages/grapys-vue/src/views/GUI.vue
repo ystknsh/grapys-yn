@@ -207,6 +207,7 @@ export default defineComponent({
             :node-index="index"
             :node-data="node"
             :nearest-data="nearestData"
+            :is-connectable="edgeConnectable"
             @update-position="(pos) => updateNodePosition(index, pos)"
             @update-static-node-value="(value) => updateStaticNodeValue(index, value, true)"
             @update-nested-graph="(value) => updateNestedGraph(index, value)"

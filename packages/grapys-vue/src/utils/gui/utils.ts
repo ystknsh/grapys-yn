@@ -381,7 +381,7 @@ export const isEdgeConnectale = (expectEdge: GUIEdgeData | null, edges: GUIEdgeD
     // maybe static node
     return true;
   }
-  if (profile.IOData.type === "text") {
+  if (profile.IOData.type !== "wait") {
     return existanceEdges.length === 0;
   }
   return true;

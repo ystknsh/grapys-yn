@@ -19,18 +19,18 @@ export const nodeHeaderClass = (expectNearNode: boolean, nodeData: GUINodeData) 
   return expectNearNode ? "bg-red-300" : "bg-red-500";
 };
 
-export const nodeOutputClass = (expectNearNode: boolean, nodeData: GUINodeData) => {
+export const nodeOutputClass = (expectNearNode: boolean, nodeData: GUINodeData, isConnectable: boolean = true) => {
   if (nodeData.type === "computed") {
-    return expectNearNode ? "bg-green-200" : "bg-green-500";
+    return expectNearNode ? (isConnectable ? "bg-green-200" : "bg-red-600") : "bg-green-500";
   }
-  return expectNearNode ? "bg-yellow-200" : "bg-yellow-500";
+  return expectNearNode ? (isConnectable ? "bg-yellow-200" : "bg-red-600") : "bg-yellow-500";
 };
 
-export const nodeInputClass = (expectNearNode: boolean, nodeData: GUINodeData) => {
+export const nodeInputClass = (expectNearNode: boolean, nodeData: GUINodeData, isConnectable: boolean = true) => {
   if (nodeData.type === "computed") {
-    return expectNearNode ? "bg-blue-200" : "bg-blue-500";
+    return expectNearNode ? (isConnectable ? "bg-blue-200" : "bg-red-600") : "bg-blue-500";
   }
-  return expectNearNode ? "bg-violet-200" : "bg-violet-500";
+  return expectNearNode ? (isConnectable ? "bg-violet-200" : "bg-red-600") : "bg-violet-500";
 };
 
 //

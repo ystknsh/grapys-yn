@@ -25,7 +25,7 @@
         <span class="mr-2 text-xs whitespace-nowrap">{{ output.name }}</span>
         <div
           class="absolute right-[-10px] h-4 w-4 min-w-[12px] rounded-full"
-          :class="nodeOutputClass(isExpectNearButton('inbound', index), nodeData)"
+          :class="nodeOutputClass(isExpectNearButton('inbound', index), nodeData, isConnectable)"
           @mousedown="(e) => onStartEdge(e, 'outbound', index)"
           @touchstart="(e) => onStartEdge(e, 'outbound', index)"
         ></div>
@@ -41,7 +41,7 @@
       >
         <div
           class="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full"
-          :class="nodeInputClass(isExpectNearButton('outbound', index), nodeData)"
+          :class="nodeInputClass(isExpectNearButton('outbound', index), nodeData, isConnectable)"
           @mousedown="(e) => onStartEdge(e, 'inbound', index)"
           @touchstart="(e) => onStartEdge(e, 'inbound', index)"
         ></div>
@@ -96,6 +96,11 @@ export default defineComponent({
     nodeIndex: {
       type: Number,
       required: true,
+    },
+    isConnectable: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   emits: ["updatePosition", "savePosition", "newEdgeStart", "newEdge", "newEdgeEnd", "updateStaticNodeValue", "updateNestedGraph", "openNodeMenu"],
