@@ -10,7 +10,7 @@ import ContextNodeMenu from "./ContextNodeMenu";
 
 import GraphRunner from "./GraphRunner";
 import TemplateGraph from "./TemplateGraph";
-import HideableJsonView from "./HideableJsonViewer";
+import HideableJsonViewer from "./HideableJsonViewer";
 
 // import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
@@ -184,8 +184,12 @@ const GUI: FC = () => {
             ))}
             <ContextNodeMenu ref={contextNodeMenuRef} />
             <ContextEdgeMenu ref={contextEdgeMenuRef} />
-            <GraphRunner graphData={newGraphData} />
-            <HideableJsonView jsonData={newGraphData} />
+            <div className="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 items-start h-full">
+              <GraphRunner graphData={newGraphData} />
+            </div>
+            <div className="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 items-start h-full">
+              <HideableJsonViewer jsonData={newGraphData} width="400px" />
+            </div>
           </div>
         </main>
       </div>
