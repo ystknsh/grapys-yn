@@ -184,11 +184,9 @@ const GUI: FC = () => {
             ))}
             <ContextNodeMenu ref={contextNodeMenuRef} />
             <ContextEdgeMenu ref={contextEdgeMenuRef} />
-            <div className="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 items-start h-full">
-              <GraphRunner graphData={newGraphData} />
-            </div>
-            <div className="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 items-start h-full">
+            <div className="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 flex flex-row justify-top items-start space-x-4">
               <HideableJsonViewer jsonData={newGraphData} width="400px" />
+              <GraphRunner graphData={newGraphData} />
             </div>
           </div>
         </main>

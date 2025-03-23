@@ -144,9 +144,9 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
   };
 
   return (
-    <div className="pointer-events-none">
+    <div className="pointer-events-none w-[400px]">
       <div 
-        className={`w-[400px] flex flex-col transition-all duration-300 ease-in-out pointer-events-auto`}
+        className={`flex flex-col transition-all duration-300 ease-in-out pointer-events-auto`}
       >
         {/* Chat header */}
         <div 

@@ -13,8 +13,8 @@ const HideableJsonViewer: React.FC<HideableJsonViewerProps> = ({
 
   return (
     <div 
-      className="absolute top-0 right-0 h-full z-30 flex flex-col pt-4"
-      style={{ width, marginRight: '420px' }}
+      className={`flex flex-col`}
+      style={{ width }}
     >
       {/* {header} */}
       <div 
@@ -38,6 +38,7 @@ const HideableJsonViewer: React.FC<HideableJsonViewerProps> = ({
         className={`bg-white border border-gray-300 shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-[calc(100vh-90px)]" : "max-h-0"
         }`}
+        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
       >
         <div className="overflow-auto p-6" style={{ maxHeight: 'calc(100vh - 40px)' }}>
           <pre className="text-xs font-mono whitespace-pre-wrap break-words">
