@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 
 import Node from "./Node";
 import Edge from "./Edge";
@@ -10,6 +10,7 @@ import ContextNodeMenu from "./ContextNodeMenu";
 
 import GraphRunner from "./GraphRunner";
 import TemplateGraph from "./TemplateGraph";
+import HideableJsonViewer from "./HideableJsonViewer";
 
 // import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
@@ -43,6 +44,9 @@ const GUI: FC = () => {
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
   const onSavePosition = useLocalStore((state) => state.saveNodePositionData);
+
+  // JSON表示の状態管理
+  const [jsonPanelOpen, setJsonPanelOpen] = useState(false);
 
   const updateGraph = (graph: GraphData) => {
     const { rawEdge, rawNode, loop } = graphToGUIData(graph);
@@ -149,7 +153,7 @@ const GUI: FC = () => {
           <hr />
           <TemplateGraph onSetGraph={setGraph} />
         </aside>
-        <main className="flex-1">
+        <main className="flex-1 relative">
           <div className="relative h-[100vh] overflow-hidden rounded-md border-4 border-gray-200" onClick={closeMenu}>
             <svg x="0" y="0" className="absolute h-[100%] w-full" ref={svgRef}>
               {edgeDataList.map((edge, index) => (
@@ -180,13 +184,13 @@ const GUI: FC = () => {
             ))}
             <ContextNodeMenu ref={contextNodeMenuRef} />
             <ContextEdgeMenu ref={contextEdgeMenuRef} />
+            <div className="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 flex flex-row justify-top items-start space-x-4">
+              <HideableJsonViewer jsonData={newGraphData} width="400px" />
+              <GraphRunner graphData={newGraphData} />
+            </div>
           </div>
         </main>
       </div>
-      <div>
-        <GraphRunner graphData={newGraphData} />
-      </div>
-      {JSON.stringify(newGraphData, null, 2)}
       <div className="bg-red-200 bg-red-300 bg-red-400 bg-red-500"></div>
       <div className="bg-green-200 bg-green-300 bg-green-400 bg-green-500"></div>
       <div className="bg-blue-200 bg-blue-300 bg-blue-400 bg-blue-500"></div>
