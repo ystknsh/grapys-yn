@@ -22,7 +22,7 @@ const HideableJsonViewer: React.FC<HideableJsonViewerProps> = ({
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="font-bold flex items-center">
-          <span>JSON データ</span>
+          <span>JSON Data</span>
         </div>
         <svg 
           xmlns="http://www.w3.org/2000/svg" 

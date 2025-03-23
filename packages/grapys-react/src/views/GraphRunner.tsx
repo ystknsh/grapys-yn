@@ -123,7 +123,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
               }`}
             >
               <div className="text-sm font-semibold mb-1">
-                {m.role === "user" ? "あなた" : `AI (${m.nodeId})`}
+                {m.role === "user" ? "You" : `AI (${m.nodeId})`}
               </div>
               <div className="whitespace-pre-wrap break-words">{m.content}</div>
             </div>
@@ -154,7 +154,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
           onClick={() => setIsChatOpen(!isChatOpen)}
         >
           <div className="font-bold flex items-center">
-            <span>チャット</span>
+            <span>Chat</span>
             {messages.length > 0 && (
               <span className="ml-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
                 {messages.length}
@@ -172,7 +172,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
               }`}
               disabled={isRunning}
             >
-              {ready ? "開始" : "読み込み中..."}
+              {ready ? "Run" : "Loading..."}
             </button>
             <button
               onClick={(e) => {
@@ -184,7 +184,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
               }`}
               disabled={!isRunning}
             >
-              停止
+              Stop
             </button>
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -197,7 +197,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
           </div>
         </div>
 
-        {/* チャットコンテンツ */}
+        {/* Chat content */}
         <div 
           className={`bg-white border border-gray-300 shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${
             isChatOpen ? "max-h-[calc(100vh-100px)]" : "max-h-0"
@@ -212,15 +212,15 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
             >
               {!ready && (
                 <div className="flex flex-col items-center justify-center h-full text-gray-500">
-                  <div className="animate-pulse mb-2">モデルを読み込み中...</div>
+                  <div className="animate-pulse mb-2">Loading...</div>
                   <div className="text-sm">{loading}</div>
                 </div>
               )}
               {ready && messages.length === 0 && !isRunning && (
                 <div className="flex flex-col items-center justify-center h-full text-gray-500">
                   <div className="text-center">
-                    <div className="mb-2 text-lg">チャットの準備ができました</div>
-                    <div className="text-sm">「開始」ボタンをクリックして会話を始めてください</div>
+                    <div className="mb-2 text-lg">Chat is ready</div>
+                    <div className="text-sm">Click the "Run" button to start the conversation</div>
                   </div>
                 </div>
               )}
@@ -234,7 +234,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder={events.length > 0 ? "メッセージを入力..." : "チャットを開始してください"}
+                  placeholder={events.length > 0 ? "Enter your message..." : "Chat is ready"}
                   className="flex-1 rounded-l-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   disabled={events.length === 0}
                 />
