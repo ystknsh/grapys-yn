@@ -16,7 +16,6 @@
           </div>
           <div v-if="isSignedIn === false">
             <Signin />
-            Login
           </div>
         </div>
       </div>
