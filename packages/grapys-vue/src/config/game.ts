@@ -5,5 +5,5 @@ export const firebaseConfig = {
   storageBucket: "game-graphai.firebasestorage.app",
   messagingSenderId: "427990278188",
   appId: "1:427990278188:web:0269a6cd684f5997d13189",
-  measurementId: "G-DRQX8W22KB"
+  measurementId: "G-DRQX8W22KB",
 };
