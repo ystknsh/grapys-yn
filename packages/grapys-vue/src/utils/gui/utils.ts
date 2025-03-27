@@ -316,7 +316,7 @@ export const pickNearestNode = (nodes: GUINodeData[], __targetNode: string, mous
       return closest;
     }
     */
-    
+
     const mouseX = mouseCurrentPosition.x;
     const mouseY = mouseCurrentPosition.y;
 
