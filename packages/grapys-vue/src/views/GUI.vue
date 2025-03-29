@@ -10,7 +10,7 @@ import ContextNodeMenu from "./ContextNodeMenu.vue";
 
 import GraphRunner from "./GraphRunner.vue";
 import TemplateGraph from "./TemplateGraph.vue";
-import HideableJsonViewer from "./HideableJsonViewer.vue";
+import JsonViewer from "./JsonViewer.vue";
 
 import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
@@ -31,7 +31,7 @@ export default defineComponent({
     ContextNodeMenu,
     GraphRunner,
     TemplateGraph,
-    HideableJsonViewer,
+    JsonViewer,
   },
   setup() {
     const store = useStore();
@@ -224,19 +224,9 @@ export default defineComponent({
         </div>
       </main>
     </div>
-    <!-- <div>
-      <GraphRunner />
-    </div> -->
-    <div class="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 flex flex-row justify-top items-start space-x-4">
-      <HideableJsonViewer :json-data="store.graphData" width="400px" />
+    <div class="justify-top absolute top-0 right-0 z-10 flex flex-row items-start space-x-4 pt-4 pr-4 pb-4">
+      <JsonViewer :json-data="store.graphData" />
       <GraphRunner :graph-data="store.graphData" />
     </div>
-    <!-- <div>
-      <div class="text-left">
-        <pre>
-        {{ JSON.stringify(store.graphData, null, 2) }}
-        </pre>
-      </div>
-    </div> -->
   </div>
 </template>
