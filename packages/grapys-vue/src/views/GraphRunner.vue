@@ -135,25 +135,25 @@ export default defineComponent({
     const isChatOpen = ref(false);
     const chatContainerRef = ref<HTMLElement | null>(null);
     const store = useStore();
-    
+
     const { eventAgent, userInput, events, submitText, clearEvents } = textInputEvent();
     const { messages, chatMessagePlugin } = useChatPlugin();
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
     const { graphAIResultPlugin } = useGraphAIResult();
-    
+
     const agentFilters = [
       {
         name: "streamAgentFilter",
         agent: streamAgentFilter,
       },
     ];
-    
+
     let graphai: GraphAI | null = null;
     const run = async () => {
       isRunning.value = true;
       // チャットを開始したら自動的にUIを開く
       isChatOpen.value = true;
-      
+
       graphai = new GraphAI(
         props.graphData,
         {
@@ -177,7 +177,7 @@ export default defineComponent({
       graphai.onLogCallback = ({ nodeId, state, inputs, result }) => {
         console.log({ nodeId, state, inputs, result });
       };
-      
+
       try {
         await graphai.run();
       } catch (error) {
@@ -186,7 +186,7 @@ export default defineComponent({
         isRunning.value = false;
       }
     };
-    
+
     const abort = () => {
       try {
         if (isRunning.value && graphai) {
@@ -200,16 +200,16 @@ export default defineComponent({
         isRunning.value = false;
       }
     };
-    
+
     const streamNodes = computed(() => {
       return store.streamNodes;
     });
-    
+
     const loading = ref("");
     const ready = ref(false);
 
     loadEngine();
-    
+
     modelLoad((report: CallbackReport) => {
       if (report.progress === 1) {
         ready.value = true;
@@ -217,7 +217,7 @@ export default defineComponent({
       loading.value = report.text;
       console.log(report.text);
     });
-    
+
     // メッセージが変更されたら自動的にスクロール
     watch(
       [messages, streamData],
