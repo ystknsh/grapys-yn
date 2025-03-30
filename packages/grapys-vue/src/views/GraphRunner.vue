@@ -12,8 +12,8 @@
         <button
           @click.stop="run"
           class="rounded-md px-3 py-1 font-medium text-white"
-          :class="isRunning ? 'cursor-not-allowed bg-gray-400' : 'bg-green-500 hover:bg-green-600'"
-          :disabled="isRunning"
+          :class="isRunning || !ready ? 'cursor-not-allowed bg-gray-400' : 'bg-green-500 hover:bg-green-600'"
+          :disabled="isRunning || !ready"
         >
           {{ ready ? "Run" : "Loading..." }}
         </button>
@@ -28,7 +28,7 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5 transition-transform duration-300"
-          :class="{ 'rotate-180': isChatOpen }"
+          :class="isChatOpen ? 'rotate-180' : ''"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -44,8 +44,7 @@
     <!-- content -->
     <div
       class="overflow-hidden border border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
-      :class="{ 'max-h-[calc(100vh-100px)]': isChatOpen, 'max-h-0': !isChatOpen }"
-      :style="{ 'pointer-events': isChatOpen ? 'auto' : 'none' }"
+      :class="isChatOpen ? 'max-h-[calc(100vh-100px)]' : 'max-h-0'"
     >
       <div class="flex h-[calc(100vh-100px)] flex-col">
         <!-- message area -->
@@ -99,8 +98,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, watch } from "vue";
-import { GraphAI } from "graphai";
+import { defineComponent, ref, computed, watch, PropType } from "vue";
+import { GraphAI, GraphData } from "graphai";
 
 import { useStore } from "../store";
 
@@ -127,7 +126,7 @@ export default defineComponent({
   },
   props: {
     graphData: {
-      type: Object,
+      type: Object as PropType<GraphData>,
       required: true,
     },
   },
@@ -136,29 +135,25 @@ export default defineComponent({
     const isChatOpen = ref(false);
     const chatContainerRef = ref<HTMLElement | null>(null);
     const store = useStore();
-
-    onMounted(() => {
-      loadEngine();
-    });
-
+    
     const { eventAgent, userInput, events, submitText, clearEvents } = textInputEvent();
     const { messages, chatMessagePlugin } = useChatPlugin();
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
     const { graphAIResultPlugin } = useGraphAIResult();
-
+    
     const agentFilters = [
       {
         name: "streamAgentFilter",
         agent: streamAgentFilter,
       },
     ];
-
+    
     let graphai: GraphAI | null = null;
     const run = async () => {
       isRunning.value = true;
       // チャットを開始したら自動的にUIを開く
       isChatOpen.value = true;
-
+      
       graphai = new GraphAI(
         props.graphData,
         {
@@ -182,7 +177,7 @@ export default defineComponent({
       graphai.onLogCallback = ({ nodeId, state, inputs, result }) => {
         console.log({ nodeId, state, inputs, result });
       };
-
+      
       try {
         await graphai.run();
       } catch (error) {
@@ -191,7 +186,7 @@ export default defineComponent({
         isRunning.value = false;
       }
     };
-
+    
     const abort = () => {
       try {
         if (isRunning.value && graphai) {
@@ -205,14 +200,16 @@ export default defineComponent({
         isRunning.value = false;
       }
     };
-
+    
     const streamNodes = computed(() => {
       return store.streamNodes;
     });
-
+    
     const loading = ref("");
     const ready = ref(false);
 
+    loadEngine();
+    
     modelLoad((report: CallbackReport) => {
       if (report.progress === 1) {
         ready.value = true;
@@ -220,7 +217,7 @@ export default defineComponent({
       loading.value = report.text;
       console.log(report.text);
     });
-
+    
     // メッセージが変更されたら自動的にスクロール
     watch(
       [messages, streamData],
@@ -233,9 +230,9 @@ export default defineComponent({
     );
 
     // Enterキーでメッセージ送信
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "Enter" && events.length > 0) {
-        submitText(events[0]);
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Enter" && events.value.length > 0) {
+        submitText(events.value[0]);
       }
     };
 
