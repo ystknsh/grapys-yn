@@ -223,10 +223,10 @@ export default defineComponent({
           <ContextNodeMenu ref="contextNodeMenu" />
         </div>
       </main>
-    </div>
-    <div class="justify-top absolute top-0 right-0 z-10 flex flex-row items-start space-x-4 pt-4 pr-4 pb-4">
-      <JsonViewer :json-data="store.graphData" />
-      <GraphRunner :graph-data="store.graphData" />
+      <div class="absolute top-0 right-0 z-10 flex flex-row items-start space-x-4 pt-4 pr-4 pb-4 pointer-events-none">
+        <JsonViewer :json-data="store.graphData"/>
+        <GraphRunner :graph-data="store.graphData"/>
+      </div>
     </div>
   </div>
 </template>
