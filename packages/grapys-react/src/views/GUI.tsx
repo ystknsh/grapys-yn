@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef } from "react";
 
 import Node from "./Node";
 import Edge from "./Edge";
@@ -44,9 +44,6 @@ const GUI: FC = () => {
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
   const onSavePosition = useLocalStore((state) => state.saveNodePositionData);
-
-  // JSON表示の状態管理
-  const [jsonPanelOpen, setJsonPanelOpen] = useState(false);
 
   const updateGraph = (graph: GraphData) => {
     const { rawEdge, rawNode, loop } = graphToGUIData(graph);
