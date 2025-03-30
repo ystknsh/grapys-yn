@@ -43,8 +43,7 @@ export default defineComponent({
     <!-- content -->
     <div
       class="overflow-hidden overflow-y-scroll border border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
-      :class="{ 'max-h-[calc(100vh-90px)]': isOpen, 'max-h-0': !isOpen }"
-      :style="{ 'pointer-events': isOpen ? 'auto' : 'none' }"
+      :class="isOpen ? 'max-h-[calc(100vh-90px)]' : 'max-h-0'"
     >
       <pre class="p-6 font-mono text-xs break-words whitespace-pre-wrap">{{ JSON.stringify(jsonData, null, 2) }}</pre>
     </div>
