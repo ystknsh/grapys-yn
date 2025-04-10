@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef } from "react";
 
 import Node from "./Node";
 import Edge from "./Edge";
@@ -10,7 +10,7 @@ import ContextNodeMenu from "./ContextNodeMenu";
 
 import GraphRunner from "./GraphRunner";
 import TemplateGraph from "./TemplateGraph";
-import HideableJsonViewer from "./HideableJsonViewer";
+import JsonViewer from "./JsonViewer";
 
 // import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
@@ -44,9 +44,6 @@ const GUI: FC = () => {
   const initData = useLocalStore((state) => state.initData);
   const updateNodePosition = useLocalStore((state) => state.updateNodePosition);
   const onSavePosition = useLocalStore((state) => state.saveNodePositionData);
-
-  // JSON表示の状態管理
-  const [jsonPanelOpen, setJsonPanelOpen] = useState(false);
 
   const updateGraph = (graph: GraphData) => {
     const { rawEdge, rawNode, loop } = graphToGUIData(graph);
@@ -153,7 +150,7 @@ const GUI: FC = () => {
           <hr />
           <TemplateGraph onSetGraph={setGraph} />
         </aside>
-        <main className="flex-1 relative">
+        <main className="relative flex-1">
           <div className="relative h-[100vh] overflow-hidden rounded-md border-4 border-gray-200" onClick={closeMenu}>
             <svg x="0" y="0" className="absolute h-[100%] w-full" ref={svgRef}>
               {edgeDataList.map((edge, index) => (
@@ -184,8 +181,8 @@ const GUI: FC = () => {
             ))}
             <ContextNodeMenu ref={contextNodeMenuRef} />
             <ContextEdgeMenu ref={contextEdgeMenuRef} />
-            <div className="absolute top-0 right-0 z-10 pr-4 pt-4 pb-4 flex flex-row justify-top items-start space-x-4">
-              <HideableJsonViewer jsonData={newGraphData} width="400px" />
+            <div className="justify-top pointer-events-none absolute top-0 right-0 z-10 flex flex-row items-start space-x-4 pt-4 pr-4 pb-4">
+              <JsonViewer jsonData={newGraphData} />
               <GraphRunner graphData={newGraphData} />
             </div>
           </div>
