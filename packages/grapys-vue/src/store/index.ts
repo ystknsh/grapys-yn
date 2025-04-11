@@ -14,6 +14,7 @@ import { defineStore } from "pinia";
 import { graphs } from "../graph/nested";
 
 import { graphToGUIData } from "../utils/gui/utils";
+import type { GraphData } from "graphai";
 
 export const useStore = defineStore("store", () => {
   const histories = ref<HistoryData[]>([]);

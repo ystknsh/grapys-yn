@@ -44,6 +44,7 @@
 
 <script lang="ts">
 import { defineComponent, nextTick } from "vue";
+import type { GraphData } from "graphai";
 import { useStore } from "../store";
 
 import AddNode from "./AddNode.vue";

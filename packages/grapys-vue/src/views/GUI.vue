@@ -18,7 +18,6 @@ import { graphChat } from "../graph/chat_tinyswallow";
 
 import { useNewEdge } from "../composable/gui";
 import { guiEdgeData2edgeData } from "../utils/gui/utils";
-import { GraphData } from "graphai";
 import { useStore } from "../store";
 
 export default defineComponent({
