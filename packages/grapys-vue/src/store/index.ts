@@ -97,8 +97,8 @@ export const useStore = defineStore("store", () => {
   };
 
   const initFromGraphData = (graph: GraphData) => {
-    const { rawEdge, rawNode, loop } = graphToGUIData(graph);
-    initData(rawNode, rawEdge, loop);
+    const { rawEdge, rawNode, loop: loopData } = graphToGUIData(graph);
+    initData(rawNode, rawEdge, loopData);
   };
 
   // node
