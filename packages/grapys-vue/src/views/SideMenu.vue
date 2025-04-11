@@ -25,12 +25,7 @@
   </div>
   <hr />
 
-  <div>
-    <button @click="save" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Save Graph</button>
-  </div>
-  <div>
-    <button @click="load" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Load Graph</button>
-  </div>
+  <SideMenuSaveBrowser />
 
   <div>
     <button @click="() => handleDownload(store.graphData)" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
@@ -48,6 +43,7 @@ import type { GraphData } from "graphai";
 import { useStore } from "../store";
 
 import AddNode from "./AddNode.vue";
+import SideMenuSaveBrowser from "./SideMenuSaveBrowser.vue";
 import TemplateGraph from "./TemplateGraph.vue";
 
 import { handleDownload } from "../utils/gui/utils";
@@ -55,27 +51,11 @@ import { handleDownload } from "../utils/gui/utils";
 export default defineComponent({
   components: {
     AddNode,
+    SideMenuSaveBrowser,
     TemplateGraph,
   },
   setup() {
     const store = useStore();
-
-    const save = () => {
-      const dataStr = JSON.stringify(store.graphData);
-      window.localStorage.setItem("GRAPHAIGUI", dataStr);
-    };
-
-    const load = () => {
-      const data = window.localStorage.getItem("GRAPHAIGUI");
-      try {
-        if (data) {
-          const graphData = JSON.parse(data);
-          store.loadData(graphData.metadata.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
     const setGraph = async (graph: GraphData) => {
       store.reset();
@@ -85,8 +65,6 @@ export default defineComponent({
 
     return {
       store,
-      save,
-      load,
       handleDownload,
       setGraph,
     };
