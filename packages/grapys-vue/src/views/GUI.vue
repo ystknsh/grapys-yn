@@ -1,36 +1,34 @@
 <script lang="ts">
-import { defineComponent, computed, onMounted, ref, nextTick } from "vue";
+import { defineComponent, computed, onMounted, ref } from "vue";
 import Node from "./Node.vue";
 import Edge from "./Edge.vue";
 import Loop from "./Loop.vue";
 
-import AddNode from "./AddNode.vue";
 import ContextEdgeMenu from "./ContextEdgeMenu.vue";
 import ContextNodeMenu from "./ContextNodeMenu.vue";
 
 import GraphRunner from "./GraphRunner.vue";
-import TemplateGraph from "./TemplateGraph.vue";
 import JsonViewer from "./JsonViewer.vue";
+
+import SideMenu from "./SideMenu.vue";
 
 import { EdgeData, NodePosition, UpdateStaticValue } from "../utils/gui/type";
 
 import { graphChat } from "../graph/chat_tinyswallow";
 
 import { useNewEdge } from "../composable/gui";
-import { graphToGUIData, guiEdgeData2edgeData, handleDownload } from "../utils/gui/utils";
-import { GraphData } from "graphai";
+import { guiEdgeData2edgeData } from "../utils/gui/utils";
 import { useStore } from "../store";
 
 export default defineComponent({
   components: {
+    SideMenu,
     Node,
     Edge,
     Loop,
-    AddNode,
     ContextEdgeMenu,
     ContextNodeMenu,
     GraphRunner,
-    TemplateGraph,
     JsonViewer,
   },
   setup() {
@@ -38,17 +36,8 @@ export default defineComponent({
     const contextEdgeMenu = ref();
     const contextNodeMenu = ref();
 
-    const updateGraph = (graph: GraphData) => {
-      const { rawEdge, rawNode, loop } = graphToGUIData(graph);
-      store.initData(rawNode, rawEdge, loop);
-    };
-    updateGraph(graphChat);
+    store.initFromGraphData(graphChat);
 
-    const setGraph = async (graph: GraphData) => {
-      resetGraph();
-      await nextTick(); // to reset edge position. Due to duplicate edge keys, the position will be incorrect.
-      updateGraph(graph);
-    };
     onMounted(() => {
       saveNodePosition();
     });
@@ -85,27 +74,6 @@ export default defineComponent({
       contextNodeMenu.value.openMenu(event, rect, nodeIndex);
     };
 
-    const resetGraph = () => {
-      store.reset();
-    };
-
-    const save = () => {
-      const dataStr = JSON.stringify(store.graphData);
-      window.localStorage.setItem("GRAPHAIGUI", dataStr);
-    };
-
-    const load = () => {
-      const data = window.localStorage.getItem("GRAPHAIGUI");
-      try {
-        if (data) {
-          const graphData = JSON.parse(data);
-          store.loadData(graphData.metadata.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     return {
       updateNodePosition,
       saveNodePosition,
@@ -129,13 +97,6 @@ export default defineComponent({
       closeMenu,
 
       edgeConnectable,
-
-      resetGraph,
-      save,
-      load,
-
-      setGraph,
-      handleDownload,
     };
   },
 });
@@ -145,43 +106,7 @@ export default defineComponent({
   <div>
     <div class="flex h-screen">
       <aside class="w-48 p-4 text-center">
-        <h2 class="text-lg font-bold">Menu</h2>
-
-        <AddNode />
-        <hr />
-        <button
-          @click="store.undo"
-          class="m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white"
-          :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
-        >
-          Undo
-        </button>
-        <button
-          @click="store.redo"
-          class="m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white"
-          :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
-        >
-          Redo
-        </button>
-        <hr />
-        <div>
-          <button @click="resetGraph" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Clear Graph</button>
-        </div>
-        <hr />
-
-        <div>
-          <button @click="save" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Save Graph</button>
-        </div>
-        <div>
-          <button @click="load" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Load Graph</button>
-        </div>
-        <div>
-          <button @click="() => handleDownload(store.graphData)" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
-            Download
-          </button>
-        </div>
-        <hr />
-        <TemplateGraph @set-graph="setGraph" />
+        <SideMenu />
       </aside>
       <main class="flex-1">
         <div class="relative h-[100vh] overflow-hidden rounded-md border-4 border-gray-200" @click="closeMenu">
@@ -223,9 +148,9 @@ export default defineComponent({
           <ContextNodeMenu ref="contextNodeMenu" />
         </div>
       </main>
-      <div class="absolute top-0 right-0 z-10 flex flex-row items-start space-x-4 pt-4 pr-4 pb-4 pointer-events-none">
-        <JsonViewer :json-data="store.graphData"/>
-        <GraphRunner :graph-data="store.graphData"/>
+      <div class="pointer-events-none absolute top-0 right-0 z-10 flex flex-row items-start space-x-4 pt-4 pr-4 pb-4">
+        <JsonViewer :json-data="store.graphData" />
+        <GraphRunner :graph-data="store.graphData" />
       </div>
     </div>
   </div>
