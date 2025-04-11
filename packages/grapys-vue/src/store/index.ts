@@ -13,6 +13,8 @@ import { store2graphData } from "../utils/gui/graph";
 import { defineStore } from "pinia";
 import { graphs } from "../graph/nested";
 
+import { graphToGUIData } from "../utils/gui/utils";
+
 export const useStore = defineStore("store", () => {
   const histories = ref<HistoryData[]>([]);
   const currentData = ref<HistoryPayload>({
@@ -91,6 +93,11 @@ export const useStore = defineStore("store", () => {
     const data = { nodes: nodeData, edges: edgeData, loop: loopData };
     currentData.value = data;
     // this time, node position is not set. save after mounted.
+  };
+
+  const initFromGraphData = (graph: GraphData) => {
+    const { rawEdge, rawNode, loop } = graphToGUIData(graph);
+    initData(rawNode, rawEdge, loop);
   };
 
   // node
@@ -215,6 +222,7 @@ export const useStore = defineStore("store", () => {
 
     // methods
     initData,
+    initFromGraphData,
     pushNode,
     pushEdge,
     deleteEdge,
