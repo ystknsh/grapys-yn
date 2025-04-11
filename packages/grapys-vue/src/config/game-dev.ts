@@ -1,3 +1,5 @@
+export const enableFirebase = true;
+
 export const firebaseConfig = {
   apiKey: "AIzaSyBLexhfLknmQxmuxFJC1v5t1-CkbGgwH-4",
   authDomain: "game-graphai-dev.firebaseapp.com",

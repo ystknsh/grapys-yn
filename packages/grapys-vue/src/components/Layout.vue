@@ -8,14 +8,19 @@
           </div>
         </div>
         <div class="top-0 w-full sm:relative">
-          <div v-if="isSignedIn === null">
-            loading...
+          <div v-if="enableFirebase">
+            <div v-if="isSignedIn === null">
+              loading...
+            </div>
+            <div v-if="isSignedIn === true">
+              <router-view />
+            </div>
+            <div v-if="isSignedIn === false">
+              <Signin />
+            </div>
           </div>
-          <div v-if="isSignedIn === true">
+          <div v-else>
             <router-view />
-          </div>
-          <div v-if="isSignedIn === false">
-            <Signin />
           </div>
         </div>
       </div>
@@ -28,6 +33,7 @@ import { defineComponent, ref, onMounted } from "vue";
 import Signin from "./Signin.vue";
 import { auth } from "../utils/firebase/firebase";
 import { signOut } from "firebase/auth";
+import { enableFirebase } from "../config/project";
 
 export default defineComponent({
   name: "AppLayout",
