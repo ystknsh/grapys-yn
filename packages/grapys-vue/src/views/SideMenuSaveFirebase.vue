@@ -98,18 +98,22 @@ export default defineComponent({
     };
     const updateData = async () => {
       const data = graphDataSet.value[selectedGraph.value];
-      const dataPath = `${path}/${data?.graphId}`;
-      const dataStr = JSON.stringify(store.graphData);
+      if (window.confirm(`Realy update data to ${data.name} ??`)) {
+        const dataPath = `${path}/${data?.graphId}`;
+        const dataStr = JSON.stringify(store.graphData);
 
-      await updateDoc(doc(db, dataPath), {
-        jsonString: dataStr,
-        updatedAt: serverTimestamp(),
-      });
+        await updateDoc(doc(db, dataPath), {
+          jsonString: dataStr,
+          updatedAt: serverTimestamp(),
+        });
+      }
     };
     const deleteData = async () => {
       const data = graphDataSet.value[selectedGraph.value];
-      const dataPath = `${path}/${data?.graphId}`;
-      await deleteDoc(doc(db, dataPath));
+      if (window.confirm(`Realy delete ${data.name} ??`)) {
+        const dataPath = `${path}/${data?.graphId}`;
+        await deleteDoc(doc(db, dataPath));
+      }
     };
 
     onUnmounted(() => {
