@@ -33,13 +33,20 @@ import { useFirebaseStore } from "../store/firebase";
 import { serverTimestamp, doc, collection, setDoc, updateDoc, deleteDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../utils/firebase/firebase";
 
+type FirebaseGraphData = {
+  name: string;
+  jsonString: string;
+  uid: string;
+  graphId: string;
+};
+
 export default defineComponent({
   components: {},
   setup() {
     const store = useStore();
     const firebaseStore = useFirebaseStore();
 
-    const uid = firebaseStore.firebaseUser.uid;
+    const uid = firebaseStore?.firebaseUser?.uid;
     const path = `/users/${uid}/graphData`;
 
     const save = async () => {
@@ -63,13 +70,13 @@ export default defineComponent({
     };
 
     const selectedGraph = ref(0);
-    const graphDataSet = ref([]);
+    const graphDataSet = ref<FirebaseGraphData[]>([]);
     const graphDataDetacher = onSnapshot(collection(db, path), (dataSet) => {
       if (dataSet.empty) {
         graphDataSet.value = [];
       } else {
         graphDataSet.value = dataSet.docs.map((data) => {
-          return data.data();
+          return data.data() as FirebaseGraphData;
         });
         //
         if (graphDataSet.value.length >= selectedGraph.value) {
@@ -91,7 +98,7 @@ export default defineComponent({
     };
     const updateData = async () => {
       const data = graphDataSet.value[selectedGraph.value];
-      const dataPath = `${path}/${data.graphId}`;
+      const dataPath = `${path}/${data?.graphId}`;
       const dataStr = JSON.stringify(store.graphData);
 
       await updateDoc(doc(db, dataPath), {
@@ -101,7 +108,7 @@ export default defineComponent({
     };
     const deleteData = async () => {
       const data = graphDataSet.value[selectedGraph.value];
-      const dataPath = `${path}/${data.graphId}`;
+      const dataPath = `${path}/${data?.graphId}`;
       await deleteDoc(doc(db, dataPath));
     };
 

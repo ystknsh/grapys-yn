@@ -25,8 +25,8 @@
   </div>
   <hr />
 
-  <SideMenuSaveFirebase />
-  <SideMenuSaveBrowser />
+  <SideMenuSaveFirebase v-if="enableFirebase" />
+  <SideMenuSaveBrowser v-else />
 
   <div>
     <button @click="() => handleDownload(store.graphData)" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
@@ -50,6 +50,8 @@ import TemplateGraph from "./TemplateGraph.vue";
 
 import { handleDownload } from "../utils/gui/utils";
 
+import { enableFirebase } from "../config/project";
+
 export default defineComponent({
   components: {
     AddNode,
@@ -70,6 +72,7 @@ export default defineComponent({
       store,
       handleDownload,
       setGraph,
+      enableFirebase,
     };
   },
 });
