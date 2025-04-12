@@ -149,12 +149,16 @@ export default defineComponent({
         name: "streamAgentFilter",
         agent: streamAgentFilter,
       },
-      {
+    ];
+
+    const enableOnCall = true;
+    if (enableOnCall) {
+      agentFilters.push({
         name: "firebaseOnCallFilter",
         agent: firebaseOnCallFilter,
         agentIds: ["openAIAgent"],
-      },
-    ];
+      });
+    }
 
     let graphai: GraphAI | null = null;
     const run = async () => {
