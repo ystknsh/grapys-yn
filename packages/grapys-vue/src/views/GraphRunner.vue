@@ -1,7 +1,7 @@
 <template>
   <div class="pointer-events-auto flex w-100 flex-col">
     <!-- header -->
-    <div class="flex cursor-pointer items-center justify-between rounded-t-lg border border-gray-300 bg-gray-100 p-3" @click="isChatOpen = !isChatOpen">
+    <div class="flex cursor-pointer items-center justify-between rounded-t-lg border border-gray-300 bg-gray-100 p-3" @click="chatToggle = !chatToggle">
       <div class="flex items-center font-bold">
         <span>Chat</span>
         <span v-if="messages.length > 0" class="ml-2 rounded-full bg-blue-500 px-2 py-1 text-xs text-white">
@@ -28,7 +28,7 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5 transition-transform duration-300"
-          :class="isChatOpen ? 'rotate-180' : ''"
+          :class="chatToggle ? 'rotate-180' : ''"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -44,7 +44,7 @@
     <!-- content -->
     <div
       class="overflow-hidden border border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
-      :class="isChatOpen ? 'max-h-[calc(100vh-100px)]' : 'max-h-0'"
+      :class="chatToggle ? 'max-h-[calc(100vh-100px)]' : 'max-h-0'"
     >
       <div class="flex h-[calc(100vh-100px)] flex-col">
         <!-- message area -->
@@ -132,7 +132,7 @@ export default defineComponent({
   },
   setup(props) {
     const isRunning = ref(false);
-    const isChatOpen = ref(false);
+    const chatToggle = ref(false);
     const chatContainerRef = ref<HTMLElement | null>(null);
     const store = useStore();
 
@@ -151,8 +151,7 @@ export default defineComponent({
     let graphai: GraphAI | null = null;
     const run = async () => {
       isRunning.value = true;
-      // チャットを開始したら自動的にUIを開く
-      isChatOpen.value = true;
+      chatToggle.value = true;
 
       graphai = new GraphAI(
         props.graphData,
@@ -218,7 +217,7 @@ export default defineComponent({
       console.log(report.text);
     });
 
-    // メッセージが変更されたら自動的にスクロール
+    // Automatically scroll when a message is updated
     watch(
       [messages, streamData],
       () => {
@@ -229,7 +228,7 @@ export default defineComponent({
       { deep: true },
     );
 
-    // Enterキーでメッセージ送信
+    // Send message with Enter key
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "Enter" && events.value.length > 0) {
         submitText(events.value[0]);
@@ -240,7 +239,7 @@ export default defineComponent({
       run,
       abort,
       isRunning,
-      isChatOpen,
+      chatToggle,
       chatContainerRef,
 
       streamData,
