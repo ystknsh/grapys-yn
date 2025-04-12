@@ -1,7 +1,7 @@
 <template>
-  <div class="text-center mt-10">
+  <div class="mt-10 text-center">
     <a
-      class="inline-flex h-12 items-center justify-center rounded-lg bg-blue-400 bg-opacity-5 px-6 shadow-lg hover:bg-blue-600 hover:text-white"
+      class="bg-opacity-5 inline-flex h-12 items-center justify-center rounded-lg bg-blue-400 px-6 shadow-lg hover:bg-blue-600 hover:text-white"
       @click="googleSignin"
     >
       Signin with Google account

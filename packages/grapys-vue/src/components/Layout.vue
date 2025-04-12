@@ -9,9 +9,7 @@
         </div>
         <div class="top-0 w-full sm:relative">
           <div v-if="enableFirebase">
-            <div v-if="isSignedIn === null">
-              loading...
-            </div>
+            <div v-if="isSignedIn === null">loading...</div>
             <div v-if="isSignedIn === true">
               <router-view />
             </div>
@@ -35,19 +33,24 @@ import { auth } from "../utils/firebase/firebase";
 import { signOut } from "firebase/auth";
 import { enableFirebase } from "../config/project";
 
+import { useFirebaseStore } from "../store/firebase";
+
 export default defineComponent({
   name: "AppLayout",
   components: {
-    Signin
+    Signin,
   },
   setup() {
     const menu = ref(false);
     const isSignedIn = ref<boolean | null>(null);
 
+    const firebaseStore = useFirebaseStore();
+
     onMounted(() => {
       auth.onAuthStateChanged((fbuser) => {
         if (fbuser) {
           console.log("authStateChanged:");
+          firebaseStore.setFirebaseUser(fbuser);
           isSignedIn.value = true;
         } else {
           isSignedIn.value = false;
@@ -61,12 +64,13 @@ export default defineComponent({
     const logout = () => {
       signOut(auth);
     };
-    
+
     return {
       menu,
       toggleMenu,
       isSignedIn,
       logout,
+      enableFirebase,
     };
   },
 });

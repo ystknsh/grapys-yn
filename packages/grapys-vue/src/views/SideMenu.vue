@@ -25,6 +25,7 @@
   </div>
   <hr />
 
+  <SideMenuSaveFirebase />
   <SideMenuSaveBrowser />
 
   <div>
@@ -44,6 +45,7 @@ import { useStore } from "../store";
 
 import AddNode from "./AddNode.vue";
 import SideMenuSaveBrowser from "./SideMenuSaveBrowser.vue";
+import SideMenuSaveFirebase from "./SideMenuSaveFirebase.vue";
 import TemplateGraph from "./TemplateGraph.vue";
 
 import { handleDownload } from "../utils/gui/utils";
@@ -52,6 +54,7 @@ export default defineComponent({
   components: {
     AddNode,
     SideMenuSaveBrowser,
+    SideMenuSaveFirebase,
     TemplateGraph,
   },
   setup() {
