@@ -998,6 +998,11 @@
   resolved "https://registry.yarnpkg.com/@receptron/event_agent_generator/-/event_agent_generator-0.0.6.tgz#267533315a53e84f419d3dd4856900ee11328960"
   integrity sha512-BJpCMjPkhSMEE+zG2apop2ZnQT37Z83ew+1eBFdjRBCsWIGTgMsq4n8kQuIOS2xnKK4U4Y+3DICupM5z1HxzQw==
 
+"@receptron/firebase-tools@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@receptron/firebase-tools/-/firebase-tools-1.0.0.tgz#b4dd1f1d79f2bfd114b18670ff179f62ed3e68cf"
+  integrity sha512-Jzg3pP/+A83HhFjW9m3ebeypsovsaQq6MsKAhOEgxw5tNzgcg+Y2uMpICirdlRDxfgo1/W2vs7kQiLLxEIwymA==
+
 "@rollup/rollup-android-arm-eabi@4.34.7":
   version "4.34.7"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.34.7.tgz#e554185b1afa5509a7a4040d15ec0c3b4435ded1"
