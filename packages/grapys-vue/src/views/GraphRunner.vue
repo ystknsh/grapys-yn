@@ -99,7 +99,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch, PropType } from "vue";
-import { GraphAI, GraphData } from "graphai";
+import { GraphAI, GraphData, AgentFilterInfo } from "graphai";
 
 import { useStore } from "../store";
 
@@ -144,7 +144,7 @@ export default defineComponent({
 
     const { firebaseOnCallFilter } = getFirebaseOnCallFilter("asia-northeast1", "agent");
 
-    const agentFilters = [
+    const agentFilters: AgentFilterInfo[] = [
       {
         name: "streamAgentFilter",
         agent: streamAgentFilter,

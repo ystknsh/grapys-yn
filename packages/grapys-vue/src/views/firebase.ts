@@ -1,4 +1,4 @@
-import type { AgentFilterFunction } from "graphai";
+import type { AgentFilterFunction, ResultData } from "graphai";
 
 import { firebaseApp } from "../utils/firebase/firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
@@ -24,12 +24,12 @@ export const getFirebaseOnCallFilter = (region: string, functionName: string) =>
 
     for await (const chunk of stream) {
       if (filterParams.streamTokenCallback) {
-        context.filterParams.streamTokenCallback(chunk["delta"]);
+        context.filterParams.streamTokenCallback((chunk as {delta: string})["delta"]);
       }
     }
     const allData = await data;
     console.log(allData);
-    return allData;
+    return allData as ResultData;
   };
   return {
     firebaseOnCallFilter,
