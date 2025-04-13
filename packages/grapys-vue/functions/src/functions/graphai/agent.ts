@@ -3,7 +3,7 @@ import { openAIAgent } from "@graphai/openai_agent";
 import { CallableRequest, CallableResponse, HttpsError } from "firebase-functions/v2/https";
 import type { AgentFunctionContext, AgentFunctionInfoDictionary } from "graphai";
 
-import { StreamChunkCallback, runAgentOnCall } from "./plugin";
+import { StreamChunkCallback, runAgentOnCall } from "@receptron/graphai_firebase_functions";
 
 const agentDictionary: AgentFunctionInfoDictionary = {
   openAIAgent,
