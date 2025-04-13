@@ -6,7 +6,7 @@ export const useFirebaseStore = defineStore("firebase", () => {
   // null is loading, undefined means not user.
   const firebaseUser = ref<User | null | undefined>(null);
 
-  const setFirebaseUser = (user: User) => {
+  const setFirebaseUser = (user: User | null | undefined) => {
     firebaseUser.value = user;
   };
   const isSignedIn = computed(() => {

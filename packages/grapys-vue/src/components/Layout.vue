@@ -9,11 +9,11 @@
         </div>
         <div class="top-0 w-full sm:relative">
           <div v-if="requireLogin">
-            <div v-if="isSignedIn === null">loading...</div>
-            <div v-if="isSignedIn === true">
+            <div v-if="firebaseStore.isSignedIn === null">loading...</div>
+            <div v-if="firebaseStore.isSignedIn === true">
               <router-view />
             </div>
-            <div v-if="isSignedIn === false">
+            <div v-if="firebaseStore.isSignedIn === false">
               <Signin />
             </div>
           </div>
@@ -41,8 +41,6 @@ export default defineComponent({
   },
   setup() {
     const menu = ref(false);
-    const isSignedIn = ref<boolean | null>(null);
-
     const firebaseStore = useFirebaseStore();
 
     onMounted(() => {
@@ -50,10 +48,8 @@ export default defineComponent({
         if (fbuser) {
           console.log("authStateChanged:");
           firebaseStore.setFirebaseUser(fbuser);
-          isSignedIn.value = true;
         } else {
           firebaseStore.setFirebaseUser(undefined);
-          isSignedIn.value = false;
         }
       });
     });
@@ -65,10 +61,10 @@ export default defineComponent({
     return {
       menu,
       toggleMenu,
-      isSignedIn,
       enableFirebase,
       requireLogin,
       siteName,
+      firebaseStore,
     };
   },
 });
