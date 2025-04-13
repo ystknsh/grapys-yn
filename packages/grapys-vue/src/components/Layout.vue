@@ -3,12 +3,12 @@
     <div class="bg-warmgray-400 bg-opacity-20 flex min-h-screen flex-col">
       <div class="w-full flex-1">
         <div class="bg-blue-300">
-          <div class="relative flex items-center">
-            <div class="w-full items-center">GraphAI <span @click="logout">Demo</span></div>
+          <div class="relative flex items-center text-center text-2xl">
+            <div class="w-full items-center">{{ siteName }}</div>
           </div>
         </div>
         <div class="top-0 w-full sm:relative">
-          <div v-if="enableFirebase">
+          <div v-if="requireLogin">
             <div v-if="isSignedIn === null">loading...</div>
             <div v-if="isSignedIn === true">
               <router-view />
@@ -30,8 +30,7 @@
 import { defineComponent, ref, onMounted } from "vue";
 import Signin from "./Signin.vue";
 import { auth } from "../utils/firebase/firebase";
-import { signOut } from "firebase/auth";
-import { enableFirebase } from "../config/project";
+import { requireLogin, enableFirebase, siteName } from "../config/project";
 
 import { useFirebaseStore } from "../store/firebase";
 
@@ -53,6 +52,7 @@ export default defineComponent({
           firebaseStore.setFirebaseUser(fbuser);
           isSignedIn.value = true;
         } else {
+          firebaseStore.setFirebaseUser(undefined);
           isSignedIn.value = false;
         }
       });
@@ -61,16 +61,14 @@ export default defineComponent({
     const toggleMenu = () => {
       menu.value = !menu.value;
     };
-    const logout = () => {
-      signOut(auth);
-    };
 
     return {
       menu,
       toggleMenu,
       isSignedIn,
-      logout,
       enableFirebase,
+      requireLogin,
+      siteName,
     };
   },
 });
