@@ -119,7 +119,8 @@ import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agen
 import { textInputEvent } from "../agents/event";
 
 import { graphConfigs } from "../graph";
-import { buildFirebaseStreamFilter } from "./firebase";
+//import { buildFirebaseStreamFilter } from "./firebase";
+import { buildFirebaseStreamFilter } from "@receptron/firebase-tools";
 import { firebaseApp } from "../utils/firebase/firebase";
 
 export default defineComponent({
