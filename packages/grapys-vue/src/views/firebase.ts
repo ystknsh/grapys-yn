@@ -1,14 +1,14 @@
 import type { AgentFilterFunction, ResultData } from "graphai";
 
-import { firebaseApp } from "../utils/firebase/firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import type { FirebaseApp } from "firebase/app";
 
-export const getFirebaseOnCallFilter = (region: string, functionName: string) => {
+export const getFirebaseOnCallFilter = (firebaseApp: FirebaseApp, region: string, functionName: string) => {
   const functions = getFunctions(firebaseApp, region);
   const streamingFcuntion = httpsCallable(functions, functionName);
 
-  const firebaseOnCallFilter: AgentFilterFunction = async (context, next) => {
-    const { params, debugInfo, filterParams, namedInputs, config } = context;
+  const firebaseOnCallFilter: AgentFilterFunction = async (context, __next) => {
+    const { params, debugInfo, filterParams, namedInputs } = context;
 
     const agentId = debugInfo.agentId;
 
@@ -24,11 +24,10 @@ export const getFirebaseOnCallFilter = (region: string, functionName: string) =>
 
     for await (const chunk of stream) {
       if (filterParams.streamTokenCallback) {
-        context.filterParams.streamTokenCallback((chunk as {delta: string})["delta"]);
+        context.filterParams.streamTokenCallback((chunk as {delta: string}).delta);
       }
     }
     const allData = await data;
-    console.log(allData);
     return allData as ResultData;
   };
   return {

@@ -61,6 +61,7 @@ export default [
       "no-unreachable": "error",
       "consistent-return": "off",
       "one-var": "off",
+      "no-alert": "off",
       "operator-assignment": "off",
       "no-undefined": "off",
       "prefer-destructuring": "off",

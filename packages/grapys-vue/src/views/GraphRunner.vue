@@ -120,6 +120,7 @@ import { textInputEvent } from "../agents/event";
 
 import { graphConfigs } from "../graph";
 import { getFirebaseOnCallFilter } from "./firebase";
+import { firebaseApp } from "../utils/firebase/firebase";
 
 export default defineComponent({
   components: {
@@ -142,7 +143,7 @@ export default defineComponent({
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
     const { graphAIResultPlugin } = useGraphAIResult();
 
-    const { firebaseOnCallFilter } = getFirebaseOnCallFilter("asia-northeast1", "agent");
+    const { firebaseOnCallFilter } = getFirebaseOnCallFilter(firebaseApp, "asia-northeast1", "agent");
 
     const agentFilters: AgentFilterInfo[] = [
       {
