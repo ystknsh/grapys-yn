@@ -119,7 +119,7 @@ import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agen
 import { textInputEvent } from "../agents/event";
 
 import { graphConfigs } from "../graph";
-import { getFirebaseOnCallFilter } from "./firebase";
+import { buildFirebaseStreamFilter } from "./firebase";
 import { firebaseApp } from "../utils/firebase/firebase";
 
 export default defineComponent({
@@ -143,7 +143,7 @@ export default defineComponent({
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
     const { graphAIResultPlugin } = useGraphAIResult();
 
-    const { firebaseOnCallFilter } = getFirebaseOnCallFilter(firebaseApp, "asia-northeast1", "agent");
+    const { firebaseStreamFilter } = buildFirebaseStreamFilter(firebaseApp, "asia-northeast1", "agent");
 
     const agentFilters: AgentFilterInfo[] = [
       {
@@ -155,8 +155,8 @@ export default defineComponent({
     const enableOnCall = true;
     if (enableOnCall) {
       agentFilters.push({
-        name: "firebaseOnCallFilter",
-        agent: firebaseOnCallFilter,
+        name: "firebaseStreamFilter",
+        agent: firebaseStreamFilter,
         agentIds: ["openAIAgent"],
       });
     }
