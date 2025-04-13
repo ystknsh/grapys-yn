@@ -1,19 +1,23 @@
 import { streamAgentFilterGenerator, agentFilterRunnerBuilder } from "@graphai/agent_filters";
 
-import { CallableRequest, CallableResponse, HttpsError } from "firebase-functions/v2/https";
+import { HttpsError } from "firebase-functions/v2/https";
+
+import type { CallableRequest } from "firebase-functions/v2/https";
 import type { AgentFunctionContext, AgentFunctionInfoDictionary, AgentFilterInfo } from "graphai";
 
 export type StreamChunkCallback = (context: AgentFunctionContext, token: string) => void;
 
-export const functionsAgentOnCall = async (
+export const runAgentOnCall = async (
   request: CallableRequest,
-  response: CallableResponse | undefined,
   agents: AgentFunctionInfoDictionary,
-  agentFilters: AgentFilterInfo[] = [],
-  streamCallback?: StreamChunkCallback,
-  isDebug: boolean = false,
+  options?: {
+    agentFilters?: AgentFilterInfo[];
+    streamCallback?: StreamChunkCallback;
+    isDebug?: boolean;
+  },
 ) => {
   const { agentId, params, debugInfo, filterParams, namedInputs } = request.data ?? {};
+  const { agentFilters, streamCallback, isDebug } = options ?? {};
 
   const agent = agents[agentId];
   if (agent === undefined) {
@@ -42,7 +46,7 @@ export const functionsAgentOnCall = async (
     name: "streamAgentFilter",
     agent: streamAgentFilterGenerator<string>(callback),
   };
-  const _agentFilters = [streamAgentFilter, ...agentFilters];
+  const _agentFilters = [streamAgentFilter, ...(agentFilters ?? [])];
 
   const agentFilterRunner = agentFilterRunnerBuilder(_agentFilters);
   const result = await agentFilterRunner(context, agent.agent);

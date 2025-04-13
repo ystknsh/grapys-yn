@@ -3,7 +3,7 @@ import { openAIAgent } from "@graphai/openai_agent";
 import { CallableRequest, CallableResponse, HttpsError } from "firebase-functions/v2/https";
 import type { AgentFunctionContext, AgentFunctionInfoDictionary } from "graphai";
 
-import { StreamChunkCallback, functionsAgentOnCall } from "./plugin";
+import { StreamChunkCallback, runAgentOnCall } from "./plugin";
 
 const agentDictionary: AgentFunctionInfoDictionary = {
   openAIAgent,
@@ -25,5 +25,5 @@ export const agentRunner = async (request: CallableRequest, response?: CallableR
     });
   };
 
-  return await functionsAgentOnCall(request, response, agentDictionary, [], streamCallback);
+  return await runAgentOnCall(request, agentDictionary, { streamCallback });
 };
