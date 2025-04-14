@@ -213,10 +213,10 @@
   resolved "https://registry.yarnpkg.com/@graphai/llm_utils/-/llm_utils-0.2.0.tgz#03de706c5dc91f4650fa540bb75a15646dc79d88"
   integrity sha512-8QJxmrbXz2tMPfJVfx0OG4hQzMDLQbs2Mv7sMnYEDbOdZuS11l3kLZeDoA9KGGlts3cT15WjQ/V9tqhT7I24mA==
 
-"@graphai/openai_agent@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@graphai/openai_agent/-/openai_agent-1.0.3.tgz#72bdea4b2d47682b7f356a59495436f2bedc9446"
-  integrity sha512-Z0zyga96TV/uBhTcfTeGpI11CLV4BHIwNVvtSuXxFVbyeKjdrsJwV7rIm8u8RptTA7xCdXxFQhBvnBLd5mZ8xg==
+"@graphai/openai_agent@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@graphai/openai_agent/-/openai_agent-1.0.5.tgz#dcd855a1d4f571cff9d6561f678fb52c00130d3a"
+  integrity sha512-KtMmveYOjuN6UNei9lMWrH/SHxrnDfnvUZO1bq+kICpQCPnYKiiZKi5tUcWyOQJZSCgXNqCBedouKn3Y03WnCw==
   dependencies:
     "@graphai/llm_utils" "^0.2.0"
     openai "^4.86.2"

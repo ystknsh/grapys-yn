@@ -5,6 +5,7 @@ import { CallableRequest, CallableResponse, HttpsError } from "firebase-function
 import type { AgentFunctionContext, AgentFunctionInfoDictionary } from "graphai";
 
 import { StreamChunkCallback, runAgentOnCall } from "@receptron/graphai_firebase_functions";
+import { operationLog } from "./log";
 
 const agentDictionary: AgentFunctionInfoDictionary = {
   openAIAgent,
@@ -14,6 +15,7 @@ const db = admin.firestore();
 const restrictedModel = "gpt-4o-mini";
 
 export const agentRunner = async (request: CallableRequest, response?: CallableResponse) => {
+  operationLog(request, "agentRunnerBefore", { agentId: request?.data?.agentId ?? "noAgent" });
   const uid = request.auth?.uid;
 
   if (!uid) {
@@ -44,5 +46,11 @@ export const agentRunner = async (request: CallableRequest, response?: CallableR
     });
   };
 
-  return await runAgentOnCall(request, agentDictionary, { streamCallback });
+
+  const result = await runAgentOnCall(request, agentDictionary, { streamCallback }) ?? {};
+
+  console.log(result);
+  const usage = (result as {usage: unknown})?.usage ?? {};
+  operationLog(request, "agentRunnerAfter", { agentId: request?.data?.agentId ?? "noAgent", ...usage });
+  return result;
 };
