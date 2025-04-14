@@ -11,6 +11,8 @@ const agentDictionary: AgentFunctionInfoDictionary = {
 };
 const db = admin.firestore();
 
+const restrictedModel = "gpt-4o-mini";
+
 export const agentRunner = async (request: CallableRequest, response?: CallableResponse) => {
   const uid = request.auth?.uid;
 
@@ -25,6 +27,13 @@ export const agentRunner = async (request: CallableRequest, response?: CallableR
     console.log("invalid operation " + uid);
     throw new HttpsError("permission-denied", "permission denied");
   }
+
+  const { agentId, params } = request.data ?? {};
+  if (agentId === "openAIAgent") {
+    const newParams = { ...(params ?? {}), model: restrictedModel };
+    request.data = { ...(request.data ?? {}), params: newParams };
+  }
+  // console.log(request.data);
 
   const streamCallback: StreamChunkCallback = (context: AgentFunctionContext, token: string) => {
     response?.sendChunk({
