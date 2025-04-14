@@ -1,4 +1,5 @@
 import { openAIAgent } from "@graphai/openai_agent";
+import * as admin from "firebase-admin";
 
 import { CallableRequest, CallableResponse, HttpsError } from "firebase-functions/v2/https";
 import type { AgentFunctionContext, AgentFunctionInfoDictionary } from "graphai";
@@ -8,12 +9,21 @@ import { StreamChunkCallback, runAgentOnCall } from "@receptron/graphai_firebase
 const agentDictionary: AgentFunctionInfoDictionary = {
   openAIAgent,
 };
+const db = admin.firestore();
 
 export const agentRunner = async (request: CallableRequest, response?: CallableResponse) => {
   const uid = request.auth?.uid;
 
   if (!uid) {
     throw new HttpsError("unauthenticated", "Authentication required");
+  }
+
+  // check privileges
+  const userData = await db.doc(`/users/${uid}/secret/llm`).get();
+
+  if (!userData.exists) {
+    console.log("invalid operation " + uid);
+    throw new HttpsError("permission-denied", "permission denied");
   }
 
   const streamCallback: StreamChunkCallback = (context: AgentFunctionContext, token: string) => {
