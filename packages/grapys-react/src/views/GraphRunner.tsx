@@ -12,7 +12,7 @@ import { useLocalStore } from "../store";
 import { useStreamData } from "../utils/react-plugin/stream";
 import { useChatPlugin } from "../utils/react-plugin/chat";
 
-import { graphConfigs } from "../graph";
+import { getGraphConfigs } from "../graph";
 import { GUIMessage } from "../utils/gui/type";
 
 const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
@@ -76,7 +76,7 @@ const GraphRunner: React.FC<{ graphData: GraphData }> = ({ graphData }) => {
       },
       {
         agentFilters,
-        config: graphConfigs,
+        config: getGraphConfigs(),
       },
     );
     graph.registerCallback(streamPlugin(streamNodes()));
