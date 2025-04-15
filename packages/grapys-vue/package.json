@@ -11,6 +11,8 @@
     "format": "prettier --write '{src/**/*,*}.{js,ts,vue,json}'"
   },
   "dependencies": {
+    "@receptron/firebase-tools": "^1.0.0",
+    "firebase": "^11.6.0",
     "pinia": "^3.0.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"

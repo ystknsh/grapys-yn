@@ -99,7 +99,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch, PropType } from "vue";
-import { GraphAI, GraphData } from "graphai";
+import { GraphAI, GraphData, AgentFilterInfo } from "graphai";
 
 import { useStore } from "../store";
 
@@ -119,6 +119,10 @@ import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agen
 import { textInputEvent } from "../agents/event";
 
 import { graphConfigs } from "../graph";
+//import { buildFirebaseStreamFilter } from "./firebase";
+import { buildFirebaseStreamFilter } from "@receptron/firebase-tools";
+import { firebaseApp } from "../utils/firebase/firebase";
+import { enableOnCall } from "../config/project";
 
 export default defineComponent({
   components: {
@@ -141,12 +145,22 @@ export default defineComponent({
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
     const { graphAIResultPlugin } = useGraphAIResult();
 
-    const agentFilters = [
+    const { firebaseStreamFilter } = buildFirebaseStreamFilter(firebaseApp, "asia-northeast1", "agent");
+
+    const agentFilters: AgentFilterInfo[] = [
       {
         name: "streamAgentFilter",
         agent: streamAgentFilter,
       },
     ];
+
+    if (enableOnCall) {
+      agentFilters.push({
+        name: "firebaseStreamFilter",
+        agent: firebaseStreamFilter,
+        agentIds: ["openAIAgent"],
+      });
+    }
 
     let graphai: GraphAI | null = null;
     const run = async () => {
