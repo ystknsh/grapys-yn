@@ -118,7 +118,7 @@ import { browserlessAgent } from "@graphai/browserless_agent";
 import tinyswallowAgent, { modelLoad, loadEngine, CallbackReport } from "../agents/tinyswallow";
 import { textInputEvent } from "../agents/event";
 
-import { graphConfigs } from "../graph";
+import { getGraphConfigs } from "../graph";
 //import { buildFirebaseStreamFilter } from "./firebase";
 import { buildFirebaseStreamFilter } from "@receptron/firebase-tools";
 import { firebaseApp } from "../utils/firebase/firebase";
@@ -166,7 +166,7 @@ export default defineComponent({
     const run = async () => {
       isRunning.value = true;
       chatToggle.value = true;
-
+      console.log(getGraphConfigs());
       graphai = new GraphAI(
         props.graphData,
         {
@@ -181,7 +181,7 @@ export default defineComponent({
         },
         {
           agentFilters,
-          config: graphConfigs,
+          config: getGraphConfigs(),
         },
       );
       graphai.registerCallback(streamPlugin(store.streamNodes));

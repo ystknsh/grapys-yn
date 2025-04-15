@@ -51,6 +51,11 @@
       <GoogleSignin />
     </div>
   </div>
+  <hr />
+
+  <h2 class="text-lg font-bold">Key</h2>
+  openai
+  <ApiKey keyName="OpenAI" storageKey="GRAPYS_OPENAI_KEY" />
 </template>
 
 <script lang="ts">
@@ -65,9 +70,9 @@ import AddNode from "./AddNode.vue";
 import SideMenuSaveBrowser from "./SideMenuSaveBrowser.vue";
 import SideMenuSaveFirebase from "./SideMenuSaveFirebase.vue";
 import TemplateGraph from "./TemplateGraph.vue";
+import ApiKey from "./ApiKey.vue";
 
 import GoogleSignin from "../components/SigninButton.vue";
-
 import { handleDownload } from "../utils/gui/utils";
 import { auth } from "../utils/firebase/firebase";
 
@@ -76,6 +81,7 @@ import { enableFirebase } from "../config/project";
 export default defineComponent({
   components: {
     AddNode,
+    ApiKey,
     SideMenuSaveBrowser,
     SideMenuSaveFirebase,
     TemplateGraph,

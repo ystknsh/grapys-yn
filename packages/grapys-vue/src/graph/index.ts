@@ -31,24 +31,29 @@ export const graphs: NestedGraphList = [
   { name: "ImageGenerator", graph: graphDataImageGenerator, id: "Ck2ETL93rwYXtMLv" },
 ];
 
-export const graphConfigs = {
-  openAIAgent: {
-    apiKey: import.meta.env.VITE_OPEN_API_KEY,
-    forWeb: true,
-  },
-  openAIImageAgent: {
-    apiKey: import.meta.env.VITE_OPEN_API_KEY,
-    forWeb: true,
-  },
-  anthropicAgent: {
-    apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
-    forWeb: true,
-  },
-  geminiAgent: {
-    apiKey: import.meta.env.VITE_GOOGLE_GENAI_API_KEY,
-    forWeb: true,
-  },
-  browserlessAgent: {
-    apiKey: import.meta.env.VITE_BROWSERLESS_API_TOKEN,
-  },
+export const getGraphConfigs = () => {
+  const openAIKey = import.meta.env.VITE_OPEN_API_KEY ?? window.localStorage.getItem("GRAPYS_OPENAI_KEY");
+
+  const graphConfigs = {
+    openAIAgent: {
+      apiKey: openAIKey,
+      forWeb: true,
+    },
+    openAIImageAgent: {
+      apiKey: openAIKey,
+      forWeb: true,
+    },
+    anthropicAgent: {
+      apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
+      forWeb: true,
+    },
+    geminiAgent: {
+      apiKey: import.meta.env.VITE_GOOGLE_GENAI_API_KEY,
+      forWeb: true,
+    },
+    browserlessAgent: {
+      apiKey: import.meta.env.VITE_BROWSERLESS_API_TOKEN,
+    },
+  };
+  return graphConfigs;
 };
