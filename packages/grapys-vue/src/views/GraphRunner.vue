@@ -122,6 +122,7 @@ import { graphConfigs } from "../graph";
 //import { buildFirebaseStreamFilter } from "./firebase";
 import { buildFirebaseStreamFilter } from "@receptron/firebase-tools";
 import { firebaseApp } from "../utils/firebase/firebase";
+import { enableOnCall } from "../config/project";
 
 export default defineComponent({
   components: {
@@ -153,7 +154,6 @@ export default defineComponent({
       },
     ];
 
-    const enableOnCall = true;
     if (enableOnCall) {
       agentFilters.push({
         name: "firebaseStreamFilter",

@@ -2,6 +2,8 @@ export const enableFirebase = true;
 export const siteName = "GraphAI Demo";
 export const requireLogin = false;
 // export const requireLogin = true;
+export const enableOnCall = false;
+// export const enableOnCall = true;
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBLexhfLknmQxmuxFJC1v5t1-CkbGgwH-4",
