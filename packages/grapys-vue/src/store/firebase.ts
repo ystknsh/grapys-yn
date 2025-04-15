@@ -13,7 +13,7 @@ export const useFirebaseStore = defineStore("firebase", () => {
     if (firebaseUser.value === null) {
       return null;
     }
-    return !!firebaseUser.value;
+    return Boolean(firebaseUser.value);
   });
 
   return {
