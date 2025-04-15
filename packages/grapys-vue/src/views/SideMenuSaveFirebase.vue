@@ -1,10 +1,10 @@
 <template>
-  Save to Firebase
+  <h2 class="text-lg font-bold">Graph Storage</h2>
   <div>
     <button @click="save" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Save as New</button>
   </div>
-  <hr />
-  <div v-if="graphDataSet.length > 0">
+
+  <div v-if="graphDataSet.length > 0" class="mt-4">
     <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="selectedGraph">
       <option v-for="(graph, key) in graphDataSet" :key="key" :value="key">
         {{ graph.name }}

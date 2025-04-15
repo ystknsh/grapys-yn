@@ -1,6 +1,4 @@
 <template>
-  <h2 class="text-lg font-bold">Menu</h2>
-
   <AddNode />
 
   <hr />
@@ -27,24 +25,24 @@
   </div>
   <hr />
 
-  <div>
-    <button @click="store.reset()" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Clear Graph</button>
-  </div>
-  <hr />
-
   <SideMenuSaveFirebase v-if="enableFirebase && firebaseStore.isSignedIn" />
   <SideMenuSaveBrowser v-else />
 
+  <h2 class="text-lg font-bold">Download</h2>
   <div>
     <button @click="() => handleDownload(store.graphData)" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
-      Download
+      GraphData
     </button>
   </div>
+  <hr />
   <hr />
 
   <TemplateGraph @set-graph="setGraph" />
   <hr />
 
+  <div>
+    <button @click="store.reset()" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Clear Graph</button>
+  </div>
   <div>
     <div v-if="firebaseStore.isSignedIn">
       <button @click="logout" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Logout</button>

@@ -1,6 +1,12 @@
 <template>
   <div class="text-left">
-    NodeId:<input type="text" v-model="nodeId" class="w-full rounded-md border-2 border-gray-300 p-1 text-black" :class="isError ? 'border-red-600' : ''" />
+    <input
+      type="text"
+      v-model="nodeId"
+      class="w-full rounded-md border-2 border-gray-300 p-1 text-black"
+      :class="isError ? 'border-red-600' : ''"
+      placeholder="NodeId"
+    />
     <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="agent">
       <option>StaticNode</option>
 
