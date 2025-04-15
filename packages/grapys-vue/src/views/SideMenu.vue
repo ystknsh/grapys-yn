@@ -4,20 +4,27 @@
   <AddNode />
 
   <hr />
-  <button
-    @click="store.undo"
-    class="m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white"
-    :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
-  >
-    Undo
-  </button>
-  <button
-    @click="store.redo"
-    class="m-1 cursor-pointer items-center rounded-full px-4 py-2 font-bold text-white"
-    :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'bg-sky-200'"
-  >
-    Redo
-  </button>
+  <h2 class="text-lg font-bold">History</h2>
+
+  <div class="mb-1 inline-flex items-center">
+    <button
+      @click="store.undo"
+      :disabled="!store.undoable"
+      class="rounded-l-full px-2.5 py-2 font-bold text-white transition-colors duration-200"
+      :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
+    >
+      Undo
+    </button>
+    <div class="mx-0.5"></div>
+    <button
+      @click="store.redo"
+      :disabled="!store.redoable"
+      class="rounded-r-full px-2.5 py-2 font-bold text-white transition-colors duration-200"
+      :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
+    >
+      Redo
+    </button>
+  </div>
   <hr />
 
   <div>
