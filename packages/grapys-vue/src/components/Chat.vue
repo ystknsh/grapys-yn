@@ -49,7 +49,7 @@ export default defineComponent({
         return "You";
       }
       if (message.role === "error") {
-        return "Error";
+        return `Error (${message.nodeId})`;
       }
       return `AI (${message.nodeId})`;
     };
