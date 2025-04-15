@@ -48,17 +48,26 @@ export default defineComponent({
       if (message.role === "user") {
         return "You";
       }
+      if (message.role === "error") {
+        return "Error";
+      }
       return `AI (${message.nodeId})`;
     };
     const boxPosition = (message: GUIMessage) => {
       if (message.role === "user") {
         return "text-right";
       }
+      if (message.role === "user") {
+        return "text-center";
+      }
       return "text-left";
     };
     const boxColor = (message: GUIMessage) => {
       if (message.role === "user") {
         return "bg-blue-500 text-white";
+      }
+      if (message.role === "error") {
+        return "bg-red-400 text-white";
       }
       return "bg-gray-200 text-gray-800";
     };

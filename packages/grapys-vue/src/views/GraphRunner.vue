@@ -99,7 +99,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch, PropType } from "vue";
-import { GraphAI, GraphData, AgentFilterInfo } from "graphai";
+import { GraphAI, GraphData, AgentFilterInfo, NodeState } from "graphai";
 
 import { useStore } from "../store";
 
@@ -187,8 +187,11 @@ export default defineComponent({
       graphai.registerCallback(streamPlugin(store.streamNodes));
       graphai.registerCallback(chatMessagePlugin(store.resultNodes));
       graphai.registerCallback(graphAIResultPlugin(store.setResult));
-      graphai.onLogCallback = ({ nodeId, state, inputs, result }) => {
-        console.log({ nodeId, state, inputs, result });
+      graphai.onLogCallback = ({ nodeId, state, inputs, result, errorMessage }) => {
+        if (state === NodeState.Failed) {
+          messages.value.push({ role: "error", content: errorMessage, nodeId });
+        }
+        console.log({ nodeId, state, inputs, result, errorMessage });
       };
 
       try {
