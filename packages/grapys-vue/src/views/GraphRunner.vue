@@ -189,7 +189,7 @@ export default defineComponent({
       graphai.registerCallback(graphAIResultPlugin(store.setResult));
       graphai.onLogCallback = ({ nodeId, state, inputs, result, errorMessage }) => {
         if (state === NodeState.Failed) {
-          messages.value.push({ role: "error", content: errorMessage, nodeId });
+          messages.value.push({ role: "error", content: errorMessage ?? '', nodeId });
         }
         console.log({ nodeId, state, inputs, result, errorMessage });
       };
