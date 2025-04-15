@@ -56,6 +56,10 @@
   <h2 class="text-lg font-bold">Key</h2>
   openai
   <ApiKey keyName="OpenAI" storageKey="GRAPYS_OPENAI_KEY" />
+  anthropic
+  <ApiKey keyName="ANTHROPIC" storageKey="GRAPYS_ANTHROPIC_KEY" />
+  google
+  <ApiKey keyName="GoogleGenAI" storageKey="GRAPYS_GOOGLE_GENAI_KEY" />
 </template>
 
 <script lang="ts">

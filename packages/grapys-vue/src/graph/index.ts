@@ -33,6 +33,8 @@ export const graphs: NestedGraphList = [
 
 export const getGraphConfigs = () => {
   const openAIKey = import.meta.env.VITE_OPEN_API_KEY ?? window.localStorage.getItem("GRAPYS_OPENAI_KEY");
+  const google = import.meta.env.VITE_GOOGLE_GENAI_API_KEY ?? window.localStorage.getItem("GRAPYS_GOOGLE_GENAI_KEY");
+  const anthropic = import.meta.env.VITE_ANTHROPIC_API_KEY ?? window.localStorage.getItem("GRAPYS_ANTHROPIC_KEY");
 
   const graphConfigs = {
     openAIAgent: {
@@ -44,11 +46,11 @@ export const getGraphConfigs = () => {
       forWeb: true,
     },
     anthropicAgent: {
-      apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,
+      apiKey: anthropic,
       forWeb: true,
     },
     geminiAgent: {
-      apiKey: import.meta.env.VITE_GOOGLE_GENAI_API_KEY,
+      apiKey: google,
       forWeb: true,
     },
     browserlessAgent: {
