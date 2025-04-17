@@ -383,9 +383,109 @@ export const nestedAgentProfiles: Record<string, AgentProfile> = {
   },
 };
 
+/*
+  const { url, method, queryParams, body } = {
+    ...params,
+    ...namedInputs,
+  };
+
+*/
+const gameServerUrl = import.meta.env.VITE_GAMESERVER;
+
+export const gameAgentProfiles: Record<string, AgentProfile> = {
+  spyMasterAgent: {
+    agent: "vanillaFetchAgent",
+    params: [
+      { name: "url", defaultValue: gameServerUrl + "/spymaster_state"},
+    ],
+    outputs: [{ name: "board" }],
+  },
+  submitHintAgent: {
+    agent: "vanillaFetchAgent",
+    params: [
+      { name: "url", defaultValue: gameServerUrl + "/submit_hint"},
+      { name: "method", defaultValue: "POST", }
+    ],
+    inputSchema: {
+      body: {
+        hint: ":hint",
+        guess_count: ":guess_count",
+      },
+    },
+    inputs: [
+      { name: "hint", type: "text" },
+      { name: "guess_count", type: "int" },
+    ],
+    // outputs: [{ name: "board" }],
+  },
+  gameStateAgent: {
+    agent: "vanillaFetchAgent",
+    params: [
+      { name: "url", defaultValue: gameServerUrl + "/game_state"},
+    ],
+    outputs: [
+      { name: "board" },
+      { name: "current_hint" },
+      { name: "current_team" },
+      { name: "hints" },
+      { name: "blue_remaining" },
+      { name: "red_remaining" },
+      { name: "remaining_guesses" },
+    ],
+  },
+  endGuess: {
+    agent: "vanillaFetchAgent",
+    params: [
+      { name: "url", defaultValue: gameServerUrl + "/end_guess"},
+      { name: "method", defaultValue: "POST" },
+      { name: "body", defaultValue: {}, }
+    ],
+    outputs: [
+      { name: "message" },
+      { name: "state" },
+      /*
+      { name: "board" },
+      // ai_guess_message
+      // ai_guess_message_team
+      { name: "current_hint" },
+      { name: "current_team" },
+      { name: "hints" },
+      { name: "blue_remaining" },
+      { name: "red_remaining" },
+      { name: "remaining_guesses " },
+      */
+      { name: "status" },
+    ],
+  },
+  revealCell: {
+    agent: "vanillaFetchAgent",
+    params: [
+      { name: "url", defaultValue: gameServerUrl + "/reveal_cell"},
+      { name: "method", defaultValue: "POST", }
+    ],
+    inputSchema: {
+      body: {
+        row: ":row",
+        col: ":col",
+      },
+    },
+    inputs: [
+      { name: "row", type: "int" },
+      { name: "col", type: "int" },
+    ],
+    outputs: [
+      { name: "state" },
+      { name: "status" },
+      { name: "assignment" },
+      { name: "word" },
+    ],
+  },
+};
+
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
   userInput: userInputAgentProfiles,
   llm: llmAgentProfiles,
+  game: gameAgentProfiles,
   service: serviceAgentProfiles,
   test: testAgentProfiles,
   compare: compareAgentProfiles,
