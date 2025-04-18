@@ -102,7 +102,9 @@ export default defineComponent({
     };
 
     const logout = () => {
-      signOut(auth);
+      if (window.confirm(`Realy Logout??`)) {
+        signOut(auth);
+      }
     };
 
     return {
