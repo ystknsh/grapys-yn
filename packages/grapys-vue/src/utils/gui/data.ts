@@ -395,6 +395,7 @@ const gameServerUrl = import.meta.env.VITE_GAMESERVER;
 export const gameAgentProfiles: Record<string, AgentProfile> = {
   spyMasterAgent: {
     agent: "vanillaFetchAgent",
+    inputs: [],
     params: [
       { name: "url", defaultValue: gameServerUrl + "/spymaster_state"},
     ],
@@ -416,10 +417,11 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       { name: "hint", type: "text" },
       { name: "guess_count", type: "int" },
     ],
-    // outputs: [{ name: "board" }],
+    outputs: [],
   },
   gameStateAgent: {
     agent: "vanillaFetchAgent",
+    inputs: [],
     params: [
       { name: "url", defaultValue: gameServerUrl + "/game_state"},
     ],
@@ -435,6 +437,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   },
   endGuess: {
     agent: "vanillaFetchAgent",
+    inputs: [],
     params: [
       { name: "url", defaultValue: gameServerUrl + "/end_guess"},
       { name: "method", defaultValue: "POST" },
