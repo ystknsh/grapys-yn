@@ -247,6 +247,7 @@ export default defineComponent({
         currentHeight = thisRef.value.offsetHeight;
         thisRef.value.style.width = currentWidth * 3 + "px";
         thisRef.value.style.height = currentHeight * 3 + "px";
+        thisRef.value.style.zIndex = "100";
       }
       ctx.emit("updatePosition", getWH());
     };
@@ -254,6 +255,7 @@ export default defineComponent({
       if (thisRef.value) {
         thisRef.value.style.width = currentWidth + "px";
         thisRef.value.style.height = currentHeight + "px";
+        thisRef.value.style.zIndex = "auto";
       }
       ctx.emit("updatePosition", getWH());
     };
