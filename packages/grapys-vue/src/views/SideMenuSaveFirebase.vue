@@ -23,7 +23,6 @@
       <button @click="deleteData" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Delete data</button>
     </div>
   </div>
-  <hr />
 </template>
 
 <script lang="ts">
