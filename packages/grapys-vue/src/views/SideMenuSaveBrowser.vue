@@ -6,7 +6,6 @@
   <div>
     <button @click="load" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Load Graph</button>
   </div>
-
 </template>
 
 <script lang="ts">

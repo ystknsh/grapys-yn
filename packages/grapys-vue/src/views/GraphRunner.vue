@@ -102,6 +102,7 @@ import { defineComponent, ref, computed, watch, PropType } from "vue";
 import { GraphAI, GraphData, AgentFilterInfo, NodeState } from "graphai";
 
 import { useStore } from "../store";
+import { useFirebaseStore } from "../store/firebase";
 
 import { useStreamData } from "../utils/vue-plugin/stream";
 import { useChatPlugin } from "../utils/vue-plugin/chat";
@@ -139,7 +140,7 @@ export default defineComponent({
     const chatToggle = ref(false);
     const chatContainerRef = ref<HTMLElement | null>(null);
     const store = useStore();
-
+    const fbStore = useFirebaseStore();
     const { eventAgent, userInput, events, submitText, clearEvents } = textInputEvent();
     const { messages, chatMessagePlugin } = useChatPlugin();
     const { streamData, streamAgentFilter, streamPlugin, isStreaming } = useStreamData();
@@ -166,7 +167,15 @@ export default defineComponent({
     const run = async () => {
       isRunning.value = true;
       chatToggle.value = true;
-      console.log(getGraphConfigs());
+
+      const config = getGraphConfigs();
+      if (fbStore.firebaseUser) {
+        const token = await fbStore.firebaseUser.getIdToken();
+        config["vanillaFetchAgent"] = {
+          authorization: "BEAR " + token,
+        };
+      }
+
       graphai = new GraphAI(
         props.graphData,
         {
@@ -181,7 +190,7 @@ export default defineComponent({
         },
         {
           agentFilters,
-          config: getGraphConfigs(),
+          config,
         },
       );
       graphai.registerCallback(streamPlugin(store.streamNodes));
@@ -189,7 +198,7 @@ export default defineComponent({
       graphai.registerCallback(graphAIResultPlugin(store.setResult));
       graphai.onLogCallback = ({ nodeId, state, inputs, result, errorMessage }) => {
         if (state === NodeState.Failed) {
-          messages.value.push({ role: "error", content: errorMessage ?? '', nodeId });
+          messages.value.push({ role: "error", content: errorMessage ?? "", nodeId });
         }
         console.log({ nodeId, state, inputs, result, errorMessage });
       };

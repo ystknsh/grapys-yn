@@ -35,7 +35,6 @@ export default defineComponent({
     const store = useStore();
     const contextEdgeMenu = ref();
     const contextNodeMenu = ref();
-
     store.initFromGraphData(graphChat);
 
     onMounted(() => {

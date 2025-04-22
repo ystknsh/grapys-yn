@@ -393,19 +393,35 @@ export const nestedAgentProfiles: Record<string, AgentProfile> = {
 const gameServerUrl = import.meta.env.VITE_GAMESERVER;
 
 export const gameAgentProfiles: Record<string, AgentProfile> = {
+  gameRegister: {
+    agent: "vanillaFetchAgent",
+    inputs: [
+      { name: "gameId", type: "string" },
+      { name: "team", type: "string" },
+    ],
+    inputSchema: {
+      body: {
+        game_id: ":gameId",
+        team: ":team",
+      },
+    },
+    params: [
+      { name: "url", defaultValue: gameServerUrl + "/register" },
+      { name: "method", defaultValue: "POST" },
+    ],
+    outputs: [{ name: "board" }],
+  },
   spyMasterAgent: {
     agent: "vanillaFetchAgent",
     inputs: [],
-    params: [
-      { name: "url", defaultValue: gameServerUrl + "/spymaster_state"},
-    ],
+    params: [{ name: "url", defaultValue: gameServerUrl + "/spymaster_state" }],
     outputs: [{ name: "board" }],
   },
   submitHintAgent: {
     agent: "vanillaFetchAgent",
     params: [
-      { name: "url", defaultValue: gameServerUrl + "/submit_hint"},
-      { name: "method", defaultValue: "POST", }
+      { name: "url", defaultValue: gameServerUrl + "/submit_hint" },
+      { name: "method", defaultValue: "POST" },
     ],
     inputSchema: {
       body: {
@@ -422,9 +438,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   gameStateAgent: {
     agent: "vanillaFetchAgent",
     inputs: [],
-    params: [
-      { name: "url", defaultValue: gameServerUrl + "/game_state"},
-    ],
+    params: [{ name: "url", defaultValue: gameServerUrl + "/123/game_state" }],
     outputs: [
       { name: "board" },
       { name: "current_hint" },
@@ -439,9 +453,9 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
     agent: "vanillaFetchAgent",
     inputs: [],
     params: [
-      { name: "url", defaultValue: gameServerUrl + "/end_guess"},
+      { name: "url", defaultValue: gameServerUrl + "/end_guess" },
       { name: "method", defaultValue: "POST" },
-      { name: "body", defaultValue: {}, }
+      { name: "body", defaultValue: {} },
     ],
     outputs: [
       { name: "message" },
@@ -463,8 +477,8 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   revealCell: {
     agent: "vanillaFetchAgent",
     params: [
-      { name: "url", defaultValue: gameServerUrl + "/reveal_cell"},
-      { name: "method", defaultValue: "POST", }
+      { name: "url", defaultValue: gameServerUrl + "/reveal_cell" },
+      { name: "method", defaultValue: "POST" },
     ],
     inputSchema: {
       body: {
@@ -476,12 +490,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       { name: "row", type: "int" },
       { name: "col", type: "int" },
     ],
-    outputs: [
-      { name: "state" },
-      { name: "status" },
-      { name: "assignment" },
-      { name: "word" },
-    ],
+    outputs: [{ name: "state" }, { name: "status" }, { name: "assignment" }, { name: "word" }],
   },
 };
 
