@@ -396,12 +396,12 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   gameRegister: {
     agent: "vanillaFetchAgent",
     inputs: [
-      { name: "gameId", type: "string" },
+      { name: "game_id", type: "string" },
       { name: "team", type: "string" },
     ],
     inputSchema: {
       body: {
-        game_id: ":gameId",
+        game_id: ":game_id",
         team: ":team",
       },
     },
@@ -413,8 +413,14 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   },
   spyMasterAgent: {
     agent: "vanillaFetchAgent",
-    inputs: [],
-    params: [{ name: "url", defaultValue: gameServerUrl + "/spymaster_state" }],
+    inputs: [
+      { name: "game_id", type: "string" },
+    ],
+    inputSchema: {
+      url: gameServerUrl + "/${:game_id}/spymaster_state"
+    },
+    inputs: [{ name: "game_id", type: "string" }],
+    params: [],
     outputs: [{ name: "board" }],
   },
   submitHintAgent: {

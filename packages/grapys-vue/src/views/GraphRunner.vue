@@ -175,7 +175,6 @@ export default defineComponent({
           authorization: "BEAR " + token,
         };
       }
-
       graphai = new GraphAI(
         props.graphData,
         {
