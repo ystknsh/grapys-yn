@@ -425,17 +425,16 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   },
   submitHintAgent: {
     agent: "vanillaFetchAgent",
-    params: [
-      { name: "url", defaultValue: gameServerUrl + "/submit_hint" },
-      { name: "method", defaultValue: "POST" },
-    ],
+    params: [],
     inputSchema: {
+      url: gameServerUrl + "/${:game_id}/submit_hint",
       body: {
         hint: ":hint",
         guess_count: ":guess_count",
       },
     },
     inputs: [
+      { name: "game_id", type: "string" },
       { name: "hint", type: "text" },
       { name: "guess_count", type: "int" },
     ],
@@ -443,8 +442,13 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   },
   gameStateAgent: {
     agent: "vanillaFetchAgent",
-    inputs: [],
-    params: [{ name: "url", defaultValue: gameServerUrl + "/123/game_state" }],
+    inputSchema: {
+      url: gameServerUrl + "/${:game_id}/game_state"
+    },
+    inputs: [
+      { name: "game_id", type: "string" },
+    ],
+    params: [],
     outputs: [
       { name: "board" },
       { name: "current_hint" },
@@ -457,9 +461,13 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   },
   endGuess: {
     agent: "vanillaFetchAgent",
-    inputs: [],
+    inputSchema: {
+      url: gameServerUrl + "/${:game_id}/end_guess"
+    },
+    inputs: [
+      { name: "game_id", type: "string" },
+    ],
     params: [
-      { name: "url", defaultValue: gameServerUrl + "/end_guess" },
       { name: "method", defaultValue: "POST" },
       { name: "body", defaultValue: {} },
     ],
@@ -480,19 +488,38 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       { name: "status" },
     ],
   },
+  aiHint: {
+    agent: "vanillaFetchAgent",
+    inputSchema: {
+      url: gameServerUrl + "/${:game_id}/ai_hint"
+    },
+    inputs: [
+      { name: "game_id", type: "string" },
+    ],
+    params: [
+      { name: "method", defaultValue: "POST" },
+      { name: "body", defaultValue: {} },
+    ],
+    outputs: [
+      { name: "message" },
+      { name: "state" },
+      { name: "status" },
+    ],
+  },
   revealCell: {
     agent: "vanillaFetchAgent",
     params: [
-      { name: "url", defaultValue: gameServerUrl + "/reveal_cell" },
       { name: "method", defaultValue: "POST" },
     ],
     inputSchema: {
+      url: gameServerUrl + "/${:game_id}/reveal_cell",
       body: {
         row: ":row",
         col: ":col",
       },
     },
     inputs: [
+      { name: "game_id", type: "string" },
       { name: "row", type: "int" },
       { name: "col", type: "int" },
     ],
