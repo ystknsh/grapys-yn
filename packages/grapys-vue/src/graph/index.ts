@@ -1,6 +1,8 @@
 import { DefaultConfigData } from "graphai";
 import { NestedGraphList } from "../utils/gui/type";
+
 import { graphChat as graphBattleRegister } from "./battle_register";
+import { graphChat as graphBattleSpy } from "./battle_spy";
 
 import { graphChat as graphChatOpenAI } from "../graph/chat";
 import { graphChat as graphChatOpenAI2 } from "../graph/chat2";
@@ -19,6 +21,7 @@ import { graphData as graphDataFetch } from "../graph/fetch";
 
 export const graphs: NestedGraphList = [
   { name: "BattleRegister", graph: graphBattleRegister, id: "11111111" },
+  { name: "BattleSpy", graph: graphBattleSpy, id: "22222222" },
   { name: "Chat(WebLLM)", graph: graphChatTinySwallow, id: "pkrDLhdU5zUb77mN" },
   { name: "Chat(Alone)", graph: graphChatAlone, id: "dJ5cw36SevqDkxFN" },
   { name: "Chat(OpenAI)", graph: graphChatOpenAI2, id: "V474FFCTgdSbFkgN" },
