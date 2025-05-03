@@ -166,7 +166,7 @@ export default defineComponent({
     const run = async () => {
       isRunning.value = true;
       chatToggle.value = true;
-      console.log(getGraphConfigs());
+      // console.log(getGraphConfigs());
       graphai = new GraphAI(
         props.graphData,
         {

@@ -50,6 +50,7 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     agent: "openAIAgent",
     ...llmAgentProfile,
   },
+  /*
   ollamaAgent: {
     agent: "openAIAgent",
     inputs: llmAgentProfile.inputs,
@@ -85,6 +86,7 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
       data: ".data",
     },
   },
+  */
 };
 
 export const arrayAgentProfiles: Record<string, AgentProfile> = {
@@ -392,10 +394,10 @@ export const nestedAgentProfiles: Record<string, AgentProfile> = {
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
   userInput: userInputAgentProfiles,
   llm: llmAgentProfiles,
-  service: serviceAgentProfiles,
-  test: testAgentProfiles,
+  // service: serviceAgentProfiles,
+  // test: testAgentProfiles,
   compare: compareAgentProfiles,
-  graph: nestedAgentProfiles,
+  // graph: nestedAgentProfiles,
   data: dataAgentProfiles,
   copy: copyAgentProfiles,
   array: arrayAgentProfiles,
