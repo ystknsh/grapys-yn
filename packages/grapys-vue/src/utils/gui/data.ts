@@ -396,8 +396,8 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
   gameRegister: {
     agent: "vanillaFetchAgent",
     inputs: [
-      { name: "game_id", type: "string" },
-      { name: "team", type: "string" },
+      { name: "game_id", type: "text" },
+      { name: "team", type: "text" },
     ],
     inputSchema: {
       body: {
@@ -409,17 +409,14 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       { name: "url", defaultValue: gameServerUrl + "/register" },
       { name: "method", defaultValue: "POST" },
     ],
-    outputs: [{ name: "board" }],
+    outputs: [{ name: "status" }],
   },
   spyMasterAgent: {
     agent: "vanillaFetchAgent",
-    inputs: [
-      { name: "game_id", type: "string" },
-    ],
     inputSchema: {
       url: gameServerUrl + "/${:game_id}/spymaster_state"
     },
-    inputs: [{ name: "game_id", type: "string" }],
+    inputs: [{ name: "game_id", type: "text" }],
     params: [],
     outputs: [{ name: "board" }],
   },
@@ -434,7 +431,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       },
     },
     inputs: [
-      { name: "game_id", type: "string" },
+      { name: "game_id", type: "text" },
       { name: "hint", type: "text" },
       { name: "guess_count", type: "int" },
     ],
@@ -446,7 +443,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       url: gameServerUrl + "/${:game_id}/game_state"
     },
     inputs: [
-      { name: "game_id", type: "string" },
+      { name: "game_id", type: "text" },
     ],
     params: [],
     outputs: [
@@ -465,7 +462,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       url: gameServerUrl + "/${:game_id}/end_guess"
     },
     inputs: [
-      { name: "game_id", type: "string" },
+      { name: "game_id", type: "text" },
     ],
     params: [
       { name: "method", defaultValue: "POST" },
@@ -494,7 +491,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       url: gameServerUrl + "/${:game_id}/ai_hint"
     },
     inputs: [
-      { name: "game_id", type: "string" },
+      { name: "game_id", type: "text" },
     ],
     params: [
       { name: "method", defaultValue: "POST" },
@@ -519,7 +516,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       },
     },
     inputs: [
-      { name: "game_id", type: "string" },
+      { name: "game_id", type: "text" },
       { name: "row", type: "int" },
       { name: "col", type: "int" },
     ],

@@ -1,4 +1,7 @@
+import { DefaultConfigData } from "graphai";
 import { NestedGraphList } from "../utils/gui/type";
+import { graphChat as graphBattleRegister } from "./battle_register";
+
 import { graphChat as graphChatOpenAI } from "../graph/chat";
 import { graphChat as graphChatOpenAI2 } from "../graph/chat2";
 import { graphChat as graphChatOllama } from "../graph/chat_ollama";
@@ -15,6 +18,7 @@ import { graphData as graphDataImageGenerator } from "../graph/image_generator";
 import { graphData as graphDataFetch } from "../graph/fetch";
 
 export const graphs: NestedGraphList = [
+  { name: "BattleRegister", graph: graphBattleRegister, id: "11111111" },
   { name: "Chat(WebLLM)", graph: graphChatTinySwallow, id: "pkrDLhdU5zUb77mN" },
   { name: "Chat(Alone)", graph: graphChatAlone, id: "dJ5cw36SevqDkxFN" },
   { name: "Chat(OpenAI)", graph: graphChatOpenAI2, id: "V474FFCTgdSbFkgN" },
@@ -31,7 +35,7 @@ export const graphs: NestedGraphList = [
   { name: "ImageGenerator", graph: graphDataImageGenerator, id: "Ck2ETL93rwYXtMLv" },
 ];
 
-export const getGraphConfigs = () => {
+export const getGraphConfigs = (): DefaultConfigData => {
   const openAIKey = import.meta.env.VITE_OPEN_API_KEY ?? window.localStorage.getItem("GRAPYS_OPENAI_KEY");
   const google = import.meta.env.VITE_GOOGLE_GENAI_API_KEY ?? window.localStorage.getItem("GRAPYS_GOOGLE_GENAI_KEY");
   const anthropic = import.meta.env.VITE_ANTHROPIC_API_KEY ?? window.localStorage.getItem("GRAPYS_ANTHROPIC_KEY");
