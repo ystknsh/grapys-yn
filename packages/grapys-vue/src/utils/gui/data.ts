@@ -182,6 +182,12 @@ export const stringAgentProfiles: Record<string, AgentProfile> = {
 };
 
 export const dataAgentProfiles: Record<string, AgentProfile> = {
+  dataToJsonString: {
+    agent: "jsonParserAgent",
+    inputs: [{ name: "data" }],
+    outputs: [{ name: "text" }],
+    params: [],
+  },
   dataObjectMergeAgent: {
     agent: "dataObjectMergeTemplateAgent",
     inputs: [{ name: "array" }],

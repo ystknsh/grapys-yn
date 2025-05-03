@@ -822,10 +822,10 @@
     "@graphai/llm_utils" "^0.2.0"
     openai "^4.86.2"
 
-"@graphai/vanilla@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@graphai/vanilla/-/vanilla-1.0.11.tgz#fb5ab6b2c22073b2bf454fe14b280572d0952817"
-  integrity sha512-c8KW2+6su2wXCV6ZsWgSO0/c/ScvMPCKyj+NwyiwmN15cuxM9u9MvAQKw6lmwc93XvXhA0NdPtexCqXBXWwiTA==
+"@graphai/vanilla@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@graphai/vanilla/-/vanilla-1.0.19.tgz#08ada2a1f326ecc73dc83965abd81ae2c0008588"
+  integrity sha512-g1JRnpdWvUX+FTG+9CjLpkgjWeQFnvfrj9FV/17BELC+bgOgdK+qC0tGsi4PWgdQ+R0Kt+DBEGxfgXMX28PpHg==
   dependencies:
     "@graphai/agent_utils" "^0.0.9"
 

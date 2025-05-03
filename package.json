@@ -48,7 +48,7 @@
     "@graphai/data_agents": "^1.0.0",
     "@graphai/gemini_agent": "^1.0.1",
     "@graphai/openai_agent": "^1.0.3",
-    "@graphai/vanilla": "^1.0.11",
+    "@graphai/vanilla": "^1.0.19",
     "@mlc-ai/web-llm": "^0.2.78",
     "@receptron/event_agent_generator": "^0.0.6",
     "graphai": "^1.0.4"
