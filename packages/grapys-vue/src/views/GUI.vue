@@ -20,6 +20,8 @@ import { useNewEdge } from "../composable/gui";
 import { guiEdgeData2edgeData } from "../utils/gui/utils";
 import { useStore } from "../store";
 
+import { CodeBracketSquareIcon, ChatBubbleBottomCenterTextIcon } from "@heroicons/vue/24/outline";
+
 export default defineComponent({
   components: {
     SideMenu,
@@ -30,6 +32,8 @@ export default defineComponent({
     ContextNodeMenu,
     GraphRunner,
     JsonViewer,
+    CodeBracketSquareIcon,
+    ChatBubbleBottomCenterTextIcon,
   },
   setup() {
     const store = useStore();
@@ -74,6 +78,9 @@ export default defineComponent({
       contextNodeMenu.value.openMenu(event, rect, nodeIndex);
     };
 
+    const showJsonView = ref(false);
+    const showChat = ref(false);
+
     return {
       updateNodePosition,
       saveNodePosition,
@@ -97,6 +104,9 @@ export default defineComponent({
       closeMenu,
 
       edgeConnectable,
+
+      showJsonView,
+      showChat,
     };
   },
 });
@@ -147,11 +157,27 @@ export default defineComponent({
           <ContextEdgeMenu ref="contextEdgeMenu" />
           <ContextNodeMenu ref="contextNodeMenu" />
         </div>
+        <div class="h-100vh pointer-events-none absolute top-0 right-0 z-10 flex max-h-screen flex-col items-end space-y-4 pt-4 pr-4 pb-4">
+          <div class="flex flex-row items-start space-x-4">
+            <button
+              class="pointer-events-auto m-1 cursor-pointer items-center rounded-full border-1 border-gray-300 bg-gray-100 px-4 py-2 text-black"
+              @click="showJsonView = !showJsonView"
+            >
+              <CodeBracketSquareIcon class="size-6" />
+            </button>
+            <button
+              class="pointer-events-auto m-1 cursor-pointer items-center rounded-full border-1 border-gray-300 bg-gray-100 px-4 py-2 text-black"
+              @click="showChat = !showChat"
+            >
+              <ChatBubbleBottomCenterTextIcon class="size-6" />
+            </button>
+          </div>
+          <div class="flex flex-row items-start space-x-4">
+            <JsonViewer v-if="showJsonView" :json-data="store.graphData" :on-click="() => (showJsonView = false)" />
+            <GraphRunner :class="{ hidden: !showChat }" :graph-data="store.graphData" :on-click="() => (showChat = false)" />
+          </div>
+        </div>
       </main>
-      <div class="pointer-events-none absolute top-0 right-0 z-10 flex flex-row items-start space-x-4 pt-4 pr-4 pb-4">
-        <JsonViewer :json-data="store.graphData" />
-        <GraphRunner :graph-data="store.graphData" />
-      </div>
     </div>
   </div>
 </template>
