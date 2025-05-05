@@ -1,13 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { XMarkIcon, CodeBracketSquareIcon } from "@heroicons/vue/24/outline";
-
 export default defineComponent({
   name: "JsonViewer",
-  components: {
-    XMarkIcon,
-    CodeBracketSquareIcon,
-  },
   props: {
     jsonData: {
       type: Object,
@@ -37,10 +31,14 @@ export default defineComponent({
     <!-- header -->
     <div class="flex cursor-pointer items-center justify-between rounded-t-lg border border-gray-300 bg-gray-100 p-3 text-black">
       <div class="flex items-center font-bold">
-        <CodeBracketSquareIcon class="size-6" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+        </svg>
         <span>JSON Data</span>
       </div>
-      <XMarkIcon class="size-6" @click="handleClick" />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" @click="handleClick">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
     </div>
 
     <!-- content -->
