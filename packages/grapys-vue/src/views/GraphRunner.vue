@@ -1,8 +1,15 @@
 <template>
-  <div class="pointer-events-auto flex w-100 flex-col">
+  <div class="pointer-events-auto flex max-h-[calc(100vh-90px)] w-100 flex-col">
     <!-- header -->
-    <div class="flex cursor-pointer items-center justify-between rounded-t-lg border border-gray-300 bg-gray-100 p-3" @click="chatToggle = !chatToggle">
+    <div class="flex cursor-pointer items-center justify-between rounded-t-lg border border-gray-300 bg-gray-100 p-3">
       <div class="flex items-center font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+          />
+        </svg>
         <span>Chat</span>
         <span v-if="messages.length > 0" class="ml-2 rounded-full bg-blue-500 px-2 py-1 text-xs text-white">
           {{ messages.length }}
@@ -25,28 +32,15 @@
         >
           Stop
         </button>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 transition-transform duration-300"
-          :class="chatToggle ? 'rotate-180' : ''"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            clip-rule="evenodd"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" @click="onClickClose">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
       </div>
     </div>
 
     <!-- content -->
-    <div
-      class="overflow-hidden border border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out"
-      :class="chatToggle ? 'max-h-[calc(100vh-100px)]' : 'max-h-0'"
-    >
-      <div class="flex h-[calc(100vh-100px)] flex-col">
+    <div class="overflow-hidden border border-gray-300 bg-white shadow-lg transition-all duration-300 ease-in-out">
+      <div class="flex h-[calc(100vh-160px)] flex-col">
         <!-- message area -->
         <div ref="chatContainerRef" class="flex-1 space-y-2 overflow-y-auto p-6" style="scroll-behavior: smooth">
           <!-- loading -->
@@ -133,10 +127,14 @@ export default defineComponent({
       type: Object as PropType<GraphData>,
       required: true,
     },
+    isOpen: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
+  emits: ["close"],
+  setup(props, { emit }) {
     const isRunning = ref(false);
-    const chatToggle = ref(false);
     const chatContainerRef = ref<HTMLElement | null>(null);
     const store = useStore();
 
@@ -165,7 +163,6 @@ export default defineComponent({
     let graphai: GraphAI | null = null;
     const run = async () => {
       isRunning.value = true;
-      chatToggle.value = true;
       // console.log(getGraphConfigs());
       graphai = new GraphAI(
         props.graphData,
@@ -189,7 +186,7 @@ export default defineComponent({
       graphai.registerCallback(graphAIResultPlugin(store.setResult));
       graphai.onLogCallback = ({ nodeId, state, inputs, result, errorMessage }) => {
         if (state === NodeState.Failed) {
-          messages.value.push({ role: "error", content: errorMessage ?? '', nodeId });
+          messages.value.push({ role: "error", content: errorMessage ?? "", nodeId });
         }
         console.log({ nodeId, state, inputs, result, errorMessage });
       };
@@ -252,11 +249,14 @@ export default defineComponent({
       }
     };
 
+    const onClickClose = () => {
+      emit("close");
+    };
+
     return {
       run,
       abort,
       isRunning,
-      chatToggle,
       chatContainerRef,
 
       streamData,
@@ -268,7 +268,7 @@ export default defineComponent({
       events,
       streamNodes,
       handleKeyPress,
-
+      onClickClose,
       loading,
       ready,
     };
