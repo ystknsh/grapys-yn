@@ -164,7 +164,7 @@ export default defineComponent({
     let graphai: GraphAI | null = null;
     const run = async () => {
       isRunning.value = true;
-      chatToggle.value = true;
+      // chatToggle.value = true;
 
       const config = getGraphConfigs();
       if (fbStore.firebaseUser) {
