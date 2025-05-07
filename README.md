@@ -34,7 +34,7 @@ cd packages/grapys-react
 
 2. Create a .env file in that directory with your API key:
 ```bash
-VITE_OPEN_API_KEY=xxxx yarn run dev
+VITE_OPEN_API_KEY=your_openai_api_key_here
 ```
 
 3. Start the development server:
