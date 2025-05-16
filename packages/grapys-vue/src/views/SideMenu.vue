@@ -1,7 +1,7 @@
 <template>
   <AddNode />
 
-  <hr />
+  <hr class="my-1 border-t border-gray-400" />
   <h2 class="text-lg font-bold">History</h2>
 
   <div class="mb-1 inline-flex items-center">
@@ -23,15 +23,15 @@
       Redo
     </button>
   </div>
-  <hr />
+  <hr class="my-1 border-t border-gray-400" />
 
   <SideMenuSaveFirebase v-if="enableFirebase && firebaseStore.isSignedIn" />
   <SideMenuSaveBrowser v-else />
 
-  <hr />
+  <hr class="my-1 border-t border-gray-400" />
 
   <TemplateGraph @set-graph="setGraph" />
-  <hr />
+  <hr class="my-1 border-t border-gray-400" />
   <h2 class="text-lg font-bold">Download</h2>
   <div>
     <button @click="() => handleDownload(store.graphData)" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
@@ -39,7 +39,7 @@
     </button>
   </div>
 
-  <hr />
+  <hr class="my-1 border-t border-gray-400" />
   <div>
     <button @click="store.reset()" class="m-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-bold text-white">Clear Graph</button>
   </div>
@@ -51,7 +51,7 @@
       <GoogleSignin />
     </div>
   </div>
-  <hr />
+  <hr class="my-1 border-t border-gray-400" />
 
   <h2 class="text-lg font-bold">Key</h2>
   openai
