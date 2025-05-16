@@ -1,5 +1,5 @@
 <template>
-  <input type="password" v-model="apiKey" class="w-full rounded-md border-2 border-gray-300 p-1 text-black" :placeholder="keyName" />
+  <input type="password" v-model="apiKey" class="w-full rounded-md border-2 border-gray-300 px-2 py-1 text-black" :placeholder="keyName" />
   <div>
     <button @click="save" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">Save Key</button>
   </div>

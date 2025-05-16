@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="text-left font-bold">Template</h2>
-    <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="template">
+    <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 px-2 py-1 text-black" v-model="template">
       <option v-for="(graph, k) in graphs" :key="k" :value="k">
         {{ graph.name }}
       </option>

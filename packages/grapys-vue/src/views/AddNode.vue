@@ -4,11 +4,11 @@
     <input
       type="text"
       v-model="nodeId"
-      class="w-full rounded-md border-2 border-gray-300 p-1 text-black"
+      class="w-full rounded-md border-2 border-gray-300 px-2 py-1 text-black"
       :class="isError ? 'border-red-600' : ''"
       placeholder="NodeId"
     />
-    <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="agent">
+    <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 px-2 py-1 text-black" v-model="agent">
       <option>StaticNode</option>
 
       <optgroup :label="category" v-for="(category, categoryKey) in Object.keys(agentProfilesCategory)" :key="categoryKey">
