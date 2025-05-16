@@ -1,13 +1,17 @@
 <template>
+  <h2 class="text-left font-bold">Add Node</h2>
   <div class="text-left">
+    <label class="text-xs text-gray-600 block mb-0.5">Node Name (custom ID):</label>
     <input
       type="text"
       v-model="nodeId"
-      class="w-full rounded-md border-2 border-gray-300 p-1 text-black"
+      class="w-full rounded-md border-2 border-gray-300 px-2 py-1 text-black text-sm mb-1"
       :class="isError ? 'border-red-600' : ''"
-      placeholder="NodeId"
+      placeholder="Enter Node name..."
     />
-    <select class="mt-2 w-full resize-none rounded-md border-2 border-gray-300 p-1 text-black" v-model="agent">
+
+    <label class="text-xs text-gray-600 block mb-0.5">Select agent type:</label>
+    <select class="w-full resize-none rounded-md border-2 border-gray-300 px-2 py-1 text-black mb-1" v-model="agent">
       <option>StaticNode</option>
 
       <optgroup :label="category" v-for="(category, categoryKey) in Object.keys(agentProfilesCategory)" :key="categoryKey">
@@ -18,7 +22,7 @@
     </select>
   </div>
   <div>
-    <button @click="addNode" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white hover:bg-sky-700">Add node</button>
+    <button @click="addNode" class="w-full mb-1 cursor-pointer items-center rounded-full bg-sky-500 py-2 font-medium text-sm text-white hover:bg-sky-700">Add node</button>
   </div>
 </template>
 
