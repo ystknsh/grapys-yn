@@ -2,7 +2,7 @@
   <AddNode />
 
   <hr class="my-1 border-t border-gray-400" />
-  <h2 class="text-lg font-bold">History</h2>
+  <h2 class="text-left font-bold">History</h2>
 
   <div class="mb-1 inline-flex items-center">
     <button
@@ -32,7 +32,7 @@
 
   <TemplateGraph @set-graph="setGraph" />
   <hr class="my-1 border-t border-gray-400" />
-  <h2 class="text-lg font-bold">Download</h2>
+  <h2 class="text-left font-bold">Download</h2>
   <div>
     <button @click="() => handleDownload(store.graphData)" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
       GraphData
@@ -53,12 +53,14 @@
   </div>
   <hr class="my-1 border-t border-gray-400" />
 
-  <h2 class="text-lg font-bold">Key</h2>
-  openai
+  <h2 class="text-left font-bold">Key</h2>
+  <div class="text-left">OpenAI</div>
   <ApiKey key-name="OpenAI" storage-key="GRAPYS_OPENAI_KEY" />
-  anthropic
+
+  <div class="text-left">Anthropic</div>
   <ApiKey key-name="ANTHROPIC" storage-key="GRAPYS_ANTHROPIC_KEY" />
-  google
+
+  <div class="text-left">Google</div>
   <ApiKey key-name="GoogleGenAI" storage-key="GRAPYS_GOOGLE_GENAI_KEY" />
 </template>
 

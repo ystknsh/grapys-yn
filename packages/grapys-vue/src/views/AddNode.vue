@@ -1,4 +1,5 @@
 <template>
+  <h2 class="text-left font-bold">Add Node</h2>
   <div class="text-left">
     <input
       type="text"
