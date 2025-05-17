@@ -8,7 +8,7 @@
     <button
       @click="store.undo"
       :disabled="!store.undoable"
-      class="flex-1 rounded-l-full px-2.5 py-2 text-sm text-white transition-colors duration-200"
+      class="flex-1 rounded-l-full px-2.5 py-2 text-sm text-white font-medium transition-colors duration-200"
       :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
     >
       Undo
@@ -16,7 +16,7 @@
     <button
       @click="store.redo"
       :disabled="!store.redoable"
-      class="flex-1 rounded-r-full px-2.5 py-2 text-sm text-white transition-colors duration-200"
+      class="flex-1 rounded-r-full px-2.5 py-2 text-sm text-white font-medium transition-colors duration-200"
       :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
     >
       Redo
