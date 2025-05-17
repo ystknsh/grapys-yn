@@ -4,20 +4,19 @@
   <hr class="my-1 border-t border-gray-400" />
   <h2 class="text-left font-bold">History</h2>
 
-  <div class="mb-1 inline-flex items-center">
+  <div class="mb-1 flex space-x-1">
     <button
       @click="store.undo"
       :disabled="!store.undoable"
-      class="rounded-l-full px-2.5 py-2 font-bold text-white transition-colors duration-200"
+      class="flex-1 rounded-l-full px-2.5 py-2 text-sm text-white transition-colors duration-200"
       :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
     >
       Undo
     </button>
-    <div class="mx-0.5"></div>
     <button
       @click="store.redo"
       :disabled="!store.redoable"
-      class="rounded-r-full px-2.5 py-2 font-bold text-white transition-colors duration-200"
+      class="flex-1 rounded-r-full px-2.5 py-2 text-sm text-white transition-colors duration-200"
       :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
     >
       Redo
