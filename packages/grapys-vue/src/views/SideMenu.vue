@@ -24,7 +24,6 @@
   </div>
   <hr class="my-1 border-t border-gray-400" />
 
-  <SideMenuSaveFirebase />
   <SideMenuSaveFirebase v-if="enableFirebase && firebaseStore.isSignedIn" />
   <SideMenuSaveBrowser v-else />
 
