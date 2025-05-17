@@ -4,7 +4,8 @@
     <button @click="save" class="w-full mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Save as New</button>
   </div>
 
-  <div v-if="graphDataSet.length > 0" class="mt-4">
+  <div v-if="graphDataSet.length > 0" class="mt-4 text-left">
+    <label class="text-xs text-gray-600 block mb-0.5">Select saved graph:</label>
     <select class="w-full mb-1 resize-none rounded-md border-2 border-gray-300 px-2 py-1 text-black" v-model="selectedGraph">
       <option v-for="(graph, key) in graphDataSet" :key="key" :value="key">
         {{ graph.name }}
