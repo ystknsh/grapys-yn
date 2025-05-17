@@ -4,20 +4,19 @@
   <hr class="my-1 border-t border-gray-400" />
   <h2 class="text-left font-bold">History</h2>
 
-  <div class="mb-1 inline-flex items-center">
+  <div class="mb-1 flex space-x-1">
     <button
       @click="store.undo"
       :disabled="!store.undoable"
-      class="rounded-l-full px-2.5 py-2 font-bold text-white transition-colors duration-200"
+      class="flex-1 rounded-l-full px-2.5 py-2 text-sm text-white font-medium transition-colors duration-200"
       :class="store.undoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
     >
       Undo
     </button>
-    <div class="mx-0.5"></div>
     <button
       @click="store.redo"
       :disabled="!store.redoable"
-      class="rounded-r-full px-2.5 py-2 font-bold text-white transition-colors duration-200"
+      class="flex-1 rounded-r-full px-2.5 py-2 text-sm text-white font-medium transition-colors duration-200"
       :class="store.redoable ? 'bg-sky-500 hover:bg-sky-700' : 'cursor-not-allowed bg-sky-200'"
     >
       Redo
@@ -34,18 +33,18 @@
   <hr class="my-1 border-t border-gray-400" />
   <h2 class="text-left font-bold">Download</h2>
   <div>
-    <button @click="() => handleDownload(store.graphData)" class="mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
+    <button @click="() => handleDownload(store.graphData)" class="w-full mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">
       GraphData
     </button>
   </div>
 
   <hr class="my-1 border-t border-gray-400" />
   <div>
-    <button @click="store.reset()" class="mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-bold text-white">Clear Graph</button>
+    <button @click="store.reset()" class="w-full mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-medium text-sm text-white hover:bg-red-500">Clear Graph</button>
   </div>
   <div>
     <div v-if="firebaseStore.isSignedIn">
-      <button @click="logout" class="mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-bold text-white">Logout</button>
+      <button @click="logout" class="w-full mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-medium text-sm text-white hover:bg-red-500">Logout</button>
     </div>
     <div v-if="firebaseStore.isSignedIn === false">
       <GoogleSignin />
@@ -54,13 +53,13 @@
   <hr class="my-1 border-t border-gray-400" />
 
   <h2 class="text-left font-bold">API Key</h2>
-  <div class="text-center">OpenAI</div>
+  <div class="text-left">OpenAI</div>
   <ApiKey key-name="OpenAI" storage-key="GRAPYS_OPENAI_KEY" />
 
-  <div class="text-center">Anthropic</div>
+  <div class="text-left">Anthropic</div>
   <ApiKey key-name="ANTHROPIC" storage-key="GRAPYS_ANTHROPIC_KEY" />
 
-  <div class="text-center">Google</div>
+  <div class="text-left">Google</div>
   <ApiKey key-name="GoogleGenAI" storage-key="GRAPYS_GOOGLE_GENAI_KEY" />
 </template>
 
@@ -104,7 +103,7 @@ export default defineComponent({
     };
 
     const logout = () => {
-      if (window.confirm(`Realy Logout??`)) {
+      if (window.confirm(`Really Logout??`)) {
         signOut(auth);
       }
     };
