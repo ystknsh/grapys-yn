@@ -53,13 +53,13 @@
   <hr class="my-1 border-t border-gray-400" />
 
   <h2 class="text-left font-bold">API Key</h2>
-  <div class="text-center">OpenAI</div>
+  <div class="text-left">OpenAI</div>
   <ApiKey key-name="OpenAI" storage-key="GRAPYS_OPENAI_KEY" />
 
-  <div class="text-center">Anthropic</div>
+  <div class="text-left">Anthropic</div>
   <ApiKey key-name="ANTHROPIC" storage-key="GRAPYS_ANTHROPIC_KEY" />
 
-  <div class="text-center">Google</div>
+  <div class="text-left">Google</div>
   <ApiKey key-name="GoogleGenAI" storage-key="GRAPYS_GOOGLE_GENAI_KEY" />
 </template>
 
