@@ -33,18 +33,18 @@
   <hr class="my-1 border-t border-gray-400" />
   <h2 class="text-left font-bold">Download</h2>
   <div>
-    <button @click="() => handleDownload(store.graphData)" class="mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">
+    <button @click="() => handleDownload(store.graphData)" class="w-full mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">
       GraphData
     </button>
   </div>
 
   <hr class="my-1 border-t border-gray-400" />
   <div>
-    <button @click="store.reset()" class="mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-bold text-white">Clear Graph</button>
+    <button @click="store.reset()" class="w-full mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-medium text-sm text-white hover:bg-red-500">Clear Graph</button>
   </div>
   <div>
     <div v-if="firebaseStore.isSignedIn">
-      <button @click="logout" class="mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-bold text-white">Logout</button>
+      <button @click="logout" class="w-full mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-medium text-sm text-white hover:bg-red-500">Logout</button>
     </div>
     <div v-if="firebaseStore.isSignedIn === false">
       <GoogleSignin />
