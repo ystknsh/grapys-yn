@@ -1,7 +1,7 @@
 <template>
   <h2 class="text-left font-bold">Graph Storage</h2>
   <div>
-    <button @click="save" class="mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Save as New</button>
+    <button @click="save" class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Save as New</button>
   </div>
 
   <div v-if="graphDataSet.length > 0" class="mt-4">
@@ -12,15 +12,15 @@
     </select>
 
     <div>
-      <button @click="loadData" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Load Graph</button>
+      <button @click="loadData" class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Load Graph</button>
     </div>
 
     <div>
-      <button @click="updateData" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Overwrite save</button>
+      <button @click="updateData" class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Overwrite save</button>
     </div>
 
     <div>
-      <button @click="deleteData" class="m-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-bold text-white">Delete data</button>
+      <button @click="deleteData" class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Delete data</button>
     </div>
   </div>
 </template>
