@@ -103,7 +103,7 @@ export default defineComponent({
     };
 
     const logout = () => {
-      if (window.confirm(`Realy Logout??`)) {
+      if (window.confirm(`Really Logout??`)) {
         signOut(auth);
       }
     };
