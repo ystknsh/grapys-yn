@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { AgentFunctionContext, TransactionLog } from "graphai";
-import { streamAgentFilterGenerator } from "@graphai/agent_filters";
+import { streamAgentFilterGenerator } from "@graphai/stream_agent_filter";
 
 export const useStreamData = () => {
   const [streamData, setStreamData] = useState<Record<string, string>>({});
