@@ -7,7 +7,10 @@
       </option>
     </select>
     <div>
-      <button @click="setGraph" class="w-full items-center mb-1 cursor-pointer rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">
+      <button
+        @click="setGraph"
+        class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700"
+      >
         Set Graph
       </button>
     </div>

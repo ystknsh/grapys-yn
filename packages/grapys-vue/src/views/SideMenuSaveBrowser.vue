@@ -1,10 +1,13 @@
 <template>
   <h2 class="text-left font-bold">Save to LocalStorage</h2>
-  <div class="space-y-1 mb-1">
-    <button @click="save" class="w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Save Graph</button>
-    <button @click="load" class="w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Load Graph</button>
+  <div class="mb-1 space-y-1">
+    <button @click="save" class="w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700">
+      Save Graph
+    </button>
+    <button @click="load" class="w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700">
+      Load Graph
+    </button>
   </div>
-
 </template>
 
 <script lang="ts">
