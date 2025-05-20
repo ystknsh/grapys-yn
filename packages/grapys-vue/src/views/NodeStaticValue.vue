@@ -12,13 +12,22 @@
       v-model="textAreaValue"
       ref="textareaRef"
       :rows="rows"
+      @mousedown.stop
+      @touchstart.stop
     ></textarea>
     <div v-if="['data'].includes(dataType)">
       {{ isValidData ? "valid" : "invalid" }}
     </div>
   </div>
   <div v-show="['number'].includes(dataType)">
-    <input type="number" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" v-model="numberValue" ref="inputRef" />
+    <input
+      type="number"
+      class="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
+      v-model="numberValue"
+      ref="inputRef"
+      @mousedown.stop
+      @touchstart.stop
+    />
   </div>
   <div v-show="['boolean'].includes(dataType)">
     <select v-model="booleanValue" ref="selectFormRef" @change="selectUpdate">

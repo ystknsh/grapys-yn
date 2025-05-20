@@ -1,27 +1,44 @@
 <template>
   <h2 class="text-left font-bold">Graph Storage</h2>
   <div>
-    <button @click="save" class="w-full mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Save as New</button>
+    <button @click="save" class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700">
+      Save as New
+    </button>
   </div>
 
   <div v-if="graphDataSet.length > 0" class="mt-4 text-left">
-    <label class="text-xs text-gray-600 block mb-0.5">Select saved graph:</label>
-    <select class="w-full mb-1 resize-none rounded-md border-2 border-gray-300 px-2 py-1 text-black" v-model="selectedGraph">
+    <label class="mb-0.5 block text-xs text-gray-600">Select saved graph:</label>
+    <select class="mb-1 w-full resize-none rounded-md border-2 border-gray-300 px-2 py-1 text-black" v-model="selectedGraph">
       <option v-for="(graph, key) in graphDataSet" :key="key" :value="key">
         {{ graph.name }}
       </option>
     </select>
 
     <div>
-      <button @click="loadData" class="w-full mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Load Graph</button>
+      <button
+        @click="loadData"
+        class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700"
+      >
+        Load Graph
+      </button>
     </div>
 
     <div>
-      <button @click="updateData" class="w-full mb-1 cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 font-medium text-sm text-white hover:bg-sky-700">Overwrite save</button>
+      <button
+        @click="updateData"
+        class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700"
+      >
+        Overwrite save
+      </button>
     </div>
 
     <div>
-      <button @click="deleteData" class="w-full mb-1 cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 font-medium text-sm text-white hover:bg-red-500">Delete data</button>
+      <button
+        @click="deleteData"
+        class="mb-1 w-full cursor-pointer items-center rounded-full bg-red-400 px-4 py-2 text-sm font-medium text-white hover:bg-red-500"
+      >
+        Delete data
+      </button>
     </div>
   </div>
 </template>
@@ -79,7 +96,7 @@ export default defineComponent({
           return data.data() as FirebaseGraphData;
         });
         //
-        if (graphDataSet.value.length >= selectedGraph.value) {
+        if (graphDataSet.value.length <= selectedGraph.value) {
           selectedGraph.value = graphDataSet.value.length - 1;
         }
       }

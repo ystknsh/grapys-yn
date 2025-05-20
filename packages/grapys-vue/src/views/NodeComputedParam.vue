@@ -6,10 +6,24 @@
       <input ref="inputRef" type="text" class="w-full rounded-md border border-gray-300 p-1 text-black" v-model="inputValue" />
     </div>
     <div v-else-if="param.type === 'text'">
-      <textarea ref="textareaRef" :rows="rows" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" v-model="textAreaValue"></textarea>
+      <textarea
+        ref="textareaRef"
+        :rows="rows"
+        class="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
+        v-model="textAreaValue"
+        @mousedown.stop
+        @touchstart.stop
+      ></textarea>
     </div>
     <div v-else-if="param.type === 'data'">
-      <textarea ref="textareaRef" :rows="rows" class="w-full resize-none rounded-md border border-gray-300 p-1 text-black" v-model="textAreaValue"></textarea>
+      <textarea
+        ref="textareaRef"
+        :rows="rows"
+        class="w-full resize-none rounded-md border border-gray-300 p-1 text-black"
+        v-model="textAreaValue"
+        @mousedown.stop
+        @touchstart.stop
+      ></textarea>
     </div>
     <div v-else-if="param.type === 'int'">
       <!-- TODO convert int after user input: min, max, defaultValue -->
@@ -21,11 +35,20 @@
         pattern="\d*"
         inputmode="numeric"
         v-model="inputValue"
+        @mousedown.stop
+        @touchstart.stop
       />
     </div>
     <div v-else-if="param.type === 'float'">
       <!-- TODO min, max, defaultValue -->
-      <input ref="inputRef" type="number" class="w-full rounded-md border border-gray-300 p-1 text-black" v-model="inputValue" />
+      <input
+        ref="inputRef"
+        type="number"
+        class="w-full rounded-md border border-gray-300 p-1 text-black"
+        v-model="inputValue"
+        @mousedown.stop
+        @touchstart.stop
+      />
     </div>
     <div v-else-if="param.type === 'boolean'">
       <select v-model="booleanValue" ref="selectFormRef" @change="selectUpdate" class="rounded-md border border-gray-300">

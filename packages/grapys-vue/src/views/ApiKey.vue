@@ -1,8 +1,8 @@
 <template>
-  <div class="flex item-center mb-2 space-x-1">
-    <input type="password" v-model="apiKey" class="w-full rounded-md border border-gray-300 px-2 py-1 h-8 text-sm text-black" placeholder="API Key" />
+  <div class="item-center mb-2 flex space-x-1">
+    <input type="password" v-model="apiKey" class="h-8 w-full rounded-md border border-gray-300 px-2 py-1 text-sm text-black" placeholder="API Key" />
     <div>
-      <button @click="save" class="cursor-pointer items-center rounded-full bg-sky-500 px-2 py-1 h-8 text-sm text-white hover:bg-sky-700">Save</button>
+      <button @click="save" class="h-8 cursor-pointer items-center rounded-full bg-sky-500 px-2 py-1 text-sm text-white hover:bg-sky-700">Save</button>
     </div>
   </div>
 </template>
