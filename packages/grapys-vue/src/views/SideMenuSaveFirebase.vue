@@ -96,7 +96,7 @@ export default defineComponent({
           return data.data() as FirebaseGraphData;
         });
         //
-        if (graphDataSet.value.length >= selectedGraph.value) {
+        if (graphDataSet.value.length <= selectedGraph.value) {
           selectedGraph.value = graphDataSet.value.length - 1;
         }
       }
