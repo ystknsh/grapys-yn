@@ -3,7 +3,7 @@
     @click="$emit('click')"
     :disabled="disabled"
     :type="type"
-    class="py-2 mb-1 text-sm font-medium text-white transition-colors duration-200 cursor-pointer items-center"
+    class="mb-1 cursor-pointer items-center py-2 text-sm font-medium text-white transition-colors duration-200"
     :class="dynamicClasses"
   >
     <slot></slot>
@@ -52,7 +52,7 @@ export default defineComponent({
       // 幅
       props.fullWidth ? "w-full" : "",
       // 角丸
-      buttonRoundedClasses[props.rounded], 
+      buttonRoundedClasses[props.rounded],
       // 状態別カラー
       props.disabled
         ? `cursor-not-allowed ${buttonColorVariants[props.variant].disabled}`

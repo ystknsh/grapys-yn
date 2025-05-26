@@ -36,7 +36,7 @@ export const nodeInputClass = (expectNearNode: boolean, nodeData: GUINodeData, i
 export const buttonColorVariants = {
   primary: {
     default: "bg-sky-500",
-    hover: "hover:bg-sky-700", 
+    hover: "hover:bg-sky-700",
     disabled: "bg-sky-200",
   },
   danger: {
@@ -49,7 +49,7 @@ export const buttonColorVariants = {
 export const buttonRoundedClasses = {
   none: "",
   left: "rounded-l-full",
-  right: "rounded-r-full", 
+  right: "rounded-r-full",
   full: "rounded-full",
 } as const;
 
