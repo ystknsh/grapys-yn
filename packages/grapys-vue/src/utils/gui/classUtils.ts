@@ -33,6 +33,26 @@ export const nodeInputClass = (expectNearNode: boolean, nodeData: GUINodeData, i
   return expectNearNode ? (isConnectable ? "bg-violet-200" : "bg-red-600") : "bg-violet-500";
 };
 
+export const buttonColorVariants = {
+  primary: {
+    default: "bg-sky-500",
+    hover: "hover:bg-sky-700", 
+    disabled: "bg-sky-200",
+  },
+  danger: {
+    default: "bg-red-400",
+    hover: "hover:bg-red-500",
+    disabled: "bg-red-200",
+  },
+} as const;
+
+export const buttonRoundedClasses = {
+  none: "",
+  left: "rounded-l-full",
+  right: "rounded-r-full", 
+  full: "rounded-full",
+} as const;
+
 //
 export const edgeColors = {
   edge: "red",
