@@ -1,5 +1,11 @@
 <template>
-  <button @click="$emit('click')" :disabled="disabled" :type="type" :class="buttonClasses">
+  <button
+    @click="$emit('click')"
+    :disabled="disabled"
+    :type="type"
+    class="py-2 mb-1 text-sm font-medium text-white transition-colors duration-200 cursor-pointer items-center"
+    :class="dynamicClasses"
+  >
     <slot></slot>
   </button>
 </template>
@@ -62,8 +68,6 @@ export default defineComponent({
     };
 
     const buttonClasses = computed(() => [
-      // ベースクラス
-      "px-4 py-2 mb-1 text-sm font-medium text-white transition-colors duration-200 cursor-pointer items-center",
       // 幅
       props.fullWidth ? "w-full" : "",
       // 角丸
@@ -77,7 +81,7 @@ export default defineComponent({
     ]);
 
     return {
-      buttonClasses,
+      dynamicClasses: buttonClasses,
     };
   },
 });
