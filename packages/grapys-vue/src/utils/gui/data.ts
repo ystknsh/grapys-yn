@@ -1,4 +1,5 @@
 import { AgentProfile } from "./type";
+import { restrictedFeature } from "../../config/project";
 
 // data type
 //  If type is not defined, it will not be displayed in the UI. Its defaultValue will always be set.
@@ -41,6 +42,44 @@ const llmAgentProfile: AgentProfile = {
   ],
 };
 
+const extraLlmAgentProfiles: Record<string, AgentProfile> = {
+    ollamaAgent: {
+      agent: "openAIAgent",
+      inputs: llmAgentProfile.inputs,
+      outputs: llmAgentProfile.outputs,
+      params: [...(llmAgentProfile.params ?? []), { name: "model", defaultValue: "llama3" }, { name: "baseURL", defaultValue: "http://127.0.0.1:11434/v1" }],
+    },
+    anthropicAgent: {
+      agent: "anthropicAgent",
+      ...llmAgentProfile,
+    },
+    geminiAgent: {
+      agent: "geminiAgent",
+      ...llmAgentProfile,
+    },
+    llmAgent: {
+      agents: ["openAIAgent", "geminiAgent"],
+      ...llmAgentProfile,
+    },
+    openAIImageAgent: {
+      agent: "openAIImageAgent",
+      inputs: [
+        { name: "prompt", type: "text" },
+        { name: "model", type: "text" },
+      ],
+      outputs: [{ name: "data" }, { name: "url", type: "text" }],
+      params: [
+        { name: "system", type: "text" },
+        { name: "prompt", type: "text" },
+        { name: "model", type: "string" },
+      ],
+      output: {
+        url: ".data.$0.url",
+        data: ".data",
+      },
+    },
+};
+
 export const llmAgentProfiles: Record<string, AgentProfile> = {
   tinyswallowAgent: {
     agent: "tinyswallowAgent",
@@ -50,44 +89,9 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
     agent: "openAIAgent",
     ...llmAgentProfile,
   },
-  /*
-  ollamaAgent: {
-    agent: "openAIAgent",
-    inputs: llmAgentProfile.inputs,
-    outputs: llmAgentProfile.outputs,
-    params: [...(llmAgentProfile.params ?? []), { name: "model", defaultValue: "llama3" }, { name: "baseURL", defaultValue: "http://127.0.0.1:11434/v1" }],
-  },
-  anthropicAgent: {
-    agent: "anthropicAgent",
-    ...llmAgentProfile,
-  },
-  geminiAgent: {
-    agent: "geminiAgent",
-    ...llmAgentProfile,
-  },
-  llmAgent: {
-    agents: ["openAIAgent", "geminiAgent"],
-    ...llmAgentProfile,
-  },
-  openAIImageAgent: {
-    agent: "openAIImageAgent",
-    inputs: [
-      { name: "prompt", type: "text" },
-      { name: "model", type: "text" },
-    ],
-    outputs: [{ name: "data" }, { name: "url", type: "text" }],
-    params: [
-      { name: "system", type: "text" },
-      { name: "prompt", type: "text" },
-      { name: "model", type: "string" },
-    ],
-    output: {
-      url: ".data.$0.url",
-      data: ".data",
-    },
-  },
-  */
+  ...(restrictedFeature ? {} : extraLlmAgentProfiles),
 };
+
 
 export const arrayAgentProfiles: Record<string, AgentProfile> = {
   arrayFlatAgent: {
@@ -306,15 +310,6 @@ export const serviceAgentProfiles: Record<string, AgentProfile> = {
     outputs: [{ name: "text", type: "text" }],
     params: [{ name: "text_content", type: "boolean", defaultValue: true }],
   },
-  sleeperAgent: {
-    agent: "sleeperAgent",
-    inputs: [
-      { name: "data", type: "data" },
-      { name: "wait", type: "wait" },
-    ],
-    outputs: [{ name: "data", type: "data" }],
-    params: [{ name: "duration", type: "int" }],
-  },
 };
 
 export const compareAgentProfiles: Record<string, AgentProfile> = {
@@ -372,6 +367,15 @@ export const testAgentProfiles: Record<string, AgentProfile> = {
     ],
     // presetParams: { isResult: true, stream: true },
   },
+  sleeperAgent: {
+    agent: "sleeperAgent",
+    inputs: [
+      { name: "data", type: "data" },
+      { name: "wait", type: "wait" },
+    ],
+    outputs: [{ name: "data", type: "data" }],
+    params: [{ name: "duration", type: "int" }],
+  },
 };
 
 export const nestedAgentProfiles: Record<string, AgentProfile> = {
@@ -394,15 +398,19 @@ export const nestedAgentProfiles: Record<string, AgentProfile> = {
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
   userInput: userInputAgentProfiles,
   llm: llmAgentProfiles,
-  // service: serviceAgentProfiles,
-  // test: testAgentProfiles,
   compare: compareAgentProfiles,
-  // graph: nestedAgentProfiles,
   data: dataAgentProfiles,
   copy: copyAgentProfiles,
   array: arrayAgentProfiles,
   string: stringAgentProfiles,
 };
+if (!restrictedFeature) {
+  agentProfilesCategory["service"] =  serviceAgentProfiles;
+  agentProfilesCategory["test"] = testAgentProfiles;
+  agentProfilesCategory["graph"] = nestedAgentProfiles;
+
+}
+
 
 export const agentProfiles: Record<string, AgentProfile> = Object.values(agentProfilesCategory).reduce((tmp, current) => {
   return { ...tmp, ...current };
