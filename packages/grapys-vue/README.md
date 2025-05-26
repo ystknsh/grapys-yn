@@ -2,7 +2,10 @@
 
 ## init
 ```
-ln -s src/config/game-dev.ts src/config/project.ts
+cd src/config
+ln -s game-dev.ts project.ts
+```
+```
 yarn install
 ```
 
