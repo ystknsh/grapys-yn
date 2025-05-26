@@ -13,9 +13,10 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import type { PropType } from "vue";
+import { buttonColorVariants, buttonRoundedClasses } from "../utils/gui/classUtils";
 
-type ColorVariant = "primary" | "danger";
-type RoundedVariant = "none" | "left" | "right" | "full";
+type ColorVariant = keyof typeof buttonColorVariants;
+type RoundedVariant = keyof typeof buttonRoundedClasses;
 
 export default defineComponent({
   name: "SideMenuButton",
@@ -47,41 +48,21 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const colorVariants = {
-      primary: {
-        default: "bg-sky-500",
-        hover: "hover:bg-sky-700",
-        disabled: "bg-sky-200",
-      },
-      danger: {
-        default: "bg-red-400",
-        hover: "hover:bg-red-500",
-        disabled: "bg-red-200",
-      },
-    };
-
-    const roundedClasses = {
-      none: "",
-      left: "rounded-l-full",
-      right: "rounded-r-full",
-      full: "rounded-full",
-    };
-
-    const buttonClasses = computed(() => [
+    const dynamicClasses = computed(() => [
       // 幅
       props.fullWidth ? "w-full" : "",
       // 角丸
-      roundedClasses[props.rounded],
+      buttonRoundedClasses[props.rounded], 
       // 状態別カラー
       props.disabled
-        ? `cursor-not-allowed ${colorVariants[props.variant].disabled}`
-        : `${colorVariants[props.variant].default} ${colorVariants[props.variant].hover}`,
+        ? `cursor-not-allowed ${buttonColorVariants[props.variant].disabled}`
+        : `${buttonColorVariants[props.variant].default} ${buttonColorVariants[props.variant].hover}`,
       // カスタムクラス
       props.customClass,
     ]);
 
     return {
-      dynamicClasses: buttonClasses,
+      dynamicClasses,
     };
   },
 });
