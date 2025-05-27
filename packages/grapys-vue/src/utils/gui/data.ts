@@ -31,6 +31,7 @@ const llmAgentProfile: AgentProfile = {
     { name: "text", type: "text" },
     { name: "tool", type: "data" },
     { name: "tool_calls", type: "array" },
+    { name: "metadata", type: "data" },
   ],
   params: [
     { name: "system", type: "text" },
