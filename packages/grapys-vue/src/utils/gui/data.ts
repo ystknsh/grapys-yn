@@ -44,41 +44,41 @@ const llmAgentProfile: AgentProfile = {
 };
 
 const extraLlmAgentProfiles: Record<string, AgentProfile> = {
-    ollamaAgent: {
-      agent: "openAIAgent",
-      inputs: llmAgentProfile.inputs,
-      outputs: llmAgentProfile.outputs,
-      params: [...(llmAgentProfile.params ?? []), { name: "model", defaultValue: "llama3" }, { name: "baseURL", defaultValue: "http://127.0.0.1:11434/v1" }],
+  ollamaAgent: {
+    agent: "openAIAgent",
+    inputs: llmAgentProfile.inputs,
+    outputs: llmAgentProfile.outputs,
+    params: [...(llmAgentProfile.params ?? []), { name: "model", defaultValue: "llama3" }, { name: "baseURL", defaultValue: "http://127.0.0.1:11434/v1" }],
+  },
+  anthropicAgent: {
+    agent: "anthropicAgent",
+    ...llmAgentProfile,
+  },
+  geminiAgent: {
+    agent: "geminiAgent",
+    ...llmAgentProfile,
+  },
+  llmAgent: {
+    agents: ["openAIAgent", "geminiAgent"],
+    ...llmAgentProfile,
+  },
+  openAIImageAgent: {
+    agent: "openAIImageAgent",
+    inputs: [
+      { name: "prompt", type: "text" },
+      { name: "model", type: "text" },
+    ],
+    outputs: [{ name: "data" }, { name: "url", type: "text" }],
+    params: [
+      { name: "system", type: "text" },
+      { name: "prompt", type: "text" },
+      { name: "model", type: "string" },
+    ],
+    output: {
+      url: ".data.$0.url",
+      data: ".data",
     },
-    anthropicAgent: {
-      agent: "anthropicAgent",
-      ...llmAgentProfile,
-    },
-    geminiAgent: {
-      agent: "geminiAgent",
-      ...llmAgentProfile,
-    },
-    llmAgent: {
-      agents: ["openAIAgent", "geminiAgent"],
-      ...llmAgentProfile,
-    },
-    openAIImageAgent: {
-      agent: "openAIImageAgent",
-      inputs: [
-        { name: "prompt", type: "text" },
-        { name: "model", type: "text" },
-      ],
-      outputs: [{ name: "data" }, { name: "url", type: "text" }],
-      params: [
-        { name: "system", type: "text" },
-        { name: "prompt", type: "text" },
-        { name: "model", type: "string" },
-      ],
-      output: {
-        url: ".data.$0.url",
-        data: ".data",
-      },
-    },
+  },
 };
 
 export const llmAgentProfiles: Record<string, AgentProfile> = {
@@ -92,7 +92,6 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
   },
   ...(restrictedFeature ? {} : extraLlmAgentProfiles),
 };
-
 
 export const arrayAgentProfiles: Record<string, AgentProfile> = {
   arrayFlatAgent: {
@@ -406,12 +405,10 @@ export const agentProfilesCategory: Record<string, Record<string, AgentProfile>>
   string: stringAgentProfiles,
 };
 if (!restrictedFeature) {
-  agentProfilesCategory["service"] =  serviceAgentProfiles;
+  agentProfilesCategory["service"] = serviceAgentProfiles;
   agentProfilesCategory["test"] = testAgentProfiles;
   agentProfilesCategory["graph"] = nestedAgentProfiles;
-
 }
-
 
 export const agentProfiles: Record<string, AgentProfile> = Object.values(agentProfilesCategory).reduce((tmp, current) => {
   return { ...tmp, ...current };
