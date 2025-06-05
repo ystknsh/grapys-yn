@@ -103,7 +103,18 @@ export default defineComponent({
       default: true,
     },
   },
-  emits: ["updatePosition", "savePosition", "newEdgeStart", "newEdge", "newEdgeEnd", "updateStaticNodeValue", "updateNestedGraph", "openNodeMenu", "nodeDragStart", "nodeDragEnd"],
+  emits: [
+    "updatePosition",
+    "savePosition",
+    "newEdgeStart",
+    "newEdge",
+    "newEdgeEnd",
+    "updateStaticNodeValue",
+    "updateNestedGraph",
+    "openNodeMenu",
+    "nodeDragStart",
+    "nodeDragEnd",
+  ],
   setup(props, ctx) {
     const store = useStore();
 

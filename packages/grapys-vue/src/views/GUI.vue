@@ -70,11 +70,16 @@ export default defineComponent({
         // ノードやエッジ以外の場所でのみパンを開始
         const target = event.target as Element;
         const isClickableElement =
-          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT" || target.tagName === "TEXTAREA";
+          target.closest(".node") ||
+          target.closest(".edge") ||
+          target.tagName === "BUTTON" ||
+          target.tagName === "INPUT" ||
+          target.tagName === "SELECT" ||
+          target.tagName === "TEXTAREA";
 
         // フォーカスされているtextareaがある場合はblurさせる
         const focusedTextarea = document.activeElement as HTMLTextAreaElement;
-        if (focusedTextarea && focusedTextarea.tagName === 'TEXTAREA' && !isClickableElement) {
+        if (focusedTextarea && focusedTextarea.tagName === "TEXTAREA" && !isClickableElement) {
           focusedTextarea.blur();
         }
 
@@ -114,11 +119,16 @@ export default defineComponent({
 
         const target = event.target as Element;
         const isClickableElement =
-          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT" || target.tagName === "TEXTAREA";
+          target.closest(".node") ||
+          target.closest(".edge") ||
+          target.tagName === "BUTTON" ||
+          target.tagName === "INPUT" ||
+          target.tagName === "SELECT" ||
+          target.tagName === "TEXTAREA";
 
         // フォーカスされているtextareaがある場合はblurさせる
         const focusedTextarea = document.activeElement as HTMLTextAreaElement;
-        if (focusedTextarea && focusedTextarea.tagName === 'TEXTAREA' && !isClickableElement) {
+        if (focusedTextarea && focusedTextarea.tagName === "TEXTAREA" && !isClickableElement) {
           focusedTextarea.blur();
         }
 
@@ -252,7 +262,7 @@ export default defineComponent({
       showJsonView,
       showChat,
       mainContainer,
-      
+
       handleNodeDragStart,
       handleNodeDragEnd,
     };
