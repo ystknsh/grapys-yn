@@ -38,6 +38,17 @@ export default defineComponent({
     const mainContainer = ref();
     store.initFromGraphData(graphChat);
 
+    // ノードドラッグ状態の管理
+    const isNodeDragging = ref(false);
+
+    const handleNodeDragStart = () => {
+      isNodeDragging.value = true;
+    };
+
+    const handleNodeDragEnd = () => {
+      isNodeDragging.value = false;
+    };
+
     // パン（掴んで動かす）とスクロール機能のセットアップ
     const setupPanAndScroll = () => {
       const container = mainContainer.value;
@@ -50,32 +61,43 @@ export default defineComponent({
       let scrollTopStart = 0;
 
       // マウスでのパン操作
-      const handleMouseDown = (e: MouseEvent) => {
+      const handleMouseDown = (event: MouseEvent) => {
+        // ノードがドラッグ中の場合はパン操作を無効にする
+        if (isNodeDragging.value) {
+          return;
+        }
+
         // ノードやエッジ以外の場所でのみパンを開始
-        const target = e.target as Element;
+        const target = event.target as Element;
         const isClickableElement =
-          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT";
+          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT" || target.tagName === "TEXTAREA";
+
+        // フォーカスされているtextareaがある場合はblurさせる
+        const focusedTextarea = document.activeElement as HTMLTextAreaElement;
+        if (focusedTextarea && focusedTextarea.tagName === 'TEXTAREA' && !isClickableElement) {
+          focusedTextarea.blur();
+        }
 
         if (!isClickableElement) {
           isPanning = true;
-          startX = e.clientX;
-          startY = e.clientY;
+          startX = event.clientX;
+          startY = event.clientY;
           scrollLeftStart = container.scrollLeft;
           scrollTopStart = container.scrollTop;
           container.style.cursor = "grabbing";
-          e.preventDefault();
+          event.preventDefault();
         }
       };
 
-      const handleMouseMove = (e: MouseEvent) => {
+      const handleMouseMove = (event: MouseEvent) => {
         if (!isPanning) return;
 
-        const deltaX = e.clientX - startX;
-        const deltaY = e.clientY - startY;
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
 
         container.scrollLeft = scrollLeftStart - deltaX;
         container.scrollTop = scrollTopStart - deltaY;
-        e.preventDefault();
+        event.preventDefault();
       };
 
       const handleMouseUp = () => {
@@ -84,30 +106,41 @@ export default defineComponent({
       };
 
       // タッチでのパン操作
-      const handleTouchStart = (e: TouchEvent) => {
-        const target = e.target as Element;
+      const handleTouchStart = (event: TouchEvent) => {
+        // ノードがドラッグ中の場合はパン操作を無効にする
+        if (isNodeDragging.value) {
+          return;
+        }
+
+        const target = event.target as Element;
         const isClickableElement =
-          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT";
+          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT" || target.tagName === "TEXTAREA";
+
+        // フォーカスされているtextareaがある場合はblurさせる
+        const focusedTextarea = document.activeElement as HTMLTextAreaElement;
+        if (focusedTextarea && focusedTextarea.tagName === 'TEXTAREA' && !isClickableElement) {
+          focusedTextarea.blur();
+        }
 
         if (!isClickableElement) {
           isPanning = true;
-          startX = e.touches[0].clientX;
-          startY = e.touches[0].clientY;
+          startX = event.touches[0].clientX;
+          startY = event.touches[0].clientY;
           scrollLeftStart = container.scrollLeft;
           scrollTopStart = container.scrollTop;
-          e.preventDefault();
+          event.preventDefault();
         }
       };
 
-      const handleTouchMove = (e: TouchEvent) => {
+      const handleTouchMove = (event: TouchEvent) => {
         if (!isPanning) return;
 
-        const deltaX = e.touches[0].clientX - startX;
-        const deltaY = e.touches[0].clientY - startY;
+        const deltaX = event.touches[0].clientX - startX;
+        const deltaY = event.touches[0].clientY - startY;
 
         container.scrollLeft = scrollLeftStart - deltaX;
         container.scrollTop = scrollTopStart - deltaY;
-        e.preventDefault();
+        event.preventDefault();
       };
 
       const handleTouchEnd = () => {
@@ -115,8 +148,8 @@ export default defineComponent({
       };
 
       // ホイールイベントでのスクロール制御
-      const handleWheel = (e: WheelEvent) => {
-        const { deltaX, deltaY } = e;
+      const handleWheel = (event: WheelEvent) => {
+        const { deltaX, deltaY } = event;
         const { scrollLeft, scrollTop, scrollWidth, scrollHeight, clientWidth, clientHeight } = container;
 
         // 水平スクロールが可能な場合のみ、デフォルト動作を防ぐ
@@ -125,14 +158,14 @@ export default defineComponent({
           if ((scrollLeft <= 0 && deltaX < 0) || (scrollLeft >= scrollWidth - clientWidth && deltaX > 0)) {
             return;
           }
-          e.preventDefault();
+          event.preventDefault();
           container.scrollLeft += deltaX;
         } else {
           // 垂直スクロールが可能な場合のみ、デフォルト動作を防ぐ
           if ((scrollTop <= 0 && deltaY < 0) || (scrollTop >= scrollHeight - clientHeight && deltaY > 0)) {
             return;
           }
-          e.preventDefault();
+          event.preventDefault();
           container.scrollTop += deltaY;
         }
       };
@@ -219,6 +252,9 @@ export default defineComponent({
       showJsonView,
       showChat,
       mainContainer,
+      
+      handleNodeDragStart,
+      handleNodeDragEnd,
     };
   },
 });
@@ -271,6 +307,8 @@ export default defineComponent({
               @new-edge="onNewEdge"
               @new-edge-end="onNewEdgeEnd"
               @open-node-menu="(event) => openNodeMenu(event, index)"
+              @node-drag-start="handleNodeDragStart"
+              @node-drag-end="handleNodeDragEnd"
             />
             <ContextEdgeMenu ref="contextEdgeMenu" />
             <ContextNodeMenu ref="contextNodeMenu" />
