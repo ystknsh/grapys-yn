@@ -103,7 +103,18 @@ export default defineComponent({
       default: true,
     },
   },
-  emits: ["updatePosition", "savePosition", "newEdgeStart", "newEdge", "newEdgeEnd", "updateStaticNodeValue", "updateNestedGraph", "openNodeMenu"],
+  emits: [
+    "updatePosition",
+    "savePosition",
+    "newEdgeStart",
+    "newEdge",
+    "newEdgeEnd",
+    "updateStaticNodeValue",
+    "updateNestedGraph",
+    "openNodeMenu",
+    "nodeDragStart",
+    "nodeDragEnd",
+  ],
   setup(props, ctx) {
     const store = useStore();
 
@@ -130,6 +141,7 @@ export default defineComponent({
         return;
       }
       isDragging.value = true;
+      ctx.emit("nodeDragStart");
       const { clientX, clientY } = getClientPos(event);
       const position = props.nodeData.position;
       offset.value.x = clientX - position.x;
@@ -167,6 +179,7 @@ export default defineComponent({
 
     const onEndNode = () => {
       isDragging.value = false;
+      ctx.emit("nodeDragEnd");
       if (deltaDistance > deltaDistanceThredhold) {
         ctx.emit("savePosition");
       }
