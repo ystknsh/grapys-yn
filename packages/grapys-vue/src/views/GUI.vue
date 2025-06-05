@@ -35,10 +35,124 @@ export default defineComponent({
     const store = useStore();
     const contextEdgeMenu = ref();
     const contextNodeMenu = ref();
+    const mainContainer = ref();
     store.initFromGraphData(graphChat);
+
+    // パン（掴んで動かす）とスクロール機能のセットアップ
+    const setupPanAndScroll = () => {
+      const container = mainContainer.value;
+      if (!container) return;
+
+      let isPanning = false;
+      let startX = 0;
+      let startY = 0;
+      let scrollLeftStart = 0;
+      let scrollTopStart = 0;
+
+      // マウスでのパン操作
+      const handleMouseDown = (e: MouseEvent) => {
+        // ノードやエッジ以外の場所でのみパンを開始
+        const target = e.target as Element;
+        const isClickableElement = target.closest('.node') || target.closest('.edge') || target.tagName === 'BUTTON' || target.tagName === 'INPUT' || target.tagName === 'SELECT';
+        
+        if (!isClickableElement) {
+          isPanning = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          scrollLeftStart = container.scrollLeft;
+          scrollTopStart = container.scrollTop;
+          container.style.cursor = 'grabbing';
+          e.preventDefault();
+        }
+      };
+
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!isPanning) return;
+        
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
+        
+        container.scrollLeft = scrollLeftStart - deltaX;
+        container.scrollTop = scrollTopStart - deltaY;
+        e.preventDefault();
+      };
+
+      const handleMouseUp = () => {
+        isPanning = false;
+        container.style.cursor = 'grab';
+      };
+
+      // タッチでのパン操作
+      const handleTouchStart = (e: TouchEvent) => {
+        const target = e.target as Element;
+        const isClickableElement = target.closest('.node') || target.closest('.edge') || target.tagName === 'BUTTON' || target.tagName === 'INPUT' || target.tagName === 'SELECT';
+        
+        if (!isClickableElement) {
+          isPanning = true;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          scrollLeftStart = container.scrollLeft;
+          scrollTopStart = container.scrollTop;
+          e.preventDefault();
+        }
+      };
+
+      const handleTouchMove = (e: TouchEvent) => {
+        if (!isPanning) return;
+        
+        const deltaX = e.touches[0].clientX - startX;
+        const deltaY = e.touches[0].clientY - startY;
+        
+        container.scrollLeft = scrollLeftStart - deltaX;
+        container.scrollTop = scrollTopStart - deltaY;
+        e.preventDefault();
+      };
+
+      const handleTouchEnd = () => {
+        isPanning = false;
+      };
+
+      // ホイールイベントでのスクロール制御
+      const handleWheel = (e: WheelEvent) => {
+        const { deltaX, deltaY } = e;
+        const { scrollLeft, scrollTop, scrollWidth, scrollHeight, clientWidth, clientHeight } = container;
+        
+        // 水平スクロールが可能な場合のみ、デフォルト動作を防ぐ
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          // 左端で左スクロール、または右端で右スクロールの場合はブラウザの動作を許可
+          if ((scrollLeft <= 0 && deltaX < 0) || (scrollLeft >= scrollWidth - clientWidth && deltaX > 0)) {
+            return;
+          }
+          e.preventDefault();
+          container.scrollLeft += deltaX;
+        } else {
+          // 垂直スクロールが可能な場合のみ、デフォルト動作を防ぐ
+          if ((scrollTop <= 0 && deltaY < 0) || (scrollTop >= scrollHeight - clientHeight && deltaY > 0)) {
+            return;
+          }
+          e.preventDefault();
+          container.scrollTop += deltaY;
+        }
+      };
+
+      // イベントリスナーの追加
+      container.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      
+      container.addEventListener('touchstart', handleTouchStart, { passive: false });
+      container.addEventListener('touchmove', handleTouchMove, { passive: false });
+      container.addEventListener('touchend', handleTouchEnd);
+      
+      container.addEventListener('wheel', handleWheel, { passive: false });
+
+      // 初期カーソルスタイル
+      container.style.cursor = 'grab';
+    };
 
     onMounted(() => {
       saveNodePosition();
+      setupPanAndScroll();
     });
 
     const updateNodePosition = (index: number, pos: NodePosition) => {
@@ -102,6 +216,7 @@ export default defineComponent({
 
       showJsonView,
       showChat,
+      mainContainer,
     };
   },
 });
@@ -114,9 +229,10 @@ export default defineComponent({
         <SideMenu />
       </aside>
       <main class="flex-1">
-        <div class="relative h-[100vh] overflow-hidden rounded-md border-4 border-gray-200" @click="closeMenu">
-          <Loop />
-          <svg x="0" y="0" class="pointer-events-none absolute h-[100%] w-full" ref="svgRef">
+        <div ref="mainContainer" class="relative overflow-auto rounded-md border-4 border-gray-200" style="width: calc(100vw - 192px); height: calc(100vh - 40px);" @click="closeMenu">
+          <div class="relative" style="width: 2000px; height: 1500px;">
+            <Loop />
+            <svg x="0" y="0" class="pointer-events-none absolute h-full w-full" ref="svgRef">
             <Edge
               v-for="(edge, index) in edgeDataList"
               :key="['edge', edge.source, edge.target, index].join('-')"
@@ -151,6 +267,7 @@ export default defineComponent({
           />
           <ContextEdgeMenu ref="contextEdgeMenu" />
           <ContextNodeMenu ref="contextNodeMenu" />
+          </div>
         </div>
         <div class="h-100vh pointer-events-none absolute top-0 right-0 z-10 flex max-h-screen flex-col items-end space-y-4 pt-4 pr-4 pb-4">
           <div class="flex flex-row items-start space-x-4">
