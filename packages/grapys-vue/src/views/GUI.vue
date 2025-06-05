@@ -53,25 +53,26 @@ export default defineComponent({
       const handleMouseDown = (e: MouseEvent) => {
         // ノードやエッジ以外の場所でのみパンを開始
         const target = e.target as Element;
-        const isClickableElement = target.closest('.node') || target.closest('.edge') || target.tagName === 'BUTTON' || target.tagName === 'INPUT' || target.tagName === 'SELECT';
-        
+        const isClickableElement =
+          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT";
+
         if (!isClickableElement) {
           isPanning = true;
           startX = e.clientX;
           startY = e.clientY;
           scrollLeftStart = container.scrollLeft;
           scrollTopStart = container.scrollTop;
-          container.style.cursor = 'grabbing';
+          container.style.cursor = "grabbing";
           e.preventDefault();
         }
       };
 
       const handleMouseMove = (e: MouseEvent) => {
         if (!isPanning) return;
-        
+
         const deltaX = e.clientX - startX;
         const deltaY = e.clientY - startY;
-        
+
         container.scrollLeft = scrollLeftStart - deltaX;
         container.scrollTop = scrollTopStart - deltaY;
         e.preventDefault();
@@ -79,14 +80,15 @@ export default defineComponent({
 
       const handleMouseUp = () => {
         isPanning = false;
-        container.style.cursor = 'grab';
+        container.style.cursor = "grab";
       };
 
       // タッチでのパン操作
       const handleTouchStart = (e: TouchEvent) => {
         const target = e.target as Element;
-        const isClickableElement = target.closest('.node') || target.closest('.edge') || target.tagName === 'BUTTON' || target.tagName === 'INPUT' || target.tagName === 'SELECT';
-        
+        const isClickableElement =
+          target.closest(".node") || target.closest(".edge") || target.tagName === "BUTTON" || target.tagName === "INPUT" || target.tagName === "SELECT";
+
         if (!isClickableElement) {
           isPanning = true;
           startX = e.touches[0].clientX;
@@ -99,10 +101,10 @@ export default defineComponent({
 
       const handleTouchMove = (e: TouchEvent) => {
         if (!isPanning) return;
-        
+
         const deltaX = e.touches[0].clientX - startX;
         const deltaY = e.touches[0].clientY - startY;
-        
+
         container.scrollLeft = scrollLeftStart - deltaX;
         container.scrollTop = scrollTopStart - deltaY;
         e.preventDefault();
@@ -116,7 +118,7 @@ export default defineComponent({
       const handleWheel = (e: WheelEvent) => {
         const { deltaX, deltaY } = e;
         const { scrollLeft, scrollTop, scrollWidth, scrollHeight, clientWidth, clientHeight } = container;
-        
+
         // 水平スクロールが可能な場合のみ、デフォルト動作を防ぐ
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
           // 左端で左スクロール、または右端で右スクロールの場合はブラウザの動作を許可
@@ -136,18 +138,18 @@ export default defineComponent({
       };
 
       // イベントリスナーの追加
-      container.addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      
-      container.addEventListener('touchstart', handleTouchStart, { passive: false });
-      container.addEventListener('touchmove', handleTouchMove, { passive: false });
-      container.addEventListener('touchend', handleTouchEnd);
-      
-      container.addEventListener('wheel', handleWheel, { passive: false });
+      container.addEventListener("mousedown", handleMouseDown);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+
+      container.addEventListener("touchstart", handleTouchStart, { passive: false });
+      container.addEventListener("touchmove", handleTouchMove, { passive: false });
+      container.addEventListener("touchend", handleTouchEnd);
+
+      container.addEventListener("wheel", handleWheel, { passive: false });
 
       // 初期カーソルスタイル
-      container.style.cursor = 'grab';
+      container.style.cursor = "grab";
     };
 
     onMounted(() => {
@@ -229,44 +231,49 @@ export default defineComponent({
         <SideMenu />
       </aside>
       <main class="flex-1">
-        <div ref="mainContainer" class="relative overflow-auto rounded-md border-4 border-gray-200" style="width: calc(100vw - 192px); height: calc(100vh - 40px);" @click="closeMenu">
-          <div class="relative" style="width: 2000px; height: 1500px;">
+        <div
+          ref="mainContainer"
+          class="relative overflow-auto rounded-md border-4 border-gray-200"
+          style="width: calc(100vw - 192px); height: calc(100vh - 40px)"
+          @click="closeMenu"
+        >
+          <div class="relative" style="width: 2000px; height: 1500px">
             <Loop />
             <svg x="0" y="0" class="pointer-events-none absolute h-full w-full" ref="svgRef">
-            <Edge
-              v-for="(edge, index) in edgeDataList"
-              :key="['edge', edge.source, edge.target, index].join('-')"
-              :source-data="edge.source"
-              :target-data="edge.target"
-              class="pointer-events-auto"
-              @dblclick="(e) => openEdgeMenu(e, index)"
-            />
-            <Edge
-              v-if="newEdgeData"
-              :source-data="newEdgeData.source"
-              :target-data="newEdgeData.target"
-              class="pointer-events-auto"
+              <Edge
+                v-for="(edge, index) in edgeDataList"
+                :key="['edge', edge.source, edge.target, index].join('-')"
+                :source-data="edge.source"
+                :target-data="edge.target"
+                class="pointer-events-auto"
+                @dblclick="(e) => openEdgeMenu(e, index)"
+              />
+              <Edge
+                v-if="newEdgeData"
+                :source-data="newEdgeData.source"
+                :target-data="newEdgeData.target"
+                class="pointer-events-auto"
+                :is-connectable="edgeConnectable"
+              />
+            </svg>
+            <Node
+              v-for="(node, index) in store.nodes"
+              :key="[node.nodeId, index].join('-')"
+              :node-index="index"
+              :node-data="node"
+              :nearest-data="nearestData"
               :is-connectable="edgeConnectable"
+              @update-position="(pos) => updateNodePosition(index, pos)"
+              @update-static-node-value="(value) => updateStaticNodeValue(index, value, true)"
+              @update-nested-graph="(value) => updateNestedGraph(index, value)"
+              @save-position="saveNodePosition"
+              @new-edge-start="onNewEdgeStart"
+              @new-edge="onNewEdge"
+              @new-edge-end="onNewEdgeEnd"
+              @open-node-menu="(event) => openNodeMenu(event, index)"
             />
-          </svg>
-          <Node
-            v-for="(node, index) in store.nodes"
-            :key="[node.nodeId, index].join('-')"
-            :node-index="index"
-            :node-data="node"
-            :nearest-data="nearestData"
-            :is-connectable="edgeConnectable"
-            @update-position="(pos) => updateNodePosition(index, pos)"
-            @update-static-node-value="(value) => updateStaticNodeValue(index, value, true)"
-            @update-nested-graph="(value) => updateNestedGraph(index, value)"
-            @save-position="saveNodePosition"
-            @new-edge-start="onNewEdgeStart"
-            @new-edge="onNewEdge"
-            @new-edge-end="onNewEdgeEnd"
-            @open-node-menu="(event) => openNodeMenu(event, index)"
-          />
-          <ContextEdgeMenu ref="contextEdgeMenu" />
-          <ContextNodeMenu ref="contextNodeMenu" />
+            <ContextEdgeMenu ref="contextEdgeMenu" />
+            <ContextNodeMenu ref="contextNodeMenu" />
           </div>
         </div>
         <div class="h-100vh pointer-events-none absolute top-0 right-0 z-10 flex max-h-screen flex-col items-end space-y-4 pt-4 pr-4 pb-4">
