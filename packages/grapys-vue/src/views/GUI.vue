@@ -60,15 +60,14 @@ export default defineComponent({
       let scrollLeftStart = 0;
       let scrollTopStart = 0;
 
-      // マウスでのパン操作
-      const handleMouseDown = (event: MouseEvent) => {
+      // 共通のパン開始処理
+      const startPanning = (clientX: number, clientY: number, target: Element, event: Event) => {
         // ノードがドラッグ中の場合はパン操作を無効にする
         if (isNodeDragging.value) {
-          return;
+          return false;
         }
 
         // ノードやエッジ以外の場所でのみパンを開始
-        const target = event.target as Element;
         const isClickableElement =
           target.closest(".node") ||
           target.closest(".edge") ||
@@ -85,76 +84,59 @@ export default defineComponent({
 
         if (!isClickableElement) {
           isPanning = true;
-          startX = event.clientX;
-          startY = event.clientY;
+          startX = clientX;
+          startY = clientY;
           scrollLeftStart = container.scrollLeft;
           scrollTopStart = container.scrollTop;
           container.style.cursor = "grabbing";
           event.preventDefault();
+          return true;
         }
+        return false;
       };
 
-      const handleMouseMove = (event: MouseEvent) => {
+      // 共通のパン移動処理
+      const updatePanning = (clientX: number, clientY: number, event: Event) => {
         if (!isPanning) return;
 
-        const deltaX = event.clientX - startX;
-        const deltaY = event.clientY - startY;
+        const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
 
         container.scrollLeft = scrollLeftStart - deltaX;
         container.scrollTop = scrollTopStart - deltaY;
         event.preventDefault();
       };
 
-      const handleMouseUp = () => {
+      // 共通のパン終了処理
+      const endPanning = () => {
         isPanning = false;
         container.style.cursor = "grab";
       };
 
+      // マウスでのパン操作
+      const handleMouseDown = (event: MouseEvent) => {
+        startPanning(event.clientX, event.clientY, event.target as Element, event);
+      };
+
+      const handleMouseMove = (event: MouseEvent) => {
+        updatePanning(event.clientX, event.clientY, event);
+      };
+
+      const handleMouseUp = () => {
+        endPanning();
+      };
+
       // タッチでのパン操作
       const handleTouchStart = (event: TouchEvent) => {
-        // ノードがドラッグ中の場合はパン操作を無効にする
-        if (isNodeDragging.value) {
-          return;
-        }
-
-        const target = event.target as Element;
-        const isClickableElement =
-          target.closest(".node") ||
-          target.closest(".edge") ||
-          target.tagName === "BUTTON" ||
-          target.tagName === "INPUT" ||
-          target.tagName === "SELECT" ||
-          target.tagName === "TEXTAREA";
-
-        // フォーカスされているtextareaがある場合はblurさせる
-        const focusedTextarea = document.activeElement as HTMLTextAreaElement;
-        if (focusedTextarea && focusedTextarea.tagName === "TEXTAREA" && !isClickableElement) {
-          focusedTextarea.blur();
-        }
-
-        if (!isClickableElement) {
-          isPanning = true;
-          startX = event.touches[0].clientX;
-          startY = event.touches[0].clientY;
-          scrollLeftStart = container.scrollLeft;
-          scrollTopStart = container.scrollTop;
-          event.preventDefault();
-        }
+        startPanning(event.touches[0].clientX, event.touches[0].clientY, event.target as Element, event);
       };
 
       const handleTouchMove = (event: TouchEvent) => {
-        if (!isPanning) return;
-
-        const deltaX = event.touches[0].clientX - startX;
-        const deltaY = event.touches[0].clientY - startY;
-
-        container.scrollLeft = scrollLeftStart - deltaX;
-        container.scrollTop = scrollTopStart - deltaY;
-        event.preventDefault();
+        updatePanning(event.touches[0].clientX, event.touches[0].clientY, event);
       };
 
       const handleTouchEnd = () => {
-        isPanning = false;
+        endPanning();
       };
 
       // ホイールイベントでのスクロール制御
