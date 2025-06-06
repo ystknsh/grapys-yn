@@ -50,9 +50,6 @@ export default defineComponent({
       isNodeDragging.value = false;
     };
 
-    // パン（掴んで動かす）とスクロール機能のセットアップ
-    const { setupPanAndScroll } = usePanAndScroll(mainContainer, isNodeDragging);
-
     onMounted(() => {
       saveNodePosition();
       setupPanAndScroll();
@@ -76,6 +73,9 @@ export default defineComponent({
     });
 
     const { svgRef, newEdgeData, onNewEdgeStart, onNewEdge, onNewEdgeEnd, nearestData, edgeConnectable } = useNewEdge();
+
+    // パン（掴んで動かす）とスクロール機能のセットアップ
+    const { setupPanAndScroll } = usePanAndScroll(mainContainer, isNodeDragging, newEdgeData);
 
     const openEdgeMenu = (event: MouseEvent, edgeIndex: number) => {
       const rect = svgRef.value.getBoundingClientRect();

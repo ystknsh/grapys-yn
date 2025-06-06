@@ -1,8 +1,10 @@
 import { ref, Ref } from 'vue';
+import { NewEdgeData } from '../utils/gui/type';
 
 export function usePanAndScroll(
   mainContainer: Ref<HTMLElement | undefined>,
-  isNodeDragging: Ref<boolean>
+  isNodeDragging: Ref<boolean>,
+  newEdgeData?: Ref<NewEdgeData | null>
 ) {
   const setupPanAndScroll = () => {
     const container = mainContainer.value;
@@ -18,6 +20,11 @@ export function usePanAndScroll(
     const startPanning = (clientX: number, clientY: number, target: Element, event: Event) => {
       // ノードがドラッグ中の場合はパン操作を無効にする
       if (isNodeDragging.value) {
+        return false;
+      }
+
+      // エッジ作成中の場合はパン操作を無効にする
+      if (newEdgeData?.value) {
         return false;
       }
 
