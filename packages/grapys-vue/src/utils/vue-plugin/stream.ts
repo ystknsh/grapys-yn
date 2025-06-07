@@ -1,7 +1,7 @@
 import { AgentFunctionContext, TransactionLog } from "graphai";
 
 import { ref } from "vue";
-import { streamAgentFilterGenerator } from "@graphai/agent_filters";
+import { streamAgentFilterGenerator } from "@graphai/stream_agent_filter";
 
 export const useStreamData = () => {
   const streamData = ref<Record<string, string>>({});

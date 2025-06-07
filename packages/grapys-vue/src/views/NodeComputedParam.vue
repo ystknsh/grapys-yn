@@ -3,7 +3,7 @@
     <label class="text-xs text-gray-300">{{ param.name }}</label>
 
     <div v-if="param.type === 'string'">
-      <input ref="inputRef" type="text" class="w-full rounded-md border border-gray-300 p-1 text-black" v-model="inputValue" />
+      <input ref="inputRef" type="text" class="w-full rounded-md border border-gray-300 p-1 text-black" v-model="inputValue" @mousedown.stop @touchstart.stop />
     </div>
     <div v-else-if="param.type === 'text'">
       <textarea

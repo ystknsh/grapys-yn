@@ -22,9 +22,7 @@
     </select>
   </div>
   <div>
-    <button @click="addNode" class="mb-1 w-full cursor-pointer items-center rounded-full bg-sky-500 py-2 text-sm font-medium text-white hover:bg-sky-700">
-      Add node
-    </button>
+    <SideMenuButton @click="addNode"> Add node </SideMenuButton>
   </div>
 </template>
 
@@ -33,10 +31,11 @@ import { defineComponent, ref, watch } from "vue";
 import { useStore } from "../store";
 import { agentProfilesCategory, agentProfiles } from "../utils/gui/data";
 import { getDefaultParams } from "../utils/gui/utils";
+import SideMenuButton from "../components/SideMenuButton.vue";
 // import { graphs } from "../graph";
 
 export default defineComponent({
-  components: {},
+  components: { SideMenuButton },
   setup() {
     const nodesKey = Object.keys(agentProfiles);
     const nodeId = ref("");

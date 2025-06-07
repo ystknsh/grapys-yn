@@ -4,6 +4,7 @@ export const requireLogin = false;
 // export const requireLogin = true;
 export const enableOnCall = false;
 // export const enableOnCall = true;
+export const restrictedFeature = false;
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBLexhfLknmQxmuxFJC1v5t1-CkbGgwH-4",

@@ -1,5 +1,7 @@
 import { GraphData } from "graphai";
 export const graphChat: GraphData = {
+  version: 0.5,
+  nodes: {},
   metadata: {
     data: {
       nodes: [
@@ -9,10 +11,10 @@ export const graphChat: GraphData = {
           position: {
             x: 27,
             y: 161,
-            width: 143.99,
-            height: 264.28,
-            inputCenters: [55.95],
-            outputCenters: [35.97],
+            width: 144,
+            height: 267,
+            inputCenters: [56],
+            outputCenters: [36],
           },
           data: {
             value: [],
@@ -25,10 +27,10 @@ export const graphChat: GraphData = {
           position: {
             x: 220,
             y: 15,
-            width: 143.99,
-            height: 183.88,
-            inputCenters: [91.93],
-            outputCenters: [55.95, 71.94],
+            width: 144,
+            height: 184,
+            inputCenters: [92],
+            outputCenters: [56, 72],
           },
           data: {
             params: {
@@ -42,12 +44,12 @@ export const graphChat: GraphData = {
           type: "computed",
           nodeId: "llm",
           position: {
-            x: 222,
+            x: 215,
             y: 242,
-            width: 143.99,
-            height: 616.55,
-            inputCenters: [139.9, 155.89, 171.88, 187.86],
-            outputCenters: [55.95, 71.94, 87.93, 103.92, 119.91],
+            width: 144,
+            height: 636,
+            inputCenters: [156, 172, 188, 204],
+            outputCenters: [56, 72, 88, 104, 120, 136],
           },
           data: {
             params: {
@@ -62,12 +64,12 @@ export const graphChat: GraphData = {
           type: "computed",
           nodeId: "reducer",
           position: {
-            x: 630,
-            y: 244,
-            width: 143.99,
-            height: 151.88,
-            inputCenters: [75.94, 91.93, 107.92],
-            outputCenters: [55.95],
+            x: 472,
+            y: 238,
+            width: 144,
+            height: 152,
+            inputCenters: [76, 92, 108],
+            outputCenters: [56],
           },
           data: {
             guiAgentId: "pushAgent",
@@ -82,12 +84,31 @@ export const graphChat: GraphData = {
           nodeId: "toArray",
           type: "computed",
           position: {
-            x: 428.20882624422705,
-            y: 374.6261401440973,
-            width: 143.99,
-            height: 167.87,
-            inputCenters: [75.94, 91.93, 107.92, 123.91],
-            outputCenters: [55.95],
+            x: 471.20882624422705,
+            y: 457.62614014409723,
+            width: 144,
+            height: 168,
+            inputCenters: [76, 92, 108, 124],
+            outputCenters: [56],
+          },
+        },
+        {
+          data: {
+            agent: "copyAgent",
+            guiAgentId: "dataToChatBotAgent",
+            params: {
+              isResult: true,
+            },
+          },
+          nodeId: "meta",
+          type: "computed",
+          position: {
+            x: 469.5818393746695,
+            y: 17.108064763174355,
+            width: 144,
+            height: 168,
+            inputCenters: [76],
+            outputCenters: [56],
           },
         },
       ],
@@ -172,12 +193,70 @@ export const graphChat: GraphData = {
             direction: "outbound",
           },
         },
+        {
+          type: "edge",
+          source: {
+            nodeId: "llm",
+            index: 5,
+          },
+          target: {
+            nodeId: "meta",
+            index: 0,
+            direction: "outbound",
+          },
+        },
       ],
       loop: {
         loopType: "while",
         while: true,
       },
     },
+    forNested: {
+      output: {
+        userInput_text: ".userInput.text",
+        userInput_message: ".userInput.message",
+        llm_message: ".llm.message",
+        llm_messages: ".llm.messages",
+        llm_text: ".llm.text",
+        llm_tool: ".llm.tool",
+        llm_tool_calls: ".llm.tool_calls",
+        llm_metadata: ".llm.metadata",
+        meta_message: ".meta.message",
+      },
+      outputs: [
+        {
+          name: "userInput_text",
+        },
+        {
+          name: "userInput_message",
+        },
+        {
+          name: "llm_message",
+          type: "message",
+        },
+        {
+          name: "llm_messages",
+        },
+        {
+          name: "llm_text",
+          type: "text",
+        },
+        {
+          name: "llm_tool",
+          type: "data",
+        },
+        {
+          name: "llm_tool_calls",
+          type: "array",
+        },
+        {
+          name: "llm_metadata",
+          type: "data",
+        },
+        {
+          name: "meta_message",
+        },
+      ],
+    },
   },
-  nodes: {},
 };

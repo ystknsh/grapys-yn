@@ -1,4 +1,5 @@
 import { AgentProfile } from "./type";
+import { restrictedFeature } from "../../config/project";
 
 // data type
 //  If type is not defined, it will not be displayed in the UI. Its defaultValue will always be set.
@@ -30,6 +31,7 @@ const llmAgentProfile: AgentProfile = {
     { name: "text", type: "text" },
     { name: "tool", type: "data" },
     { name: "tool_calls", type: "array" },
+    { name: "metadata", type: "data" },
   ],
   params: [
     { name: "system", type: "text" },
@@ -41,16 +43,7 @@ const llmAgentProfile: AgentProfile = {
   ],
 };
 
-export const llmAgentProfiles: Record<string, AgentProfile> = {
-  tinyswallowAgent: {
-    agent: "tinyswallowAgent",
-    ...llmAgentProfile,
-  },
-  openAIAgent: {
-    agent: "openAIAgent",
-    ...llmAgentProfile,
-  },
-  /*
+const extraLlmAgentProfiles: Record<string, AgentProfile> = {
   ollamaAgent: {
     agent: "openAIAgent",
     inputs: llmAgentProfile.inputs,
@@ -86,7 +79,18 @@ export const llmAgentProfiles: Record<string, AgentProfile> = {
       data: ".data",
     },
   },
-  */
+};
+
+export const llmAgentProfiles: Record<string, AgentProfile> = {
+  tinyswallowAgent: {
+    agent: "tinyswallowAgent",
+    ...llmAgentProfile,
+  },
+  openAIAgent: {
+    agent: "openAIAgent",
+    ...llmAgentProfile,
+  },
+  ...(restrictedFeature ? {} : extraLlmAgentProfiles),
 };
 
 export const arrayAgentProfiles: Record<string, AgentProfile> = {
@@ -324,15 +328,6 @@ export const serviceAgentProfiles: Record<string, AgentProfile> = {
     outputs: [{ name: "text", type: "text" }],
     params: [{ name: "text_content", type: "boolean", defaultValue: true }],
   },
-  sleeperAgent: {
-    agent: "sleeperAgent",
-    inputs: [
-      { name: "data", type: "data" },
-      { name: "wait", type: "wait" },
-    ],
-    outputs: [{ name: "data", type: "data" }],
-    params: [{ name: "duration", type: "int" }],
-  },
 };
 
 export const compareAgentProfiles: Record<string, AgentProfile> = {
@@ -389,6 +384,15 @@ export const testAgentProfiles: Record<string, AgentProfile> = {
       { name: "isResult", type: "boolean", defaultValue: true },
     ],
     // presetParams: { isResult: true, stream: true },
+  },
+  sleeperAgent: {
+    agent: "sleeperAgent",
+    inputs: [
+      { name: "data", type: "data" },
+      { name: "wait", type: "wait" },
+    ],
+    outputs: [{ name: "data", type: "data" }],
+    params: [{ name: "duration", type: "int" }],
   },
 };
 
@@ -545,12 +549,16 @@ export const agentProfilesCategory: Record<string, Record<string, AgentProfile>>
   // service: serviceAgentProfiles,
   // test: testAgentProfiles,
   compare: compareAgentProfiles,
-  // graph: nestedAgentProfiles,
   data: dataAgentProfiles,
   copy: copyAgentProfiles,
   array: arrayAgentProfiles,
   string: stringAgentProfiles,
 };
+if (!restrictedFeature) {
+  agentProfilesCategory["service"] = serviceAgentProfiles;
+  agentProfilesCategory["test"] = testAgentProfiles;
+  agentProfilesCategory["graph"] = nestedAgentProfiles;
+}
 
 export const agentProfiles: Record<string, AgentProfile> = Object.values(agentProfilesCategory).reduce((tmp, current) => {
   return { ...tmp, ...current };
