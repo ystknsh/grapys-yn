@@ -108,6 +108,10 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
     const profile = agentProfiles[guiAgentId ?? ""];
     const inputs = profile?.inputSchema ? resultsOf(profile.inputSchema as NodeEdgeMap, edgeObject[node.nodeId]) : edgeObject[node.nodeId];
 
+    // Treat if/unless like a schema
+    const ifData = profile?.if ? resultsOf({ if: profile.if }, edgeObject[node.nodeId]) : null;
+    const unlessData = profile?.unless ? resultsOf({ unless: profile.unless }, edgeObject[node.nodeId]) : null;
+
     // static node don't have profile and guiAgentId
     if (profile) {
       const output =
@@ -119,6 +123,8 @@ export const store2graphData = (currentData: HistoryPayload, nestedGraphs: Neste
         inputs: inputs ?? {},
         isResult: node.data?.params?.isResult ?? false,
         output,
+        if: ifData && ifData?.if ? (ifData?.if as string) : undefined,
+        unless: unlessData && unlessData?.unless ? (unlessData?.unless as string) : undefined,
         // anyInput (boolean)
         // if/unless (edge)
         // defaultValue (object?)
