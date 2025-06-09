@@ -3,7 +3,7 @@
   You need to add the generated class names to the safelist, but since Tailwind v4 does not support this method, you should manually include these classes in a non-intrusive part of your code to ensure they are not purged.
 */
 
-import { GUINodeData } from "./type";
+import { GUINodeData, InputOutputData } from "./type";
 
 export const nodeMainClass = (expectNearNode: boolean, nodeData: GUINodeData) => {
   if (nodeData.type === "computed") {
@@ -26,8 +26,11 @@ export const nodeOutputClass = (expectNearNode: boolean, nodeData: GUINodeData, 
   return expectNearNode ? (isConnectable ? "bg-yellow-200" : "bg-red-600") : "bg-yellow-500";
 };
 
-export const nodeInputClass = (expectNearNode: boolean, nodeData: GUINodeData, isConnectable: boolean = true) => {
+export const nodeInputClass = (expectNearNode: boolean, nodeData: GUINodeData, input: InputOutputData, isConnectable: boolean = true) => {
   if (nodeData.type === "computed") {
+    if (input.mapTo) {
+      return expectNearNode ? (isConnectable ? "bg-red-200" : "bg-red-700") : "bg-red-400";
+    }
     return expectNearNode ? (isConnectable ? "bg-blue-200" : "bg-red-600") : "bg-blue-500";
   }
   return expectNearNode ? (isConnectable ? "bg-violet-200" : "bg-red-600") : "bg-violet-500";
