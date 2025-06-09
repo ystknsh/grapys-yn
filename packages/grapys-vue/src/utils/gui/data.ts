@@ -518,7 +518,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
     },
     inputs: [
       { name: "game_id", type: "text" },
-      { name: "compare", type: "boolean"},
+      { name: "compare", type: "boolean", mapTo: "unless"},
     ],
     params: [
       { name: "method", defaultValue: "POST" },
@@ -574,7 +574,7 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       { name: "game_id", type: "text" },
       { name: "row", type: "int" },
       { name: "col", type: "int" },
-      { name: "compare", type: "boolean"},
+      { name: "compare", type: "boolean", mapTo: "unless" },
     ],
     outputs: [{ name: "state" }, { name: "status" }, { name: "assignment" }, { name: "word" }, ],
     unless: ":compare"
