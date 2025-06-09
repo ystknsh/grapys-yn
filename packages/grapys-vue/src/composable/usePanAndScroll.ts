@@ -102,6 +102,22 @@ export function usePanAndScroll(
 
     // ホイールイベントでのスクロール制御
     const handleWheel = (event: WheelEvent) => {
+      const target = event.target as Element;
+      
+      // フォーカスされたテキストエリア内でのスクロールの場合は、デフォルト動作を許可
+      const focusedTextarea = document.activeElement as HTMLTextAreaElement;
+      if (focusedTextarea && focusedTextarea.tagName === 'TEXTAREA') {
+        // イベントターゲットがフォーカスされたテキストエリア、またはその子要素の場合
+        if (target === focusedTextarea || focusedTextarea.contains(target)) {
+          return; // デフォルトのスクロール動作を許可
+        }
+      }
+      
+      // テキストエリア内でのスクロールの場合は、デフォルト動作を許可
+      if (target.tagName === 'TEXTAREA' || target.closest('textarea')) {
+        return; // デフォルトのスクロール動作を許可
+      }
+
       const { deltaX, deltaY } = event;
       const { scrollLeft, scrollTop, scrollWidth, scrollHeight, clientWidth, clientHeight } = container;
 
