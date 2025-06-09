@@ -14,6 +14,7 @@
       :rows="rows"
       @mousedown.stop
       @touchstart.stop
+      @wheel.stop
     ></textarea>
     <div v-if="['data'].includes(dataType)">
       {{ isValidData ? "valid" : "invalid" }}

@@ -13,6 +13,7 @@
         v-model="textAreaValue"
         @mousedown.stop
         @touchstart.stop
+        @wheel.stop
       ></textarea>
     </div>
     <div v-else-if="param.type === 'data'">
@@ -23,6 +24,7 @@
         v-model="textAreaValue"
         @mousedown.stop
         @touchstart.stop
+        @wheel.stop
       ></textarea>
     </div>
     <div v-else-if="param.type === 'int'">

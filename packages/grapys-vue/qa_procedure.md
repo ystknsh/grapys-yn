@@ -26,15 +26,22 @@ Please test the following operations in order to confirm that the pan and scroll
 - [ ] Tap on the text area inside a node to expand the node
 - [ ] Tap outside the node to return it to its original size
 
-## 7. Text Selection Within Nodes
+## 7. Text Area Scrolling
+- [ ] Focus on a text area inside a node (node should expand)
+- [ ] Enter multiple lines of text to make the content scrollable
+- [ ] Use trackpad to scroll up and down within the text area
+- [ ] Confirm that only the text area content scrolls, not the canvas
+- [ ] Confirm that text selection still works properly within the text area
+
+## 8. Text Selection Within Nodes
 - [ ] Select text inside a node using the trackpad
 - [ ] Confirm that the canvas does not move during text selection
 
-## 8. Config/Chat Screen
+## 9. Config/Chat Screen
 - [ ] Open the config/chat screen using the button in the top right
 - [ ] Confirm that text selection is possible with the trackpad within the screen
 - [ ] Confirm that pan operations work normally after closing the screen
 
-## 9. Canvas Pan Operations
+## 10. Canvas Pan Operations
 - [ ] Drag empty areas to move the entire canvas
 - [ ] Perform scroll operations with the trackpad
