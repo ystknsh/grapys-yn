@@ -1,11 +1,7 @@
-import { ref, Ref } from 'vue';
-import { NewEdgeData } from '../utils/gui/type';
+import { ref, Ref } from "vue";
+import { NewEdgeData } from "../utils/gui/type";
 
-export function usePanAndScroll(
-  mainContainer: Ref<HTMLElement | undefined>,
-  isNodeDragging: Ref<boolean>,
-  newEdgeData?: Ref<NewEdgeData | null>
-) {
+export function usePanAndScroll(mainContainer: Ref<HTMLElement | undefined>, isNodeDragging: Ref<boolean>, newEdgeData?: Ref<NewEdgeData | null>) {
   const setupPanAndScroll = () => {
     const container = mainContainer.value;
     if (!container) return;
@@ -39,7 +35,7 @@ export function usePanAndScroll(
 
       // フォーカスされているtextareaがある場合はblurさせる
       const focusedTextarea = document.activeElement as HTMLTextAreaElement;
-      if (focusedTextarea && focusedTextarea.tagName === 'TEXTAREA' && !isClickableElement) {
+      if (focusedTextarea && focusedTextarea.tagName === "TEXTAREA" && !isClickableElement) {
         focusedTextarea.blur();
       }
 
@@ -103,18 +99,18 @@ export function usePanAndScroll(
     // ホイールイベントでのスクロール制御
     const handleWheel = (event: WheelEvent) => {
       const target = event.target as Element;
-      
+
       // フォーカスされたテキストエリア内でのスクロールの場合は、デフォルト動作を許可
       const focusedTextarea = document.activeElement as HTMLTextAreaElement;
-      if (focusedTextarea && focusedTextarea.tagName === 'TEXTAREA') {
+      if (focusedTextarea && focusedTextarea.tagName === "TEXTAREA") {
         // イベントターゲットがフォーカスされたテキストエリア、またはその子要素の場合
         if (target === focusedTextarea || focusedTextarea.contains(target)) {
           return; // デフォルトのスクロール動作を許可
         }
       }
-      
+
       // テキストエリア内でのスクロールの場合は、デフォルト動作を許可
-      if (target.tagName === 'TEXTAREA' || target.closest('textarea')) {
+      if (target.tagName === "TEXTAREA" || target.closest("textarea")) {
         return; // デフォルトのスクロール動作を許可
       }
 
@@ -140,34 +136,34 @@ export function usePanAndScroll(
     };
 
     // イベントリスナーの追加
-    container.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    
-    container.addEventListener('touchstart', handleTouchStart, { passive: false });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
-    container.addEventListener('touchend', handleTouchEnd);
-    
-    container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    container.addEventListener("touchstart", handleTouchStart, { passive: false });
+    container.addEventListener("touchmove", handleTouchMove, { passive: false });
+    container.addEventListener("touchend", handleTouchEnd);
+
+    container.addEventListener("wheel", handleWheel, { passive: false });
 
     // 初期カーソルスタイル
     container.style.cursor = "grab";
 
     // クリーンアップ関数を返す
     return () => {
-      container.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
-      
-      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      container.removeEventListener("touchend", handleTouchEnd);
+
+      container.removeEventListener("wheel", handleWheel);
     };
   };
 
   return {
-    setupPanAndScroll
+    setupPanAndScroll,
   };
 }
