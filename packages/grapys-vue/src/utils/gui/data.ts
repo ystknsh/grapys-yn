@@ -511,6 +511,26 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
       { name: "status" },
     ],
   },
+  endGuessConditional: {
+    agent: "vanillaFetchAgent",
+    inputSchema: {
+      url: gameServerUrl + "/${:game_id}/end_guess",
+    },
+    inputs: [
+      { name: "game_id", type: "text" },
+      { name: "compare", type: "boolean"},
+    ],
+    params: [
+      { name: "method", defaultValue: "POST" },
+      { name: "body", defaultValue: {} },
+    ],
+    outputs: [
+      { name: "message" },
+      { name: "state" },
+      { name: "status" },
+    ],
+    if: ":compare"
+  },
   aiHint: {
     agent: "vanillaFetchAgent",
     inputSchema: {
@@ -540,6 +560,25 @@ export const gameAgentProfiles: Record<string, AgentProfile> = {
     ],
     outputs: [{ name: "state" }, { name: "status" }, { name: "assignment" }, { name: "word" }],
   },
+  revealCellConditional: {
+    agent: "vanillaFetchAgent",
+    params: [{ name: "method", defaultValue: "POST" }],
+    inputSchema: {
+      url: gameServerUrl + "/${:game_id}/reveal_cell",
+      body: {
+        row: ":row",
+        col: ":col",
+      },
+    },
+    inputs: [
+      { name: "game_id", type: "text" },
+      { name: "row", type: "int" },
+      { name: "col", type: "int" },
+      { name: "compare", type: "boolean"},
+    ],
+    outputs: [{ name: "state" }, { name: "status" }, { name: "assignment" }, { name: "word" }, ],
+    unless: ":compare"
+  },
 };
 
 export const agentProfilesCategory: Record<string, Record<string, AgentProfile>> = {
@@ -547,7 +586,7 @@ export const agentProfilesCategory: Record<string, Record<string, AgentProfile>>
   llm: llmAgentProfiles,
   game: gameAgentProfiles,
   // service: serviceAgentProfiles,
-  // test: testAgentProfiles,
+  test: testAgentProfiles,
   compare: compareAgentProfiles,
   data: dataAgentProfiles,
   copy: copyAgentProfiles,
