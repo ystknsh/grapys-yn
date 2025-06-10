@@ -119,7 +119,7 @@ export type NearestData = {
 };
 
 export type InputOutputType = "text" | "array" | "message" | "data" | "wait" | "int";
-export type InputOutputData = { name: string; type?: InputOutputType };
+export type InputOutputData = { name: string; type?: InputOutputType, mapTo?: string };
 
 export type ParamType = "string" | "text" | "data" | "boolean" | "float" | "int" | "enum";
 

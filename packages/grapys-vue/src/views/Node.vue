@@ -41,7 +41,7 @@
         >
         <div
           class="absolute left-[-10px] h-4 w-4 min-w-[12px] rounded-full"
-          :class="nodeInputClass(isExpectNearButton('outbound', index), nodeData, input, isConnectable)"
+          :class="nodeInputClass(isExpectNearButton('outbound', index), nodeData, input as any, isConnectable)"
           @mousedown="(e) => onStartEdge(e, 'inbound', index)"
           @touchstart="(e) => onStartEdge(e, 'inbound', index)"
         ></div>

@@ -60,6 +60,7 @@
       <GoogleSignin />
     </div>
   </div>
+  <DataLoader />
   <hr class="my-1 border-t border-gray-400" />
 
   <h2 class="text-left font-bold">API Key</h2>
@@ -84,6 +85,7 @@ import { useFirebaseStore } from "../store/firebase";
 import AddNode from "./AddNode.vue";
 import SideMenuSaveBrowser from "./SideMenuSaveBrowser.vue";
 import SideMenuSaveFirebase from "./SideMenuSaveFirebase.vue";
+import DataLoader from "./DataLoader.vue";
 import TemplateGraph from "./TemplateGraph.vue";
 import ApiKey from "./ApiKey.vue";
 
@@ -101,6 +103,7 @@ export default defineComponent({
     SideMenuSaveFirebase,
     TemplateGraph,
     GoogleSignin,
+    DataLoader,
   },
   setup() {
     const store = useStore();
