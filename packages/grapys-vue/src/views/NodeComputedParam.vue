@@ -47,6 +47,9 @@
         ref="inputRef"
         type="number"
         class="w-full rounded-md border border-gray-300 p-1 text-black"
+        step="0.1"
+        :min="param.min"
+        :max="param.max"
         v-model="inputValue"
         @mousedown.stop
         @touchstart.stop
