@@ -129,6 +129,7 @@ export type ParamData = {
   defaultValue?: number | boolean | string;
   max?: number;
   min?: number;
+  step?: number;
   values?: string[];
 };
 export type AgentProfile = {

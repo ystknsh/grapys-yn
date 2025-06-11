@@ -42,12 +42,13 @@
       />
     </div>
     <div v-else-if="param.type === 'float'">
-      <!-- TODO min, max, defaultValue -->
+      <!-- step can be customized per parameter, defaults to 0.1 for float inputs -->
+      <!-- min/max attributes are only set when param.min/max are defined (Vue automatically omits undefined attributes) -->
       <input
         ref="inputRef"
         type="number"
         class="w-full rounded-md border border-gray-300 p-1 text-black"
-        step="0.1"
+        :step="param.step ?? 0.1"
         :min="param.min"
         :max="param.max"
         v-model="inputValue"
