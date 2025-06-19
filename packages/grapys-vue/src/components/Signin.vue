@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10 text-center flex justify-center">
+  <div class="mt-10 flex justify-center text-center">
     <div class="w-64">
       <SigninButton />
     </div>
@@ -9,12 +9,24 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import SigninButton from "./SigninButton.vue";
-import signin from "./signin";
+import { googleSignin } from "../utils/firebase/SocialLogin";
 
 export default defineComponent({
+  name: "Signin",
   components: {
     SigninButton,
   },
-  ...signin,
+  setup() {
+    return {
+      googleSignin: googleSignin(
+        () => {
+          console.log("success");
+        },
+        (err) => {
+          console.log(err.message);
+        },
+      ),
+    };
+  },
 });
 </script>
