@@ -15,6 +15,6 @@ export default defineComponent({
   components: {
     SigninButton,
   },
-  ...signin,
+  ...signin as any,
 });
 </script>
