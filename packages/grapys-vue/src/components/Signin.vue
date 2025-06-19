@@ -1,15 +1,20 @@
 <template>
-  <div class="mt-10 text-center">
-    <a
-      class="bg-opacity-5 inline-flex h-12 items-center justify-center rounded-lg bg-blue-400 px-6 shadow-lg hover:bg-blue-600 hover:text-white"
-      @click="googleSignin"
-    >
-      Signin with Google account
-    </a>
+  <div class="mt-10 text-center flex justify-center">
+    <div class="w-64">
+      <SigninButton />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
+import SigninButton from "./SigninButton.vue";
 import signin from "./signin";
-export default signin;
+
+export default defineComponent({
+  components: {
+    SigninButton,
+  },
+  ...signin,
+});
 </script>
