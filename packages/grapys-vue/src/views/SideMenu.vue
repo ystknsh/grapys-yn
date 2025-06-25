@@ -60,6 +60,8 @@
       <GoogleSignin />
     </div>
   </div>
+
+  <hr class="my-1 border-t border-gray-400" />
   <DataLoader />
   <hr class="my-1 border-t border-gray-400" />
 
