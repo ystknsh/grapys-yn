@@ -5,6 +5,9 @@ import { graphChat as graphBattleRegister } from "./battle_register";
 import { graphChat as graphBattleSpy } from "./battle_spy";
 import { graphChat as graphBattleSpyTools } from "./battle_spy_tools";
 import { graphChat as graphBattlePlayer } from "./battle_player";
+import { graphChat as graphBattleRegisterProd } from "./battle_register_prod";
+import { graphChat as graphBattleSpyToolsProd } from "./battle_spy_tools_prod";
+import { graphChat as graphBattlePlayerProd } from "./battle_player_prod";
 
 import { graphChat as graphChatOpenAI } from "../graph/chat";
 import { graphChat as graphChatOpenAI2 } from "../graph/chat2";
@@ -26,6 +29,9 @@ export const graphs: NestedGraphList = [
   { name: "BattleSpy", graph: graphBattleSpy, id: "22222222" },
   { name: "BattleSpy(Tools)", graph: graphBattleSpyTools, id: "33333333" },
   { name: "BattlePlayer", graph: graphBattlePlayer, id: "44444" },
+  { name: "BattleRegister(Prod)", graph: graphBattleRegisterProd, id: "55555555" },
+  { name: "BattleSpy(Tools,Prod)", graph: graphBattleSpyToolsProd, id: "66666666" },
+  { name: "BattlePlayer(Prod)", graph: graphBattlePlayerProd, id: "77777777" },
   // { name: "Chat(WebLLM)", graph: graphChatTinySwallow, id: "pkrDLhdU5zUb77mN" },
   { name: "Chat(Alone)", graph: graphChatAlone, id: "dJ5cw36SevqDkxFN" },
   { name: "Chat(OpenAI)", graph: graphChatOpenAI2, id: "V474FFCTgdSbFkgN" },
