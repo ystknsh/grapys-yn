@@ -15,3 +15,5 @@ export const firebaseConfig = {
   appId: "1:185975114870:web:dc182434167838b326a357",
   measurementId: "G-117TSJ84PZ",
 };
+
+export const battleAPIBaseURL = "https://dev.aq-world.singularitybattlequest.club/api";

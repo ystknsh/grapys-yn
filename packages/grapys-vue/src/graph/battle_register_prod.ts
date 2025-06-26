@@ -1,11 +1,12 @@
 import { GraphData } from "graphai";
+import { battleAPIBaseURL } from "../config/project";
 export const graphChat: GraphData = {
   "version": 0.5,
   "nodes": {
     "register": {
       "agent": "vanillaFetchAgent",
       "params": {
-        "url": "https://aq-world.singularitybattlequest.club/api/register",
+        "url": battleAPIBaseURL + "/register",
         "method": "POST"
       },
       "inputs": {
@@ -44,7 +45,7 @@ export const graphChat: GraphData = {
             "agent": "vanillaFetchAgent",
             "guiAgentId": "gameRegister",
             "params": {
-              "url": "https://dev.aq-world.singularitybattlequest.club/api/register",
+              "url": battleAPIBaseURL + "/register",
               "method": "POST"
             }
           },

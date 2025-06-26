@@ -1,4 +1,5 @@
 import { GraphData } from "graphai";
+import { battleAPIBaseURL } from "../config/project";
 export const graphChat: GraphData = {
   "version": 0.5,
   "nodes": {
@@ -22,7 +23,7 @@ export const graphChat: GraphData = {
       "agent": "vanillaFetchAgent",
       "params": {},
       "inputs": {
-        "url": "https://aq-world.singularitybattlequest.club/api/${:gameid}/spymaster_state"
+        "url": battleAPIBaseURL + "/${:gameid}/spymaster_state"
       },
       "isResult": false
     },
@@ -129,7 +130,7 @@ export const graphChat: GraphData = {
       "agent": "vanillaFetchAgent",
       "params": {},
       "inputs": {
-        "url": "https://aq-world.singularitybattlequest.club/api/${:gameid}/submit_hint",
+        "url": battleAPIBaseURL + "/${:gameid}/submit_hint",
         "body": {
           "hint": ":arg.hint",
           "guess_count": ":arg.guess_count"
