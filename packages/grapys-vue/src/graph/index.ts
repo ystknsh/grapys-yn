@@ -25,13 +25,13 @@ import { graphData as graphDataImageGenerator } from "../graph/image_generator";
 import { graphData as graphDataFetch } from "../graph/fetch";
 
 export const graphs: NestedGraphList = [
-  { name: "BattleRegister", graph: graphBattleRegister, id: "11111111" },
-  { name: "BattleSpy", graph: graphBattleSpy, id: "22222222" },
-  { name: "BattleSpy(Tools)", graph: graphBattleSpyTools, id: "33333333" },
-  { name: "BattlePlayer", graph: graphBattlePlayer, id: "44444" },
-  { name: "BattleRegister(Prod)", graph: graphBattleRegisterProd, id: "55555555" },
-  { name: "BattleSpy(Tools,Prod)", graph: graphBattleSpyToolsProd, id: "66666666" },
-  { name: "BattlePlayer(Prod)", graph: graphBattlePlayerProd, id: "77777777" },
+  //{ name: "BattleRegister", graph: graphBattleRegister, id: "11111111" },
+  //{ name: "BattleSpy", graph: graphBattleSpy, id: "22222222" },
+  //{ name: "BattleSpy(Tools)", graph: graphBattleSpyTools, id: "33333333" },
+  //{ name: "BattlePlayer", graph: graphBattlePlayer, id: "44444" },
+  { name: "BattleRegister", graph: graphBattleRegisterProd, id: "55555555" },
+  { name: "BattleSpy(Tools)", graph: graphBattleSpyToolsProd, id: "66666666" },
+  { name: "BattlePlayer", graph: graphBattlePlayerProd, id: "77777777" },
   // { name: "Chat(WebLLM)", graph: graphChatTinySwallow, id: "pkrDLhdU5zUb77mN" },
   { name: "Chat(Alone)", graph: graphChatAlone, id: "dJ5cw36SevqDkxFN" },
   { name: "Chat(OpenAI)", graph: graphChatOpenAI2, id: "V474FFCTgdSbFkgN" },
